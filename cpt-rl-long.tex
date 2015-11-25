@@ -281,16 +281,20 @@ Notice that we have substituted $1-{\hat F_n}^+(x)$ (resp.$1-{\hat F_n}^-(x)$)  
 As mentioned earlier, to overcome integrability issues, we make the following assumption:\\[1ex]
 \textbf{Assumption (A1).}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$.\\[1ex]
 % If the weight function is not Lipschitz, then the integrals using the distribution of $X$ in CPT-value may not even be finite. 
-For the convergence rate results below, we require the following assumption:\\[1ex]
-\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+We make the following assumptions on the utility functions:\\[1ex]
+\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
+\todoj{Check if increasing is necessary}
+\textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
+
 The following result shows that the estimate \eqref{eq:cpt-est} converges to the true CPT value almost surely and at the (nearly) canonical Monte Carlo asymptotic rate. 
 \begin{proposition} (\textbf{Asymptotic convergence and rate.})
 \label{thm:asymp-conv}
-Under (A1), we have
+Under (A1) and (A2), we have
 \begin{align}
 \widehat V_n(X) \rightarrow V(X) \text{ a.s. as } n \rightarrow \infty.
 \end{align}
-In addition, if we assume (A2), then we have
+If we assume (A2'), then we have
 $$
 \limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2 \ln \ln n}} ||\hat{V_n}(X)-V(X)||_{\infty} 
 \leq  LM \quad \text{a.s.}
@@ -304,7 +308,7 @@ While the above result establishes that \eqref{eq:cpt-est} is an unbiased estima
 The following sample complexity result shows that $O\left(\frac{1}{\epsilon^2}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
 \begin{proposition}(\textbf{Sample Complexity})
 \label{thm:dkw}
-Under (A1) and (A2), for any $\epsilon, \delta >0$, we have
+Under (A1) and (A2'), for any $\epsilon, \delta >0$, we have
 \begin{align*}
 P(|\widehat V_n(X) - V(X)|\le\epsilon) \geq  1 - \delta, \,\,\, \forall n \geq \frac{2 L^2 M^2}{\epsilon^2} ln \frac{4}{\delta}.
 \end{align*}
@@ -347,12 +351,11 @@ However, we do not know the distribution of $U^+$ and hence, we develop a proced
 \caption{CPT-value estimation for \holder continuous weights}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-\State Simulate $n$ random samples with distribution $U^+$.
-\State Order the simulated samples and label them as follows: 
-$U^+_{[1]},\ldots,U^+_{[n]}$.
-\State Use $U_{[i]}, i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $U$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
-\State Return the statistic 
-$T_n:=\sum_0^{n-1} U_{[i]} (w(\frac{n-i+1}{n})- w(\frac{n-i}{n}) )$
+\State Simulate $n$ samples $X_1,\ldots, X_n$ of the r.v. $X$. 
+\State Let $X_{[1]}, \ldots, X_{[n]}$ denote the order statistics. Let $U^+_{[i]} = u^+(X_{[i]})$ and $U^-_{[i]} = u^-(X_{[i]})$, $i=1,\ldots,n$.
+% \State Use $U_{[i]}, i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $U$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
+\State Return 
+$$\hat V_n(X):=\sum_{i=1}^{n-1} U^+_{[i]} \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right) - \sum_{i=1}^{n-1} U^-_{[i]} \left(w^-\left(\frac{n-i+1}{n}\right)- w^-\left(\frac{n-i}{n}\right)\right).$$
 %will be the candidate for estimating the integral(CPT-value), and denote it by $T_{n}$
 \end{algorithmic}
 \end{algorithm}
@@ -360,14 +363,11 @@ $T_n:=\sum_0^{n-1} U_{[i]} (w(\frac{n-i+1}{n})- w(\frac{n-i}{n}) )$
 \subsubsection*{Main results}
 \begin{proposition}(\textbf{Asymptotic convergence.})
 \label{prop:holder-asymptotic}
-Assume (A1') and also that $F^+(\cdot)$ - the distribution function of $U^+$ is Lipschitz continuous with constant $L$. Then, we have
+Assume (A1'). (A2) and also that $F^+(\cdot), F^-(\cdot)$ - the distribution functions of $u^+(X)$ and $u^-(X)$ - are Lipschitz continuous. Then, we have
 \begin{align}
-\lim_{n\rightarrow +\infty} 
-T_n
-=
-\int_0^{+\infty} w(P(U>t)) dt, \text{   a.e.}
+\widehat V_n(X) \rightarrow V(X) \text{ a.s. as } n \rightarrow \infty,
 \end{align}
-holds, where $T_n$ is as defined in Algorithm \ref{alg:holder-est}.
+where $\widehat V_n(X)$ is as defined in Algorithm \ref{alg:holder-est}.
 \end{proposition}
 \begin{proof}
 See Section \ref{sec:holder-proofs}.
@@ -406,7 +406,7 @@ For this result, we assume, as in the case of Lipschitz continuous weights, that
 \label{prop:holder-dkw}
 Assume (A1') and (A2). Then, $\forall \epsilon, \delta$, we have
 $$
-P(\left |T_n- \intinfinity w^+(P(U^+>z)) dz \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+P(\left |\widehat V_n(X)-  V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{2L^2 M^2}{\epsilon^{2/\alpha}}
 $$
 .
