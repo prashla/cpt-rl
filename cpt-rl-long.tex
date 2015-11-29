@@ -13,6 +13,7 @@
 \usepackage[cmex10]{amsmath}
 \usepackage{authblk}
 \usepackage{macros}
+\newtheorem{corollary}[theorem]{Corollary}
 
 \begin{document}
 \title{Cumulative Prospect Theory Meets Reinforcement Learning: Prediction and Control}
@@ -331,28 +332,37 @@ In order to ensure integrability of the CPT-value \eqref{eq:cpt-mdp}, we make th
 \textbf{Assumption (A1').}  
 The weight functions $w^+, w^-$ are H\"{o}lder continuous with common level $\alpha$. Further,
 $\exists \gamma < \alpha \text{   s.t,  }$ 
-$$\int_0^{+\infty} P^{\gamma} (U^+>z) dz < +\infty \text{ and }\int_0^{+\infty} P^{\gamma} (U^->z) dz < +\infty$$
+$$\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty \text{ and }\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty$$
 
 The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-mdp} is finite - see Proposition \ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
-added by cheng test.
+
 \paragraph{Approximating CPT-value using quantiles:}
-Let $\xi^+_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of the r.v. $U^+$. Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
+Let $\xi^+_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of the r.v. $u^+(X)$. Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
 \begin{align}
 \label{eq:holder-quant-motiv}
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^-\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^+(P(U^+>z)) dz.
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^+(P(u^+(X)>z)) dz.
 \end{align}
-However, we do not know the distribution of $U^+$ and hence, we develop a procedure that uses order statistics for estimating quantiles, which in turn assists in estimating the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
+
+The identicalal property holds for the pairs $u^-(X)$, $\xi^-_{\frac{i}{n}}, w^-$ , with $\xi^-_{\frac{i}{n}}$ denote the 
+$\frac{i}{n}$th quantile of the r.v. $u^-(X)$.
+
+However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we develop a procedure that uses order statistics for estimating quantiles, which in turn assists in estimating the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
 
 \begin{algorithm}
 \caption{CPT-value estimation for \holder continuous weights}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-\State Simulate $n$ random samples with distribution $U^+$.
+\State Simulate $n$ random samples with distribution $X$, sort them and denoted the ordered sample as 
+$X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
+\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]})$
 \State Order the simulated samples and label them as follows: 
-$U^+_{[1]},\ldots,U^+_{[n]}$.
-\State Use $U_{[i]}, i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $U$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
+$u^+(X_{[1]}),\ldots,u^+(X_{[n]})$.
+\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
 \State Return the statistic 
-$T_n:=\sum_0^{n-1} U_{[i]} (w(\frac{n-i+1}{n})- w(\frac{n-i}{n}) )$
+$\hat V^+_n(X):=\sum_1^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) )$
+\State Repeat the procedure on the sequence $X_{[1]}, X_{[2]}, \ldots X_{[n]}$, with respect to the function $u^-$, 
+and denote the statistic $\hat V^-_n (X):=\sum_1^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) $
+\State Denote the statistic $\hat V_n(X) =\hat V^+_n(X) - \hat V^-_n(X)$.
 %will be the candidate for estimating the integral(CPT-value), and denote it by $T_{n}$
 \end{algorithmic}
 \end{algorithm}
@@ -360,14 +370,20 @@ $T_n:=\sum_0^{n-1} U_{[i]} (w(\frac{n-i+1}{n})- w(\frac{n-i}{n}) )$
 \subsubsection*{Main results}
 \begin{proposition}(\textbf{Asymptotic convergence.})
 \label{prop:holder-asymptotic}
-Assume (A1') and also that $F^+(\cdot)$ - the distribution function of $U^+$ is Lipschitz continuous with constant $L$. Then, we have
+Assume (A1') and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution function of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constant $L^+$ and $L^-$, respectively on the interval $(0,+\infty)$, and 
+$(-\infty, 0)$ . Then, we have
 \begin{align}
 \lim_{n\rightarrow +\infty} 
-T_n
+\hat V_n(X)
 =
-\int_0^{+\infty} w(P(U>t)) dt, \text{   a.e.}
+V(X)
+=
+\int_0^{+\infty} w^+(P(u^+(X)>z)) dz 
+-
+\int_0^{+\infty} w^-(P(u^-(X)>z)) dz 
+, \text{   a.s.}
 \end{align}
-holds, where $T_n$ is as defined in Algorithm \ref{alg:holder-est}.
+holds, where $\hat V_n$ is as defined in Algorithm \ref{alg:holder-est}.
 \end{proposition}
 \begin{proof}
 See Section \ref{sec:holder-proofs}.
@@ -406,27 +422,40 @@ For this result, we assume, as in the case of Lipschitz continuous weights, that
 \label{prop:holder-dkw}
 Assume (A1') and (A2). Then, $\forall \epsilon, \delta$, we have
 $$
-P(\left |T_n- \intinfinity w^+(P(U^+>z)) dz \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
-\frac{2L^2 M^2}{\epsilon^{2/\alpha}}
+P(\left |\hat V_n(X)- V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\frac{4L^2 M^2}{\epsilon^{2/\alpha}}
 $$
 .
 \end{proposition}
 \begin{proof}
 Notice the the following equivalence:
-$$\sum_{i=1}^n U^+_{[i]} (w^+(\frac{n-i+1}{n}) - w^+(\frac{n-i}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
-where $\hat{F^+_n}(x)$ is the empirical distribution of $U^+$ (see \eqref{eq:edf}).
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
+and also,
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
+
+where $\hat{F^+_n}(x)$ and $\hat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+and $u^-(X)$. 
+(see \eqref{eq:edf}).
 The above equality in conjunction with the well-known DKW inequality implies the following claim:
 See Section \ref{sec:holder-proofs} for details.
 \end{proof}
 
-\todop[inline]{Need to compare the sample complexity results with and without (A2)}
-
+\begin{corollary}[Lipschitz case]
+Assume the function $w^+(x)$ and $w^-(x)$ are Lipchitz continuous, then the asymptotic convergence property in proposition
+\ref{prop:holder-asymptotic} holds, and in addition, we have 
+$$
+P(\left |\hat V_n(X)- V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\frac{4L^2 M^2}{\epsilon^{2}}
+$$
+as the indicator of sample complexity of the estimation scheme defined in algorithm 1.
+\end{corollary}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Estimation scheme for locally Lipschitz weights and discrete $X$}
+\todop[inline]{Would be better if the background been put to the introduction part}
 \input{discrete-est}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
