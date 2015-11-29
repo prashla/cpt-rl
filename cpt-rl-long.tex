@@ -280,7 +280,8 @@ Notice that we have substituted $1-{\hat F_n}^+(x)$ (resp.$1-{\hat F_n}^-(x)$)  
 
 \subsubsection*{Main results}
 As mentioned earlier, to overcome integrability issues, we make the following assumption:\\[1ex]
-\textbf{Assumption (A1).}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$.\\[1ex]
+\textbf{Assumption (A1).}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+$u^+(X)$ and $u^-(X)$ both have bounded first moments\\[1ex]
 % If the weight function is not Lipschitz, then the integrals using the distribution of $X$ in CPT-value may not even be finite. 
 We make the following assumptions on the utility functions:\\[1ex]
 \textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
@@ -356,7 +357,7 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we d
 \caption{CPT-value estimation for \holder continuous weights}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-<<<<<<< HEAD
+%<<<<<<< HEAD
 \State Simulate $n$ random samples with distribution $X$, sort them and denoted the ordered sample as 
 $X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
 \State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]})$
@@ -368,13 +369,13 @@ $\hat V^+_n(X):=\sum_1^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{
 \State Repeat the procedure on the sequence $X_{[1]}, X_{[2]}, \ldots X_{[n]}$, with respect to the function $u^-$, 
 and denote the statistic $\hat V^-_n (X):=\sum_1^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) $
 \State Denote the statistic $\hat V_n(X) =\hat V^+_n(X) - \hat V^-_n(X)$.
-=======
-\State Simulate $n$ samples $X_1,\ldots, X_n$ of the r.v. $X$. 
-\State Let $X_{[1]}, \ldots, X_{[n]}$ denote the order statistics. Let $U^+_{[i]} = u^+(X_{[i]})$ and $U^-_{[i]} = u^-(X_{[i]})$, $i=1,\ldots,n$.
+%=======
+%\State Simulate $n$ samples $X_1,\ldots, X_n$ of the r.v. $X$. 
+%\State Let $X_{[1]}, \ldots, X_{[n]}$ denote the order statistics. Let $U^+_{[i]} = u^+(X_{[i]})$ and $U^-_{[i]} = u^-(X_{[i]})$, $i=1,\ldots,n$.
 % \State Use $U_{[i]}, i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $U$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
-\State Return 
-$$\hat V_n(X):=\sum_{i=1}^{n-1} U^+_{[i]} \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right) - \sum_{i=1}^{n-1} U^-_{[i]} \left(w^-\left(\frac{n-i+1}{n}\right)- w^-\left(\frac{n-i}{n}\right)\right).$$
->>>>>>> origin/master
+%\State Return 
+%$$\hat V_n(X):=\sum_{i=1}^{n-1} U^+_{[i]} \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right) - \sum_{i=1}^{n-1} U^-_{[i]} \left(w^-\left(\frac{n-i+1}{n}\right)- w^-\left(\frac{n-i}{n}\right)\right).$$
+%>>>>>>> origin/master
 %will be the candidate for estimating the integral(CPT-value), and denote it by $T_{n}$
 \end{algorithmic}
 \end{algorithm}
