@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 \paragraph{Background.}
 Here we assume that the r.v. $X$ is discrete valued.
 Let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
@@ -171,3 +172,49 @@ And by introducing the notation $M=\min(\delta^2, \epsilon^2/(KLA)^2)$, one can 
 
 \end{proof}
 
+=======
+\paragraph{Background.}
+Here we assume that the r.v. $X$ is discrete valued.
+Let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
+Given a utility function $u$ and weighting function $w$, \textit{\textbf{Prospect theory}} (PT) value is defined as $V(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
+As explained in the introduction, the idea is to take an utility function that is $S$-shaped, so that it satisfies the \textit{diminishing sensitivity}  property. 
+If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions (see \cite{kahneman1979prospect}, \cite{fennema1997original} for a justification, in particular via empirical tests using human subjects).
+However, PT is lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}.\footnote{Consider the following example from \cite{fennema1997original}: Suppose there are $20$ prospects (outcomes) ranging from $-10$ to $180$, each with probability $0.05$. If the weight function is such that $w(0.05) > 0.05$, then it uniformly overweights all \textit{low-probability} prospects and the resulting PT value is higher than the expected value $85$. This violates stochastic dominance, since a shift in the probability mass from bad outcomes did not result in a better prospect.}
+
+CPT uses a similar measure as PT, except that the weights are a function of cumulative probabilities. First, separate the gains and losses as 
+$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$. Then, the CPT-value is defined as 
+\begin{align}
+\label{eq:cpt-discrete}
+V(X) = & \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K p_j) - w^+(\sum_{j=i+1}^K p_j) \Big)
+- \sum_{i=1}^{l} u^-(x_i) \Big(w^-(\sum_{j=i}^l p_j) - w^-(\sum_{j=i+1}^l p_j) \Big), 
+\end{align} 
+where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corresponding to gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
+Unlike PT, the CPT-value does not violate stochastic dominance.\footnote{In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. Thus, CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.}
+
+\paragraph{Estimation scheme.} 
+Let $\hat{p_k}= \frac{1}{n} \sum_{i=1}^n I_{\{X =x_k\}}$. Then, we estimate $V(X)$ as follows:
+\begin{align}
+ \label{eq:cpt-discrete-est}
+\hat V(X) = & \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K \hat p_j) - w^+(\sum_{j=i+1}^K \hat p_j) \Big)
+- \sum_{i=1}^{l} u^-(x_i) \Big(w^-(\sum_{j=i}^l \hat p_j) - w^-(\sum_{j=i+1}^l \hat p_j) \Big).
+\end{align}
+
+\subsubsection*{Main result}
+The following proposition presents a sample complexity result for the discrete valued $X$ under the following assumption:\\
+\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exists a $\delta>0$, such that
+$$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\delta,x+\delta) $$.\\
+
+We denote $L=\max\{L_k, k=2...K\}$,  where $L_k$ is the Lipschitz constant at $F_k = \sum_{i=k}^K p_i$.
+
+\todoj[inline]{Fix claim to be for $\hat V$}
+\begin{proposition}
+$A=\max\{x_k, k=1...K\}$, $\delta =\min\{\delta_k\}$, where $\delta_k$ is the half length of the interval that locally Lipschitz of the point $F_k$ holds.
+Suppose $\hat{F_k}$ is the empirical estimation of $F_k$, then 
+$$P(\left| \sum_{i=1}^K x_k w(\hat{F_k}) - \sum_{i=1}^K x_k w(F_k) \right| >\epsilon) < K\cdot (
+e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}) $$ 
+\end{proposition}
+\begin{proof}
+ See Section \ref{sec:proofs-discrete}.
+\end{proof}
+
+>>>>>>> origin/master
