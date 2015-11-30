@@ -357,7 +357,6 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we d
 \caption{CPT-value estimation for \holder continuous weights}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-%<<<<<<< HEAD
 \State Simulate $n$ random samples with distribution $X$, sort them and denoted the ordered sample as 
 $X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
 \State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]})$
@@ -383,7 +382,6 @@ and denote the statistic $\hat V^-_n (X):=\sum_1^{n-1} u^-(X_{[i]}) (w^-(\frac{n
 \subsubsection*{Main results}
 \begin{proposition}(\textbf{Asymptotic convergence.})
 \label{prop:holder-asymptotic}
-<<<<<<< HEAD
 Assume (A1') and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution function of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constant $L^+$ and $L^-$, respectively on the interval $(0,+\infty)$, and 
 $(-\infty, 0)$ . Then, we have
 \begin{align}
@@ -398,13 +396,6 @@ V(X)
 , \text{   a.s.}
 \end{align}
 holds, where $\hat V_n$ is as defined in Algorithm \ref{alg:holder-est}.
-=======
-Assume (A1'). (A2) and also that $F^+(\cdot), F^-(\cdot)$ - the distribution functions of $u^+(X)$ and $u^-(X)$ - are Lipschitz continuous. Then, we have
-\begin{align}
-\widehat V_n(X) \rightarrow V(X) \text{ a.s. as } n \rightarrow \infty,
-\end{align}
-where $\widehat V_n(X)$ is as defined in Algorithm \ref{alg:holder-est}.
->>>>>>> origin/master
 \end{proposition}
 \begin{proof}
 See Section \ref{sec:holder-proofs}.
@@ -443,15 +434,8 @@ For this result, we assume, as in the case of Lipschitz continuous weights, that
 \label{prop:holder-dkw}
 Assume (A1') and (A2). Then, $\forall \epsilon, \delta$, we have
 $$
-<<<<<<< HEAD
 P(\left |\hat V_n(X)- V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
-\frac{4L^2 M^2}{\epsilon^{2/\alpha}}
-=======
-P(\left |\widehat V_n(X)-  V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
-\frac{2L^2 M^2}{\epsilon^{2/\alpha}}
->>>>>>> origin/master
-$$
-.
+\frac{4L^2 M^2}{\epsilon^{2/\alpha}}.$$
 \end{proposition}
 \begin{proof}
 Notice the the following equivalence:
