@@ -5,223 +5,6 @@
 \subsection{Proofs for CPT-value estimator}
 \label{appendix:cpt-est}
 
-\subsubsection{Lipschitz continuous weights}
-In order to prove Proposition \ref{thm:asymp-conv}, we require the dominated convergence theorem in its generalized form, which is provided below.
-\begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
-Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on $E$ that converge pointwise a.e. on a measurable space $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
-If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
-\end{theorem}
-
-
-\begin{proof}
-This is a standard result that can be found in any textbook on measure theory. For instance, see Theorem 2.3.11 in \cite{athreya2006measure}.
-\end{proof}
-
-In addition to the notational convention in section 2, we shall henceforth denote $u^+(X)$ and $u^-(X)$ by $U^+$ and $U^-$, respectively, for notational convenience. 
-in the whole section 6.1.
-\subsection*{Proof of Proposition \ref{thm:asymp-conv}: Asymptotic convergence}
- 
-\begin{proof}
-Recall that the CPT-value for any r.v. X is defined as
-\begin{align*}
-V(X) = \intinfinity w^+(P(U^+>x) dx - \intinfinity w^-(P(U^->x) dx. 
-\end{align*} 
-
-Also, recall that we estimate $V(X)$ using the empirical distribution as follows:
-\begin{align}
-\label{eq:cpt-est-appendix}
-\widehat V_n(X) = \intinfinity w^+(1-{\hat F_n}^+(x))  dx - \intinfinity w^-(1-{\hat F_n}^-(x))  dx,
-\end{align}
-where 
-$$
-{\hat F_n}^+(x)=\frac{1}{n} \sum_{i=1}^n 1_{(U^+ \leq x)}, \quad\text{and}\quad {\hat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(U^- \leq x)}.
-$$
-
-We first prove the claim for the first integral in \eqref{eq:cpt-est-appendix}, i.e., we show
-\begin{align}
-\intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(U^+>x) dx.\label{eq:3}
-\end{align} 
-
-Since $w^+$ is Lipschitz continuous with constant $L$, we have almost surely that
-$w^{+}(1-\hat{F_n}(x)) \leq L (1-\hat{F_n}(x))$,  
-for all $n$ and 
- $w^{+}((P(U^+>x)) \leq L\cdot (P(U^+>x)$, since $w^+(0)=0$.
- 
-Notice that the empirical distribution function 
-${\hat F_n}^+(x)$ 
-generates a Stieltjes measure which takes mass 
-$1/n$ on each of the sample points $U^+_i$. 
-
-We have
-$$\intinfinity (P(U^+>x))  dx = E(U^+)$$
-and
-
-\begin{equation}
-\intinfinity (1-{\hat F_n}^+(x))  dx =\intinfinity \int_x^\infty d \hat{F_n}(t) dx.\label{eq:2}
-\end{equation}
-Since ${\hat F_n}^+(x)$ has bounded support on $\mathbb{R}$ $\forall n$, the integral in \eqref{eq:2} is finite.
-Applying Fubini's theorem to the RHS of \eqref{eq:2}, we obtain
-\begin{equation}
-\intinfinity \int_x^\infty d \hat{F_n}(t) dx = \intinfinity \int_0^t dx d \hat{F_n}(t) = \intinfinity t d\hat{F_n}(t) = \frac{1}{n} \sum_{i=1}^n U^+_{[i]},
- \end{equation}
- where $U^+_{[i]}, i=1,\ldots,n$ denote the order statistics, i.e., $U^+_{[1]} \le \ldots \le U^+_{[n]}$.
- 
-Now, notice that 
-
-$$
-\frac{1}{n}
-\sum_{i=1}^n U^+_{[i]}
-=
-\frac{1}{n}
-\sum_{i=1}^n U^+_i
-\overset{a.s}\longrightarrow 
-E(U^+),
-$$
-From the foregoing,
-$$
-\lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F_n}(x)) dx
-\overset{a.s} \longrightarrow
-\intinfinity L \cdot(P(U^+>x)) dx.$$
-Hence, we have 
-$$
-\int_0^\infty w^{(+)}(1-\widehat{F_n}(x)) dx \xrightarrow{a.s.} 
-\int_0^\infty w^{(+)}(P(U^+)>x) dx.
-$$
-The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(U^+>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
-
-Following similar arguments, it is easy to show that 
-$$
-w^-(1-{\hat F_n}^-(x))  dx \rightarrow \intinfinity w^-(P(U^-)>x) dx.
-$$
-The final claim regarding convergence of $\hat V_n(X)$ to $V(X)$ now follows.
-\end{proof}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Proof of Proposition \ref{thm:asymp-conv}: Asymptotic convergence rate}
-In order to prove the convergence rate of the policy optimization algorithms, we need a uniform bound on the distance between $V_n(X)$ and the CPT-value $V(X)$, i.e., $||\widehat{V_n}(X)-V(X)||_{\infty}$. For this purpose, Proposition \ref{thm:asymp-conv} had a law of the iterated logarithm type result, which states that $||\widehat{V_n}(X)-V(X)||_{\infty}$ is of the order $O(n^{-1/2})$ (ignoring log-factors) for sufficiently large $n$. 
-Before proving this result, we recall the law of the iterated logarithm when empirical distribution function is in one dimension (see \cite{van2000asymptotic} for a detailed description):
-\begin{theorem}(\textbf{\textit{Law of the iterated logarithm.}})
-\\
-Let 
-$\hat{F_n}$ denote the empirical distribution and $F$ the true distribution. Then, for sufficiently large $n$, we have 
-$$
-\limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2log log n}} ||\hat{F_n}-F||_{\infty} \leq \frac{1}{2}, \text{a.s.}
-$$
-\end{theorem}
-
-\begin{proof}(\textbf{\textit{Proof of Proposition \ref{thm:asymp-conv}: Asymptotic convergence rate}})
-
-Let's focus on the difference 
-$
-\left|
-\intinfinity w^{+}(P(u^+((X)))>x) dx- \intinfinity \wfn dx
-\right|
-$. We have
-\begin{align*}
-&
-\left|
-\intinfinity w^{+}(P(U^+)>x) dx- \intinfinity \wfn dx
-\right|
-\\
-&
-=
-\left|
-\int_0^M w^{+}(P(U^+)>x) dx- \int_0^M \wfn dx
-\right|
-\\
-&
-\leq
-\left|
-\int_0^M L\cdot |P(U^+<x)-{\hat F_n}^+(x)| dx
-\right|
-\\
-&
-\leq
-LM
-\sup_{x\in \mathbb{R}}
-\left|
-P(U^+<x)-{\hat F_n}^+(x)
-\right|.
-\end{align*}
-Using the law of iterated logarithm, we obtain 
-$$
-\limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2log log n}} \left\|\intinfinity \wfn- \intinfinity P(U^+>x)dx\right\|_{\infty} 
-\leq \frac{1}{2} LM, \text{a.s.}
-$$
-Along similar lines, we obtain 
-$$
-\limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2log log n}} \left\|\intinfinity \wfnn- \intinfinity P(U^->x)dx\right\|_{\infty} 
-\leq \frac{1}{2} LM, \text{a.s.}
-$$
-The main claim follows by summing the above two inequalities. 
-\end{proof}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection*{Proof of Proposition \ref{thm:dkw}}
-%For proving Proposition \ref{thm:dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
-%\begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
-%Let ${\hat F_n}(x)=\frac{1}{n} \sum_{i=1}^n 1_{((X_i) \leq x)}$ denote the empirical distribution of a r.v. $X$, with $X_1,\ldots,X_n$ being sampled from the true distribution $F(X)$.
-%The, for any $n$ and $\epsilon>0$, we have
-%$$
-%P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
-%$$
-%\end{lemma}
-
-For proving Proposition \ref{thm:dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
-\begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
-Let ${\hat F_n}(x)=\frac{1}{n} \sum_{i=1}^n 1_{((X_i) \leq x)}$ denote the empirical distribution of a r.v. $X$, with $X_1,\ldots,X_n$ being sampled from the true distribution $F(X)$.
-The, for any $n$ and $\epsilon>0$, we have
-$$
-P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
-$$
-\end{lemma}
-
-The reader is referred to Chapter 2 of \cite{wasserman2006} for more on empirical distributions in general and DKW inequality in particular.
-
-\begin{proof}(\textbf{\textit{Theorem \ref{thm:dkw}}})
-
-Since $U^+$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$, we have
-\begin{align*}
-&\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|
-\\
-= & \left|\int_0^M w^+(P(U^+)>x) dx- \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
-\\
-\leq&
-\left|\int_0^M L\cdot |P(U^+<x)-{\hat F_n}^+(x)| dx\right|\\
-\leq&
-LM\sup_{x\in \mathbb{R}}\left|P(U^+<x)-{\hat F_n}^+(x)\right|.
-\end{align*}
-Now, plugging in the DKW inequality, we obtain
-\begin{align}
-&
-P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right)
-\nonumber\\
-&
-\leq
- P\left(LM\sup_{x\in \mathbb{R}} \left|(P(U^+<x)-{\hat F_n}^+(x)\right|>\epsilon/2\right) \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw1}
-\end{align}
-
-Along similar lines, we obtain
-\begin{align}
-&
-P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)
-\leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw2}
-\end{align}
-
-Combining \eqref{eq:dkw1} and \eqref{eq:dkw2}, we obtain
-\begin{align*}
-P(|\widehat V_n(X) - V(X)|>\epsilon) 
-&\le P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right) \\
-&+ 
-P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)\\
-&\le 4 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.
-\end{align*} 
-And the claim follows. 
-\end{proof}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{\holder continuous weights}
@@ -232,11 +15,11 @@ Under (A1'), the CPT-value $V(X)$ as defined by \eqref{eq:cpt-mdp} is finite.
 \end{proposition}
 \begin{proof}
 
-H\"{o}lder continuity of $w^+$ implies that 
+H\"{o}lder continuity of $w^+$ together with the fact that $w^+(0)=0$ imply that 
 $$
 \int_0^{+\infty} w^+(P(U^+>t)) dz 
-< \int_0^{+\infty} P^{\alpha} (U^+>z) dz
-< \int_0^{+\infty} P^{\gamma} (U^+>z) dz 
+\le C \int_0^{+\infty} P^{\alpha} (U^+>z) dz
+\le C \int_0^{+\infty} P^{\gamma} (U^+>z) dz 
 <+\infty.
 $$
 The second inequality is valid since $P(U^+>z) \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
@@ -443,7 +226,7 @@ We claim
 \end{align}
 where $\eta_n = \left(\dfrac{\epsilon^{\pi_n +\delta_n\Delta} - \epsilon^{\pi_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
  is the bias arising out of the empirical distribution based CPT-value estimation scheme.
-From Proposition \ref{thm:asymp-conv}, we see that, $\epsilon^\pi = LM\sqrt{\frac{2 \log \log m_n}{m_n}}$, provided $m_n$ is sufficiently large.
+From Proposition \ref{prop:holder-dkw}, we see that, $\epsilon^\pi = LM\sqrt{\frac{2 \log \log m_n}{m_n}}$, provided $m_n$ is sufficiently large.
 Thus, $\eta_n = O\left( \sqrt{\frac{2 \log \log m_n}{m_n}} \frac{1}{\delta_n}\right)$ and since $\frac{1}{\sqrt{m_n} \delta_n} \rightarrow 0$ by assumption (A3) in the main paper, we have that
 $\eta_n$ goes to zero asymptotically. In other words,
 \begin{align}
@@ -540,7 +323,7 @@ We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
 The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
-The inequality in \eqref{eq:h3} follows by using the fact that, for any $\pi$, the CPT-value estimate $\widehat V^\pi(x^0) = V^\pi(x^0) + \epsilon^\pi$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\pi(x^0)$ is bounded for any policy $\pi$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $V^\pi(x^0)$ is bounded for any policy $\pi$. The bias $\epsilon^\pi$ is bounded by Proposition \ref{thm:asymp-conv} in the main paper.
+The inequality in \eqref{eq:h3} follows by using the fact that, for any $\pi$, the CPT-value estimate $\widehat V^\pi(x^0) = V^\pi(x^0) + \epsilon^\pi$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\pi(x^0)$ is bounded for any policy $\pi$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $V^\pi(x^0)$ is bounded for any policy $\pi$. The bias $\epsilon^\pi$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
 
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
 \begin{align*}

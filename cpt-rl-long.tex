@@ -261,63 +261,46 @@ To overcome the above integrability issues, we make different assumptions on the
 We devise a scheme for estimating \eqref{eq:cpt-mdp} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
 We also provide sample complexity bounds assuming that the utility functions are bounded.
 
-\subsection{Estimation scheme for Lipschitz continuous weights}
-As mentioned before, since the integrals in \eqref{eq:cpt-mdp} require the distribution to be estimated over the entire domain, we use the EDF to approximate the distribution and then perform an integration of the weight-distorted EDF. Propositions \ref{thm:asymp-conv} and \ref{thm:dkw} below establish that the resulting CPT-value estimate converges and also with the canonical Monte Carlo convergence rate. 
-
-Let $X_i$, $i=1,\ldots,n$ denote $n$ samples of the random variable $X$. %Further, let $X_{[i]}$ be the order statistics, i.e., $X_{[1]} \le \ldots \le X_{[n]}$.
-The EDF for $u^+(X)$ and $u^-(X)$, for any given real-valued functions $u^+$ and $u^-$, is defined as follows: 
-\begin{align}
-{\hat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
-{\hat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
-\label{eq:edf}
-\end{align}
-Using EDFs, the CPT-value is estimated as follows:
-\begin{align}
-\widehat V_n(X) =& \intinfinity w^+(1-{\hat F_n}^+(x))  dx - \intinfinity w^-(1-{\hat F_n}^-(x))  dx.\label{eq:cpt-est}
-\end{align}
-Notice that we have substituted $1-{\hat F_n}^+(x)$ (resp.$1-{\hat F_n}^-(x)$)  for $P(u^+(X)>x)$ (resp. $P(u^-(X)>x)$) in \eqref{eq:cpt-mdp} and then performed an integration of the complementary EDF composed with the weight function. 
-%Notice that the empirical distribution is a stochastic process, and the resulting estimate $\hat V(X)$ itself is a random variable. 
-
-\subsubsection*{Main results}
-As mentioned earlier, to overcome integrability issues, we make the following assumption:\\[1ex]
-\textbf{Assumption (A1).}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
-$u^+(X)$ and $u^-(X)$ both have bounded first moments\\[1ex]
-% If the weight function is not Lipschitz, then the integrals using the distribution of $X$ in CPT-value may not even be finite. 
-We make the following assumptions on the utility functions:\\[1ex]
-\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
-\todoj{Check if increasing is necessary}
-\textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
-For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
-
-The following result shows that the estimate \eqref{eq:cpt-est} converges to the true CPT value almost surely and at the (nearly) canonical Monte Carlo asymptotic rate. 
-\begin{proposition} (\textbf{Asymptotic convergence and rate.})
-\label{thm:asymp-conv}
-Under (A1) and (A2), we have
-\begin{align}
-\widehat V_n(X) \rightarrow V(X) \text{ a.s. as } n \rightarrow \infty.
-\end{align}
-If we assume (A2'), then we have
-$$
-\limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2 \ln \ln n}} ||\hat{V_n}(X)-V(X)||_{\infty} 
-\leq  LM \quad \text{a.s.}
-$$
-\end{proposition}
-\begin{proof}
- See Section \ref{appendix:cpt-est}.
-\end{proof}
-
-While the above result establishes that \eqref{eq:cpt-est} is an unbiased estimate in the asymptotic sense, it is important to know the rate at which the estimate in \eqref{eq:cpt-est} converges to the CPT-value. 
-The following sample complexity result shows that $O\left(\frac{1}{\epsilon^2}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
-\begin{proposition}(\textbf{Sample Complexity})
-\label{thm:dkw}
-Under (A1) and (A2'), for any $\epsilon, \delta >0$, we have
-\begin{align*}
-P(|\widehat V_n(X) - V(X)|\le\epsilon) \geq  1 - \delta, \,\,\, \forall n \geq \frac{2 L^2 M^2}{\epsilon^2} ln \frac{4}{\delta}.
-\end{align*}
-\end{proposition}
-\begin{proof}
- See Section \ref{appendix:cpt-est}.
-\end{proof}
+% \subsubsection*{Main results}
+% As mentioned earlier, to overcome integrability issues, we make the following assumption:\\[1ex]
+% \textbf{Assumption (A1).}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+% $u^+(X)$ and $u^-(X)$ both have bounded first moments\\[1ex]
+% % If the weight function is not Lipschitz, then the integrals using the distribution of $X$ in CPT-value may not even be finite. 
+% We make the following assumptions on the utility functions:\\[1ex]
+% \textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
+% \todoj{Check if increasing is necessary}
+% \textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+% For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
+% 
+% The following result shows that the estimate \eqref{eq:cpt-est} converges to the true CPT value almost surely and at the (nearly) canonical Monte Carlo asymptotic rate. 
+% \begin{proposition} (\textbf{Asymptotic convergence and rate.})
+% \label{thm:asymp-conv}
+% Under (A1) and (A2), we have
+% \begin{align}
+% \widehat V_n(X) \rightarrow V(X) \text{ a.s. as } n \rightarrow \infty.
+% \end{align}
+% If we assume (A2'), then we have
+% $$
+% \limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2 \ln \ln n}} ||\hat{V_n}(X)-V(X)||_{\infty} 
+% \leq  LM \quad \text{a.s.}
+% $$
+% \end{proposition}
+% \begin{proof}
+%  See Section \ref{appendix:cpt-est}.
+% \end{proof}
+% 
+% While the above result establishes that \eqref{eq:cpt-est} is an unbiased estimate in the asymptotic sense, it is important to know the rate at which the estimate in \eqref{eq:cpt-est} converges to the CPT-value. 
+% The following sample complexity result shows that $O\left(\frac{1}{\epsilon^2}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
+% \begin{proposition}(\textbf{Sample Complexity})
+% \label{thm:dkw}
+% Under (A1) and (A2'), for any $\epsilon, \delta >0$, we have
+% \begin{align*}
+% P(|\widehat V_n(X) - V(X)|\le\epsilon) \geq  1 - \delta, \,\,\, \forall n \geq \frac{2 L^2 M^2}{\epsilon^2} ln \frac{4}{\delta}.
+% \end{align*}
+% \end{proposition}
+% \begin{proof}
+%  See Section \ref{appendix:cpt-est}.
+% \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -334,12 +317,13 @@ of order $\alpha$) if
 \end{definition}
 
 In order to ensure integrability of the CPT-value \eqref{eq:cpt-mdp}, we make the following assumption:\\[1ex]
-\textbf{Assumption (A1').}  
+\textbf{Assumption (A1).}  
 The weight functions $w^+, w^-$ are H\"{o}lder continuous with common level $\alpha$. Further,
-$\exists \gamma < \alpha \text{   s.t,  }$ 
+$\exists \gamma \le \alpha \text{   s.t,  }$ 
 $$\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty \text{ and }\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty$$
 
 The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-mdp} is finite - see Proposition \ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
+
 
 \paragraph{Approximating CPT-value using quantiles:}
 Let $\xi^+_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of the r.v. $u^+(X)$. Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
@@ -380,59 +364,39 @@ and denote the statistic $\hat V^-_n (X):=\sum_1^{n-1} u^-(X_{[i]}) (w^-(\frac{n
 \end{algorithm}
 
 \subsubsection*{Main results}
+We make the following assumptions on the utility functions:\\[1ex]
+\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
+\todoj{Check if increasing is necessary}
+\textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
+
 \begin{proposition}(\textbf{Asymptotic convergence.})
 \label{prop:holder-asymptotic}
-Assume (A1') and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution function of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constant $L^+$ and $L^-$, respectively on the interval $(0,+\infty)$, and 
-$(-\infty, 0)$ . Then, we have
+Assume (A1) and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution function of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constant $L^+$ and $L^-$, respectively on the interval $(0,+\infty)$, and 
+$(-\infty, 0)$ . Then, we have that
 \begin{align}
 \lim_{n\rightarrow +\infty} 
 \hat V_n(X)
 =
 V(X)
-=
-\int_0^{+\infty} w^+(P(u^+(X)>z)) dz 
--
-\int_0^{+\infty} w^-(P(u^-(X)>z)) dz 
-, \text{   a.s.}
+ \text{   a.s.,}
 \end{align}
-holds, where $\hat V_n$ is as defined in Algorithm \ref{alg:holder-est}.
+where $\hat V_n$ is as defined in Algorithm \ref{alg:holder-est} and $V(X)$ as in \eqref{eq:cpt-mdp}.
 \end{proposition}
 \begin{proof}
 See Section \ref{sec:holder-proofs}.
 \end{proof}
 
-% While the above proposition gives an asymptotic guarantee, in the following we provide a sample complexity result for Algorithm \ref{alg:holder-est}.
-% \begin{proposition}(\textbf{Sample complexity.})
-% \label{prop:holder-sample-complexity}
-% Assume (A1'). Then, we have
-% $$
-% P
-% (
-% \left|
-% \sum_{i=1}^{n-1} U_{[i]} 
-% \cdot (w_{(\frac{n-i}{n})} - w_{(\frac{n-i-1}{n})})
-% -
-% \sum_{i=1}^{n-1} \xi_{\frac{i}{n}}
-% \cdot (w_{(\frac{n-i}{n})} - w_{(\frac{n-i-1}{n})})
-% \right|
-% \leq
-% \epsilon
-% )
-% \geq 1-\delta
-% $$
-% For any N s.t. 
-% $2n\cdot e^{-2n^{\alpha} L} \geq \delta$
-% \end{proposition}
-% \begin{proof}
-% See Section \ref{sec:holder-proofs}.
-% \end{proof}
+While the above result establishes that $\hat V_n$ is an unbiased estimate in the asymptotic sense, it is important to know the rate at which the estimate $\hat V_n$ converges to the CPT-value $V(X)$. 
+The following sample complexity result shows that $O\left(\frac{1}{\epsilon^2}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
 
-While the above proposition gives an asymptotic guarantee, in the following we provide a sample complexity result for Algorithm \ref{alg:holder-est}.
-For this result, we assume, as in the case of Lipschitz continuous weights, that the utility functions are bounded in addition to (A1').
+% 
+% While the above proposition gives an asymptotic guarantee, in the following we provide a sample complexity result for Algorithm \ref{alg:holder-est}.
+% For this result, we assume, as in the case of Lipschitz continuous weights, that the utility functions are bounded in addition to (A1').
 
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
-Assume (A1') and (A2). Then, $\forall \epsilon, \delta$, we have
+Assume (A1) and (A2'). Then, $\forall \epsilon, \delta$, we have
 $$
 P(\left |\hat V_n(X)- V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4L^2 M^2}{\epsilon^{2/\alpha}}.$$
@@ -444,21 +408,35 @@ and also,
 $$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
 
 where $\hat{F^+_n}(x)$ and $\hat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
-and $u^-(X)$. 
-(see \eqref{eq:edf}).
-The above equality in conjunction with the well-known DKW inequality implies the following claim:
-See Section \ref{sec:holder-proofs} for details.
+and $u^-(X)$, defined as follows:
+\begin{align}
+{\hat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
+{\hat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
+\label{eq:edf}
+\end{align}
+
+The main claim follows fromt the equivalence mentioned above together with the well-known DKW inequality.
+The detailed proof is available in Section \ref{sec:holder-proofs}.
 \end{proof}
 
+\subsubsection*{Special case: Lipschitz continuous weights}
+\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+$u^+(X)$ and $u^-(X)$ both have bounded first moments.\\[1ex]
+
 \begin{corollary}[Lipschitz case]
-Assume the function $w^+(x)$ and $w^-(x)$ are Lipchitz continuous, then the asymptotic convergence property in proposition
-\ref{prop:holder-asymptotic} holds, and in addition, we have 
+Assume (A1') and (A2). Then, we have that 
+$$\lim_{n\rightarrow +\infty} \hat V_n(X) = V(X) \text{   a.s.}$$
+
+In addition, if we assume (A2'), we have 
 $$
 P(\left |\hat V_n(X)- V(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
-\frac{4L^2 M^2}{\epsilon^{2}}
+\frac{4L^2 M^2}{\epsilon^{2}}.
 $$
-as the indicator of sample complexity of the estimation scheme defined in algorithm 1.
 \end{corollary}
+\begin{proof}
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. Thus, the claims regarding asymptotic convergence and sample complexity as special cases of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}, with $\alpha=1$. 
+\end{proof}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -510,7 +488,7 @@ as the indicator of sample complexity of the estimation scheme defined in algori
 \end{figure}
 
 \subsection{Gradient estimation} 
-Given that we operate in a learning setting and only have biased estimates of the CPT-value from \eqref{eq:cpt-est}, we require a simulation optimization scheme that estimates $\nabla V_n^\pi(x^0)$.  
+Given that we operate in a learning setting and only have biased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation optimization scheme that estimates $\nabla V_n^\pi(x^0)$.  
 Simultaneous perturbation methods are a general class of stochastic gradient schemes that optimize a function given only noisy sample values - see \cite{Bhatnagar13SR} for textbook introduction. SPSA is a well-known scheme that estimates the gradient using two sample values. In our context, at any iteration $n$ of PG-CPT-SPSA, with policy $\pi_n$, the gradient $\nabla V_n^{\pi_n}(x^0)$ is estimated as follows: For any state $i=1,\ldots,\L\M$,
 $$\widehat \nabla_{i} V^\pi(x^0) = \dfrac{\widehat V_n^{\pi_n+\delta_n \Delta_n}(x^0) - \widehat V_n^{\pi_n-\delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}},$$
 where $\delta_n$ is a positive scalar that satisfies (A3) below and $\Delta_n = \left( \Delta_n^{1},\ldots,\Delta_n^{\L\M}\right)\tr$, where $\{\Delta_n^{i}, i=1,\ldots,\L\M\}$ are i.i.d. Rademacher, independent of $\pi_0,\ldots,\pi_n$.
@@ -585,7 +563,7 @@ We rewrite the update rule \eqref{eq:theta-update} as follows:
 \end{align*}
 Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
 $$\sup_{l\ge0} \left (\zeta_{n+l} - \zeta_n \right) \rightarrow 0 \text{ as } n\rightarrow\infty.$$ 
-While Theorems \ref{thm:asymp-conv}--\ref{thm:dkw} show that the bias $\epsilon^\pi$ is bounded above, to establish convergence of the policy gradient recursion \eqref{eq:theta-update}, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  Assumption (A3) provides a condition on the rate at which $m_n$ has to increase.
+While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the bias $\epsilon^\pi$ is bounded above, to establish convergence of the policy gradient recursion \eqref{eq:theta-update}, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  Assumption (A3) provides a condition on the rate at which $m_n$ has to increase.
 
 \noindent\textbf{Assumption (A3).}  The step-sizes $\gamma_n$ and the perturbation constants 
 $\delta_n$ are positive $\forall n$ and satisfy
@@ -660,15 +638,15 @@ Both the gradient estimate $\widehat \nabla V_n^{\pi_n}(x^0)$ and the Hessian es
 	\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$
 	\PEval
 	    \State Simulate $m_n$ episodes of the SSP using policy $(\pi_n+\delta_n (\Delta_n + \hat \Delta_n))$
-	    \State Obtain CPT-value estimate $\widehat V_n^{(\pi_n+\delta_n (\Delta_n+\hat \Delta_n))}(x^0)$ using \eqref{eq:cpt-est}
+	    \State Obtain CPT-value estimate $\widehat V_n^{(\pi_n+\delta_n (\Delta_n+\hat \Delta_n))}(x^0)$ using Algorithm \ref{alg:holder-est}
 	    \EndPEval
 	    \PEvalPrime
   	    \State Simulate $m_n$ episodes of the SSP using policy $(\pi_n-\delta_n (\Delta_n + \hat \Delta_n))$
-	    \State Obtain CPT-value estimate $\widehat V_n^{\pi_n-\delta_n (\Delta_n+\hat\Delta_n)}(x^0))$ using \eqref{eq:cpt-est}
+	    \State Obtain CPT-value estimate $\widehat V_n^{\pi_n-\delta_n (\Delta_n+\hat\Delta_n)}(x^0))$ Algorithm \ref{alg:holder-est}
 	    \EndPEvalPrime
 	    	    \PEvalPrimeDouble
   	    \State Simulate $m_n$ episodes of the SSP using policy $\pi_n$
-	    \State Obtain CPT-value estimate $\widehat V_n^{\pi_n}(x^0))$ using \eqref{eq:cpt-est}
+	    \State Obtain CPT-value estimate $\widehat V_n^{\pi_n}(x^0))$ using Algorithm \ref{alg:holder-est}
 	    \EndPEvalPrimeDouble
 	    \PImpNewton
 		\State Gradient estimate $\widehat \nabla_{i} V^\pi_n(x^0)\quad=\quad\dfrac{\widehat V_n^{\pi_n+\delta_n(\Delta_n+\widehat\Delta_n)}(x^0) - \widehat V_n^{\pi_n-\delta_n(\Delta_n+\widehat\Delta_n)}(x^0)}{2\delta_n \Delta_n^{i}}$
@@ -825,7 +803,7 @@ $\mathcal{H}\hspace*{-3pt}$.
 	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
 	      \State Simulate $m_n$ episodes of the SSP using policy $\pi^i_n$
-	      \State Obtain CPT-value estimate $\widehat V_n^{\pi^i_n}(x^0)$ using \eqref{eq:cpt-est}
+	      \State Obtain CPT-value estimate $\widehat V_n^{\pi^i_n}(x^0)$ using Algorithm \ref{alg:holder-est}
 	      \EndFor
 	\EndEstimation
 	%%%%%%%%%%%%%%%%%%%%%%%%%%55
@@ -875,7 +853,7 @@ $\mathcal{H}\hspace*{-3pt}$.
                                                           1 & ~\mbox{if $z\geq \chi$.}
                                                           \end{array} \right.$}
                     
-Finally, we get to our setting where we only obtain biased estimate of the CPT-value $V^\pi(x^0)$ for any policy $\pi$. Recall that the bias is due to a finite sample run followed by estimation scheme \eqref{eq:cpt-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity. Assuming this setup, the gradient-free model-based policy search algorithm would involve the following steps (see Algorithm \ref{alg:mras} for the pseudocode):
+Finally, we get to our setting where we only obtain biased estimate of the CPT-value $V^\pi(x^0)$ for any policy $\pi$. Recall that the bias is due to a finite sample run followed by estimation scheme outlined in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity. Assuming this setup, the gradient-free model-based policy search algorithm would involve the following steps (see Algorithm \ref{alg:mras} for the pseudocode):
 
 \begin{description}
  \item[Step 1 (Candidate policies):] Generate $N_n$ policies $\{\pi^1_n, \ldots, \pi^{N_n}_n\}$ using the distribution $f(\cdot,\eta_n)$.
