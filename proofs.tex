@@ -11,7 +11,7 @@
 \label{sec:holder-proofs}
 \begin{proposition}
 \label{prop:Holder-cpt-finite}
-Under (A1'), the CPT-value $V(X)$ as defined by \eqref{eq:cpt-mdp} is finite. 
+Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite. 
 \end{proposition}
 \begin{proof}
 
@@ -267,7 +267,7 @@ We first rewrite the update rule \eqref{eq:theta-update} as follows: For $i=1,\l
 \end{align}
 where 
 \begin{align*}
-\beta_n \quad= &\quad \E\left(\dfrac{(\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}} \mid \F_n \right) - \nabla V^\pi(x^0), \text{ and}\\
+\beta_n \quad= &\quad \E\left(\dfrac{(\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}} \mid \F_n \right) - \nabla \C(D^\pi), \text{ and}\\
 \xi_n \quad = & \quad\left(\dfrac{\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n\Delta_n^{i}}\right)  - \E\left(\dfrac{(\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}}\mid \F_n \right).
 \end{align*}
 In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\xi_n$ is a martingale difference sequence..
@@ -275,7 +275,7 @@ In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\x
 
 Convergence of \eqref{eq:1spsa-equiv} can be inferred from Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}, provided we verify the necessary assumptions given as (B1)-(B5) below:
 \begin{enumerate}[\bfseries (B1)]
-\item $\nabla V^\pi(x^0)$ is a continuous $\R^{\L\K}$-valued function.
+\item $\nabla \C(D^\pi)$ is a continuous $\R^{\L\K}$-valued function.
 \item  The sequence $\beta_n,n\geq 0$ is a bounded random sequence with
 $\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$.
 \item The step-sizes $\gamma_n,n\geq 0$ satisfy
@@ -323,7 +323,7 @@ We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
 The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
-The inequality in \eqref{eq:h3} follows by using the fact that, for any $\pi$, the CPT-value estimate $\widehat V^\pi(x^0) = V^\pi(x^0) + \epsilon^\pi$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\pi(x^0)$ is bounded for any policy $\pi$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $V^\pi(x^0)$ is bounded for any policy $\pi$. The bias $\epsilon^\pi$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
+The inequality in \eqref{eq:h3} follows by using the fact that, for any $\pi$, the CPT-value estimate $\widehat \C(D^\pi) = \C(D^\pi) + \epsilon^\pi$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\pi$ is bounded for any policy $\pi$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\pi)$ is bounded for any policy $\pi$. The bias $\epsilon^\pi$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
 
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
 \begin{align*}
@@ -469,13 +469,13 @@ P(\mathcal{A}_{n}\cap \mathcal{B}_n) \leq &
 P 
 \left(\big\{\widehat V_n^{\pi^*_{n}}(x^0)-\widehat V_{n-1}^{\pi^*_{n-1}}(x^0)\geq \varepsilon\big\} \cap \left\{V^{\pi^*_{n}}(x^0)-V^{\pi^*_{n-1}}(x^0)\leq \frac{\varepsilon}{2}\right\}\right)\\
  \leq &
-P\Big(\bigcup_{\pi\in\Lambda_n, \pi'\in \Lambda_{n-1}} \Big\{\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap \left\{V^\pi(x^0)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
+P\Big(\bigcup_{\pi\in\Lambda_n, \pi'\in \Lambda_{n-1}} \Big\{\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap \left\{\C(D^\pi)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
 \leq & \sum_{{\pi\in \Lambda_n},{\pi'\in \Lambda_{k-1}}}P\left(\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap
-\left\{V^\pi(x^0)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\}\right) \\
+\left\{\C(D^\pi)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\}\right) \\
 \leq & |\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}P\left(\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap
-\left\{V^\pi(x^0)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\} \right) \\
-\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}P\left(\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)-V^\pi(x^0)+V^{\pi'}(x^0)\geq \frac{\varepsilon}{2}\right) \\
-\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}\left(P\left(\widehat V_n^{\pi}(x^0)-V^\pi(x^0)\geq \frac{\varepsilon}{4}\right) + P\left(\widehat V_{n-1}^{\pi'}(x^0)-V^{\pi'}(x^0)\geq \frac{\varepsilon}{4}\right)\right) \\
+\left\{\C(D^\pi)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\} \right) \\
+\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}P\left(\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)-\C(D^\pi)+V^{\pi'}(x^0)\geq \frac{\varepsilon}{2}\right) \\
+\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}\left(P\left(\widehat V_n^{\pi}(x^0)-\C(D^\pi)\geq \frac{\varepsilon}{4}\right) + P\left(\widehat V_{n-1}^{\pi'}(x^0)-V^{\pi'}(x^0)\geq \frac{\varepsilon}{4}\right)\right) \\
 \leq & 4|\Lambda_n||\Lambda_{k-1}|
  e^{-m_n \frac{\epsilon^2}{8 L^2 M^2}}.
 \end{align*}
@@ -496,7 +496,7 @@ then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 \end{align*}
 In the above, the first equality follows from the fact that if the else clause in the second if statement (see \ref{step:3c}) in Algorithm \ref{alg:mras} is hit, then $\pi^*_{n} = \pi^*_{n-1}$.
 %
-From the last equality above, we conclude that it is a contradiction because, $V^\pi(x^0) > V^{\pi^*}(x^0)$ for any $\pi$ (since $\pi^*$ is the global minimum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
+From the last equality above, we conclude that it is a contradiction because, $\C(D^\pi) > V^{\pi^*}(x^0)$ for any $\pi$ (since $\pi^*$ is the global minimum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
 \end{proof}
 
 \subsection*{Proof of Theorem \ref{thm:mras}}

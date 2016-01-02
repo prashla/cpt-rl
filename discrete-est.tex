@@ -1,7 +1,7 @@
 \paragraph{Background.}
 Here we assume that the r.v. $X$ is discrete valued.
 Let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
-Given a utility function $u$ and weighting function $w$, \textit{\textbf{Prospect theory}} (PT) value is defined as $V(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
+Given a utility function $u$ and weighting function $w$, \textit{\textbf{Prospect theory}} (PT) value is defined as $\C(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
 As explained in the introduction, the idea is to take an utility function that is $S$-shaped, so that it satisfies the \textit{diminishing sensitivity}  property. 
 If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions (see \cite{kahneman1979prospect}, \cite{fennema1997original} for a justification, in particular via empirical tests using human subjects).
 However, PT is lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}.\footnote{Consider the following example from \cite{fennema1997original}: Suppose there are $20$ prospects (outcomes) ranging from $-10$ to $180$, each with probability $0.05$. If the weight function is such that $w(0.05) > 0.05$, then it uniformly overweights all \textit{low-probability} prospects and the resulting PT value is higher than the expected value $85$. This violates stochastic dominance, since a shift in the probability mass from bad outcomes did not result in a better prospect.}
@@ -10,7 +10,7 @@ CPT uses a similar measure as PT, except that the weights are a function of cumu
 $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$. Then, the CPT-value is defined as 
 \begin{align}
 \label{eq:cpt-discrete}
-V(X) = &(u^-(x_1))\cdot w^-(p_1) 
+\C(X) = &(u^-(x_1))\cdot w^-(p_1) 
 +\sum_{i=2}^l u^-(x_i) \Big(w^-(\sum_{j=1}^i p_j) - w^-(\sum_{j=1}^{i-1} p_j)\Big) 
 \\&
  + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K p_j) - w^-(\sum_{j=i+1}^K p_j) \Big)
@@ -20,7 +20,7 @@ where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corre
 Unlike PT, the CPT-value does not violate stochastic dominance.\footnote{In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. Thus, CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.}
 
 \paragraph{Estimation scheme.} 
-Let $\hat{p_k}= \frac{1}{n} \sum_{i=1}^n I_{\{U =x_k\}}$. Then, we estimate $V(X)$ as follows:
+Let $\hat{p_k}= \frac{1}{n} \sum_{i=1}^n I_{\{U =x_k\}}$. Then, we estimate $\C(X)$ as follows:
 \begin{align}
  \label{eq:cpt-discrete-est}
 \hat V_n(X) = 
@@ -60,7 +60,7 @@ And let $A=\max\{x_k, k=1...K\}$, $\delta =\min\{\delta_k\}$, where $\delta_k$ i
 For any $\epsilon$, $\rho$,let $M=\min(\delta^2, \epsilon^2/(KLA)^2)$, and we have 
 \begin{align}
 P(\left|
-\hat V_n(X) -V(X)
+\hat V_n(X) -\C(X)
 \right| \leq \epsilon) > 1-\rho \text{        ,} \forall n> \frac{\ln(\frac{4K}{a})} { M} 
 \end{align}
 \end{proposition}
