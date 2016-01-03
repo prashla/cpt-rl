@@ -202,42 +202,42 @@ P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proofs for PG-CPT-SPSA}
+\subsection{Proofs for CPT-SPSA-G}
 \label{appendix:1spsa}
 
 To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
 
 \begin{lemma}
 \label{lemma:1spsa-bias}
-Let $\F_n = \sigma(\pi_m,m\le n)$, $n\ge 1$.
+Let $\F_n = \sigma(\theta_m,m\le n)$, $n\ge 1$.
 Then, for any $i = 1,\ldots,\L\M$, we have almost surely,  
 \begin{align}
-\left| \E\left[\left.\dfrac{\widehat V_n^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V_n^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}}\right| \F_n \right] - \nabla_{i} V^{\pi_n}(x^0) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
+\left| \E\left[\left.\dfrac{\widehat V_n^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V_n^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}}\right| \F_n \right] - \nabla_{i} V^{\theta_n}(x^0) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
 \end{align} 
 \end{lemma}
 \begin{proof}
-Recall that the CPT-value estimation scheme is biased, i.e., providing samples with policy $\pi$, we obtain its CPT-value estimate as $V^{\pi}(x_0) + \epsilon^\pi$. Here $\epsilon^\pi$ denotes the bias. 
-% However, since the number of samples $m_n$ go to infinity, we have $$\epsilon^{\pi_n}  \rightarrow 0 \text{ as } n \rightarrow \infty.$$
+Recall that the CPT-value estimation scheme is biased, i.e., providing samples with policy $\theta$, we obtain its CPT-value estimate as $V^{\theta}(x_0) + \epsilon^\theta$. Here $\epsilon^\theta$ denotes the bias. 
+% However, since the number of samples $m_n$ go to infinity, we have $$\epsilon^{\theta_n}  \rightarrow 0 \text{ as } n \rightarrow \infty.$$
 
 We claim
 \begin{align}
-\quad\E\left[\dfrac{\widehat V_n^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V_n^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
-= \quad&\E\left[\dfrac{V_n^{\pi_n + \delta_n \Delta_n}(x^0) -V_n^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \eta_n \mid \F_n\right],
+\quad\E\left[\dfrac{\widehat V_n^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V_n^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
+= \quad&\E\left[\dfrac{V_n^{\theta_n + \delta_n \Delta_n}(x^0) -V_n^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \eta_n \mid \F_n\right],
 \end{align}
-where $\eta_n = \left(\dfrac{\epsilon^{\pi_n +\delta_n\Delta} - \epsilon^{\pi_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
+where $\eta_n = \left(\dfrac{\epsilon^{\theta_n +\delta_n\Delta} - \epsilon^{\theta_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
  is the bias arising out of the empirical distribution based CPT-value estimation scheme.
-From Proposition \ref{prop:holder-dkw}, we see that, $\epsilon^\pi = LM\sqrt{\frac{2 \log \log m_n}{m_n}}$, provided $m_n$ is sufficiently large.
+From Proposition \ref{prop:holder-dkw}, we see that, $\epsilon^\theta = LM\sqrt{\frac{2 \log \log m_n}{m_n}}$, provided $m_n$ is sufficiently large.
 Thus, $\eta_n = O\left( \sqrt{\frac{2 \log \log m_n}{m_n}} \frac{1}{\delta_n}\right)$ and since $\frac{1}{\sqrt{m_n} \delta_n} \rightarrow 0$ by assumption (A3) in the main paper, we have that
 $\eta_n$ goes to zero asymptotically. In other words,
 \begin{align}
-\quad\E\left[\dfrac{\widehat V_n^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V_n^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
-&\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{V^{\pi_n + \delta_n \Delta_n}(x^0) -V^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right].  \label{eq:l1}
+\quad\E\left[\dfrac{\widehat V_n^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V_n^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
+&\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{V^{\theta_n + \delta_n \Delta_n}(x^0) -V^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right].  \label{eq:l1}
 \end{align}
 We now analyse the RHS of the above.
 By using suitable Taylor's expansions,
 \begin{align*}
-V^{\pi_n + \delta_n \Delta_n}(x^0) = V^{\pi_n}(x^0) + \delta_n \Delta_n\tr \nabla V^{\pi_n}(x^0) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 V^{\pi_n}(x^0)\Delta_n + O(\delta_n^3), \\
-V^{\pi_n - \delta_n \Delta_n}(x^0) = V^{\pi_n}(x^0) - \delta_n \Delta_n\tr \nabla V^{\pi_n}(x^0) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 V^{\pi_n}(x^0)\Delta_n + O(\delta_n^3).\end{align*}
+V^{\theta_n + \delta_n \Delta_n}(x^0) = V^{\theta_n}(x^0) + \delta_n \Delta_n\tr \nabla V^{\theta_n}(x^0) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 V^{\theta_n}(x^0)\Delta_n + O(\delta_n^3), \\
+V^{\theta_n - \delta_n \Delta_n}(x^0) = V^{\theta_n}(x^0) - \delta_n \Delta_n\tr \nabla V^{\theta_n}(x^0) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 V^{\theta_n}(x^0)\Delta_n + O(\delta_n^3).\end{align*}
 From the above, it is easy to see that 
 \begin{align*}
 \dfrac{V^{\theta_n + \delta_n \Delta_n}(x^0) - V^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}
@@ -259,23 +259,23 @@ The claim follows by using the fact that $\delta_n \rightarrow 0$ as $n\rightarr
 
 \begin{proof}
 
-%Recall that $\F_n = \sigma(\pi_m,m\le n;\Delta_m,m<n)$, $n\ge 1$.
+%Recall that $\F_n = \sigma(\theta_m,m\le n;\Delta_m,m<n)$, $n\ge 1$.
 We first rewrite the update rule \eqref{eq:theta-update} as follows: For $i=1,\ldots,\L\M$,
 \begin{align}
-\pi^{i}_{n+1}  =  \pi^{i}_n -  \gamma_n(\nabla_{i} V^{\pi_n}(x_0) + \beta_n + \xi_n), 
+\theta^{i}_{n+1}  =  \theta^{i}_n -  \gamma_n(\nabla_{i} V^{\theta_n}(x_0) + \beta_n + \xi_n), 
 \label{eq:1spsa-equiv}
 \end{align}
 where 
 \begin{align*}
-\beta_n \quad= &\quad \E\left(\dfrac{(\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}} \mid \F_n \right) - \nabla \C(D^\pi), \text{ and}\\
-\xi_n \quad = & \quad\left(\dfrac{\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n\Delta_n^{i}}\right)  - \E\left(\dfrac{(\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}}\mid \F_n \right).
+\beta_n \quad= &\quad \E\left(\dfrac{(\widehat V^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V^{\theta_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}} \mid \F_n \right) - \nabla \C(D^\theta), \text{ and}\\
+\xi_n \quad = & \quad\left(\dfrac{\widehat V^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n\Delta_n^{i}}\right)  - \E\left(\dfrac{(\widehat V^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V^{\theta_n - \delta_n \Delta_n}(x^0))}{2 \delta_n \Delta_n^{i}}\mid \F_n \right).
 \end{align*}
 In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\xi_n$ is a martingale difference sequence..
 % , while  Lemma \ref{lemma:1spsa-bias} and the fact that $\delta_n \rightarrow 0$ imply that $\beta_n$ vanishes asymptotically. 
 
 Convergence of \eqref{eq:1spsa-equiv} can be inferred from Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}, provided we verify the necessary assumptions given as (B1)-(B5) below:
 \begin{enumerate}[\bfseries (B1)]
-\item $\nabla \C(D^\pi)$ is a continuous $\R^{\L\K}$-valued function.
+\item $\nabla \C(D^\theta)$ is a continuous $\R^{\L\K}$-valued function.
 \item  The sequence $\beta_n,n\geq 0$ is a bounded random sequence with
 $\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$.
 \item The step-sizes $\gamma_n,n\geq 0$ satisfy
@@ -285,7 +285,7 @@ $  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamm
 \sum_{k=n}^{m} \gamma_k \xi_k\right\| \geq \epsilon \right) = 0. \]
 \item There exists a compact subset $K$ which is the set of asymptotically stable equilibrium points for the following ODE:
 \begin{align}
-\dot\pi^{i}_t = \check\Gamma_{i}\left( \nabla V^{\pi^{i}_t}(x^0)\right), \text{ for} i=1,\dots,\L\M,\label{eq:pi-ode}
+\dot\theta^{i}_t = \check\Gamma_{i}\left( \nabla V^{\theta^{i}_t}(x^0)\right), \text{ for} i=1,\dots,\L\M,\label{eq:pi-ode}
 \end{align}
 \end{enumerate} 
 
@@ -310,27 +310,27 @@ P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsi
 The last equality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
 We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 \begin{align}
-\E\left\| \xi_n\right\|^2\le &\E\left(\dfrac{\widehat V^{\pi_n + \delta_n \Delta_n}(x^0) -\widehat V^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
-\le &\left(\left(\E\left(\dfrac{\widehat V^{\pi_n + \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}
-+ \left(\E\left(\dfrac{\widehat V^{\pi_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
+\E\left\| \xi_n\right\|^2\le &\E\left(\dfrac{\widehat V^{\theta_n + \delta_n \Delta_n}(x^0) -\widehat V^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
+\le &\left(\left(\E\left(\dfrac{\widehat V^{\theta_n + \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}
++ \left(\E\left(\dfrac{\widehat V^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
 \le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha1}} \nonumber\\
-& \times \left(\left[\E\left[ (\widehat V^{\pi_n + \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} +
-\left[\E\left[ (\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
-\le &\frac1{4\delta_n^2} \left(\left[\E\left[ (\widehat V^{\pi_n + \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} +
-\left[\E\left[ (\widehat V^{\pi_n - \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right) \label{eq:h2}\\
+& \times \left(\left[\E\left[ (\widehat V^{\theta_n + \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} +
+\left[\E\left[ (\widehat V^{\theta_n - \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
+\le &\frac1{4\delta_n^2} \left(\left[\E\left[ (\widehat V^{\theta_n + \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} +
+\left[\E\left[ (\widehat V^{\theta_n - \delta_n \Delta_n}(x^0))\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right) \label{eq:h2}\\
 \le & \frac{C}{\delta_n^2}, \text{ for some } C< \infty. \label{eq:h3}
 \end{align}
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
 The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
-The inequality in \eqref{eq:h3} follows by using the fact that, for any $\pi$, the CPT-value estimate $\widehat \C(D^\pi) = \C(D^\pi) + \epsilon^\pi$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\pi$ is bounded for any policy $\pi$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\pi)$ is bounded for any policy $\pi$. The bias $\epsilon^\pi$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
+The inequality in \eqref{eq:h3} follows by using the fact that, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
 
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
 \begin{align*}
  \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
 \end{align*}
 The equality above follows from (A3) in the main paper.
-\item The set $\K = \{\pi \mid \check\Gamma_{i} \left(\nabla V^{\pi}(x^0)\right)=0, \forall i=1,\ldots,\L\M\}$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
+\item The set $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla V^{\theta}(x^0)\right)=0, \forall i=1,\ldots,\L\M\}$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
 \end{itemize} 
 The claim follows from Kushner-Clark lemma.
 \end{proof}
@@ -338,7 +338,7 @@ The claim follows from Kushner-Clark lemma.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proofs for PN-CPT-SPSA}
+\subsection{Proofs for CPT-SPSA-N}
 \label{appendix:2spsa}
 
 Before proving Theorem \ref{thm:2spsa}, we bound the bias in the SPSA based estimate of the Hessian in the following lemma.
@@ -346,7 +346,7 @@ Before proving Theorem \ref{thm:2spsa}, we bound the bias in the SPSA based esti
 \label{lemma:2spsa-bias}
 For any $i, j= 1,\ldots,\L\M$, we have almost surely,  
 \begin{align}
-    \left| \E\left[\left.\dfrac{\widehat V_n^{\pi_n+\delta_n(\Delta_n+\widehat\Delta_n)}(x^0) + \widehat V_n^{\pi_n-\delta_n(\Delta_n+\widehat\Delta_n)}(x^0) - 2 \widehat V_n^{\pi_n}(x^0)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}\right| \F_n \right] - \nabla^2_{i,j} V^{\pi_n}(x^0) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
+    \left| \E\left[\left.\dfrac{\widehat V_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}(x^0) + \widehat V_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}(x^0) - 2 \widehat V_n^{\theta_n}(x^0)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}\right| \F_n \right] - \nabla^2_{i,j} V^{\theta_n}(x^0) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
 \end{align} 
 \end{lemma}
 \begin{proof}
@@ -392,13 +392,13 @@ The rest of the proof amounts to showing that the RHS of the above approximates 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Proof of Theorem \ref{thm:2spsa}}
 
-Before we prove Theorem \ref{thm:2spsa}, we show that the Hessian recursion \eqref{eq:2spsa-H} in the main paper converges to the true Hessian, for any policy $\pi$.
+Before we prove Theorem \ref{thm:2spsa}, we show that the Hessian recursion \eqref{eq:2spsa-H} in the main paper converges to the true Hessian, for any policy $\theta$.
 
 \begin{lemma}
 \label{lemma:h-est}
 For any $i, j= 1,\ldots,\L\M$, we have almost surely,  
-$$\left \| H^{i, j}_n - \nabla^2_{i,j} V^{\pi_n}(x^0) \right \| \rightarrow 0,
-\text{ and }\left \| \Upsilon(\overline H_n)^{-1} - \Upsilon(\nabla^2_{i,j} V^{\pi_n}(x^0))^{-1} \right \| \rightarrow 0.
+$$\left \| H^{i, j}_n - \nabla^2_{i,j} V^{\theta_n}(x^0) \right \| \rightarrow 0,
+\text{ and }\left \| \Upsilon(\overline H_n)^{-1} - \Upsilon(\nabla^2_{i,j} V^{\theta_n}(x^0))^{-1} \right \| \rightarrow 0.
 $$
 \end{lemma}
 \begin{proof}
@@ -411,26 +411,26 @@ The proof follows in a similar manner as the proof of Theorem 7.1 in \cite{Bhatn
 We first rewrite the recursion \eqref{eq:2spsa} in the main paper as follows:
 For $i=1,\ldots, \L\M$
 \begin{align}
- \pi^{i}_{n+1} =& \Gamma_{i}\left(\pi^{i}_n - \gamma_n \sum_{j=1}^{\L\M} \bar M^{i,j}(\pi_n) \nabla_{j} V^\pi_n(x^0) + \gamma_n \zeta_n + \chi_{n+1} - \chi_n \right), \label{eq:pi-n}
+ \theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n - \gamma_n \sum_{j=1}^{\L\M} \bar M^{i,j}(\theta_n) \nabla_{j} V^\theta_n(x^0) + \gamma_n \zeta_n + \chi_{n+1} - \chi_n \right), \label{eq:pi-n}
 \end{align}
 where 
 \begin{align*}
-\bar M^{i,j}(\pi) = &\Upsilon(\nabla^2 V^{\pi}(x^0))^{-1}\\
- \chi_n =& \sum_{m=0}^{n-1} \gamma_m \sum_{k=1}^{\L\M} {\bar{M}}_{i,k}(\pi_m)\Bigg(
-\frac{V^{\pi_m-\delta_m\Delta_m - \delta_m\widehat\Delta_m}(x^0) -
-V^{\pi_m+\delta_m\Delta_m + \delta_m\widehat\Delta_m}(x^0)}{2\delta_m \Delta^k_m} 
+\bar M^{i,j}(\theta) = &\Upsilon(\nabla^2 V^{\theta}(x^0))^{-1}\\
+ \chi_n =& \sum_{m=0}^{n-1} \gamma_m \sum_{k=1}^{\L\M} {\bar{M}}_{i,k}(\theta_m)\Bigg(
+\frac{V^{\theta_m-\delta_m\Delta_m - \delta_m\widehat\Delta_m}(x^0) -
+V^{\theta_m+\delta_m\Delta_m + \delta_m\widehat\Delta_m}(x^0)}{2\delta_m \Delta^k_m} 
  \\
- &- E\left[\frac{V^{\pi_m-\delta_m\Delta_m - \delta_m\widehat\Delta_m}(x^0) -
-V^{\pi_m+\delta_m\Delta_m + \delta_m\widehat\Delta_m}(x^0)}{2\delta_m \Delta^k_m} 
+ &- E\left[\frac{V^{\theta_m-\delta_m\Delta_m - \delta_m\widehat\Delta_m}(x^0) -
+V^{\theta_m+\delta_m\Delta_m + \delta_m\widehat\Delta_m}(x^0)}{2\delta_m \Delta^k_m} 
 \mid {\cal F}_m\right]\Bigg) \text{ and}\\
 \zeta_n = &\E\left[\left.\dfrac{\widehat V_n^{\theta_n + \delta_n (\Delta_n + \hat \Delta_n)}(x^0) -\widehat V_n^{\theta_n - \delta_n (\Delta_n + \hat \Delta_n)}(x^0)}{2 \delta_n \Delta_n^i}\right| \F_n \right] - \nabla_i V^{\theta_n}(x^0).
 \end{align*}
 In lieu of Lemmas \ref{lemma:2spsa-bias}--\ref{lemma:h-est}, it is easy to conclude that $\zeta_n \rightarrow 0$ as $n\rightarrow \infty$, $\chi_n$ is a martingale difference sequence and that $\chi_{n+1} - \chi_n \rightarrow 0$ as $n\rightarrow \infty$. 
 Thus, it is easy to see that \eqref{eq:pi-n} is a discretization of the ODE:
 $$
-\dot\pi^{i}_t = \check\Gamma_{i}\left( \nabla V^{\pi^{i}_t}(x^0) \Upsilon(\nabla^2 V^{\pi_t}(x^0))^{-1} \nabla V^{\pi^{i}_t}(x^0) \right).$$
-Further, $\K = \{\pi \mid
-\nabla V^{\pi^{i}}(x^0)  \check\Gamma_{i}\left(\Upsilon(\nabla^2 V^{\pi}(x^0))^{-1} \nabla V^{\pi^{i}}(x^0)\right)
+\dot\theta^{i}_t = \check\Gamma_{i}\left( \nabla V^{\theta^{i}_t}(x^0) \Upsilon(\nabla^2 V^{\theta_t}(x^0))^{-1} \nabla V^{\theta^{i}_t}(x^0) \right).$$
+Further, $\K = \{\theta \mid
+\nabla V^{\theta^{i}}(x^0)  \check\Gamma_{i}\left(\Upsilon(\nabla^2 V^{\theta}(x^0))^{-1} \nabla V^{\theta^{i}}(x^0)\right)
 =0, \forall i=1,\ldots,\L\M\}$ serves as an asymptotically stable attractor set and the claim follows by applying Kusher-Clark lemma to \eqref{eq:pi-n}.
 \end{proof}
 
@@ -458,24 +458,24 @@ MRAS$_2$ has an expected function value objective, i.e., it aims to minimize a f
 Since we obtain samples of the objective (CPT) in a manner that differs from MRAS$_2$, we need to establish that the thresholding step in Algorithm \ref{alg:mras} achieves the same effect as it did in MRAS$_2$. This is achieved by the following lemma, which is a variant of Lemma 4.13 from \cite{chang2013simulation}, adapted to our setting. 
 
 \begin{lemma}\label{lemma:iofo}
-    The sequence of random variables $\{\pi^*_n,n=0,1,\ldots \}$ in Algorithm \ref{alg:mras} converges w.p.1 as $n\rightarrow \infty$.
+    The sequence of random variables $\{\theta^*_n,n=0,1,\ldots \}$ in Algorithm \ref{alg:mras} converges w.p.1 as $n\rightarrow \infty$.
 \end{lemma}
 \begin{proof}
-    Let $\mathcal{A}_n$ be the event that either the first if statement (see \ref{step:3a}) is true or the second if statement in the else clause (see \ref{step:3b}) is true within the Thresholding step of Algorithm \ref{alg:mras}. Let $\mathcal{B}_n:=\{V^{\pi^*_{n}}(x^0)-V^{\pi^*_{n-1}}(x^0)\leq \frac{\varepsilon}{2}\}$.
-    Whenever $\mathcal{A}_n$ holds, we have $\widehat V_n^{\pi^*_{n}}(x^0)-\widehat V_n^{\pi^*_{n-1}}(x^0)\geq \varepsilon$ and hence, we obtain
+    Let $\mathcal{A}_n$ be the event that either the first if statement (see \ref{step:3a}) is true or the second if statement in the else clause (see \ref{step:3b}) is true within the Thresholding step of Algorithm \ref{alg:mras}. Let $\mathcal{B}_n:=\{V^{\theta^*_{n}}(x^0)-V^{\theta^*_{n-1}}(x^0)\leq \frac{\varepsilon}{2}\}$.
+    Whenever $\mathcal{A}_n$ holds, we have $\widehat V_n^{\theta^*_{n}}(x^0)-\widehat V_n^{\theta^*_{n-1}}(x^0)\geq \varepsilon$ and hence, we obtain
 
 \begin{align*}
 P(\mathcal{A}_{n}\cap \mathcal{B}_n) \leq &
 P 
-\left(\big\{\widehat V_n^{\pi^*_{n}}(x^0)-\widehat V_{n-1}^{\pi^*_{n-1}}(x^0)\geq \varepsilon\big\} \cap \left\{V^{\pi^*_{n}}(x^0)-V^{\pi^*_{n-1}}(x^0)\leq \frac{\varepsilon}{2}\right\}\right)\\
+\left(\big\{\widehat V_n^{\theta^*_{n}}(x^0)-\widehat V_{n-1}^{\theta^*_{n-1}}(x^0)\geq \varepsilon\big\} \cap \left\{V^{\theta^*_{n}}(x^0)-V^{\theta^*_{n-1}}(x^0)\leq \frac{\varepsilon}{2}\right\}\right)\\
  \leq &
-P\Big(\bigcup_{\pi\in\Lambda_n, \pi'\in \Lambda_{n-1}} \Big\{\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap \left\{\C(D^\pi)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
-\leq & \sum_{{\pi\in \Lambda_n},{\pi'\in \Lambda_{k-1}}}P\left(\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap
-\left\{\C(D^\pi)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\}\right) \\
-\leq & |\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}P\left(\big\{\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)\geq \varepsilon\big\} \cap
-\left\{\C(D^\pi)-V^{\pi'}(x^0)\leq \frac{\varepsilon}{2}\right\} \right) \\
-\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}P\left(\widehat V_n^{\pi}(x^0)-\widehat V_{n-1}^{\pi'}(x^0)-\C(D^\pi)+V^{\pi'}(x^0)\geq \frac{\varepsilon}{2}\right) \\
-\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\pi,\pi'\in \Theta}\left(P\left(\widehat V_n^{\pi}(x^0)-\C(D^\pi)\geq \frac{\varepsilon}{4}\right) + P\left(\widehat V_{n-1}^{\pi'}(x^0)-V^{\pi'}(x^0)\geq \frac{\varepsilon}{4}\right)\right) \\
+P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\widehat V_n^{\theta}(x^0)-\widehat V_{n-1}^{\theta'}(x^0)\geq \varepsilon\big\} \cap \left\{\C(D^\theta)-V^{\theta'}(x^0)\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
+\leq & \sum_{{\theta\in \Lambda_n},{\theta'\in \Lambda_{k-1}}}P\left(\big\{\widehat V_n^{\theta}(x^0)-\widehat V_{n-1}^{\theta'}(x^0)\geq \varepsilon\big\} \cap
+\left\{\C(D^\theta)-V^{\theta'}(x^0)\leq \frac{\varepsilon}{2}\right\}\right) \\
+\leq & |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\big\{\widehat V_n^{\theta}(x^0)-\widehat V_{n-1}^{\theta'}(x^0)\geq \varepsilon\big\} \cap
+\left\{\C(D^\theta)-V^{\theta'}(x^0)\leq \frac{\varepsilon}{2}\right\} \right) \\
+\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\widehat V_n^{\theta}(x^0)-\widehat V_{n-1}^{\theta'}(x^0)-\C(D^\theta)+V^{\theta'}(x^0)\geq \frac{\varepsilon}{2}\right) \\
+\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\left(P\left(\widehat V_n^{\theta}(x^0)-\C(D^\theta)\geq \frac{\varepsilon}{4}\right) + P\left(\widehat V_{n-1}^{\theta'}(x^0)-V^{\theta'}(x^0)\geq \frac{\varepsilon}{4}\right)\right) \\
 \leq & 4|\Lambda_n||\Lambda_{k-1}|
  e^{-m_n \frac{\epsilon^2}{8 L^2 M^2}}.
 \end{align*}
@@ -487,16 +487,16 @@ From the above, it is implied that if $\mathcal{A}_n$ happens infinitely often,
 then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 
 \begin{align*}
-\sum_{n=1}^{\infty}\big[V^{\pi^*_n}(x^0)-V^{\pi^*_{n-1}}(x^0)\big] 
-=&\sum_{n:~\mathcal{A}_n \text{occurs}}\big[V^{\pi^*_n}(x^0)-V^{\pi^*_{n-1}}(x^0)\big]+\sum_{n:~\mathcal{A}_n^c \text{occurs}}\big[V^{\pi^*_n}(x^0)-V^{\pi^*_{n-1}}(x^0)\big] \\ 
-=&\sum_{n:~\mathcal{A}_n \text{occurs}}\big[V^{\pi^*_n}(x^0)-V^{\pi^*_{n-1}}(x^0)\big]\\ 
-=&\sum_{n:~\mathcal{A}_n\cap \mathcal{B}_n \text{occurs}}\big[V^{\pi^*_n}(x^0)-V^{\pi^*_{n-1}}(x^0)\big]\\
-&\quad +\sum_{n:~\mathcal{A}_n\cap \mathcal{B}_n^c \text{occurs}}\big[V^{\pi^*_n}(x^0)-V^{\pi^*_{n-1}}(x^0)\big] \\ 
+\sum_{n=1}^{\infty}\big[V^{\theta^*_n}(x^0)-V^{\theta^*_{n-1}}(x^0)\big] 
+=&\sum_{n:~\mathcal{A}_n \text{occurs}}\big[V^{\theta^*_n}(x^0)-V^{\theta^*_{n-1}}(x^0)\big]+\sum_{n:~\mathcal{A}_n^c \text{occurs}}\big[V^{\theta^*_n}(x^0)-V^{\theta^*_{n-1}}(x^0)\big] \\ 
+=&\sum_{n:~\mathcal{A}_n \text{occurs}}\big[V^{\theta^*_n}(x^0)-V^{\theta^*_{n-1}}(x^0)\big]\\ 
+=&\sum_{n:~\mathcal{A}_n\cap \mathcal{B}_n \text{occurs}}\big[V^{\theta^*_n}(x^0)-V^{\theta^*_{n-1}}(x^0)\big]\\
+&\quad +\sum_{n:~\mathcal{A}_n\cap \mathcal{B}_n^c \text{occurs}}\big[V^{\theta^*_n}(x^0)-V^{\theta^*_{n-1}}(x^0)\big] \\ 
 =&\infty \text{~~w.p.1, since $\varepsilon>0$.}
 \end{align*}
-In the above, the first equality follows from the fact that if the else clause in the second if statement (see \ref{step:3c}) in Algorithm \ref{alg:mras} is hit, then $\pi^*_{n} = \pi^*_{n-1}$.
+In the above, the first equality follows from the fact that if the else clause in the second if statement (see \ref{step:3c}) in Algorithm \ref{alg:mras} is hit, then $\theta^*_{n} = \theta^*_{n-1}$.
 %
-From the last equality above, we conclude that it is a contradiction because, $\C(D^\pi) > V^{\pi^*}(x^0)$ for any $\pi$ (since $\pi^*$ is the global minimum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
+From the last equality above, we conclude that it is a contradiction because, $\C(D^\theta) > V^{\theta^*}(x^0)$ for any $\theta$ (since $\theta^*$ is the global minimum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
 \end{proof}
 
 \subsection*{Proof of Theorem \ref{thm:mras}}
