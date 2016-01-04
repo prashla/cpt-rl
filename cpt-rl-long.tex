@@ -317,12 +317,12 @@ first compute the empirical distribution function for $u^+(\cdot)$, then compose
 Assuming that the weight functions are \holder continuous with constant $\alpha$,  we establish convergence (asymptotic) of our CPT-value estimate to the true CPT-value. We also provide a sample complexity result that establishes that  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ samples are required to be $\epsilon$-close to the CPT-value with high probability. If the weights are Lipschitz (i.e., $\alpha=1$), the resulting sample complexity is the canonical rate $O\left(\frac1{\epsilon^2}\right)$ for Monte carlo type schemes.
 \paragraph{Control:} Optimizing the CPT-value is challenging owing to the following reasons:
 \begin{enumerate}[\bfseries (i)]
-\item \textit{Biased policy evaluation:} A popular \textit{incremental optimization} approach to solve \eqref{eq:opt-general} is to first estimate $\C(X^{\theta_n})$ at instant $n$ and then improve it, say by a gradient based scheme. However, in usual RL settings, one can only simulate a finite number of episodes for a fixed policy, say $\theta_n$ in iteration $n$ and use the empirical distribution function (EDF) based scheme to provide an estimate of the CPT-value $\C(D^{\theta_n}(x^0))$. But, such a finite sample estimate clearly results in a bias, which can be controlled by increasing the number of episodes.
+\item \textit{Biased policy evaluation:} A popular \textit{incremental optimization} approach to solve \eqref{eq:opt-general} is to first estimate $\C(X^{\theta_n})$ at instant $n$ and then improve it, say by a gradient based scheme. However, in usual RL settings, one can only simulate a finite number of samples for a fixed parameter, say $\theta_n$ in iteration $n$ and use the empirical distribution function (EDF) based scheme to provide an estimate of the CPT-value $\C(D^{\theta_n}(x^0))$. But, such a finite sample estimate clearly results in a bias, which can be controlled by increasing the number of samples.
 \item \textit{Simulation optimization:} Given only a (biased) estimate of the CPT-value for any parameter, it is necessary to devise an adaptive search scheme that improves the policy iteratively. Classic simulation optimization settings usually have a zero mean noise in function evaluations, while our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. 
 \item \textit{Non-dynamic programming:} As mentioned earlier, in RL context, dynamic programming approaches cannot be employed as there is no ``Bellman equation'' for CPT-value.  
 \end{enumerate}
 \textit{\textbf{Solution:}} 
-We increase the number of SSP episodes $m_n$ simulated in each iteration $n$ of the policy optimization algorithms such that the bias of CPT-value estimates vanishes asymptotically (See the technical condition on $m_n$ in (A3)).
+We increase the number of samples $m_n$ simulated in each iteration $n$ of the optimization algorithms such that the bias of CPT-value estimates vanishes asymptotically (See the technical condition on $m_n$ in (A3)).
 
 Using two well-known ideas from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose three optimization algorithms for solving \eqref{eq:opt-general}. These methods overcome the second and third problems mentioned above and are summarized as follows:
 \begin{description}
@@ -645,15 +645,15 @@ Fig. \ref{fig:algorithm-flow} illustrates the overall flow of the gradient algor
 %%%%%%%%%%%%%%%%%%%
 \begin{algorithm}[t]
 \begin{algorithmic}
-    \State {\bf Input:}  initial parameter $\theta_0$, perturbation constants $\delta_n>0$, trajectory lengths $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Gamma$.
+    \State {\bf Input:}  initial parameter $\theta_0$, perturbation constants $\delta_n>0$, sample size $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Gamma$.
 \For{$n = 0,1,2,\ldots$}	
 	\State Generate $\{\Delta_n^i, i=1,\ldots,\L\M\}$ using Rademacher distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$
 	\PEval
-	    \State Simulate $m_n$ episodes using parameter $(\theta_n+\delta_n \Delta_n)$
+	    \State Simulate $m_n$ samples using parameter $(\theta_n+\delta_n \Delta_n)$
 	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$
 	    \EndPEval
 	    \PEvalPrime
-  	    \State Simulate $m_n$ episodes using parameter $\theta_n-\delta_n \Delta_n$
+  	    \State Simulate $m_n$ samples using parameter $\theta_n-\delta_n \Delta_n$
 	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$
 	    \EndPEvalPrime
 	    \PImp
@@ -666,9 +666,45 @@ Fig. \ref{fig:algorithm-flow} illustrates the overall flow of the gradient algor
 \label{alg:1spsa}
 \end{algorithm}
 
-\paragraph{On the number of episodes $m_n$ per iteration:}
-Recall that the CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$ with $\epsilon_n^\theta$ denoting the bias. 
-We rewrite the update rule \eqref{eq:theta-update} as follows:
+ \begin{figure}
+    \centering
+     \begin{tabular}{cc}
+\begin{subfigure}[b]{0.5\textwidth}
+\scalebox{0.6}{\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+% We start by placing the blocks
+\node (theta) {$\boldsymbol{\theta}$};
+\node [block, fill=blue!20,right=0.6cm of theta,align=center] (sample) {\makecell{\textbf{Measurement}\\\textbf{ Oracle}}}; 
+\node [right=0.6cm of sample] (end) {$\boldsymbol{\mathbf{f(\theta) + \xi}}$};
+\node [ above right= 0.6cm of end] (bias) {\textbf{Zero mean}};
+\draw [->] (theta) --  (sample);
+\draw [->] (sample) -- (end);
+\path [darkgreen,->] (bias) edge [bend left] (end);
+\end{tikzpicture}}
+\caption{Simulation optimization}
+\end{subfigure}
+&
+\begin{subfigure}[b]{0.5\textwidth}
+\scalebox{0.6}{\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+% We start by placing the blocks
+\node (theta) {$\boldsymbol{\theta, \epsilon}$};
+\node [block, fill=blue!20,right=0.6cm of theta,align=center] (sample) {\makecell{\textbf{CPT}\\\textbf{ Estimator}}}; 
+\node [right=0.6cm of sample] (end) {$\boldsymbol{\mathbf{\C(X^\theta) + \epsilon}}$};
+\node [ above right= 0.6cm of end] (bias) {\textbf{Controlled bias}};
+\draw [->] (theta) --  (sample);
+\draw [->] (sample) -- (end);
+\path [red,->] (bias) edge [bend left] (end);
+\end{tikzpicture}}
+\caption{CPT-value optimization}
+\end{subfigure}
+\end{tabular}
+\caption{Illustration of difference between classic simulation optimization and CPT-value optimiziation settings}
+\label{fig:opt-diff}
+\end{figure}
+
+\paragraph{On the number of samples $m_n$ per iteration:}
+As illustrated in Figure \ref{fig:opt-diff}, the CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$ with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike classic simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
+
+To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
 \theta^{i}_{n+1}  = & \Gamma_{i}\bigg( \theta^{i}_n -  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) + \underbrace{\frac{(\epsilon_n^{\theta_n +\delta_n\Delta_n} - \epsilon_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}}_{\kappa_n}\bigg).
 \end{align*}
@@ -748,15 +784,15 @@ Both the gradient estimate $\widehat \nabla V_n^{\theta_n}(x^0)$ and the Hessian
 \For{$n = 0,1,2,\ldots$}	
 	\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$
 	\PEval
-	    \State Simulate $m_n$ episodes of the SSP using parameter $(\theta_n+\delta_n (\Delta_n + \hat \Delta_n))$
+	    \State Simulate $m_n$ samples  using parameter $(\theta_n+\delta_n (\Delta_n + \hat \Delta_n))$
 	    \State Obtain CPT-value estimate $\widehat V_n^{(\theta_n+\delta_n (\Delta_n+\hat \Delta_n))}(x^0)$ using Algorithm \ref{alg:holder-est}
 	    \EndPEval
 	    \PEvalPrime
-  	    \State Simulate $m_n$ episodes of the SSP using parameter $(\theta_n-\delta_n (\Delta_n + \hat \Delta_n))$
+  	    \State Simulate $m_n$ samples using parameter $(\theta_n-\delta_n (\Delta_n + \hat \Delta_n))$
 	    \State Obtain CPT-value estimate $\widehat V_n^{\theta_n-\delta_n (\Delta_n+\hat\Delta_n)}(x^0))$ Algorithm \ref{alg:holder-est}
 	    \EndPEvalPrime
 	    	    \PEvalPrimeDouble
-  	    \State Simulate $m_n$ episodes of the SSP using parameter $\theta_n$
+  	    \State Simulate $m_n$ samples using parameter $\theta_n$
 	    \State Obtain CPT-value estimate $\widehat V_n^{\theta_n}(x^0))$ using Algorithm \ref{alg:holder-est}
 	    \EndPEvalPrimeDouble
 	    \PImpNewton
@@ -828,17 +864,17 @@ We perform a non-trivial adaptation of the algorithm from \cite{chang2013simulat
 We require that there exists a unique global optimum $\theta^*$ for the problem $\min_{\theta \in \Theta} \C(X^\theta).$
 
 \subsection{Basic algorithm}
-To illustrate the main idea in the algorithm, assume we know the form of $\C(\C(X^\theta))$. Then, the idea is to generate a sequence of reference distributions $g_k(\theta)$ on the parameter space $\Theta$, such that it eventually concentrates on the global optimum $\theta^*$. One simple way, suggested in Chapter 4 of \cite{chang2013simulation} is
+To illustrate the main idea in the algorithm, assume we know the form of $\C(X^\theta)$. Then, the idea is to generate a sequence of reference distributions $g_k(\theta)$ on the parameter space $\Theta$, such that it eventually concentrates on the global optimum $\theta^*$. One simple way, suggested in Chapter 4 of \cite{chang2013simulation} is
 \begin{equation}
 \label{eqn:naive}
 g_{k}(\theta)=
-\frac{\mathcal{H}(\C(\C(X^\theta)))g_{k-1}(\theta)}
-{\int_{\theta}\mathcal{H}(V^{\theta'}(x^0))g_{k-1}(\theta')\nu(d\theta')},
+\frac{\mathcal{H}(\C(X^\theta))g_{k-1}(\theta)}
+{\int_{\theta}\mathcal{H}(\C(X^{\theta'}))g_{k-1}(\theta')\nu(d\theta')},
 ~~\forall\, \theta \in \theta,
 \end{equation}
 where $\nu$ is the Lebesgue/counting measure on $\theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to policies having lower CPT-values and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
 
-Next, consider a setting where one can obtain the CPT-value $\C(\C(X^\theta))$ (without any noise) for any policy $\theta$. In this case, we consider a family of parameterized distributions, say $\{f(\cdot,\eta),\,\eta\in \C \}$ and incrementally update the distribution parameter $\eta$ such that it minimizes the following KL divergence:
+Next, consider a setting where one can obtain the CPT-value $\C(X^\theta)$ (without any noise) for any policy $\theta$. In this case, we consider a family of parameterized distributions, say $\{f(\cdot,\eta),\,\eta\in \C \}$ and incrementally update the distribution parameter $\eta$ such that it minimizes the following KL divergence:
 \begin{equation}\label{eqn:kl}
 \mathcal{D}(g_k,f(\cdot,\eta)):=E_{g_k}\left[\ln \frac{g_{k}(\mathcal{R}(\theta))}{f(\mathcal{R}(\theta),\eta)}\right]=\int_{\theta} \ln \frac{g_{k}(\theta)}{f(\theta,\eta)}g_{k}(\theta)\nu(d\theta), \nonumber
 \end{equation}
@@ -848,11 +884,11 @@ An algorithm to optimize CPT-value in this \textit{noise-less} setting would per
 \begin{equation}
 \label{eqn:interior}
 \eta_{n+1} \in \argmin_{\eta \in \C}
-E_{\eta_n}\left[\frac{[\mathcal{H}(V^{\mathcal{R}(\theta)}(x^0))]^{n}}
+E_{\eta_n}\left[\frac{[\mathcal{H}(\C(X^{\mathcal{R}(\theta)}))]^{n}}
 {f(\mathcal{R}(\theta),\eta_{n})}
 \ln f(\mathcal{R}(\theta),\eta)\right],
 \end{equation}
-where $E_{\eta_n}[V^{\mathcal{R}(\theta)}(x^0)]=\int_{\theta} V^{\theta}(x^0)f(\theta,\eta_n)\nu(d\theta).$
+where $E_{\eta_n}[\C(X^{\mathcal{R}(\theta)})]=\int_{\theta} V^{\theta}(x^0)f(\theta,\eta_n)\nu(d\theta).$
 
 
 
@@ -912,16 +948,16 @@ $\mathcal{H}\hspace*{-3pt}$.
 	\EndCandidate    
 	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
-	      \State Simulate $m_n$ episodes of the SSP using policy $\theta^i_n$
-	      \State Obtain CPT-value estimate $\widehat V_n^{\theta^i_n}(x^0)$ using Algorithm \ref{alg:holder-est}
+	      \State Simulate $m_n$ samples using policy $\theta^i_n$
+	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ using Algorithm \ref{alg:holder-est}
 	      \EndFor
 	\EndEstimation
 	%%%%%%%%%%%%%%%%%%%%%%%%%%55
 	\Elite
-	  \State Order the CPT-value estimates\footnotemark[1] $\{\widehat V_n^{\theta^{(1)}_n}(x^0),\ldots,\widehat V_n^{\theta^{(N_n)}_n}(x^0)\}$. 
+	  \State Order the CPT-value estimates\footnotemark[1] $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$. 
 	  \State Compute the $(1-\rho_n)$-quantile from the above samples as follows: 
 	  \begin{align}
-\widetilde \chi_{n}(\rho_n,N_n) = \widehat V_n^{\theta^{\lceil(1-\rho_k)N_k \rceil}_n}(x^0).\label{eq:quant}
+\widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_k)N_k \rceil}_n}.\label{eq:quant}
 \end{align}
 	\EndElite
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -944,8 +980,8 @@ $\mathcal{H}\hspace*{-3pt}$.
 	    \Update
 		\State Parameter update\footnotemark[2]:  
 		                         \begin{equation*} 
-\eta_{n+1} \in \argmin_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\hat V^{\theta^i_n}(x^0))]^n}{\widetilde f(\theta,\eta_n)}
-\widetilde I\big(\hat V^{\theta^i_n}(x^0),\bar \chi_{n}\big) \ln f(\theta,\eta).
+\eta_{n+1} \in \argmin_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C_n^{\theta^i_n})]^n}{\widetilde f(\theta,\eta_n)}
+\widetilde I\big(\overline \C_n^{\theta^i_n},\bar \chi_{n}\big) \ln f(\theta,\eta).
                             \end{equation*}
 
 		\EndUpdate
@@ -963,16 +999,16 @@ $\mathcal{H}\hspace*{-3pt}$.
                                                           1 & ~\mbox{if $z\geq \chi$.}
                                                           \end{array} \right.$}
                     
-Finally, we get to our setting where we only obtain biased estimate of the CPT-value $\C(\C(X^\theta))$ for any policy $\theta$. Recall that the bias is due to a finite sample run followed by estimation scheme outlined in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity. Assuming this setup, the gradient-free model-based policy search algorithm would involve the following steps (see Algorithm \ref{alg:mras} for the pseudocode):
+Finally, we get to our setting where we only obtain biased estimate of the CPT-value $\C(X^\theta)$ for any policy $\theta$. Recall that the bias is due to a finite sample run followed by estimation scheme outlined in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity. Assuming this setup, the gradient-free model-based policy search algorithm would involve the following steps (see Algorithm \ref{alg:mras} for the pseudocode):
 
 \begin{description}
  \item[Step 1 (Candidate policies):] Generate $N_n$ policies $\{\theta^1_n, \ldots, \theta^{N_n}_n\}$ using the distribution $f(\cdot,\eta_n)$.
 
-\item[Step 2 (CPT-value estimation):] Run $m_n$ SSP episodes for each of the policies in $\theta^i_n, i=1,\ldots, N_n$ and return CPT-value estimates $\hat V^{\theta^i_n}(x^0)$.
+\item[Step 2 (CPT-value estimation):] Obtain $m_n$ samples for each of the parameters in $\theta^i_n, i=1,\ldots, N_n$ and return CPT-value estimates $\overline \C_n^{\theta^i_n}$.
 
 \item[Step 3 (Parameter update):]
                          \begin{equation} \label{eqn:step4}
-                           \eta_{n+1} \in \argmin_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\hat V^{\theta^i_n}(x^0))]^n}{ f(\theta_n^i,\eta_n)}\ln f(\theta_n^i,\eta).
+                           \eta_{n+1} \in \argmin_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}( \overline \C_n^{\theta^i_n})]^n}{ f(\theta_n^i,\eta_n)}\ln f(\theta_n^i,\eta).
                             \end{equation}
 
 \end{description}
@@ -1102,7 +1138,7 @@ width=11cm,
 height=9.5cm,
 ]
 \addplot[fill=yellow!30]  table[x index=0, y index=1, col sep=comma] {results/SPSADETERMINISTIC.txt} ;
-\addlegendentry{PG-NoCPT-SPSA}
+\addlegendentry{NoCPT-SPSA-G}
 \end{axis}
 \end{tikzpicture}}\\[1ex]}
 \caption{SPSA for regular value function}
@@ -1148,16 +1184,16 @@ height=9.5cm,
 
 \paragraph{Implementation:} On this example, we implement the first-order CPT-SPSA-G and the second-order CPT-SPSA-N algorithms. For the sake of comparison, we also apply value iteration to the SSP example described above. 
 Note that value iteration requires knowledge of the model, while our CPT based algorithms estimate CPT-value using simulated episodes.
-We implement the algorithm from \cite{bhatnagar2004simultaneous} for the SSP example described in the numerical experiments of the main paper. The latter, henceforth referred to as PG-NoCPT-SPSA, is an SPSA-based scheme that optimizes the traditional value function objective in a discounted MDP setting and we make a trivial adaptation of this algorithm for the SSP setting.
-For CPT-SPSA-G and PG-NoCPT-SPSA, we set $\delta_n = 1.9/n^{0.101}$ and $\gamma_n = 1/n$, while for CPT-SPSA-N, we set $\delta_n=3.8/n^{0.166}$ and $\gamma_n=1/n^{0.6}$. For all algorithms, we set each entry of the initial policy $\theta_0$ to $0.1$. For CPT-value estimation, we simulate $1000$ SSP episodes, with the SSP horizon $T$ set to $20$. All algorithms are run with a budget of $1000$ samples, which implies $500$ iterations of CPT-SPSA-G and $333$ iterations of CPT-SPSA-N. The results presented are averages over $500$ independent simulations. For CPT-SPSA-G/CPT-SPSA-N, 
+We implement the algorithm from \cite{bhatnagar2004simultaneous} for the SSP example described in the numerical experiments of the main paper. The latter, henceforth referred to as NoCPT-SPSA-G, is an SPSA-based scheme that optimizes the traditional value function objective in a discounted MDP setting and we make a trivial adaptation of this algorithm for the SSP setting.
+For CPT-SPSA-G and NoCPT-SPSA-G, we set $\delta_n = 1.9/n^{0.101}$ and $\gamma_n = 1/n$, while for CPT-SPSA-N, we set $\delta_n=3.8/n^{0.166}$ and $\gamma_n=1/n^{0.6}$. For all algorithms, we set each entry of the initial policy $\theta_0$ to $0.1$. For CPT-value estimation, we simulate $1000$ SSP episodes, with the SSP horizon $T$ set to $20$. All algorithms are run with a budget of $1000$ samples, which implies $500$ iterations of CPT-SPSA-G and $333$ iterations of CPT-SPSA-N. The results presented are averages over $500$ independent simulations. For CPT-SPSA-G/CPT-SPSA-N, 
 the weight functions $w^+$ and $w^-$ are set to $p^{0.6}/(p^{0.6}+(1-p)^{0.6})$, while the utility functions are identity maps. 
 
 
 
-\subsection{Results} Figures \ref{fig:vi}--\ref{fig:nocptspsa} present the value function computed using value iteration and PG-NoCPT-SPSA, while Figures \ref{fig:cptspsa}--\ref{fig:cpt2spsa} present the CPT-value $V^{\theta_{end}}(x^0)$ for CPT-SPSA-G and CPT-SPSA-N, respectively. The performance plots are for various values of $p_{down}$, the probability of house price going down. 
-From Figure \ref{fig:vi}, we notice that the variations in expected total cost is larger in comparison to that in CPT-value. Figure \ref{fig:nocptspsa} implies that a similar observation about variation of expected value holds true for PG-NoCPT-SPSA algorithm from \cite{bhatnagar2004simultaneous}. While it is difficult to plot the entire policies, for the expected value minimizing algorithms it was observed that there were drastic changes in the policies with a change of $0.01$ in $p_{down}$, while PG/CPT-SPSA-N resulted in randomized policies that smoothly transitioned with changes in $p_{down}$.
+\subsection{Results} Figures \ref{fig:vi}--\ref{fig:nocptspsa} present the value function computed using value iteration and NoCPT-SPSA-G, while Figures \ref{fig:cptspsa}--\ref{fig:cpt2spsa} present the CPT-value $V^{\theta_{end}}(x^0)$ for CPT-SPSA-G and CPT-SPSA-N, respectively. The performance plots are for various values of $p_{down}$, the probability of house price going down. 
+From Figure \ref{fig:vi}, we notice that the variations in expected total cost is larger in comparison to that in CPT-value. Figure \ref{fig:nocptspsa} implies that a similar observation about variation of expected value holds true for NoCPT-SPSA-G algorithm from \cite{bhatnagar2004simultaneous}. While it is difficult to plot the entire policies, for the expected value minimizing algorithms it was observed that there were drastic changes in the policies with a change of $0.01$ in $p_{down}$, while PG/CPT-SPSA-N resulted in randomized policies that smoothly transitioned with changes in $p_{down}$.
 As motivated in the introduction, these plots verify that CPT-aware SPSA algorithms are less sensitive to the model changes as compared to the expected value minimizing algorithms. It is also evident that the second-order CPT-SPSA-N gives marginally better results than its first-order counterpart CPT-SPSA-G.
- Finally, what isn't shown is that the CPT-value obtained for PG/CPT-SPSA-N is much lower than that obtained for PG-NoCPT-SPSA, thus making apparent the need for specialized algorithms that incorporate CPT-based criteria.
+ Finally, what isn't shown is that the CPT-value obtained for PG/CPT-SPSA-N is much lower than that obtained for NoCPT-SPSA-G, thus making apparent the need for specialized algorithms that incorporate CPT-based criteria.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
