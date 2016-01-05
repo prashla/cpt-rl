@@ -57,9 +57,45 @@ We provide theoretical convergence guarantees for all the proposed algorithms an
 
 \section{Introduction}
 \label{sec:introduction}
-Risk-sensitive reinforcement learning (RL) has received a lot of attention recently (cf. \cite{borkar2010learning,borkar2010risk,tamar2012policy,Prashanth13AC}). Previous works consider either an exponential utility formulation (cf. \cite{borkar2010learning}) that implicitly controls the variance or a constrained formulation with explicit constraints on the variance of the cost-to-go (cf. \cite{tamar2012policy,Prashanth13AC}). Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
+%Risk-sensitive reinforcement learning (RL) has received a lot of attention recently (cf. \cite{borkar2010learning,borkar2010risk,tamar2012policy,Prashanth13AC}). Previous works consider either an exponential utility formulation (cf. \cite{borkar2010learning}) that implicitly controls the variance or a constrained formulation with explicit constraints on the variance of the cost-to-go (cf. \cite{tamar2012policy,Prashanth13AC}). Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
 
-In several real-world systems involving humans, traditional expected utility and risk-sensitive control approaches cannot explain the observed behavior as humans are not rational/consistent. In other words, for a human there do not exist utility functions whose expectation can be maximized nor coherent measures such as CVaR fit well with human preferences. This problem can be alleivated by incorporating distortions in the underlying probabilities of the system. Probabilistic distortions have a long history in behavioral science and economics and a very popular approach comes from \textit{Prospect Theory (PT)} \cite{kahneman1979prospect} and its later enhancement \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}. 
+In this paper we consider human-based decision and more specifically reinforcement learning (RL) problems 
+where the  reinforcement learning agent controls a system 
+to produce outcomes (``rewards'') that are maximally aligned with the preferences of 
+one or multiple humans, an arrangement shown on Figure~\ref{fig:flow}.
+To support this arrangement, one possibility is to model human preferences 
+with the help of some \emph{risk metrics} mapping random returns 
+(e.g., the total discounted reward) to some scalar deterministic quantity.
+Popular approaches that use such risk metrics include the exponential utility formulation 
+(cf. \cite{borkar2010learning}) that implicitly controls the variance.
+An alternative is a to consider constrained formulations 
+with explicit constraints on the variance of the return (cf. \cite{tamar2012policy,Prashanth13AC}). 
+Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), 
+while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
+The risk metrics underlying the above-mentioned works 
+are based on the assumption that human decision makers are rational and/or consistent.
+While this may hold in certain restricted settings, a large body of literature indicates that humans are neither rational,
+\todoc{Add literature supporting this. At least three books:)}
+nor consistent (which, in fact, is an unsurprising fact, at least in the experience of the authors of the paper).
+Thus, if the goal is to produce outcomes that are best aligned with human preferences,
+an alternative approach is required.
+A singularly popular and successful approach in behavioral science and economics
+is based on \textit{prospect theory (PT)} \cite{kahneman1979prospect} 
+and its later enhancement, the so-called \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}.
+The suitability of this approach to model human decision making (and thus preferences) has been widely documented.
+\todoc{Again, add some books.
+Actually, the examples that I am reading about, e.g., in the book ``Against the Gods'', chapter 13 by Bernstein, suggest
+that some big exploits are possible.
+And  most examples are about that the framing of a decision problem influences what humans choose.
+This is kinda dirty. 
+I can totally see how policy makers can exploit this. Is this good?
+Can we have some positive (in the sense of being ethical) examples?
+E.g., you mentioned the arrangement of shelves in shops or something. Some examples will be badly needed. 
+E.g., google on prospect theory decision making gives me 
+\url{http://link.springer.com/article/10.1007\%2Fs11424-015-2049-0}.
+Perhaps add some to the appendix as background on CPT.
+}
+%In several real-world systems involving humans, traditional expected utility and risk-sensitive control approaches cannot explain the observed behavior as humans are not rational/consistent. In other words, for a human there do not exist utility functions whose expectation can be maximized nor coherent measures such as CVaR fit well with human preferences. This problem can be alleviated by incorporating distortions in the underlying probabilities of the system. Probabilistic distortions have a long history in behavioral science and economics and a very popular approach comes from \textit{Prospect Theory (PT)} \cite{kahneman1979prospect} and its later enhancement \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}. 
 
 %\pgfkeyssetvalue{/cfr/soul base dimension}{5pt}
 %\begin{tikzpicture}
@@ -141,8 +177,11 @@ In several real-world systems involving humans, traditional expected utility and
     %every pin edge/.append style={latex-, shorten <=-2.5pt},
   %]
 
-As illustrated in Figure \ref{fig:flow}, we consider a typical RL setting where the environment is unknown, but can be experimented with and propose a CPT based risk measure as the long-term performance objective. 
-CPT is a non-coherent and non-convex measure that is well known among psychologists and economists to be a good model for human decision-making systems, with strong empirical support.
+As illustrated in Figure \ref{fig:flow}, we consider a typical RL setting where the environment is unknown, but can be experimented with and propose a CPT based risk metric as the long-term performance objective.  \todoc{This para may need to be rewritten in light that I rewrote the previous one.}
+\todoc{Risk measure is a technical term according to wikipedia. Risk metric does not seem to have this technical meaning so I propose using risk metric everywhere.}
+CPT is a non-coherent and non-convex measure \todoc{I find it strange to emphasize only these aspects.
+What's the goal of announcing these here?}
+that is well known among psychologists and economists to be a good model for human decision-making systems, with strong empirical support.
 To put it differently, CPT captures well the way humans evaluate outcomes and hence, we offer a CPT-variant of the RL notion of ``value function''. Unlike the regular value function which is the expectation of the return random variable, CPT-value employs a functional that distorts the underlying probabilities. The latter is achieved by fitting CPT model parameters to capture human preferences. The goal then for the learning system is to find a policy that maximizes the CPT-value of ``return''. 
 
 %
@@ -177,7 +216,7 @@ For a real-valued random variable $X$, we first introduce a ``CPT-functional'' t
 \subsection{General definition}
 The CPT-value of the random variable $X$ is a functional defined as
 \begin{align}
-\C_{u,w}(X) = &\intinfinity w^+(P(u^+(X))>z) dz - \intinfinity w^-(P(u^-(X))>z) dz, \label{eq:cpt-general}
+\C_{u,w}(X) = &\intinfinity w^+(P(u^+(X)>z) dz - \intinfinity w^-(P(u^-(X)>z) dz, \label{eq:cpt-general}
 \end{align}
 where $u=(u^+,u^-)$, $w=(w^+,w^-)$, $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on the $u$ and $w$). For notational convenience, we drop the dependence on $u,w$ and use $\C(X)$ to denote the CPT-value.  
 
@@ -281,7 +320,7 @@ The above optimization problem has several applications in RL. For instance, $X$
 We consider a stochastic shortest path (SSP) problem with states $\{0,\ldots,\L\}$ and actions $\{1,\ldots,\M\}$. 
 An \textit{episode} is a simulated sample path that starts in state $x^0$ and ends in the cost-free absorbing state $0$. 
 Let $\theta=\left(\theta^{1},\ldots,\theta^{\L\M}\right)\tr$ be a randomized policy, where $\theta^{i}$ denotes the probability of choosing action $(i\% \M)$ in state $\left \lceil{i/\M}\right \rceil$, with $\sum\limits_{j=(i-1)\M+1}^{i\M} \theta^{j} = 1,$ for $i=1,\ldots,\L$. 
-Let $D^\theta(x^0)$ be a random variable (r.v) that denotes the total cost from an episode simulated using policy $\theta$, i.e.,
+Let $D^\theta(x^0)$ be a random variable (r.v) that denotes the total cost from an episode simulated using policy $\theta$ starting from state $x^0$, i.e.,
 $$ D^\theta(x^0) = \sum\limits_{m=0}^{\tau} g(x_m,a_m), $$
 where the actions $a_m$ are chosen using  $\theta$ and
 $\tau$ is the first passage time to state $0$. 
@@ -371,9 +410,9 @@ does not even exist. A similar argument applies to the second integral in \eqref
 
 To overcome the above integrability issues, we make different assumptions on the weight and/or utility functions. In particular, we assume that the weight functions $w^+, w^-$ are either 
 \begin{inparaenum}[\bfseries (i)]
-\item Lipschitz continuous or
-\item \holder continuous or
-\item Locally Lipschitz.
+\item Lipschitz continuous, or
+\item \holder continuous, or
+\item locally Lipschitz.
 \end{inparaenum}
 We devise a scheme for estimating \eqref{eq:cpt-mdp} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
 We also provide sample complexity bounds assuming that the utility functions are bounded.
