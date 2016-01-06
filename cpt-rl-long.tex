@@ -95,6 +95,25 @@ E.g., google on prospect theory decision making gives me
 \url{http://link.springer.com/article/10.1007\%2Fs11424-015-2049-0}.
 Perhaps add some to the appendix as background on CPT.
 }
+
+Some references that need to incorporated into the text:
+\begin{itemize}
+	\item \cite{starmer2000developments} - a good survey on non-expected utility models - includes CPT
+	\item \cite{fishburn1970expectedutility} - a standard text for expected utility theory
+	\item \cite{quiggin2012generalized} - Surveys  rank dependent expected utility (RDEU) models. The CPT weights also is like RDEU in the sense that the weights there are on cumulative probabilities (PT wasnt RDEU). Chapter 4 in this book has several famous examples (notably Allais and Ellsberg paradoxes) that show why EU is not a good fit in practice.
+	\item On Weighting functions: \cite{prelec1998probability}, \cite{wu1996curvature}, \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}. These refs also include experimental tests on human subjects and conclude that the weight function in non-linear and  inverted-S (such as that in Fig \ref{fig:w}) is a good fit from empirical data. CPT paper \cite{tversky1992advances} recommends $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ in both cases and both give the inverted-s shape for weight function. 
+	\item Above non-EU refs are single-shot. If there is multiple stages and group interaction, still ones sees violations of linearity - evidence in \cite{bone1999groups}. 
+	\item Agents in a learning setting, the behaviour is not necessarily rational - evidence in \cite{timmerman1994can}
+	\item Applications of PT/CPT:
+	\begin{itemize}
+		\item Healthcare \cite{lenert1999associations}
+		\item Seismic design \cite{goda2008application}
+		\item Transportation, esp. route choice  - \cite{gao2010adaptive},\cite{fujii2004drivers}, \cite{ramming2001network}
+		\item Online auctions \cite{weinberg2005exploring}
+		\item Insurance  \cite{machina1995non}
+		\item Asset pricing \cite{barberis1999prospect}, Asset demands \cite{epstein1989substitution}, \cite{epstein1991substitution}
+	\end{itemize}
+\end{itemize}
 %In several real-world systems involving humans, traditional expected utility and risk-sensitive control approaches cannot explain the observed behavior as humans are not rational/consistent. In other words, for a human there do not exist utility functions whose expectation can be maximized nor coherent measures such as CVaR fit well with human preferences. This problem can be alleviated by incorporating distortions in the underlying probabilities of the system. Probabilistic distortions have a long history in behavioral science and economics and a very popular approach comes from \textit{Prospect Theory (PT)} \cite{kahneman1979prospect} and its later enhancement \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}. 
 
 %\pgfkeyssetvalue{/cfr/soul base dimension}{5pt}
