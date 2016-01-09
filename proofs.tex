@@ -223,12 +223,11 @@ Recall that the CPT-value estimation scheme is biased, i.e., providing samples w
 We claim
 \begin{align}
 \quad\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
-= \quad&\E\left[\dfrac{V_n^{\theta_n + \delta_n \Delta_n}(x^0) -V_n^{\theta_n - \delta_n \Delta_n}(x^0)}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \eta_n \mid \F_n\right],
+= \quad&\E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \eta_n \mid \F_n\right],
 \end{align}
 where $\eta_n = \left(\dfrac{\epsilon^{\theta_n +\delta_n\Delta} - \epsilon^{\theta_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
  is the bias arising out of the empirical distribution based CPT-value estimation scheme.
-From Proposition \ref{prop:holder-dkw}, we see that, $\epsilon^\theta = LM\sqrt{\frac{2 \log \log m_n}{m_n}}$, provided $m_n$ is sufficiently large.
-Thus, $\eta_n = O\left( \sqrt{\frac{2 \log \log m_n}{m_n}} \frac{1}{\delta_n}\right)$ and since $\frac{1}{\sqrt{m_n} \delta_n} \rightarrow 0$ by assumption (A3) in the main paper, we have that
+From Proposition \ref{prop:holder-dkw} and the fact that $\frac{1}{m_n^{\alpha/2} \delta_n} \rightarrow 0$ by assumption (A3), we have that
 $\eta_n$ goes to zero asymptotically. In other words,
 \begin{align}
 \quad\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
@@ -297,7 +296,7 @@ In the following, we verify the above assumptions for the recursion \eqref{eq:th
 
 \item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is $O(\delta_n^2)$ and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. 
 
-\item (B3) holds by assumption (A3) in the main paper.
+\item (B3) holds by assumption (A3).
 
 \item We verify (B4) using arguments similar to those used in \cite{spall} for the classic SPSA algorithm:\\
 We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}):

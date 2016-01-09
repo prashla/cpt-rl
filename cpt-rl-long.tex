@@ -72,17 +72,22 @@ An alternative is a to consider constrained formulations
 with explicit constraints on the variance of the return (cf. \cite{tamar2012policy,Prashanth13AC}). 
 Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), 
 while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
+
 The risk metrics underlying the above-mentioned works 
 are based on the assumption that human decision makers are rational and/or consistent.
 While this may hold in certain restricted settings, a large body of literature indicates that humans are neither rational,
 \todoc{Add literature supporting this. At least three books:)}
 nor consistent (which, in fact, is an unsurprising fact, at least in the experience of the authors of the paper).
+In other words, traditional approaches are based on the belief that optimizing the expected utility (EU) is appealing for human subjects. However, there is substantial evidence that this is not case - see 
+the survey article \cite{starmer2000developments} and Chapter 4 of the book \cite{quiggin2012generalized}. In particular, the aforementioned references describe the Allais and Ellsberg paradoxes popular among economists for arguing against EU. 
 Thus, if the goal is to produce outcomes that are best aligned with human preferences,
 an alternative approach is required.
 A singularly popular and successful approach in behavioral science and economics
 is based on \textit{prospect theory (PT)} \cite{kahneman1979prospect} 
 and its later enhancement, the so-called \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}.
-The suitability of this approach to model human decision making (and thus preferences) has been widely documented.
+CPT is a rank dependent expected utility model \cite{quiggin2012generalized} that incorporates decision weights to distort probabilities. 
+The suitability of this approach to model human decision making (and thus preferences) has been widely documented \cite{prelec1998probability}, \cite{wu1996curvature}, \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.
+PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lenert1999associations},  seismic design \cite{goda2008application}, transportation \cite{gao2010adaptive},\cite{fujii2004drivers}, \cite{ramming2001network}, online auctions \cite{weinberg2005exploring}, insurance  \cite{machina1995non} and finance \cite{barberis1999prospect}, \cite{epstein1989substitution}, \cite{epstein1991substitution}.
 \todoc{Again, add some books.
 Actually, the examples that I am reading about, e.g., in the book ``Against the Gods'', chapter 13 by Bernstein, suggest
 that some big exploits are possible.
@@ -95,25 +100,6 @@ E.g., google on prospect theory decision making gives me
 \url{http://link.springer.com/article/10.1007\%2Fs11424-015-2049-0}.
 Perhaps add some to the appendix as background on CPT.
 }
-
-Some references that need to incorporated into the text:
-\begin{itemize}
-	\item \cite{starmer2000developments} - a good survey on non-expected utility models - includes CPT
-	\item \cite{fishburn1970expectedutility} - a standard text for expected utility theory
-	\item \cite{quiggin2012generalized} - Surveys  rank dependent expected utility (RDEU) models. The CPT weights also is like RDEU in the sense that the weights there are on cumulative probabilities (PT wasnt RDEU). Chapter 4 in this book has several famous examples (notably Allais and Ellsberg paradoxes) that show why EU is not a good fit in practice.
-	\item On Weighting functions: \cite{prelec1998probability}, \cite{wu1996curvature}, \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}. These refs also include experimental tests on human subjects and conclude that the weight function in non-linear and  inverted-S (such as that in Fig \ref{fig:w}) is a good fit from empirical data. CPT paper \cite{tversky1992advances} recommends $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ in both cases and both give the inverted-s shape for weight function. 
-	\item Above non-EU refs are single-shot. If there is multiple stages and group interaction, still ones sees violations of linearity - evidence in \cite{bone1999groups}. 
-	\item Agents in a learning setting, the behaviour is not necessarily rational - evidence in \cite{timmerman1994can}
-	\item Applications of PT/CPT:
-	\begin{itemize}
-		\item Healthcare \cite{lenert1999associations}
-		\item Seismic design \cite{goda2008application}
-		\item Transportation, esp. route choice  - \cite{gao2010adaptive},\cite{fujii2004drivers}, \cite{ramming2001network}
-		\item Online auctions \cite{weinberg2005exploring}
-		\item Insurance  \cite{machina1995non}
-		\item Asset pricing \cite{barberis1999prospect}, Asset demands \cite{epstein1989substitution}, \cite{epstein1991substitution}
-	\end{itemize}
-\end{itemize}
 %In several real-world systems involving humans, traditional expected utility and risk-sensitive control approaches cannot explain the observed behavior as humans are not rational/consistent. In other words, for a human there do not exist utility functions whose expectation can be maximized nor coherent measures such as CVaR fit well with human preferences. This problem can be alleviated by incorporating distortions in the underlying probabilities of the system. Probabilistic distortions have a long history in behavioral science and economics and a very popular approach comes from \textit{Prospect Theory (PT)} \cite{kahneman1979prospect} and its later enhancement \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}. 
 
 %\pgfkeyssetvalue{/cfr/soul base dimension}{5pt}
@@ -211,16 +197,36 @@ To put it differently, CPT captures well the way humans evaluate outcomes and he
 %In this paper, we consider a risk measure based on \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}, which is a non-coherent and non-convex measure that is well known among psychologists and economists to be a good model for human decision-making systems, with strong empirical support. In this paper, we incorporate CPT-based criteria into the classic objective \textit{value function} in a reinforcement learning framework. Intuitively this combination is appealing because it taps into the notion of how humans evaluate outcomes and also, a CPT objective leads to a randomized policy, which although harder to estimate often leads to more intuitively appealing behavior, as illustrated via an example below and also the numerical experiments later.
 
 %%%%%%%%%%%%
-In terms of research contributions, this is the first work to combine CPT with RL, and although on the surface it might seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the RL framework. \\
-\textbf{Prediction:} In the case of the classic value function, which is an expectation, a simple sample means can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, estimating the CPT-value for a given policy is challenging, because it requires that the \textit{entire} distribution of the total cost to be estimated.\\ 
+In terms of research contributions, this is the first work to combine CPT with RL, and although on the surface it might seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the RL framework. We outline these challenges as well as our solution approach below. \\
+\textbf{Prediction:} In the case of the classic value function, which is an expectation, a simple sample means can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, estimating the CPT-value for a given policy is challenging, because 
+CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 
+requires that the \textit{entire} distribution to be estimated.\\ 
+\textit{Solution:} 
+We use a quantile based approach to estimate the CPT-value.
+Assuming that the weight functions are \holder continuous with constant $\alpha$,  we establish convergence (asymptotic) of our CPT-value estimate to the true CPT-value and provide a sample complexity result that establishes that  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ samples are required to be $\epsilon$-close to the CPT-value with high probability. If the weights are Lipschitz (i.e., $\alpha=1$), the resulting sample complexity is the canonical rate $O\left(\frac1{\epsilon^2}\right)$ for Monte carlo type schemes.\\
 \textbf{Control:} 
-Designing policy optimization algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. Thus, it is necessary to design new simulation optimization scheme that use sample CPT-value estimates to optimize the policy, which is generally \textit{randomized}. 
+Designing policy optimization algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 
+Thus, it is necessary to design new simulation optimization scheme that use sample CPT-value estimates to optimize the policy, which is generally \textit{randomized}. While classic simulation optimization settings usually have a zero mean noise in function evaluations, our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. \\
+\textit{Solution:} 
+We derive the condition that specifies the rate at which the number of samples for predicting the CPT-value should increase such that the bias of CPT-value estimates vanishes asymptotically (see (A3) later).
+
+Using two well-known ideas from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose three optimization algorithms for solving \eqref{eq:opt-general}. These methods overcome the second and third problems mentioned above and are summarized as follows:\\
+\textbf{\textit{Gradient-based methods:}} We propose two algorithms in this class. The first is a gradient algorithm that employs simultaneous perturbation stochastic approximation (SPSA)-based estimates for the gradient of the CPT-value, while the second is a Newton algorithm that also uses SPSA-based estimates of the gradient and also the Hessian. We remark again that, unlike traditional settings for SPSA, our estimates for CPT-value have a non-zero (albeit controlled) bias. We establish that our algorithms converge to a locally CPT-value optimal policy. \\
+\textbf{\textit{Gradient-free method:}} We perform a non-trivial adaptation of the algorithm from \cite{chang2013simulation} to devise a globally CPT-value optimizing scheme. The idea is to use a reference model that eventually concentrates on the global minimum and then empirically approximate this reference distribution well-enough. The latter is achieved via natural exponential families in conjunction with Kullback-Leibler (KL) divergence to measure the ``distance'' from the reference distribution. Unlike the setting of \cite{chang2013simulation}, we neither observe the objective function (CPT-value) perfectly nor with zero-mean noise. We establish that our algorithm converges to a globally CPT-value optimal parameter (assuming it exists).
+
 
 To put things in context, risk-sensitive reinforcement learning problems are generally hard to solve. 
 For a discounted MDP, \cite{Sobel82VD} showed that there exists a Bellman equation for the variance of the return, but the underlying Bellman operator is not necessarily monotone. The latter observation rules out policy iteration as a solution approach for variance-constrained MDPs.
 Further, even if the transition dynamics are known, \cite{mannor2013algorithmic} show that finding a globally mean-variance optimal policy in a discounted MDP is NP-hard.
 For average reward MDPs, \cite{filar1989variance} consider a variance definition that measures how far the instantaneous reward is away from its average, unlike the discounted setting where the variance was of the return r.v. However, for average reward MDPs, \cite{filar1989variance} motivate their variance definition well and then provide NP-hardness results for finding a globally optimal policy with the variance constraint.
 CVaR as a risk measure is equally (if not more) complicated as the measure here is a conditional expectation, where the conditioning is on a low probability event. Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \cite{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. In contrast, we derive a \textit{provably} sample-efficient scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization schemes that include gradient-based as well as gradient free approaches. Finally, we point out that the CPT-value that we define is a generalization in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a certain weight function used in the definition of CPT value (see the next section for precise details).
+
+\noindent
+\textit{\textbf{Closest related work}} is \cite{lin2013stochastic}, where the authors propose a CPT-measure for an abstract MDP setting (see \cite{bertsekas2013abstract}). We differ from \cite{lin2013stochastic} in several ways:
+\begin{inparaenum}[\bfseries (i)]
+\item We do not have a nested structure for the CPT-value \eqref{eq:cpt-mdp} and this implies the lack of a Bellman equation for our CPT measure; and
+\item We do not assume model information, i.e., we operate in a model-free RL setting. Moreover, we develop both estimation and control algorithms with convergence guarantees for the CPT-value function.
+\end{inparaenum}
 
 The rest of the paper is organized as follows: 
 In Section~\ref{sec:cpt-val}, we introduce the notion of CPT-value of a general random variable $X$ and make a special case illustration when $X$ is the return of a stochastic shortest path problem.
@@ -320,12 +326,15 @@ Let us deconstruct the above definition:
 The main idea is that humans deflate high-probabilities and inflate low-probabilities and this is the rationale behind using a weight function in CPT.
 For example, humans usually choose a stock that gives \$$10000$ w.p. $0.001$ over one that gives \$$10$ w.p. $1$ and the reverse when signs are flipped. 
 Thus the value seen by the human subject is non-linear in the underlying probabilities - an observation with strong empirical evidence that used human subjects (see \cite{tversky1992advances} or $8000$+ papers that follow).  In contrast,the traditional value function is linear in the underlying probabilities. 
-As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. Weight functions can explain non-linear probability distortions, as illustrated by the following example: 
+As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and  have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
+The authors in \cite{tversky1992advances} recommend $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ and in both cases, the weight function has the inverted-s shape, which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.   
+Weight functions can explain non-linear probability distortions, as illustrated by the following example: 
 \begin{description}
  \item[\textit{[Stock 1]}] This investment results in a gain of \$$10$ with probability (w.p.) $0.1$ and a loss of \$$500$ w.p. $0.9$. The expected return is \$$-449$, but this does not necessarily imply that ``human'' investors' evaluation of the stock is \$$-449$. Instead, it is very likely that the humans evaluate it to a higher value, e.g. \$$-398$ ($=$ gain w.p. $0.2$ and loss w.p. $0.8$).\footnote{See Table 3 in \cite{tversky1992advances} to know why such a human evaluation is likely.}
 \item[\textit{[Stock 2]}] loss of \$$10$ w.p. $0.9$, gain \$$500$ w.p. $0.1$. Expected return: \$$41$; Human evaluation: \$$92$ ($=$ loss w.p. $0.8$).
 \item[\textit{[Stock 3]}] loss of \$$10$ w.p. 0.1, gain \$$500$ w.p. $0.9$. Expected return: \$$449$; Human evaluation: \$$398$ ($=$ loss w.p. $0.2$). 
 \end{description}
+These refs also include experimental tests on human subjects and conclude that the weight function in non-linear and  inverted-S (such as that in Fig \ref{fig:w}) is a good fit from empirical data. CPT paper \cite{tversky1992advances} recommends $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ in both cases and both give the inverted-s shape for weight function. 
 
 \paragraph{Optimization objective:} Suppose the r.v. $X$ is a function of a $d$-dimensional parameter $\theta$. The goal then is to solve the following problem:
 \begin{align}
@@ -366,35 +375,29 @@ Note that there exists a deterministic policy that gives the optimal value funct
 
 %Intuitively, it also makes sense to develop a control algorithm that pleases humans by tapping into their notion of evaluating outcomes. (Technical note: In MDPs with expected utility objective, there exists a deterministic policy that is optimal. However, with CPT-value objective, the optimal policy can "only" be a randomized one). See also the organ transplant example on pp. 75-81 of [17], 
 
-\subsection{Our contributions}
-\paragraph{Prediction:} Suppose that one can obtain samples of $X^\theta$ for any $\theta$ (in the context of RL, this means one can simulate any policy $\theta$ and estimate $D^\theta(x^0)$). However, the CPT-value integrals in \eqref{eq:cpt-mdp} involve a distribution that is distorted using non-linear weight functions and hence, one cannot just do sample means to estimate $\C(X^\theta)$. In RL context, this rules out the popular temporal difference learning method for prediction of CPT-value. \\
-% Earlier works on risk-sensitive RL (cf. \cite{borkar2010learning}, \cite{Prashanth13AC}) used some form of temporal difference learning.  \\
-\textit{\textbf{Solution:}} 
-We derive an estimate of the first integral in \eqref{eq:cpt-mdp} as follows:
-first compute the empirical distribution function for $u^+(\cdot)$, then compose it with the weight function $w^+$ and finally, integrate the resulting composition to obtain the final estimate. The second integral in \eqref{eq:cpt-mdp} is estimated in a similar fashion, and the CPT-value estimate is the difference in the estimates of the two integrals in \eqref{eq:cpt-mdp}.
-Assuming that the weight functions are \holder continuous with constant $\alpha$,  we establish convergence (asymptotic) of our CPT-value estimate to the true CPT-value. We also provide a sample complexity result that establishes that  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ samples are required to be $\epsilon$-close to the CPT-value with high probability. If the weights are Lipschitz (i.e., $\alpha=1$), the resulting sample complexity is the canonical rate $O\left(\frac1{\epsilon^2}\right)$ for Monte carlo type schemes.
-\paragraph{Control:} Optimizing the CPT-value is challenging owing to the following reasons:
-\begin{enumerate}[\bfseries (i)]
-\item \textit{Biased policy evaluation:} A popular \textit{incremental optimization} approach to solve \eqref{eq:opt-general} is to first estimate $\C(X^{\theta_n})$ at instant $n$ and then improve it, say by a gradient based scheme. However, in usual RL settings, one can only simulate a finite number of samples for a fixed parameter, say $\theta_n$ in iteration $n$ and use the empirical distribution function (EDF) based scheme to provide an estimate of the CPT-value $\C(D^{\theta_n}(x^0))$. But, such a finite sample estimate clearly results in a bias, which can be controlled by increasing the number of samples.
-\item \textit{Simulation optimization:} Given only a (biased) estimate of the CPT-value for any parameter, it is necessary to devise an adaptive search scheme that improves the policy iteratively. Classic simulation optimization settings usually have a zero mean noise in function evaluations, while our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. 
-\item \textit{Non-dynamic programming:} As mentioned earlier, in RL context, dynamic programming approaches cannot be employed as there is no ``Bellman equation'' for CPT-value.  
-\end{enumerate}
-\textit{\textbf{Solution:}} 
-We increase the number of samples $m_n$ simulated in each iteration $n$ of the optimization algorithms such that the bias of CPT-value estimates vanishes asymptotically (See the technical condition on $m_n$ in (A3)).
+%\subsection{Our contributions}
+%\paragraph{Prediction:} Suppose that one can obtain samples of $X^\theta$ for any $\theta$ (in the context of RL, this means one can simulate any policy $\theta$ and estimate $D^\theta(x^0)$). However, the CPT-value integrals in \eqref{eq:cpt-mdp} involve a distribution that is distorted using non-linear weight functions and hence, one cannot just do sample means to estimate $\C(X^\theta)$. In RL context, this rules out the popular temporal difference learning method for prediction of CPT-value. \\
+%% Earlier works on risk-sensitive RL (cf. \cite{borkar2010learning}, \cite{Prashanth13AC}) used some form of temporal difference learning.  \\
+%\textit{\textbf{Solution:}} 
+%We derive an estimate of the first integral in \eqref{eq:cpt-mdp} as follows:
+%first compute the empirical distribution function for $u^+(\cdot)$, then compose it with the weight function $w^+$ and finally, integrate the resulting composition to obtain the final estimate. The second integral in \eqref{eq:cpt-mdp} is estimated in a similar fashion, and the CPT-value estimate is the difference in the estimates of the two integrals in \eqref{eq:cpt-mdp}.
+%Assuming that the weight functions are \holder continuous with constant $\alpha$,  we establish convergence (asymptotic) of our CPT-value estimate to the true CPT-value. We also provide a sample complexity result that establishes that  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ samples are required to be $\epsilon$-close to the CPT-value with high probability. If the weights are Lipschitz (i.e., $\alpha=1$), the resulting sample complexity is the canonical rate $O\left(\frac1{\epsilon^2}\right)$ for Monte carlo type schemes.
+%\paragraph{Control:} Optimizing the CPT-value is challenging owing to the following reasons:
+%\begin{enumerate}[\bfseries (i)]
+%\item \textit{Biased policy evaluation:} A popular \textit{incremental optimization} approach to solve \eqref{eq:opt-general} is to first estimate $\C(X^{\theta_n})$ at instant $n$ and then improve it, say by a gradient based scheme. However, in usual RL settings, one can only simulate a finite number of samples for a fixed parameter, say $\theta_n$ in iteration $n$ and use the empirical distribution function (EDF) based scheme to provide an estimate of the CPT-value $\C(D^{\theta_n}(x^0))$. But, such a finite sample estimate clearly results in a bias, which can be controlled by increasing the number of samples.
+%\item \textit{Simulation optimization:} Given only a (biased) estimate of the CPT-value for any parameter, it is necessary to devise an adaptive search scheme that improves the policy iteratively. Classic simulation optimization settings usually have a zero mean noise in function evaluations, while our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. 
+%\item \textit{Non-dynamic programming:} As mentioned earlier, in RL context, dynamic programming approaches cannot be employed as there is no ``Bellman equation'' for CPT-value.  
+%\end{enumerate}
+%\textit{\textbf{Solution:}} 
+%We increase the number of samples $m_n$ simulated in each iteration $n$ of the optimization algorithms such that the bias of CPT-value estimates vanishes asymptotically (See the technical condition on $m_n$ in (A3)).
+%
+%Using two well-known ideas from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose three optimization algorithms for solving \eqref{eq:opt-general}. These methods overcome the second and third problems mentioned above and are summarized as follows:
+%\begin{description}
+%\item[\textbf{\textit{Gradient-based methods:}}] We propose two algorithms in this class. The first is a gradient algorithm that employs simultaneous perturbation stochastic approximation (SPSA)-based estimates for the gradient of the CPT-value, while the second is a Newton algorithm that also uses SPSA-based estimates of the gradient and also the Hessian. We remark again that, unlike traditional settings for SPSA, our estimates for CPT-value have a non-zero (albeit controlled) bias. We establish that our algorithms converge to a locally CPT-value optimal policy. 
+%\item[\textbf{\textit{Gradient-free method:}}] We perform a non-trivial adaptation of the algorithm from \cite{chang2013simulation} to devise a globally CPT-value optimizing scheme. The idea is to use a reference model that eventually concentrates on the global minimum and then empirically approximate this reference distribution well-enough. The latter is achieved via natural exponential families in conjunction with Kullback-Leibler (KL) divergence to measure the ``distance'' from the reference distribution. Unlike the setting of \cite{chang2013simulation}, we neither observe the objective function (CPT-value) perfectly nor with zero-mean noise. We establish that our algorithm converges to a globally CPT-value optimal parameter (assuming it exists).
+%\end{description}
 
-Using two well-known ideas from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose three optimization algorithms for solving \eqref{eq:opt-general}. These methods overcome the second and third problems mentioned above and are summarized as follows:
-\begin{description}
-\item[\textbf{\textit{Gradient-based methods:}}] We propose two algorithms in this class. The first is a gradient algorithm that employs simultaneous perturbation stochastic approximation (SPSA)-based estimates for the gradient of the CPT-value, while the second is a Newton algorithm that also uses SPSA-based estimates of the gradient and also the Hessian. We remark again that, unlike traditional settings for SPSA, our estimates for CPT-value have a non-zero (albeit controlled) bias. We establish that our algorithms converge to a locally CPT-value optimal policy. 
-\item[\textbf{\textit{Gradient-free method:}}] We perform a non-trivial adaptation of the algorithm from \cite{chang2013simulation} to devise a globally CPT-value optimizing scheme. The idea is to use a reference model that eventually concentrates on the global minimum and then empirically approximate this reference distribution well-enough. The latter is achieved via natural exponential families in conjunction with Kullback-Leibler (KL) divergence to measure the ``distance'' from the reference distribution. Unlike the setting of \cite{chang2013simulation}, we neither observe the objective function (CPT-value) perfectly nor with zero-mean noise. We establish that our algorithm converges to a globally CPT-value optimal parameter (assuming it exists).
-\end{description}
 
-
-\noindent
-\textit{\textbf{Closest related work}} is \cite{lin2013stochastic}, where the authors propose a CPT-measure for an abstract MDP setting (see \cite{bertsekas2013abstract}). We differ from \cite{lin2013stochastic} in several ways:
-\begin{enumerate}[\bfseries (i)]
-\item We do not have a nested structure for the CPT-value \eqref{eq:cpt-mdp} and this implies the lack of a Bellman equation for our CPT measure; and
-\item We do not assume model information, i.e., we operate in a model-free RL setting. Moreover, we develop both estimation and control algorithms with convergence guarantees for the CPT-value function.
-\end{enumerate}
 
 
 
