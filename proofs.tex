@@ -28,7 +28,7 @@ The second inequality is valid since $P(U^+>z) \leq 1$. The claim follows for th
 %%%%
 \begin{proposition}
 \label{prop:holder-quantile}
-Assume (A1'). Then, we have 
+Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $U^+$ and $U^-$, respectively. Then, we have 
 \begin{align}
 \label{eq:simple-estimation}
 \begin{split}
@@ -37,10 +37,6 @@ Assume (A1'). Then, we have
 \lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
 \end{split}
 \end{align}
-and also
-
-with the variable $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote respectively the $\frac{i}{n}$th quantile of the 
-r.v. $U^+$ and $U^-$.
 \end{proposition}
 
 \todoj[inline]{Substitute $U$, $t dt$, $w$, $\xi$ with $U^+$, $z dz$, $w^+$ and $\xi^+$, and say similar argument holds for $-$ parts,done}
@@ -59,7 +55,7 @@ w(P(U>t)),
 \text{         } \forall t \in [0,+\infty)
 \end{align}
 
-The integral of (4) equals to 
+The integral of (4) equals  
 
 \begin{align}
 & \int_0^{+\infty} \sum_{i=0}^{n-1} w^+_{\frac{i}{n}} \cdot I_{[\xi^+_\frac{n-i-1}{n},
@@ -69,7 +65,7 @@ The integral of (4) equals to
 \end{align}
 
 The H\"{o}lder continuity property assures the fact that 
-$\lim_{n \rightarrow \infty}  | w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n})| =0$, and the limit in (28) holds through a typical application of dominated convergence theorem.
+$\lim_{n \rightarrow \infty}  | w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n})| =0$, and the limit in (28) holds through a typical application of the dominated convergence theorem.
 The second part of equation (28) can be justified in a similar fashion.
 \end{proof} 
 %%%
@@ -78,7 +74,7 @@ The second part of equation (28) can be justified in a similar fashion.
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
 \todoj[inline]{Substitute $U$, $t dt$, $w$, $\xi^+$ with $U^+$, $z dz$, $w^+$ and $\xi^+$, resply and say similar argument holds for $-$ parts, done}
 \begin{proof}
-We would prove the $w^+$ part, and the $w^-$ part would be proved in a similar fashion.
+We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
 
 The main part of the proof is concentrated on finding an upper bound of the probability
 \begin{align}
@@ -86,9 +82,8 @@ P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
 \epsilon),
 \end{align}
-with $\epsilon$
-being any given constant $\epsilon>0$.
-Observe the fact that
+for any given $\epsilon>0$.
+Observe that
 \begin{align*}
 & P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
@@ -102,7 +97,7 @@ w^+_{(\frac{n-i-1}{n})}) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} 
 \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}})
 \right| > \frac{\epsilon}{n^{1-\alpha}})
 \end{align*}
-Now we are turning to find the upper bound of the probability of a single item in the sum above, i.e,
+Now we find the upper bound of the probability of a single item in the sum above, i.e,
 \begin{align*}
 & P( \left | U^+_{[i]} - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{(1-\alpha)}}) \\ & = P (
     U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon} {n^{(1-\alpha)}}) + P ( U^+_{[i]} -
@@ -113,8 +108,7 @@ Now we are turning to find the upper bound of the probability of a single item i
 $
 P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha})
 $.
-We denote $W_t= I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}$
-,t as a dummy value. According to the non-decreasing property of the probability distribution function, we know that 
+Let $W_t= I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1,\ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
 \begin{align*}
 & P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) \\ & = P ( \sum _{t=1}^{n} W_t >
 n\cdot(1-\frac{i}{n^{(1-\alpha)}})) \\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-F(\xi^+_{\frac{i}{n}}
@@ -137,11 +131,11 @@ Therefore we will have
 P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L
 \frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L }
 \end{align}
-Through the similar fashion, one can show that 
+In a  similar fashion, one can show that 
 \begin{align*}
 P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L }
 \end{align*}
-Subject to the assumption that $F(x)$ is Lipschitz continuous, one can state that 
+Because of the assumption that $F(x)$ is Lipschitz continuous, one can state that 
 \begin{align*}
 P ( \left| U^+_{[i]} -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
 e^{-2n^\alpha \cdot L } , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
@@ -155,10 +149,10 @@ P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-
 \end{align}
 
 Notice that $\sum_{n=1}^{+\infty}  2n \cdot e^{-2n^{\alpha}\cdot L}< \infty$ since the sequence 
-$2n \cdot e^{-2n^{\alpha}\cdot L}$ will decrease rapidly than the sequence
+$2n \cdot e^{-2n^{\alpha}\cdot L}$ will decrease more rapidly than the sequence
 $\frac{1}{n^k}$, $\forall k>1$.
 
-By applying Borel Cantelli lemma,
+By applying the Borel Cantelli lemma,
 $$
 P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
@@ -169,7 +163,7 @@ $$
 \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \xrightarrow{n \rightarrow
 +\infty} 0 \text{   w.p } 1 ,
 $$
-which constitute the proof of theorem's statement, that 
+which constitutes the proof of theorem's statement, that 
 \begin{align}
 \lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} U^+_{ [i ] } (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
 &\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt, \text{w.p} 1
@@ -178,7 +172,7 @@ which constitute the proof of theorem's statement, that
 
 \subsection*{Proof of Proposition \ref{prop:holder-dkw}}
 \begin{proof}
-We would prove the $w^+$ part, and the $w^-$ part will be proved through a similar fashion.
+We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
 Since $U^+$ is bounded above by $M$ and $w$ is H\"{o}lder with constant $C$ and power $\alpha$, we have
 \begin{align*}
 &\left|\int_0^{\infty} w^+(P(U^+)>t) dt- \int_0^{\infty} w^+(1- {\hat F^+_n}(t)) dt\right| \\ = &
@@ -196,7 +190,7 @@ P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t))
 \end{align}
 \end{proof}
 
-\subsubsection{Proofs for discrete value $X$}
+\subsubsection{Proofs for discrete valued $X$}
 \label{sec:proofs-discrete}
 \input{proofs-discrete}
 
@@ -205,7 +199,7 @@ P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t))
 \subsection{Proofs for CPT-SPSA-G}
 \label{appendix:1spsa}
 
-To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
+To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
 
 \todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
 \begin{lemma}
@@ -233,7 +227,7 @@ $\eta_n$ goes to zero asymptotically. In other words,
 \quad\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
 &\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) -\C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right].  \label{eq:l1}
 \end{align}
-We now analyse the RHS of the above.
+We now analyse the RHS of \eqref{eq:l1}.
 By using suitable Taylor's expansions,
 \begin{align*}
 \C(X^{\theta_n + \delta_n \Delta_n}) = \C(X^{\theta_n}) + \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n + O(\delta_n^3), \\
@@ -286,7 +280,7 @@ $  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamm
 \sum_{k=n}^{m} \gamma_k \xi_k\right\| \geq \epsilon \right) = 0. \]
 \item There exists a compact subset $K$ which is the set of asymptotically stable equilibrium points for the following ODE:
 \begin{align}
-\dot\theta^{i}_t = \check\Gamma_{i}\left( \nabla \C(X^{\theta^{i}_t})\right), \text{ for } i=1,\dots,d,\label{eq:pi-ode}
+\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for } i=1,\dots,d,\label{eq:pi-ode}
 \end{align}
 \end{enumerate} 
 
@@ -332,9 +326,11 @@ Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. 
  \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
 \end{align*}
 The equality above follows from (A3) in the main paper.
-\item The set $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
+\item Observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:pi-ode}. This can be seen as follows:
+$$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Gamma \left(-\nabla \C(X^{\theta}) < 0.$$
+Hence, the set $\K = \{\theta \mid \check\Gamma_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
 \end{itemize} 
-The claim follows from Kushner-Clark lemma.
+The claim follows from the Kushner-Clark lemma.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -352,12 +348,12 @@ For any $i, j= 1,\ldots,d$, we have almost surely,
 \end{align} 
 \end{lemma}
 \begin{proof}
-As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that,
+As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that
 \begin{align}
     \quad&\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2\widehat V_n^{\theta_n}(x^0)}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right] \nonumber\\
      &\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}) + \C(X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}) - 2\C(X^{\theta_n})}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right].  \label{eq:l21}
 \end{align}
-Now, the RHS of the above approximates the true gradient with only an $O(\delta_n^2)$ error and this can be inferred using arguments similar to that used in the proof of Proposition 4.2 of \cite{bhatnagar2015simultaneous}. We provide the proof here for the sake of completeness.
+Now, the RHS of \eqref{eq:l21} approximates the true gradient with only an $O(\delta_n^2)$ error; this can be inferred using arguments similar to those used in the proof of Proposition 4.2 of \cite{bhatnagar2015simultaneous}. We provide the proof here for the sake of completeness.
 Using Taylor's expansion as in Lemma \ref{lemma:1spsa-bias}, we obtain
 \begin{align*}
 &\dfrac{\C(X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}) + \C(X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}) - 2\C(X^{\theta_n})}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j}\\
@@ -382,19 +378,19 @@ For any $i = 1,\ldots,d$, we have almost surely,
 \end{align} 
 \end{lemma}
 \begin{proof}
-As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that,
+As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that
 \begin{align*}
 \quad&\E\left[\dfrac{\overline \C_n^{\theta_n + \delta_n (\Delta_n+\widehat\Delta_n)} -\overline \C_n^{\theta_n - \delta_n (\Delta_n+\widehat\Delta_n)}}{2 \delta_n \Delta_n^i} \left.\right| \F_n\right] 
 \xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) -\C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^i} \left.\right| \F_n\right].  
 \end{align*}
-The rest of the proof amounts to showing that the RHS of the above approximates the true gradient with an $O(\delta_n^2)$ correcting term and this can be done in a similar manner as the proof of Lemma \ref{lemma:1spsa-bias}.
+The rest of the proof amounts to showing that the RHS of the above approximates the true gradient with an $O(\delta_n^2)$ correcting term; this can be done in a similar manner as the proof of Lemma \ref{lemma:1spsa-bias}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Proof of Theorem \ref{thm:2spsa}}
 
-Before we prove Theorem \ref{thm:2spsa}, we show that the Hessian recursion \eqref{eq:2spsa-H} in the main paper converges to the true Hessian, for any policy $\theta$.
+Before we prove Theorem \ref{thm:2spsa}, we show that the Hessian recursion \eqref{eq:2spsa-H} converges to the true Hessian, for any policy $\theta$.
 
 \begin{lemma}
 \label{lemma:h-est}
@@ -404,13 +400,13 @@ $$\left \| H^{i, j}_n - \nabla^2_{i,j} \C(X^{\theta_n}) \right \| \rightarrow 0,
 $$
 \end{lemma}
 \begin{proof}
- Follows in a similar manner as the proof of Lemmas 7.10 and 7.11 of \cite{Bhatnagar13SR}.
+ Follows in a similar manner as in the proofs of Lemmas 7.10 and 7.11 of \cite{Bhatnagar13SR}.
 \end{proof}
 
 \begin{proof}\textbf{\textit{(Theorem \ref{thm:2spsa})}}
-The proof follows in a similar manner as the proof of Theorem 7.1 in \cite{Bhatnagar13SR} and we provide a sketch below for the sake of completeness.
+The proof follows in a similar manner as the proof of Theorem 7.1 in \cite{Bhatnagar13SR}; we provide a sketch below for the sake of completeness.
 
-We first rewrite the recursion \eqref{eq:2spsa} in the main paper as follows:
+We first rewrite the recursion \eqref{eq:2spsa} as follows:
 For $i=1,\ldots, d$
 \begin{align}
  \theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n - \gamma_n \sum_{j=1}^{d} \bar M^{i,j}(\theta_n) \nabla_{j} \C(X^\theta_n) + \gamma_n \zeta_n + \chi_{n+1} - \chi_n \right), \label{eq:pi-n}
@@ -485,7 +481,7 @@ From the foregoing, we have $\sum_{n=1}^{\infty}P\left(\mathcal{A}_n \cap \mathc
 \begin{align*}
 P\left(\mathcal{A}_n \cap \mathcal{B}_n~\mbox{i.o.} \right)=0.
 \end{align*}
-From the above, it is implied that if $\mathcal{A}_n$ happens infinitely often,
+From the above, it follows that if $\mathcal{A}_n$ happens infinitely often,
 then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 
 \begin{align*}
@@ -503,7 +499,7 @@ From the last equality above, we conclude that it is a contradiction because, $\
 
 \subsection*{Proof of Theorem \ref{thm:mras}}
 \begin{proof}
-Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}. This is because our algorithm operates in a similar manner as MRAS$_2$ w.r.t. generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$ and hence the rest of the proof follows from \cite{chang2013simulation}.
+Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}. This is because our algorithm operates in a similar manner as MRAS$_2$ with respect to generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$ and hence the rest of the proof follows from \cite{chang2013simulation}.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

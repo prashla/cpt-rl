@@ -1,8 +1,8 @@
 For the sake of notational convenience, we assume $w^+=w^-=w$. 
 For proving Proposition \ref{prop:sample-complexity-discrete}, we require Hoeffding's inequality, which is given below.
 \begin{lemma}
-Let $Y_1,...Y_n$ be \emph{independent random variables} satisfying $P(a\leq Y_i \leq b)= 1,$ each i, where $a<b.
-$Then for $t>0$,
+Let $Y_1,...Y_n$ be independent random variables satisfying $P(a\leq Y_i \leq b)= 1,$ for each $i$, where $a<b.
+$ Then for $t>0$,
 $$P(\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt ) \leq 2\exp{\{-2nt^2 /(b-a)^2\}} $$
 \end{lemma}
 
@@ -20,13 +20,12 @@ Let
 The following proposition gives the rate at which $\hat{F_k}$ converges to $F_k$.
 \begin{proposition}
 \label{prop:hoeffding-discrete}
-Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}--\eqref{eq:hatFk}, Then, we have that, for every $\epsilon >0$, 
+Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}, \eqref{eq:hatFk}, Then, we have that, for every $\epsilon >0$, 
 $$P(|\hat{F_k}-F_k| > \epsilon) \leq 2 e^{-2n \epsilon^2} $$
 \end{proposition}
 \begin{proof}
-We focus on the case when $k > l$,and the case of $k \leq l$ will be proved through the same fashion.
-Notice that when $k>l$,  $\hat F_k =I_{(U_i \geq  x_k) }$ and the random variables are independent to each other for each i, and it is bounded by 1. 
-The probability $P(\left|F_k- F_k \right| > \epsilon)$ is equal to 
+We focus on the case when $k > l$, while the case of $k \leq l$ is proved in a similar fashion.
+Notice that when $k>l$,  $\hat F_k =I_{(U_i \geq  x_k) }$. Since the random variables $U_i$ are independent of each other and  for each $i$, are bounded above by $1$, we can apply Hoeffding's inequality to obtain 
 \begin{align*}
 &
 P(\left|\hat{F_k}- F_k \right| > \epsilon) \\ & = P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{U_i \geq
@@ -39,7 +38,7 @@ x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{U_i \geq x_k\}}) \right| > \epsilon) \\
 The proof of Proposition \ref{prop:sample-complexity-discrete} requires the following claim which gives the convergence rate under local Lipschitz weights. 
 \begin{proposition}
 \label{prop:discrete-first-term}
-Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk}--\eqref{eq:hatFk},  we have
+Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk} \eqref{eq:hatFk},  we have
 $$P(\left| \sum_{i=1}^K x_k w(\hat{F_k}) - \sum_{i=1}^K x_k w(F_k) \right| >\epsilon) < K\cdot (
 e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}) $$ 
 \end{proposition}
@@ -98,7 +97,7 @@ P(\left|\sum_{i=1}^K u(x_k) \cdot(w(\hat{F_k})- w(\hat F_{k+1}) )
 \right| \leq \epsilon) > 1-\rho
 \text{      ,     } \forall n> \frac{\ln(\frac{4K}{a})} { M}, 
 \end{align}
-where $w$ is Locally Lipschitz continuous with constants $L_1,....L_K$ on the points $F_1,....F_K$.
+where $w$ is Locally Lipschitz continuous with constants $L_1,....L_K$ at the points $F_1,....F_K$.
 From a parallel argument to that in the proof of Proposition \ref{prop:discrete-first-term}, it is easy to infer that
 $$P(\left| \sum_{i=1}^K x_k w(\hat F_{k+1}) - \sum_{i=1}^K x_k w(F_{k+1}) \right| >\epsilon) <
 K\cdot ( e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2})
