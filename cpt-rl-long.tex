@@ -760,7 +760,7 @@ A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n 
 \label{thm:1spsa-conv}
 Assume (A1)-(A3).
 Consider the  ordinary differential equation (ODE): 
-$$\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{for }i=1,\dots,d,$$ 
+$$\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
 where 
 $$\check\Gamma_{i}(f(\theta)) := \lim\limits_{\alpha \downarrow 0} \frac{\Gamma_{i}(\theta + \alpha f(\theta)) - \theta}{\alpha}, \textrm{ for any continuous }f(\cdot).$$
  Let $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla_i V^{\theta}(x^0)\right)=0, \forall i=1,\ldots,d\}$. Then,
@@ -877,10 +877,10 @@ The overall flow on CPT-SPSA-N is similar to Fig. \ref{fig:algorithm-flow}, exce
 Assume (A1)-(A4). 
 Consider the ODE: 
 $$
-\dot\theta^{i}_t = \check\Gamma_{i}\left( \nabla \C(X^{\theta^{i}_t}) \Upsilon(-\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right), \text { for }i=1,\dots,d,$$
+\dot\theta^{i}_t = \check\Gamma_{i}\left( - \Upsilon(\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right), \text { for }i=1,\dots,d,$$
 where 
-$\bar\Gamma_{i}$ is as defined in Theorem \ref{thm:1spsa-conv}. Let $\K = \{\theta \mid
-\nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
+$\bar\Gamma_{i}$ is as defined in Theorem \ref{thm:1spsa-conv}. Let $\K = \{\theta \in \Theta \mid
+\nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
 =0, \forall i=1,\ldots,d\}$. Then,
 we have
 $$\theta_n \rightarrow \K  \text{~~ a.s. as } n\rightarrow \infty.$$ 
