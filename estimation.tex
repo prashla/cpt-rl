@@ -1,0 +1,204 @@
+For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. 
+
+\paragraph{On integrability}
+Observe that the first integral in \eqref{eq:cpt-mdp}, i.e., 
+\begin{align}
+\label{eq:1st-int-cpt}
+\int_0^{+\infty} w^+(P(u^+(X)>z)) d z
+\end{align}
+may diverge even if the first moment of random variable $u^+(X)$ is finite. 
+For example, suppose $U$ has the tail distribution function
+$$P(U>z)  = \frac{1}{z^2}, z\in [1, +\infty),$$
+and $w^+(z)$ takes the form $w(z) = z^{\frac{1}{3}}$. Then, the integral \eqref{eq:1st-int-cpt} with respect to the distorted tail, i.e.,
+$$
+\int_1^{+\infty} \frac{1}{z^{\frac{2}{3}}} dz
+$$
+does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-mdp} as well.
+
+To overcome the above integrability issues, we make different assumptions on the weight and/or utility functions. In particular, we assume that the weight functions $w^+, w^-$ are either 
+\begin{inparaenum}[\bfseries (i)]
+\item Lipschitz continuous, or
+\item \holder continuous, or
+\item locally Lipschitz.
+\end{inparaenum}
+We devise a scheme for estimating \eqref{eq:cpt-mdp} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
+We also provide sample complexity bounds assuming that the utility functions are bounded.
+
+% \subsubsection*{Main results}
+% As mentioned earlier, to overcome integrability issues, we make the following assumption:\\[1ex]
+% \textbf{Assumption (A1).}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+% $u^+(X)$ and $u^-(X)$ both have bounded first moments\\[1ex]
+% % If the weight function is not Lipschitz, then the integrals using the distribution of $X$ in CPT-value may not even be finite. 
+% We make the following assumptions on the utility functions:\\[1ex]
+% \textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
+% \todoj{Check if increasing is necessary}
+% \textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+% For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
+% 
+% The following result shows that the estimate \eqref{eq:cpt-est} converges to the true CPT value almost surely and at the (nearly) canonical Monte Carlo asymptotic rate. 
+% \begin{proposition} (\textbf{Asymptotic convergence and rate.})
+% \label{thm:asymp-conv}
+% Under (A1) and (A2), we have
+% \begin{align}
+% \widehat V_n(X) \rightarrow \C(X) \text{ a.s. as } n \rightarrow \infty.
+% \end{align}
+% If we assume (A2'), then we have
+% $$
+% \limsup_{n\rightarrow \infty} \sqrt{\frac{n}{2 \ln \ln n}} ||\hat{V_n}(X)-\C(X)||_{\infty} 
+% \leq  LM \quad \text{a.s.}
+% $$
+% \end{proposition}
+% \begin{proof}
+%  See Section \ref{appendix:cpt-est}.
+% \end{proof}
+% 
+% While the above result establishes that \eqref{eq:cpt-est} is an unbiased estimate in the asymptotic sense, it is important to know the rate at which the estimate in \eqref{eq:cpt-est} converges to the CPT-value. 
+% The following sample complexity result shows that $O\left(\frac{1}{\epsilon^2}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
+% \begin{proposition}(\textbf{Sample Complexity})
+% \label{thm:dkw}
+% Under (A1) and (A2'), for any $\epsilon, \delta >0$, we have
+% \begin{align*}
+% P(|\widehat V_n(X) - \C(X)|\le\epsilon) \geq  1 - \delta, \,\,\, \forall n \geq \frac{2 L^2 M^2}{\epsilon^2} ln \frac{4}{\delta}.
+% \end{align*}
+% \end{proposition}
+% \begin{proof}
+%  See Section \ref{appendix:cpt-est}.
+% \end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Estimation scheme for \holder continuous weights}
+Recall the H\"{o}lder continuity property first in definition 1:
+\begin{definition}
+{\textbf{\textit{(H\"{o}lder continuity)}}}
+If $0 < \alpha \leq 1$, a function $f \in C([a,b])$ is said to satisfy
+a H\"{o}lder condition of order $\alpha$ (or to be H\"{o}lder continuous
+of order $\alpha$) if
+\[
+\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq C .
+\]
+\end{definition}
+
+In order to ensure integrability of the CPT-value \eqref{eq:cpt-mdp}, we make the following assumption:\\[1ex]
+\textbf{Assumption (A1).}  
+The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
+$\exists \gamma \le \alpha \text{   s.t,  }$ 
+$$\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty \text{ and }\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty$$
+
+The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-mdp} is finite - see Proposition \ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
+
+
+\paragraph{Approximating CPT-value using quantiles:}
+Let $\xi^+_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of the r.v. $u^+(X)$. Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
+\begin{align}
+\label{eq:holder-quant-motiv}
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^+(P(u^+(X)>z)) dz.
+\end{align}
+
+The identical property holds for the pairs $u^-(X)$, $\xi^-_{\frac{i}{n}}, w^-$ , with $\xi^-_{\frac{i}{n}}$ denote the 
+$\frac{i}{n}$th quantile of the r.v. $u^-(X)$.
+
+However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we develop a procedure that uses order statistics for estimating quantiles, which in turn assists in estimating the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
+
+\todoj[inline]{Need some text here to connect the quantile business to EDFs, i.e., to say that step 5 in Algo 1 is the same as estimating EDFs and then doing empirical integration using EDFs to estiamete CPT-value}
+
+\begin{algorithm}
+\caption{CPT-value estimation for \holder continuous weights}
+\label{alg:holder-est}
+\begin{algorithmic}[1]
+\State Simulate $n$ random samples with distribution $X$, sort them and denoted the ordered sample as 
+$X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
+\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]})$
+\State Order the simulated samples and label them as follows: 
+$u^+(X_{[1]}),\ldots,u^+(X_{[n]})$.
+\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
+\State Denote the statistic 
+$\overline \C_n^+:=\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) )$
+\State Repeat the procedure on the sequence $X_{[1]}, X_{[2]}, \ldots X_{[n]}$, with respect to the function $u^-$, 
+and denote the statistic $\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) $
+\State Return the statistic $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
+\end{algorithmic}
+\end{algorithm}
+
+\subsubsection*{Main results}
+We make the following assumptions on the utility functions:\\[1ex]
+\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
+\todoj{Check if increasing is necessary}
+\textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
+
+\begin{proposition}(\textbf{Asymptotic convergence.})
+\label{prop:holder-asymptotic}
+Assume (A1) and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution functions of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constants $L^+$ and $L^-$, respectively on the interval $(0,+\infty)$, and 
+$(-\infty, 0)$ . Then, we have that
+\begin{align}
+\lim_{n\rightarrow +\infty} 
+\overline \C_n
+=
+\C(X)
+ \text{   a.s.,}
+\end{align}
+where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}.
+\end{proposition}
+\begin{proof}
+See Section \ref{sec:holder-proofs}.
+\end{proof}
+
+While the above result establishes that $\overline \C_n$ is an unbiased estimate in the asymptotic sense, it is important to know the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
+The following sample complexity result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
+
+% 
+% While the above proposition gives an asymptotic guarantee, in the following we provide a sample complexity result for Algorithm \ref{alg:holder-est}.
+% For this result, we assume, as in the case of Lipschitz continuous weights, that the utility functions are bounded in addition to (A1').
+
+\begin{proposition}(\textbf{Sample complexity.})
+\label{prop:holder-dkw}
+Assume (A1) and (A2'). Then, $\forall \epsilon, \delta$, we have
+$$
+P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\frac{4L^2 M^2}{\epsilon^{2/\alpha}}.$$
+\end{proposition}
+\begin{proof}
+Notice the the following equivalence:
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
+and also,
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
+
+where $\hat{F^+_n}(x)$ and $\hat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+and $u^-(X)$, defined as follows:
+\begin{align}
+{\hat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
+{\hat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
+\label{eq:edf}
+\end{align}
+
+The main claim follows from the equivalence mentioned above together with the well-known DKW inequality.
+The detailed proof is available in Section \ref{sec:holder-proofs}.
+\end{proof}
+
+\subsubsection*{Special case: Lipschitz continuous weights}
+\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+$u^+(X)$ and $u^-(X)$ both have bounded first moments.\\[1ex]
+
+\begin{corollary}[Lipschitz case]
+Assume (A1') and (A2). Then, we have that 
+$$\lim_{n\rightarrow +\infty} \overline \C_n = \C(X) \text{   a.s.}$$
+
+In addition, if we assume (A2'), we have 
+$$
+P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\frac{4L^2 M^2}{\epsilon^{2}}.
+$$
+\end{corollary}
+\begin{proof}
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. Thus, the claims regarding asymptotic convergence and sample complexity as special cases of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}, with $\alpha=1$. 
+\end{proof}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Estimation scheme for locally Lipschitz weights and discrete $X$}
+\todop[inline]{Would be better if the background been put to the introduction part}
+\input{discrete-est}
