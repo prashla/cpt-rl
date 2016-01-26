@@ -13,7 +13,7 @@ $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$. Then, the CPT-valu
 \C(X) = &(u^-(x_1))\cdot w^-(p_1) 
 +\sum_{i=2}^l u^-(x_i) \Big(w^-(\sum_{j=1}^i p_j) - w^-(\sum_{j=1}^{i-1} p_j)\Big) 
 \\&
- + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K p_j) - w^-(\sum_{j=i+1}^K p_j) \Big)
+ + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K p_j) - w^+(\sum_{j=i+1}^K p_j) \Big)
  + u^+(x_K)\cdot w^+(p_K), 
 \end{align} 
 where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corresponding to gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
@@ -28,15 +28,15 @@ u^-(x_1)\cdot w^-(\hat p_1)+
 & \sum_{i=2}^l u^-(x_i) \Big(w^-(\sum_{j=1}^i \hat p_j) - w^-(\sum_{j=1}^{i-1} \hat p_j)\Big) 
 \\
 &
-+ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K \hat p_j) - w^-(\sum_{j=i+1}^K \hat p_j) \Big)+ u^+(x_K)\cdot w^+(\hat p_K).
++ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K \hat p_j) - w^+(\sum_{j=i+1}^K \hat p_j) \Big)+ u^+(x_K)\cdot w^+(\hat p_K).
 \end{align}
-Owing to the fact that $\hat{p_k}$ converge a.e to $p_k=P(X_i=x_k)$, with $X_i$ be the sample of $X$ the above estimator obtains strong consistency property according to continuous mapping theorem. 
+Because $\hat{p_k}$ converge a.e to $p_k=P(X_i=x_k)$, with $X_i$ be the ith sample of $X$, the above estimator is  strong consistent property by the continuous mapping theorem. 
 
 
 \subsubsection*{Main result}
-The following proposition presents a sample complexity result for the discrete valued $X$ under the following assumption:\\
-\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exists a $\delta>0$, such that
-$$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\delta,x+\delta) $$.\\
+The following proposition presents a sample complexity result for the discrete-valued $X$ under the following assumption:\\
+\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L< \infty$ and $\delta>0$, such that
+$$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\delta,x+\delta). $$\\
 
 We denote $L=\max\{L_k, k=2...K\}$,  where $L_k$ is the Lipschitz constant at $F_k = \sum_{i=k}^K p_i$.
 
@@ -51,7 +51,7 @@ F_k =
 \end{cases}  
 \end{align}
 
-The main result for discrete valued $X$ is given below.
+The main result for discrete-valued $X$ is given below.
 \begin{proposition}[Sample Complexity: discrete case]
 \label{prop:sample-complexity-discrete}
 Denote $L=\max\{L_k, k=2...K\} $, where $L_k$ is the local Lipschitz constant of function $w^-(x)$ at points

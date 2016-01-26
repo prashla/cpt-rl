@@ -43,16 +43,16 @@ Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\f
 \begin{proof}
 We shall focus on proving the first part of equation (28). Consider the following linear combination of simple functions: 
 \begin{align}
-\sum_{i=0}^{n-1} w^+_{\frac{i}{n}} 
+\sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi_\frac{n-i}{n}]}(t),
 \end{align}
 which will converge almost everywhere to the function $w(P(U>t))$ in the interval $[0, +\infty)$, and also notice that 
 \begin{align}
-\sum_{i=0}^{n-1} w^+_{\frac{i}{n}} 
+\sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}]}(t)
 <
 w(P(U>t)),
-\text{         } \forall t \in [0,+\infty)
+\text{         } \forall t \in [0,+\infty).
 \end{align}
 
 The integral of (4) equals  
@@ -61,7 +61,7 @@ The integral of (4) equals
 & \int_0^{+\infty} \sum_{i=0}^{n-1} w^+_{\frac{i}{n}} \cdot I_{[\xi^+_\frac{n-i-1}{n},
 \xi^+_\frac{n-i}{n}]}(t) \\ & = \sum_{i=0}^{n-1} w^+_{\frac{i}{n}}(t) \cdot (\xi^+_{\frac{n-i}{n}} -
 \xi^+_{\frac{n-i-1}{n}}) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+_{\frac{n-i}{n}}-
-    w^+_{\frac{n-i-1}{n}})
+    w^+_{\frac{n-i-1}{n}}).
 \end{align}
 
 The H\"{o}lder continuity property assures the fact that 
@@ -87,17 +87,17 @@ Observe that
 \begin{align*}
 & P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
-\epsilon) \\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| U^+_{[i]} \cdot (w^+_{(\frac{n-i}{n})} -
+\epsilon) \\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| U^+_{[i]} \cdot (w^+_(\frac{n-i}{n}) -
 w^+{(\frac{n-i-1}{n})}) - \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) )
 \right| > \frac{\epsilon}{n} \}) \\ & \leq \sum _{i=1}^{n-1} P ( \left| U^+_{[i]} \cdot
-(w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \xi^+_{\frac{i}{n}} \cdot (w^+_{(\frac{n-i}{n})} -
-w^+_{(\frac{n-i-1}{n})}) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} -
+(w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n}) -
+w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} -
 \xi^+_{\frac{i}{n}}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| > \frac{\epsilon}{n})
 \\ & \leq \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}}) \cdot (\frac{1}{n})^{\alpha}
 \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}})
-\right| > \frac{\epsilon}{n^{1-\alpha}})
+\right| > \frac{\epsilon}{n^{1-\alpha}}).
 \end{align*}
-Now we find the upper bound of the probability of a single item in the sum above, i.e,
+Now we find the upper bound of the probability of a single item in the sum above, i.e
 \begin{align*}
 & P( \left | U^+_{[i]} - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{(1-\alpha)}}) \\ & = P (
     U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon} {n^{(1-\alpha)}}) + P ( U^+_{[i]} -
@@ -108,7 +108,7 @@ Now we find the upper bound of the probability of a single item in the sum above
 $
 P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha})
 $.
-Let $W_t= I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1,\ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
+Let $W_t = I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1, \ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
 \begin{align*}
 & P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) \\ & = P ( \sum _{t=1}^{n} W_t >
 n\cdot(1-\frac{i}{n^{(1-\alpha)}})) \\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-F(\xi^+_{\frac{i}{n}}
@@ -129,16 +129,16 @@ $F(x)$ is Lipschitz, $ \delta^{'}_i \leq L \cdot (\frac{\epsilon}{\nalpha})$.
 Therefore we will have
 \begin{align}
 P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L
-\frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L }
+\frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L  \epsilon}
 \end{align}
 In a  similar fashion, one can show that 
 \begin{align*}
-P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L }
+P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L  \epsilon}
 \end{align*}
 Because of the assumption that $F(x)$ is Lipschitz continuous, one can state that 
 \begin{align*}
 P ( \left| U^+_{[i]} -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
-e^{-2n^\alpha \cdot L } , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
+e^{-2n^\alpha \cdot L \epsilon} , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
 \end{align*}
 As a result we can derive a bound for the probability in (6) such that
 \begin{align}
@@ -148,7 +148,7 @@ P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-
 \epsilon) \leq 2n\cdot e^{-2n^\alpha \cdot L}.\label{eq:holder-sample-complexity-extract}
 \end{align}
 
-Notice that $\sum_{n=1}^{+\infty}  2n \cdot e^{-2n^{\alpha}\cdot L}< \infty$ since the sequence 
+Notice that $\sum_{n=1}^{+\infty}  2n \cdot e^{-2n^{\alpha}\cdot L \epsilon}< \infty$ since the sequence 
 $2n \cdot e^{-2n^{\alpha}\cdot L}$ will decrease more rapidly than the sequence
 $\frac{1}{n^k}$, $\forall k>1$.
 
@@ -166,7 +166,7 @@ $$
 which constitutes the proof of theorem's statement, that 
 \begin{align}
 \lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} U^+_{ [i ] } (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
-&\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt, \text{w.p} 1
+&\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt , \text{w.p} 1
 \end{align}
 \end{proof}
 
