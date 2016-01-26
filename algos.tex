@@ -39,9 +39,11 @@
 
 \subsection{Gradient estimation} 
 Given that we operate in a learning setting and only have biased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation optimization scheme that estimates $\nabla \C(X^\theta)$.  
-Simultaneous perturbation methods are a general class of stochastic gradient schemes that optimize a function given only noisy sample values - see \cite{Bhatnagar13SR} for textbook introduction. SPSA is a well-known scheme that estimates the gradient using two sample values. In our context, at any iteration $n$ of CPT-SPSA-G, with parameter $\theta_n$, the gradient $\nabla \C(X^{\theta_n})$ is estimated as follows: For any  $i=1,\ldots,d$,
-$$\widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}},$$
-where $\delta_n$ is a positive scalar that satisfies (A3) below, $\Delta_n = \left( \Delta_n^{1},\ldots,\Delta_n^{\L\M}\right)\tr$, where $\{\Delta_n^{i}, i=1,\ldots,\L\M\}$, $n=1,2,\ldots$ are i.i.d. Rademacher, independent of $\theta_0,\ldots,\theta_n$ and $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline \C_n^{\theta_n+\delta_n \Delta_n}$) denotes the CPT-value estimate that uses $m_n$ samples of the r.v. $X^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline X^{\theta_n-\delta_n \Delta_n}$).
+Simultaneous perturbation methods are a general class of stochastic gradient schemes that optimize a function given only noisy sample values - see \cite{Bhatnagar13SR} for a textbook introduction. SPSA is a well-known scheme that estimates the gradient using two sample values. In our context, at any iteration $n$ of CPT-SPSA-G, with parameter $\theta_n$, the gradient $\nabla \C(X^{\theta_n})$ is estimated as follows: For any  $i=1,\ldots,d$,
+\begin{align}
+\widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}},\label{eq:grad-est-spsa}
+\end{align}
+where $\delta_n$ is a positive scalar that satisfies (A3) below, $\Delta_n = \left( \Delta_n^{1},\ldots,\Delta_n^{d}\right)\tr$, where $\{\Delta_n^{i}, i=1,\ldots,d\}$, $n=1,2,\ldots$ are i.i.d. Rademacher, independent of $\theta_0,\ldots,\theta_n$ and $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline \C_n^{\theta_n-\delta_n \Delta_n}$) denotes the CPT-value estimate that uses $m_n$ samples of the r.v. $X^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline X^{\theta_n-\delta_n \Delta_n}$).
 %From the asymptotic mean square analysis that we present later, it is optimal to set $\delta_n = \delta_0/n^{0.16}$.
 The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{lemma:1spsa-bias}.
 
@@ -49,7 +51,7 @@ This idea of using two-point feedback for estimating the gradient has been emplo
 \cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
 
 
-\subsection{Update rule} We incrementally update the parameter $\theta$ in the descent direction as follows: For every state $i=1,\ldots,\L\M$,
+\subsection{Update rule} We incrementally update the parameter $\theta$ in the descent direction as follows: For every state $i=1,\ldots,d$,
 \begin{align}
 \theta^{i}_{n+1} = \Gamma_{i}\left(\theta^{i}_n - \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
 \label{eq:theta-update}
@@ -84,22 +86,22 @@ Fig. \ref{fig:algorithm-flow} illustrates the overall flow of the gradient algor
 %%%%%%%%%%%%%%%%%%%
 \begin{algorithm}[t]
 \begin{algorithmic}
-    \State {\bf Input:}  initial parameter $\theta_0$, perturbation constants $\delta_n>0$, sample size $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Gamma$.
+    \State {\bf Input:}  initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Gamma: \R^d \rightarrow \Theta$.
 \For{$n = 0,1,2,\ldots$}	
-	\State Generate $\{\Delta_n^i, i=1,\ldots,\L\M\}$ using Rademacher distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$
+	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
-	    \State Simulate $m_n$ samples using parameter $(\theta_n+\delta_n \Delta_n)$
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$
+	    \State Simulate $m_n$ samples using parameter $(\theta_n+\delta_n \Delta_n)$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ using Algorithm \ref{alg:holder-est}.
 	    \EndPEval
 	    \PEvalPrime
-  	    \State Simulate $m_n$ samples using parameter $\theta_n-\delta_n \Delta_n$
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$
+  	    \State Simulate $m_n$ samples using parameter $\theta_n-\delta_n \Delta_n$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ using Algorithm \ref{alg:holder-est}.
 	    \EndPEvalPrime
 	    \PImp
-		\State $\theta^{i}_{n+1} = \Gamma_i\left(\theta^{i}_n - \gamma_n \widehat \nabla_{i} \C(X^{\theta_n})\right)$
+		\State $\theta^{i}_{n+1} = \Gamma_i\left(\theta^{i}_n - \gamma_n \widehat \nabla_{i} \C(X^{\theta_n})\right)$, where $\widehat \nabla_{i} \C(X^{\theta_n})$ is given by \eqref{eq:grad-est-spsa}.
 		\EndPImp
 \EndFor
-\State {\bf Return} $\theta_n$
+\State {\bf Return} $\theta_n$.
 \end{algorithmic}
 \caption{Structure of CPT-SPSA-G algorithm.}
 \label{alg:1spsa}
@@ -167,7 +169,7 @@ Consider the  ordinary differential equation (ODE):
 $$\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
 where 
 $$\check\Gamma_{i}(f(\theta)) := \lim\limits_{\alpha \downarrow 0} \frac{\Gamma_{i}(\theta + \alpha f(\theta)) - \theta}{\alpha}, \textrm{ for any continuous }f(\cdot).$$
- Let $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla_i V^{\theta}(x^0)\right)=0, \forall i=1,\ldots,d\}$. Then,
+ Let $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla_i \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
 $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \end{theorem}
 \begin{proof}
@@ -181,22 +183,21 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \section{Newton algorithm for CPT-value optimization (CPT-SPSA-N)}
 \label{sec:2spsa}
 \subsection{Need for second-order methods}
-While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved. Here $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
+While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
 Theorem 2.2 in \cite{fathi2013transport}). Thus, it is optimal to average iterates only 
 after a sufficient number of iterations have passed and all the iterates are very close to the optimum. However, the latter situation serves as a stopping condition in practice.
 
 An alternative approach is to employ step-sizes of the form $\gamma_n = (a_0/n) M_n$, where $M_n$ converges to $\left(\nabla^2 \C(X^{\theta^*})\right)^{-1}$, i.e., the inverse of the Hessian of the CPT-value at the optimum $\theta^*$. Such a scheme gets rid of the step-size dependency (one can set $a_0=1$) and still obtains optimal convergence rates. This is the motivation behind having a second-order optimization scheme.
 
 \subsection{Gradient and Hessian estimation}
-We estimate the Hessian of the CPT-value function using the scheme suggested by \cite{bhatnagar2015simultaneous}. As in the case of the first-order method, we use Rademacher random variables to simultaneously perturb all the coordinates. However, in this case, we require three system trajectories with corresponding  parameters $\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)$, $\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)$ and $\theta_n$, where $\{\Delta_n^i, \widehat\Delta_n^i, i=1,\ldots,d\}$ are i.i.d. Rademacher and independent of $\theta_0,\ldots,\theta_n$. Using the CPT-value estimates for the aforementioned  parameters, we estimate the Hessian and the gradient of the CPT-value function as follows: For $i,j=1,\ldots,d$, set
+We estimate the Hessian of the CPT-value function using the scheme suggested by \cite{bhatnagar2015simultaneous}. As in the first-order method, we use Rademacher random variables to simultaneously perturb all the coordinates. However, in this case, we require three system trajectories with corresponding  parameters $\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)$, $\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)$ and $\theta_n$, where $\{\Delta_n^i, \widehat\Delta_n^i, i=1,\ldots,d\}$ are i.i.d. Rademacher and independent of $\theta_0,\ldots,\theta_n$. Using the CPT-value estimates for the aforementioned  parameters, we estimate the Hessian and the gradient of the CPT-value function as follows: For $i,j=1,\ldots,d$, set
 \begin{align*}
-&\widehat \nabla_{i} \C(X_n^{\theta_n})=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n}}{2\delta_n \Delta_n^{i}},\\ 
-&\widehat H_n^{i,j}=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\widehat V_n^{\theta_n}(x^0)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^{j}}.
+&\widehat \nabla_{i} \C(X_n^{\theta_n})=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}}{2\delta_n \Delta_n^{i}},\\ 
+&\widehat H_n^{i,j}=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^{j}}.
 \end{align*}
-Further, set  $\widehat H_n^{i,j} = \widehat H_n^{j, i}$, for $i,j=1,\ldots,d$.
 Notice that the above estimates require three samples, while the second-order SPSA algorithm proposed first in \cite{spall2000adaptive} required four.
 %
-Both the gradient estimate $\widehat \nabla V_n^{\theta_n}(x^0)$ and the Hessian estimate $\widehat{H_n}$ can be shown to be an $O(\delta_n^2)$ term away from the true gradient $\nabla V^\theta_n(x^0)$ and Hessian $\nabla^2  V^\theta_n(x^0)$, respectively (see Lemmas \ref{lemma:2spsa-bias}--\ref{lemma:2spsa-grad}).
+Both the gradient estimate $\widehat \nabla \C(X_n^{\theta_n}) = [\widehat \nabla_i \C(X_n^{\theta_n})], i=1,\ldots,d,$ and the Hessian estimate $\widehat{H_n} = [\widehat H_n^{i,j}], i,j=1,\ldots,d,$ can be shown to be an $O(\delta_n^2)$ term away from the true gradient $\nabla \C(X^\theta_n)$ and Hessian $\nabla^2  \C(X^\theta_n)$, respectively (see Lemmas \ref{lemma:2spsa-bias}--\ref{lemma:2spsa-grad}).
 
 %%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
 %%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
@@ -219,29 +220,29 @@ Both the gradient estimate $\widehat \nabla V_n^{\theta_n}(x^0)$ and the Hessian
 
 \begin{algorithm}[t]
 \begin{algorithmic}
-\State {\bf Input:} initial parameter $\theta_0$, perturbation constants $\delta_n>0$, trajectory lengths $\{m_n\}$, step-sizes $\{\gamma_n, \xi_n\}$. 
+\State {\bf Input:} 
+initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n, \xi_n\}$, operator $\Gamma: \R^d \rightarrow \Theta$.
 \For{$n = 0,1,2,\ldots$}	
-	\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$
+	\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
-	    \State Simulate $m_n$ samples  using parameter $(\theta_n+\delta_n (\Delta_n + \hat \Delta_n))$
-	    \State Obtain CPT-value estimate $\widehat V_n^{(\theta_n+\delta_n (\Delta_n+\hat \Delta_n))}(x^0)$ using Algorithm \ref{alg:holder-est}
+	    \State Simulate $m_n$ samples  using parameter $(\theta_n+\delta_n (\Delta_n + \hat \Delta_n))$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n (\Delta_n+\hat \Delta_n)}$ using Algorithm \ref{alg:holder-est}.
 	    \EndPEval
 	    \PEvalPrime
-  	    \State Simulate $m_n$ samples using parameter $(\theta_n-\delta_n (\Delta_n + \hat \Delta_n))$
-	    \State Obtain CPT-value estimate $\widehat V_n^{\theta_n-\delta_n (\Delta_n+\hat\Delta_n)}(x^0))$ Algorithm \ref{alg:holder-est}
+  	    \State Simulate $m_n$ samples using parameter $(\theta_n-\delta_n (\Delta_n + \hat \Delta_n))$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n (\Delta_n+\hat\Delta_n)}$ Algorithm \ref{alg:holder-est}.
 	    \EndPEvalPrime
 	    	    \PEvalPrimeDouble
-  	    \State Simulate $m_n$ samples using parameter $\theta_n$
-	    \State Obtain CPT-value estimate $\widehat V_n^{\theta_n}(x^0))$ using Algorithm \ref{alg:holder-est}
+  	    \State Simulate $m_n$ samples using parameter $\theta_n$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n}$ using Algorithm \ref{alg:holder-est}.
 	    \EndPEvalPrimeDouble
 	    \PImpNewton
-		\State Gradient estimate $\widehat \nabla_{i} \C(X^\theta_n)\quad=\quad\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n}}{2\delta_n \Delta_n^{i}}$
-        \State Hessian estimate $\widehat H_n\quad=\quad\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\widehat \nabla_{i} \C(X^\theta_n)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}$
-
-		\State Update the parameter and Hessian according to \eqref{eq:2spsa}--\eqref{eq:2spsa-H}
+		%\State Gradient estimate $\widehat \nabla_{i} \C(X^\theta_n)\quad=\quad\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n}}{2\delta_n \Delta_n^{i}}$
+        %\State Hessian estimate $\widehat H_n\quad=\quad\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\widehat \nabla_{i} \C(X^\theta_n)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}$
+		\State Update the parameter and Hessian according to \eqref{eq:2spsa}--\eqref{eq:2spsa-H}.
 		\EndPImpNewton
 \EndFor
-\State {\bf Return} $\theta_n$
+\State {\bf Return} $\theta_n.$
 \end{algorithmic}
 \caption{Structure of CPT-SPSA-N algorithm.}
 \label{alg:structure-2}
@@ -252,22 +253,21 @@ We update the parameter incrementally using a Newton decrement as follows: For $
 \begin{align}
 \label{eq:2spsa}
 % \theta_{n+1} =& \theta_{(1-\xi)\Theta}(\theta_n - \gamma_n \Upsilon(\overline H_n)^{-1} \widehat\nabla V^\theta_n(x^0)), \\
-\theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n - \gamma_n \sum_{j=1}^{\L\M} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
+\theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n - \gamma_n \sum_{j=1}^{d} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
 \overline H_n = & (1-\xi_n) \overline H_{n-1} + \xi_n \widehat H_n,\label{eq:2spsa-H}
 \end{align}
 where $\xi_n$ is a step-size sequence that satisfies 
 $\sum_{n} \xi_n = \infty, \sum_n \xi_n^2 < \infty$ and $\frac{\gamma_n}{\xi_n}\rightarrow 0$ as $n\rightarrow \infty$. These conditions on $\xi_n$ ensure that the updates to $\overline H_n$ proceed on a timescale that is faster than that of $\theta_n$ in \eqref{eq:2spsa} - see \cite[Chapter 6]{borkar2008stochastic}.
-Further, $\Gamma$ is a projection operator as in CPT-SPSA-G and  $M_n = \Upsilon(\overline H_n)^{-1}$.
+Further, $\Gamma$ is a projection operator as in CPT-SPSA-G and  $M_n = [M_n^{i,j}] = \Upsilon(\overline H_n)^{-1}$.
 % ,  $\widehat\nabla V^\theta_n(x^0)$ is an estimate of the gradient of the CPT-value function and $\widehat H_n$ and $\overline H_n$ denote the Hessian estimate and its smooth counterpart, respectively. 
 Notice that we invert $\overline H_n$ in each iteration, and to ensure that this inversion is feasible (so that the $\theta$-recursion descends), we project $\overline H_n$ onto the set of positive definite matrices using the operator $\Upsilon$. The operator has to be such that asymptotically $\Upsilon(\overline H_n)$ should be the same as $\overline H_n$ (since the latter would converge to the true Hessian), while ensuring inversion is feasible in the initial iterations.  The assumption below makes these requirements precise.\\[1ex]
 \textbf{Assumption (A4).}  For any $\{A_n\}$ and $\{B_n\}$,
 ${\displaystyle \lim_{n\rightarrow \infty} \left\| A_n-B_n \right\|}= 0 \Rightarrow {\displaystyle \lim_{n\rightarrow \infty} \parallel \Upsilon(A_n)- \Upsilon(B_n) \parallel}= 0$. Further, for any $\{C_n\}$  with
 ${\displaystyle \sup_n \parallel C_n\parallel}<\infty$,
-${\displaystyle \sup_n \left(\parallel \Upsilon(C_n)\parallel + \parallel \{\Upsilon(C_n)\}^{-1} \parallel\right) < \infty}$
-as well.
+${\displaystyle \sup_n \left(\parallel \Upsilon(C_n)\parallel + \parallel \{\Upsilon(C_n)\}^{-1} \parallel\right) < \infty}$.
 \\[0.5ex]
 %A simple way to define $\Upsilon(\overline H_n)$ is to first perform an eigen-decomposition of $\overline H_n$, followed by projecting all the eigen values onto the positive side (see \cite{gill1981practical} for a similar operator). 
-A simple way to ensure the above is to have $\Upsilon(\overline H_n)$ as a diagonal matrix and then add a positive scalar $\delta_n$ to the diagonal elements so as to ensure invertibility  - see \cite{gill1981practical}, \cite{spall2000adaptive} for a similar operator.
+A simple way to ensure the above is to have $\Upsilon(\cdot)$ as a diagonal matrix and then add a positive scalar $\delta_n$ to the diagonal elements so as to ensure invertibility  - see \cite{gill1981practical}, \cite{spall2000adaptive} for a similar operator.
 %- this choice satisfies requirement (ii) in Theorem \ref{thm:2spsa} presented below.
 
 %We next specify how the gradient $\widehat \nabla_i V^\theta_n(x^0)$ and Hessian $\widehat H_n$ estimates are obtained using SPSA.
@@ -285,7 +285,7 @@ $$
 where 
 $\bar\Gamma_{i}$ is as defined in Theorem \ref{thm:1spsa-conv}. Let $\K = \{\theta \in \Theta \mid
 \nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
-=0, \forall i=1,\ldots,d\}$. Then,
+=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:2spsa}, 
 we have
 $$\theta_n \rightarrow \K  \text{~~ a.s. as } n\rightarrow \infty.$$ 
 \end{theorem}
@@ -319,7 +319,7 @@ Next, consider a setting where one can obtain the CPT-value $\C(X^\theta)$ (with
 \end{equation}
 where $\mathcal{R}(\theta)$ is a random vector taking values in the policy space $\theta$. 
 %Through \ e intuition for the above is that we project the reference distributions $g_k$ onto the family $\{f(\cdot,\eta),\,\eta\in \C \}$.
-An algorithm to optimize CPT-value in this \textit{noise-less} setting would perform the following update for the parameter $\eta_n$:
+An algorithm to optimize CPT-value in this \textit{noise less} setting would perform the following update for the parameter $\eta_n$:
 \begin{equation}
 \label{eqn:interior}
 \eta_{n+1} \in \argmin_{\eta \in \C}
@@ -327,7 +327,7 @@ E_{\eta_n}\left[\frac{[\mathcal{H}(\C(X^{\mathcal{R}(\theta)}))]^{n}}
 {f(\mathcal{R}(\theta),\eta_{n})}
 \ln f(\mathcal{R}(\theta),\eta)\right],
 \end{equation}
-where $E_{\eta_n}[\C(X^{\mathcal{R}(\theta)})]=\int_{\theta} V^{\theta}(x^0)f(\theta,\eta_n)\nu(d\theta).$
+where $E_{\eta_n}[\C(X^{\mathcal{R}(\theta)})]=\int_{\theta} \C(X^{\theta})f(\theta,\eta_n)\nu(d\theta).$
 
 
 
@@ -387,13 +387,13 @@ $\mathcal{H}\hspace*{-3pt}$.
 	\EndCandidate    
 	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
-	      \State Simulate $m_n$ samples using policy $\theta^i_n$
-	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ using Algorithm \ref{alg:holder-est}
+	      \State Simulate $m_n$ samples using policy $\theta^i_n$.
+	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ using Algorithm \ref{alg:holder-est}.
 	      \EndFor
 	\EndEstimation
 	%%%%%%%%%%%%%%%%%%%%%%%%%%55
 	\Elite
-	  \State Order the CPT-value estimates\footnotemark[1] $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$. 
+	  \State Order the CPT-value estimates $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$, where $\overline \C_n^{\theta^{(i)}_n}$ denotes the $i$th order statistic. 
 	  \State Compute the $(1-\rho_n)$-quantile from the above samples as follows: 
 	  \begin{align}
 \widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_k)N_k \rceil}_n}.\label{eq:quant}
@@ -408,21 +408,25 @@ $\mathcal{H}\hspace*{-3pt}$.
              \State find the largest $\bar \rho \in (0, \rho_n)$ such that $\widetilde\chi_{n}(\bar \rho,N_n)\geq \bar\chi_{n-1}+\varepsilon$;             
              \If {$\bar \rho$ exists} 
               \State Set $\bar \chi_{n} = \widetilde \chi_{n}(\bar \rho,N_n),~ \rho_{k+1}  = \bar \rho,~N_{n+1} = N_{n}$ and
-              $\theta^*_{n} = \theta_{1- \bar \rho}$ \label{step:3b}
+              $\theta^*_{n} = \theta_{1- \bar \rho}$. \label{step:3b}
               \Else
-	      \State Set $\bar \chi_{n}  = \widehat V_n^{\theta^*_{n-1}}(x^0)$,$\rho_{n+1} = \rho_n$,$N_{n+1} = \lceil\alpha N_{n}\rceil,$ and
+	      \State Set $\bar \chi_{n}  = \overline \C_n^{\theta^*_{n-1}}$, $\rho_{n+1} = \rho_n$,$N_{n+1} = \lceil\alpha N_{n}\rceil,$ and
           $\theta^*_{n} = \theta^*_{n-1}$.\label{step:3c}
 	      \EndIf
          \EndIf
 	\EndThresholding
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 	    \Update
-		\State Parameter update\footnotemark[2]:  
+		\State Parameter update:  
 		                         \begin{equation*} 
 \eta_{n+1} \in \argmin_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C_n^{\theta^i_n})]^n}{\widetilde f(\theta,\eta_n)}
-\widetilde I\big(\overline \C_n^{\theta^i_n},\bar \chi_{n}\big) \ln f(\theta,\eta).
+\widetilde I\big(\overline \C_n^{\theta^i_n},\bar \chi_{n}\big) \ln f(\theta,\eta),
                             \end{equation*}
-
+where $\widetilde I(z,\chi):=\left\{\begin{array}{ll}
+                                                          0 & ~\mbox{if $z\leq \chi-\varepsilon$,} \\
+									    (z-\chi+\varepsilon)/ \varepsilon & ~\mbox{if $\chi-\varepsilon<z<\chi$,}\\
+                                                          1 & ~\mbox{if $z\geq \chi$.}
+                                                          \end{array} \right.$
 		\EndUpdate
 \EndFor
 \State {\bf Return} $\theta_n$
@@ -431,12 +435,6 @@ $\mathcal{H}\hspace*{-3pt}$.
 \label{alg:mras}
 \end{algorithm}
 
-\footnotetext[1]{Here $\widehat V_n^{\theta^{(i)}_n}(x^0)$ denotes the $i$th order statistic.}
-\footnotetext[2]{Here $\widetilde I(z,\chi):=\left\{\begin{array}{ll}
-                                                          0 & ~\mbox{if $z\leq \chi-\varepsilon$,} \\
-									    (z-\chi+\varepsilon)/ \varepsilon & ~\mbox{if $\chi-\varepsilon<z<\chi$,}\\
-                                                          1 & ~\mbox{if $z\geq \chi$.}
-                                                          \end{array} \right.$}
                     
 Finally, we get to our setting where we only obtain a biased estimate of the CPT-value $\C(X^\theta)$ for any policy $\theta$. Recall that the bias is due to a finite sample run followed by the estimation scheme outlined in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity. Assuming this setup, the gradient-free model-based policy search algorithm would involve the following steps (see Algorithm \ref{alg:mras} for the pseudocode):
 
