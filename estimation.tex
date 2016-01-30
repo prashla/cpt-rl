@@ -164,7 +164,7 @@ $$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \
 and also,
 $$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
 
-where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ are the empirical distribution functions (EDFs) of $u^+(X)$
 and $u^-(X)$, defined as follows:
 \begin{align}
 {\widehat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
@@ -172,15 +172,20 @@ and $u^-(X)$, defined as follows:
 \label{eq:edf}
 \end{align}
 
-The main claim follows from the equivalence mentioned above together with the well-known Dvoretzky-Kiefer-Wolfowitz inequality.
+The main claim follows from the equivalence mentioned above together with the well-known Dvoretzky-Kiefer-Wolfowitz (DKW) inequality (cf. Chapter 2 of \cite{wasserman2006}).
 The detailed proof is available in Section \ref{sec:holder-proofs}.
 \end{proof}
 
-\subsubsection*{Special case: Lipschitz continuous weights}
+\subsubsection{Results for Lipschitz continuous weights}
+Here we make the following assumption in place of (A1):
+ 
 \textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.\\[1ex]
 
-\begin{corollary}[Lipschitz case]
+Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs dominated convergence theorem and DKW inequalities, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
+
+\begin{proposition}[Lipschitz case]
+\label{prop:lipschitz}
 Assume (A1') and (A2). Then, we have that 
 $$\lim_{n\rightarrow +\infty} \overline \C_n = \C(X) \text{   a.s.}$$
 
@@ -189,9 +194,9 @@ $$
 P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4L^2 M^2}{\epsilon^{2}}.
 $$
-\end{corollary}
+\end{proposition}
 \begin{proof}
- Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. Thus, the claims regarding asymptotic convergence and sample complexity are special cases of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}, with $\alpha=1$. 
+See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
 
 

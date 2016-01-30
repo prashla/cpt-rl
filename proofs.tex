@@ -171,6 +171,17 @@ which constitutes the proof of theorem's statement, that
 \end{proof}
 
 \subsection*{Proof of Proposition \ref{prop:holder-dkw}}
+For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
+\begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
+Let ${\hat F_n}(x)=\frac{1}{n} \sum_{i=1}^n 1_{((X_i) \leq x)}$ denote the empirical distribution of a r.v. $X$, with $X_1,\ldots,X_n$ being sampled from the true distribution $F(X)$.
+The, for any $n$ and $\epsilon>0$, we have
+$$
+P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
+$$
+\end{lemma}
+
+The reader is referred to Chapter 2 of \cite{wasserman2006} for more on empirical distributions in general and DKW inequality in particular.
+
 \begin{proof}
 We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
 Since $U^+$ is bounded above by $M$ and $w$ is H\"{o}lder with constant $C$ and power $\alpha$, we have
@@ -190,6 +201,145 @@ P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t))
 \end{align}
 \end{proof}
 
+%%%%%%%%%%%%%%%%%%%%%%Lipschitz-starts-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Lipschitz continuous weights}
+\label{sec:lipschitz-proofs}
+
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. 
+
+Next, in order to prove the asymptotic convergence claim in Proposition \ref{thm:asymp-conv}, we require the dominated convergence theorem in its generalized form, which is provided below.
+\begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
+Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on $E$ that converge pointwise a.e. on a measurable space $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
+If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
+\end{theorem}
+
+
+\begin{proof}
+This is a standard result that can be found in any textbook on measure theory. For instance, see Theorem 2.3.11 in \cite{athreya2006measure}.
+\end{proof}
+
+
+\subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
+\begin{proof}
+Notice the the following equivalence:
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
+and also,
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
+where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+and $u^-(X)$.
+
+Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
+\begin{align}
+\overline \C_n = \intinfinity w^+(1-{\hat F_n}^+(x))  dx - \intinfinity w^-(1-{\hat F_n}^-(x))  dx.
+\label{eq:cpt-est-appendix}
+\end{align}
+We first prove the asymptotic convergence claim for the first integral in \eqref{eq:cpt-est-appendix}, i.e., we show
+\begin{align}
+\intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(U^+>x) dx.\label{eq:3}
+\end{align} 
+
+Since $w^+$ is Lipschitz continuous with constant $L$, we have almost surely that
+$w^{+}(1-\hat{F_n}(x)) \leq L (1-\hat{F_n}(x))$,  
+for all $n$ and 
+ $w^{+}((P(U^+>x)) \leq L\cdot (P(U^+>x)$, since $w^+(0)=0$.
+ 
+Notice that the empirical distribution function 
+${\hat F_n}^+(x)$ 
+generates a Stieltjes measure which takes mass 
+$1/n$ on each of the sample points $U^+_i$. 
+
+We have
+$$\intinfinity (P(U^+>x))  dx = E(U^+)$$
+and
+
+\begin{equation}
+\intinfinity (1-{\hat F_n}^+(x))  dx =\intinfinity \int_x^\infty d \hat{F_n}(t) dx.\label{eq:2}
+\end{equation}
+Since ${\hat F_n}^+(x)$ has bounded support on $\mathbb{R}$ $\forall n$, the integral in \eqref{eq:2} is finite.
+Applying Fubini's theorem to the RHS of \eqref{eq:2}, we obtain
+\begin{equation}
+\intinfinity \int_x^\infty d \hat{F_n}(t) dx = \intinfinity \int_0^t dx d \hat{F_n}(t) = \intinfinity t d\hat{F_n}(t) = \frac{1}{n} \sum_{i=1}^n u^+(X_{[i]}),
+ \end{equation}
+ where $u^+(X_{[i]}), i=1,\ldots,n$ denote the order statistics, i.e., $u^+(X_{[1]}) \le \ldots \le u^+(X_{[n]})$.
+ 
+Now, notice that 
+
+$$
+\frac{1}{n}
+\sum_{i=1}^n u^+(X_{[i]})
+=
+\frac{1}{n}
+\sum_{i=1}^n u^+(X_{[i]})
+\overset{a.s}\longrightarrow 
+E(U^+),
+$$
+From the foregoing,
+$$
+\lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F_n}(x)) dx
+\overset{a.s} \longrightarrow
+\intinfinity L \cdot(P(U^+>x)) dx.$$
+Hence, we have 
+$$
+\int_0^\infty w^{(+)}(1-\widehat{F_n}(x)) dx \xrightarrow{a.s.} 
+\int_0^\infty w^{(+)}(P(U^+)>x) dx.
+$$
+The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(U^+>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
+
+Following similar arguments, it is easy to show that 
+$$
+w^-(1-{\hat F_n}^-(x))  dx \rightarrow \intinfinity w^-(P(U^-)>x) dx.
+$$
+The final claim regarding the almost sure convergence of $\overline \C_n$ to $\C(X)$ now follows.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Proof of Proposition \ref{prop:lipschitz}: Sample complexity}
+
+\begin{proof}
+Since $U^+$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$, we have
+\begin{align*}
+&\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|
+\\
+= & \left|\int_0^M w^+(P(U^+)>x) dx- \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
+\\
+\leq&
+\left|\int_0^M L\cdot |P(U^+<x)-{\hat F_n}^+(x)| dx\right|\\
+\leq&
+LM\sup_{x\in \mathbb{R}}\left|P(U^+<x)-{\hat F_n}^+(x)\right|.
+\end{align*}
+Now, plugging in the DKW inequality, we obtain
+\begin{align}
+&
+P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right)
+\nonumber\\
+&
+\leq
+ P\left(LM\sup_{x\in \mathbb{R}} \left|(P(U^+<x)-{\hat F_n}^+(x)\right|>\epsilon/2\right) \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw1}
+\end{align}
+
+Along similar lines, we obtain
+\begin{align}
+&
+P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)
+ \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw2}
+\end{align}
+
+Combining \eqref{eq:dkw1} and \eqref{eq:dkw2}, we obtain
+\begin{align*}
+P(|\overline \C_n - \C(X)|>\epsilon) 
+&\le P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right) \\
+&+ 
+P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)\\
+&\le 4 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.
+\end{align*} 
+And the claim follows. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%Lipschitz-ends-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Proofs for discrete valued $X$}
 \label{sec:proofs-discrete}
 \input{proofs-discrete}
@@ -344,13 +494,13 @@ Before proving Theorem \ref{thm:2spsa}, we bound the bias in the SPSA based esti
 \label{lemma:2spsa-bias}
 For any $i, j= 1,\ldots,d$, we have almost surely,  
 \begin{align}
-    \left| \E\left[\left.\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2 \widehat V_n^{\theta_n}(x^0)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}\right| \F_n \right] - \nabla^2_{i,j} \C(X^{\theta_n}) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
+    \left| \E\left[\left.\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2 \overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}\right| \F_n \right] - \nabla^2_{i,j} \C(X^{\theta_n}) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
 \end{align} 
 \end{lemma}
 \begin{proof}
 As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that
 \begin{align}
-    \quad&\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2\widehat V_n^{\theta_n}(x^0)}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right] \nonumber\\
+    \quad&\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2\overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right] \nonumber\\
      &\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}) + \C(X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}) - 2\C(X^{\theta_n})}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right].  \label{eq:l21}
 \end{align}
 Now, the RHS of \eqref{eq:l21} approximates the true gradient with only an $O(\delta_n^2)$ error; this can be inferred using arguments similar to those used in the proof of Proposition 4.2 of \cite{bhatnagar2015simultaneous}. We provide the proof here for the sake of completeness.
@@ -467,15 +617,15 @@ Since we obtain samples of the objective (CPT) in a manner that differs from MRA
 \begin{align*}
 P(\mathcal{A}_{n}\cap \mathcal{B}_n) \leq &
 P 
-\left(\big\{\overline \C_n^{\theta^*_{n}}(x^0)-\overline \C_{n-1}^{\theta^*_{n-1}}\geq \varepsilon\big\} \cap \left\{\C(X^{\theta^*_{n}}-\C(X^{\theta^*_{n-1}}\leq \frac{\varepsilon}{2}\right\}\right)\\
+\left(\big\{\overline \C_n^{\theta^*_{n}}-\overline \C_{n-1}^{\theta^*_{n-1}}\geq \varepsilon\big\} \cap \left\{\C(X^{\theta^*_{n}}-\C(X^{\theta^*_{n-1}}\leq \frac{\varepsilon}{2}\right\}\right)\\
  \leq &
-P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}(x^0)-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap \left\{\C(X^\theta)-V^{\theta'}(x^0)\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
-\leq & \sum_{{\theta\in \Lambda_n},{\theta'\in \Lambda_{k-1}}}P\left(\big\{\overline \C_n^{\theta}(x^0)-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
-\left\{\C(X^\theta)-V^{\theta'}(x^0)\leq \frac{\varepsilon}{2}\right\}\right) \\
-\leq & |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\big\{\overline \C_n^{\theta}(x^0)-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
-\left\{\C(X^\theta)-V^{\theta'}(x^0)\leq \frac{\varepsilon}{2}\right\} \right) \\
-\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\overline \C_n^{\theta}(x^0)-\overline \C_{n-1}^{\theta'}-\C(X^\theta)+V^{\theta'}(x^0)\geq \frac{\varepsilon}{2}\right) \\
-\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\left(P\left(\overline \C_n^{\theta}(x^0)-\C(X^\theta)\geq \frac{\varepsilon}{4}\right) + P\left(\overline \C_{n-1}^{\theta'}-V^{\theta'}(x^0)\geq \frac{\varepsilon}{4}\right)\right) \\
+P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap \left\{\C(X^\theta)-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
+\leq & \sum_{{\theta\in \Lambda_n},{\theta'\in \Lambda_{k-1}}}P\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
+\left\{\C(X^\theta)-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\}\right) \\
+\leq & |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
+\left\{\C(X^\theta)-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \right) \\
+\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}-\C(X^\theta)+\C(X^{\theta'})\geq \frac{\varepsilon}{2}\right) \\
+\leq &|\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\left(P\left(\overline \C_n^{\theta}-\C(X^\theta)\geq \frac{\varepsilon}{4}\right) + P\left(\overline \C_{n-1}^{\theta'}-\C(X^{\theta'})\geq \frac{\varepsilon}{4}\right)\right) \\
 \leq & 4|\Lambda_n||\Lambda_{k-1}|
  e^{-m_n \frac{\epsilon^2}{8 L^2 M^2}}.
 \end{align*}
@@ -496,7 +646,7 @@ then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 \end{align*}
 In the above, the first equality follows from the fact that if the else clause in the second if statement (see \ref{step:3c}) in Algorithm \ref{alg:mras} is hit, then $\theta^*_{n} = \theta^*_{n-1}$.
 %
-From the last equality above, we conclude that it is a contradiction because, $\C(X^\theta) > V^{\theta^*}(x^0)$ for any $\theta$ (since $\theta^*$ is the global minimum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
+From the last equality above, we conclude that it is a contradiction because, $\C(X^\theta) > \C(X^{\theta^*})$ for any $\theta$ (since $\theta^*$ is the global minimum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
 \end{proof}
 
 \subsection*{Proof of Theorem \ref{thm:mras}}
