@@ -73,9 +73,9 @@ Recall the H\"{o}lder continuity property first in definition 1:
 {\textbf{\textit{(H\"{o}lder continuity)}}}
 If $0 < \alpha \leq 1$, a function $f \in C([a,b])$ is said to satisfy
 a H\"{o}lder condition of order $\alpha$ (or to be H\"{o}lder continuous
-of order $\alpha$) if
+of order $\alpha$) if $\exists K$, s.t.
 \[
-\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq C .
+\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq K .
 \]
 \end{definition}
 
@@ -83,32 +83,32 @@ In order to ensure integrability of the CPT-value \eqref{eq:cpt-mdp}, we make th
 \textbf{Assumption (A1).}  
 The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
 $\exists \gamma \le \alpha \text{   s.t,  }$ 
-$$\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty \text{ and }\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty$$
+$$\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty \text{ and }\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty.$$
 
 The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-mdp} is finite - see Proposition \ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
 
 
 \paragraph{Approximating CPT-value using quantiles:}
-Let $\xi^+_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of the r.v. $u^+(X)$. Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
+Let $\xi^+_{\alpha}$ denote the $\alpha$th quantile of the r.v. $u^+(X)$. Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
 \begin{align}
 \label{eq:holder-quant-motiv}
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^+(P(u^+(X)>z)) dz.
+\lim_{n \rightarrow \infty} \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^+(P(u^+(X)>z)) dz.
 \end{align}
 
-The identical property holds for the pairs $u^-(X)$, $\xi^-_{\frac{i}{n}}, w^-$ , with $\xi^-_{\frac{i}{n}}$ denote the 
-$\frac{i}{n}$th quantile of the r.v. $u^-(X)$.
+The identical property holds for the pairs $u^-(X)$, $\xi^-_{\alpha}, w^-$ , with $\xi^-_{\alpha}$ denote the 
+$\alpha$th quantile of the r.v. $u^-(X)$.
 
 However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we develop a procedure that uses order statistics for estimating quantiles, which in turn assists in estimating the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
 
-\todoj[inline]{Need some text here to connect the quantile business to EDFs, i.e., to say that step 5 in Algo 1 is the same as estimating EDFs and then doing empirical integration using EDFs to estiamete CPT-value}
+
 
 \begin{algorithm}
 \caption{CPT-value estimation for \holder continuous weights}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-\State Simulate $n$ random samples with distribution $X$, sort them and denoted the ordered sample as 
+\State Simulate $n$ i.i.d. replications follows the distribution of $X$, sort them in ascending order and denoted the ordered sample as 
 $X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
-\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]})$
+\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
 \State Order the simulated samples and label them as follows: 
 $u^+(X_{[1]}),\ldots,u^+(X_{[n]})$.
 \State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
@@ -122,8 +122,8 @@ and denote the statistic $\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\
 
 \subsubsection*{Main results}
 We make the following assumptions on the utility functions:\\[1ex]
-\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and increasing.\\[1ex]
-\todoj{Check if increasing is necessary}
+\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and strictly increasing.\\[1ex]
+
 \textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
 For the convergence rate results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
 
@@ -160,19 +160,19 @@ P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \f
 \end{proposition}
 \begin{proof}
 Notice the the following equivalence:
-$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
 and also,
-$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
 
-where $\hat{F^+_n}(x)$ and $\hat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
 and $u^-(X)$, defined as follows:
 \begin{align}
-{\hat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
-{\hat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
+{\widehat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
+{\widehat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
 \label{eq:edf}
 \end{align}
 
-The main claim follows from the equivalence mentioned above together with the well-known DKW inequality.
+The main claim follows from the equivalence mentioned above together with the well-known Dvoretzky-Kiefer-Wolfowitz inequality.
 The detailed proof is available in Section \ref{sec:holder-proofs}.
 \end{proof}
 
@@ -191,7 +191,7 @@ P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \f
 $$
 \end{corollary}
 \begin{proof}
- Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. Thus, the claims regarding asymptotic convergence and sample complexity as special cases of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}, with $\alpha=1$. 
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. Thus, the claims regarding asymptotic convergence and sample complexity are special cases of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}, with $\alpha=1$. 
 \end{proof}
 
 
