@@ -372,3 +372,11 @@ https://behavioralpolicy.org/article/bridging-the-divide/
 %Risk-sensitive reinforcement learning (RL) has received a lot of attention recently (cf. \cite{borkar2010learning,borkar2010risk,tamar2012policy,Prashanth13AC}). Previous works consider either an exponential utility formulation (cf. \cite{borkar2010learning}) that implicitly controls the variance or a constrained formulation with explicit constraints on the variance of the cost-to-go (cf. \cite{tamar2012policy,Prashanth13AC}). Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
 
 In this paper we consider human-based decision and more specifically reinforcement learning (RL) problems 
+---------------------
+questions arise concerning what aspects of  the human-system component must be addressed to verify system safety and efficiency.  Such questions are not trivial.  They strike at the heart of  the  "omnipresent criterion problem" (Christensen, 1958), that is, the difficulty of defining criterion measures for verifying and validating complex systems.
+The central argument is that before criteria and measures can be specified, human-
+centered issues associated with ATC technology upgrades must be carefully determined.
+An approach is discussed for disclosing such issues drawing on  techniques and
+philosophies from traditional human factors engineering, cognitive systems engineering,
+and ethnography.
+Christensen, J.M. (1958).  Trends in human factors.  Human Factors, 1 (1), 2-7.
