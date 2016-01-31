@@ -57,15 +57,68 @@ We provide theoretical convergence guarantees for all the proposed algorithms an
 
 \section{Introduction}
 \label{sec:introduction}
-%Risk-sensitive reinforcement learning (RL) has received a lot of attention recently (cf. \cite{borkar2010learning,borkar2010risk,tamar2012policy,Prashanth13AC}). Previous works consider either an exponential utility formulation (cf. \cite{borkar2010learning}) that implicitly controls the variance or a constrained formulation with explicit constraints on the variance of the cost-to-go (cf. \cite{tamar2012policy,Prashanth13AC}). Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
 
-In this paper we consider human-based decision and more specifically reinforcement learning (RL) problems 
+Since the beginning of its history, mankind is deeply immersed in 
+	designing and improving systems to serve humans needs.
+Policy makers are busy with designing 
+	systems that serve the education, transportation, economic, health and other 
+	needs of the public,
+while private sector enterprises or occupied at creating 
+	and optimizing systems to serve other 
+	specific needs of customers.
+While it has been long recognized that 
+	understanding human behavior is a prerequisite 
+	to best serving the needs of humans \citet{},
+%	and the private sector has adopted this strategy a while ago \citet{}
+%	and the private sector quickly adopted this strategy,
+	it is only recently that this approach is gaining a wider recognition.%
+\footnote{
+As evidence for this wider recognition in the public sector,
+we can mention a recent executive order of the white house
+calling for the use of behavioral science in public policy making, 
+or the establishment of the ``Committee on Traveler Behavior and Values'' in the Transportation
+Research Board in the US.}
+%Using Behavioral Science Insights to Better Serve the American People
+
+In this paper we consider \emph{human-centered reinforcement learning problems}
 where the  reinforcement learning agent controls a system 
-to produce outcomes (``rewards'') that are maximally aligned with the preferences of 
-one or multiple humans, an arrangement shown on Figure~\ref{fig:flow}.
-To support this arrangement, one possibility is to model human preferences 
-with the help of some \emph{risk metrics} mapping random returns 
-(e.g., the total discounted reward) to some scalar deterministic quantity.
+to produce long term outcomes (``return'') that are maximally aligned with the preferences of 
+one or possibly multiple humans, an arrangement shown on Figure~\ref{fig:flow}.
+As a running example, consider traffic optimization where the goal is to maximize
+travelers' satisfaction, a problem many of us would agree is 
+perhaps still inadequately addressed today, at least in many big cities.
+In this example, the outcomes (``return'') are travel times, or delays. 
+To capture human preferences, the outcomes are mapped to a single numerical quantity.
+%We will make the assumption that human preferences can 
+%To create a single numerical quantity that faithfully captures human preferences, 
+%a \emph{risk metrics}, mapping the random returns to some scalar deterministic quantity, is used.
+While preferences of rational agents facing uncertain situations can be modeled by expected utilities 
+(i.e., the expectation of a nonlinear transformation, such as the exponential function of the rewards or costs) 
+\citep{NeuMo44}, 
+it is well known that
+\todoc{Some use the world uncertainty in relation to situations
+which can not be modeled probabilistically, and use risk in relation to situations that can be modeled probabilistically.
+So we are inconsistent with these people.}
+	humans are not rational in the mathematical sense
+	but are subject to various emotional and cognitive biases.
+As such, human preferences 
+	are inconsistent with expected utilities, and in particular humans tend to have preferences 
+	that cannot be modeled by using expected utilities alone
+	 \citep{allais53,ellsberg61,kahneman1979prospect}.
+An approach that gained 
+%Behavioral scientists use alternate approaches to model human preferences.
+	strong support amongst behavioral scientists and economists,  \citep[e.g.,][]{starmer2000developments,quiggin2012generalized},
+	is based on \cite{kahneman1979prospect}'s celebrated \emph{prospect theory}.
+In this work, we will use the so-called \emph{cumulative prospect theory} (CPT),
+ 	a refined variant of prospect theory due to \cite{tversky1992advances}, 
+	which is even more supported than prospect theory.
+CPT generalizes expected utility theory in that in addition to having a utility function transforming
+	the outcomes, another function is introduced which distorts the probabilities in the cumulative distribution function.
+As compared to prospect theory, CPT is monotone with respect to stochastic dominance, a property
+	that is thought to be useful and often consistent with human preferences.	
+	
+\if0	
+
 Popular approaches that use such risk metrics include the exponential utility formulation 
 (cf. \cite{borkar2010learning}) that implicitly controls the variance.
 An alternative is a to consider constrained formulations 
@@ -88,18 +141,8 @@ and its later enhancement, the so-called \textit{cumulative prospect theory} (CP
 CPT is a rank dependent expected utility model \cite{quiggin2012generalized} that incorporates decision weights to distort probabilities. 
 The suitability of this approach to model human decision making (and thus preferences) has been widely documented \cite{prelec1998probability}, \cite{wu1996curvature}, \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.
 PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lenert1999associations},  seismic design \cite{goda2008application}, transportation \cite{gao2010adaptive},\cite{fujii2004drivers}, \cite{ramming2001network}, online auctions \cite{weinberg2005exploring}, insurance  \cite{machina1995non} and finance \cite{barberis1999prospect}, \cite{epstein1989substitution}, \cite{epstein1991substitution}.
-\todoc{Again, add some books.
-Actually, the examples that I am reading about, e.g., in the book ``Against the Gods'', chapter 13 by Bernstein, suggest
-that some big exploits are possible.
-And  most examples are about that the framing of a decision problem influences what humans choose.
-This is kinda dirty. 
-I can totally see how policy makers can exploit this. Is this good?
-Can we have some positive (in the sense of being ethical) examples?
-E.g., you mentioned the arrangement of shelves in shops or something. Some examples will be badly needed. 
-E.g., google on prospect theory decision making gives me 
-\url{http://link.springer.com/article/10.1007\%2Fs11424-015-2049-0}.
-Perhaps add some to the appendix as background on CPT.
-}
+\fi
+
 %In several real-world systems involving humans, traditional expected utility and risk-sensitive control approaches cannot explain the observed behavior as humans are not rational/consistent. In other words, for a human there do not exist utility functions whose expectation can be maximized nor coherent measures such as CVaR fit well with human preferences. This problem can be alleviated by incorporating distortions in the underlying probabilities of the system. Probabilistic distortions have a long history in behavioral science and economics and a very popular approach comes from \textit{Prospect Theory (PT)} \cite{kahneman1979prospect} and its later enhancement \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}. 
 
 %\pgfkeyssetvalue{/cfr/soul base dimension}{5pt}
@@ -174,7 +217,11 @@ Perhaps add some to the appendix as background on CPT.
 \draw [->,thick] (tmp) --   (tmp3);
 \draw [->,thick,dotted] (tmp4)  |- node[below left=0.1cm and 1cm] {\textbf{CPT model parameters}} (belowagent) -|  (agent.south);
 \end{tikzpicture}}
-\caption{Operational flow of a human-based decision making system}
+\caption{Operational flow of a human-based decision making system
+\todoc[inline]{Can we add next to the human a heart or something expressing that the human has feelings/preferences?
+Alternatively, make an arrow that comes out from the human to the right, and write CPT on it.
+}
+}
 \label{fig:flow}
 \end{figure}
 %\begin{tikzpicture}
@@ -182,13 +229,14 @@ Perhaps add some to the appendix as background on CPT.
     %every pin edge/.append style={latex-, shorten <=-2.5pt},
   %]
 
+\if0
 As illustrated in Figure \ref{fig:flow}, we consider a typical RL setting where the environment is unknown, but can be experimented with and propose a CPT based risk metric as the long-term performance objective.  \todoc{This para may need to be rewritten in light that I rewrote the previous one.}
 \todoc{Risk measure is a technical term according to wikipedia. Risk metric does not seem to have this technical meaning so I propose using risk metric everywhere.}
 CPT is a non-coherent and non-convex measure \todoc{I find it strange to emphasize only these aspects.
 What's the goal of announcing these here?}
 that is well known among psychologists and economists to be a good model for human decision-making systems, with strong empirical support.
 To put it differently, CPT captures well the way humans evaluate outcomes and hence, we offer a CPT-variant of the RL notion of ``value function''. Unlike the regular value function which is the expectation of the return random variable, CPT-value employs a functional that distorts the underlying probabilities. The latter is achieved by fitting CPT model parameters to capture human preferences. The goal then for the learning system is to find a policy that maximizes the CPT-value of ``return''. 
-
+\fi
 %
 %In the realm of sequential decision making under uncertainty, we propose a CPT-based risk measure.  In particular,  
 %The current RL solutions cannot handle distortions and my current work is to develop both prediction and control schemes for probabilistically distorted MDPs.

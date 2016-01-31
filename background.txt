@@ -1,0 +1,374 @@
+In many decision problems the primary beneficiaries of the outcomes induced by the decisions taken are humans.
+Examples range from public 
+to private sector policy making (e.g., policies on education, health, transportation, ergonomics, job satisfaction, etc.).
+
+Traditionally: Expected utility theory (EUT) is used.
+Here, we consider cumulative prospect theory (CPT), which is a special case 
+of  Generalized Utility Theories.
+Why? 
+1) Strictly generalizes EUT.
+2) Better predictor of human choices (preferences) when humans are subjected to choose between alternatives with uncertain outcomes.
+(CPT outperforms expected utility theory if the gambles involve small probabilities and/or large payoffs.)
+
+Debate whether such generalized utility theories should be used in a prescriptive role,
+  or whether they should be relegated to a descriptive role (to explain observed preferences of human decision makers)
+  we do not see much problem with this, as generalized utility theory (and in particular, cumulative prospect theory)
+  strictly generalizes expected utility theories.
+  
+On "Bridging the divide between behavioral science & policy":
+https://behavioralpolicy.org/article/bridging-the-divide/  
+"One response to such observations of irrationality is to apply traditional economic tools that attempt to enforce more rational decisionmaking. "
+  
+" Thaler and Sunstein’s book Nudge,21 which advocates leveraging behavioral insights to design policies that promote desired behaviors while preserving freedom of choice. A number of edited volumes of behavioral policy insights from leading scholars have followed.22–25"
+
+"A behavioral perspective on incentives also recognizes that the impact of monetary payments and fines depends on how people subjectively interpret those interventions. For instance, a field experiment in a group of Israeli day care facilities found that introducing a small financial penalty for picking up children late actually increased the frequency of late pickups, presumably because many parents interpreted the fine as a price that they would gladly pay.36 Thus, payments and fines may not be sufficient to induce desired behavior without careful consideration of how they are labeled, described, and interpreted.""
+
+"
+  
+# Aligned with "Behavioral Science & Policy", an international, peer-reviewed journal that features articles describing actionable policy applications of behavioral scientific research that serves the public interest.  
+
+  
+
+irrational behavior
+
+ 
+ 
+ 
+
+
+In this paper we consider learning to make decision under uncertainty in sequential decision problems 
+where the primary beneficiaries of the outcomes induced by the actions taken are humans.
+
+to 
+User experience optimization
+
+Health care policies,
+
+
+Optimize Experience of Users/Consumers
+Primary beneficiaries humans
+ 
+
+
+------
+Policy and choice: Public Finance through the lens oF behavioral economics
+wil
+------
+
+Chapter 11 Prospect Theory and its Applications to the Modelling of Travel Choice Erel Avineri and Eran Ben-Elia Abstract Purpose À This chapter explores Prospect Theory —a descriptive model of modelling individual choice making under risk and uncertainty, and its applica- ... 
+
+
+---
+science and public policy decision-making:
+science obviously influences ppdm: e.g. should girls under 18 be required to get a prescription to by Plan B, commonly known as the "morning-after pill"?
+
+http://www.defendingscience.org/science-government-decision-making
+
+
+Science in Government Decision-Making
+Regulatory and programmatic decisions made by government officials affect public health.
+
+http://www.theguardian.com/science/2013/dec/02/scientists-policy-governments-science
+There are some common misunderstanding among scientists about how governments make their policy decisions 
+
+http://www.theguardian.com/science/2013/nov/20/top-20-things-politicians-need-to-know-about-science
+
+http://www.oregon.gov/LCD/OPAC/docs/resources/usingscientificinput.pdf
+
+http://www.nature.com/news/policy-the-art-of-science-advice-to-government-1.14838
+ [..] sceptics in the policy community are surprisingly prevalent. In 2012, I surveyed how our public-service personnel use evidence in making policy4. Several ministries stated that their job was to design policy that met the minister's requirements, not to advise on policy options on the basis of available evidence. Studies in Canada and Australia9 found similar results.
+ 
+ 
+Social policy has not historically benefited from the kind of investment in public research capabilities that areas such as conservation and primary production have had over the years. Indeed, the infrastructure and capabilities for policy-relevant science advice is quite established in these areas. The same cannot be said for the social sciences. It is perhaps for this reason that incorporation of robust social science research into policy making remains a challenge (and one that is not unique to New Zealand). 
+
+
+https://www.gov.uk/government/uploads/system/uploads/attachment_data/file/207424/10-992-guidelines-scientific-analysis-policy-making-final-govt-response.pdf
+
+http://www.econlib.org/library/Enc/BehavioralEconomics.html
+
+http://www.nerc.ac.uk/latest/publications/scienceimpact/science-into-policy/
+
+http://heapro.oxfordjournals.org/content/26/1/109.full
+
+http://www.icpublicpolicy.org/IMG/pdf/panel_21_s1_cairney.pdf
+2013
+How Can Policy Theory Have an Impact on Policy Making? 
+
+1) Behavioral Science influencing Policy Making
+2) Behavioral Science 
+
+----
+Policy making: Not top-down, but interactive.
+ ideals from past: comprehensive rationality, policy cycle
+ comprehensive rationality: elected policymakers translate their values into policy in a  straightforward  manner. They  have  a  clear,  coherent  and  rank-ordered  set  of  policy  preferences  which organisations carry out in a ‘logical, reasoned and neutral way’.
+ There are  clear - cut  and  ordered  stages  to  the  process  (aims  are  identified,  the  means  to  achieve  those aims  are  produced  and  one  is  selected)  and  analysis  of  the  policymaking  context  is  comprehensive.
+
+The policy cycles approach is, to some extent, an offshoot of that idea.  The suggestion  is  that stages  can  be  used  to organise  policymaking
+; policymakers  should  divide the  process  into  a  series  of  stages  to  ensure  policy  success:  identify  policymaker  aims, identify  policies  to  achieve  those  aims,  select  a  policy  measure,  ensure  that  the  selection  is legitimised  by  the  population  or  its  legislature,  identify  the  necessary  resources,  implement and then evaluate the policy.
+
+"naive approach to policy analysis".
+.. comprehensive rationality and stage-based decision-making are ideals to aspire to..
+ Comprehensive  rationality  is  used  to  explain  why policymaking  cannot  be  comprehensively  rational,  while  the  cycles  approach  is now  often identified  to  show  us  why  it  is  difficult  or  impossible  to  separate  policymaking  into  stages.
+ 
+ https://en.wikipedia.org/wiki/Policy_analysis
+ 
+ http://www.happyplanetindex.org/supporters/
+ Gross National Happiness
+ 
+ https://en.wikipedia.org/wiki/Cumulative_prospect_theory
+ 
+ 
+ --------------
+ Health-care
+ Traffic
+
+ Not collaborative like  in ``Human-Centered CoIIaborative Decision Making System ''.
+ http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.129.7312&rep=rep1&type=pdf
+
+ Human-centered  design promotes modeling and simulation from the early stages of design and  throughout the  life  cycle  of a product.
+  http://research.fit.edu/hcdi/documents/HCDSEHSI_CSDM_GBJN_final_Ref.pdf
+
+ Designing an Intelligent Decision Support System for Human-Centered Utility Management Automation  (http://www.wseas.us/e-library/conferences/2005prague/papers/493-247.pdf)
+ defines Decision Support Systems (DSS) in connection to Human-Centered Automation:
+ A DSS is an Information system (IS) -- based on Information Technology (IT) levers -- which serves to decision maker, who is normally a human. This aspect can be called "Human-Centered Automation" [REFS].
+
+ http://www.metropolismag.com/Point-of-View/December-2015/The-Case-for-Human-Centered-Healthcare-Design/
+ The Case for Human-Centered Healthcare Design.
+ ``Rabkin’s observations illustrate a major problem with healthcare design. There’s a disconnect between those who design, plan, and furnish hospitals and the people who go there to be healed. Evidence-Based Design is a good start in reducing this divide'' [..]
+ IMPORTANT:
+ ``Medicare incorporates EBD into their Hospital Value-Based Purchasing (VBP) system, which adjusts payouts based on patients’ reviews of their experiences. VBP offers healthcare facilities the opportunity to raise their bottom line through bettering the patient experience.''
+
+ http://www.aviationsystems.arc.nasa.gov/publications/more/hf/harwood_01_93.pdf
+ Defining Human-Centered System Issues for Verifying and Validating Air Traffic Control Systems.
+ [..]
+ questions arise concerning what aspects of  the human-system component must be addressed to verify system safety and efficiency.  Such questions are not trivial.  They strike at the heart of  the  "omnipresent criterion problem" (Christensen, 1958), that is, the difficulty of defining criterion measures for verifying and validating complex systems.
+ The central argument is that before criteria and measures can be specified, human-
+ centered issues associated with ATC technology upgrades must be carefully determined.
+ An approach is discussed for disclosing such issues drawing on  techniques and
+ philosophies from traditional human factors engineering, cognitive systems engineering,
+ and ethnography.
+ Christensen, J.M. (1958).  Trends in human factors.  Human Factors, 1 (1), 2-7.
+
+ \url{http://hcc.coventry.ac.uk/introduction/}
+ Human Centered Computing.
+ ``Human-Centered Computing (HCC) is a rapidly evolving interdisciplinary field of human-computer interaction (HCI), computer supported cooperative work (CSCW), social computing, collaborative computing, ubiquitous computing, services computing, etc., which focuses on the innovative theory, principles, technology, design, implementation and deployment of computing systems, cognitive and social systems, and physical facilities and environments that supporting human’s activities.''
+
+ Human-Centered computing:
+ interaction
+ decision support
+
+ \url{https://en.wikipedia.org/wiki/Human-centered_computing}
+ ``Human-centered computing (HCC) studies the design, development, and deployment of mixed-initiative human-computer systems. ''
+ `` Human-centered computing is usually concerned with systems and practices of technology use while human-computer interaction is more focused on ergonomics and the usability of computing artifacts and information science is focused on practices surrounding the collection, manipulation, and use of information.''
+ ``Human-centered systems (HCS) are systems designed for human-centered computing. HCS focuses on the design of interactive systems as they relate to human activities.''
+
+
+ Another one about decision support:
+ https://etd.ohiolink.edu/!etd.send_file?accession=wright1152229142&disposition=inline
+ ``This research addresses the issue of joint cognitive problem solving for a class of problems related to supervisory control of 
+ vehicle routing. The key research question addressed by this study is whether a human integrated approach helps in better generation of alternatives and better evaluation of alternatives that would potentially lead to better solutions to problems.''
+ ``The hypotheses related to the research questions are empirically evaluated, using human subjects, in prototypical realistic scenarios.  Empirical results from a simulated military mission indicate that the human integrated approach resulted in better overall performance when compared to purely automated solutions for vehicle routing problems considered in this research study. ''
+
+ Human-Centered Business Process Management, 2008
+ http://www.fujitsu.com/global/documents/about/resources/publications/fstj/archives/vol45-2/paper02.pdf
+ ``We  present  a  business  process  development  method  that  considers  human  actions  and  skills  up  front  and  then  fills  in  information  technology  functions  to  support them.  This approach is suitable for business processes identified as “facilitator processes”, in which people inherently play parts that cannot be easily replaced by 
+ automation.''
+ ``how tough it is to motivate system designers to make business process  models  human  centric.''
+ ``The term “business process” was invented to refer  to  things  that  people  do,  but  was  later  hi-jacked.  It now refers to a program or application that is central to business operations. ''
+ Business process design.
+
+ http://www.ncbi.nlm.nih.gov/pmc/articles/PMC3009465/
+ ``Examining vulnerabilities within our current healthcare system we propose borrowing two tools from the fields of engineering and design: a) Reason's system approach [1] and b) User-centered design [2,3]. Both approaches are human-centered in that they consider common patterns of human behavior when analyzing systems to identify problems and generate solutions. This paper examines these two human-centered approaches in the context of healthcare. We argue that maintaining a human-centered orientation in clinical care, research, training, and governance is critical to the evolution of an effective and sustainable healthcare system.''
+ ``A System Approach to Healthcare: Allowing for Human Nature''
+ ``Predictably irrational: People have systematic cognitive biases''
+ ``[1] Reason JT: Human error Cambridge England; New York: Cambridge University Press; 1990.''
+
+
+ http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0103205
+ A Clinical Decision Support System for Integrating Tuberculosis and HIV Care in Kenya: A Human-Centered Design Approach
+
+
+ http://www.idiap.ch/~gatica/publications/JaimesSebeGatica-acmmm06.pdf
+ Other definitions of HCC have also appeared in the literature:  [..] 
+ According to Foley et al. [6], HCC is ``the science of 
+ designing computations and computational artifacts in 
+ support of human endeavors''
+ [6] J. Foley, et al., HCC Educational Digital Library,  http://hcc.cc.gatech.edu 
+
+
+ http://www.neweconomictheory.org/content/human-centered-economics-0
+ Human-centered Economics 
+ http://scholarworks.rit.edu/cgi/viewcontent.cgi?article=1049&context=theses
+ ``Current Economic practices are rooted in logic that sacrifices the flourishing of individuals and the broader community for a limited notion of prosperity. Centering our economic practices on human centered ideals will develop greater prosperity individually and collectively.
+ Current systems of logic have guided the decisions which create the current economic system of Capitalism which subjugates education to production, quality to cost, and profit to flourishing. ''
+
+ http://mime.oregonstate.edu/production-service-human-systems-research
+ ``Production, Service, & Human Systems use engineering methods and knowledge from the mathematical, physical, biological, information, social, and management sciences to develop, implement, operate, evaluate, and improve complex systems made up of people and machines.''
+
+ http://www.sciencedirect.com/science/journal/03772217/177
+ Feature Cluster: Human Centered Processes: Towards a Naturalistic Decision Making Paradigm
+
+ http://onlinepubs.trb.org/onlinepubs/millennium/00136.pdf
+ Traveler Behavior and Values Research for Human-Centered Transportation Systems
+ A1C04: Committee on Traveler Behavior and Values
+ ``Understanding human behavior and human values was recognized many years ago as a key
+ ingredient in the planning of communities. 
+ In-depth understanding of human nature is
+ essential to the planning, design, and operational analysis of transportation systems.
+ However, quantitative tools to understand human behavior and values have only partially
+ been
+ developed in the past few decades. In this area, basic and applied research has been
+ very active, and it is only lately that we realize the benefits in practical applications.
+ Incorporation of research findings into decision making for public policy has been slow, but
+ it is accelerating, mainly because of recent environmental and transportation legislation and
+ associated research investments in most of the industrialized world. A similar but much
+ faster trend is observed in private enterprise, where market forces are imposing efficiency
+ and customer service that requires understanding of human nature. These trends are
+ expected to continue with increasing urgency for better decision-support tools designed
+ around human needs and wants. In parallel, new scientific fields of research will continue to
+ develop and strengthen, providing the milestones and support needed to understand,
+ describe, and predict human behavior. 
+ The need for better tools provides strong support and
+ motivation for the ideas and activities of the Committee on Traveler Behavior and Values.
+
+ The committee promotes research and disseminates research results on traveler values,
+ attitudes, and behavior. “Traveler values and attitudes” refers to motivational, cognitive,
+ situational, and 
+ dispositive factors determining human behavior. “Traveler behavior” refers
+ primarily to the modeling and analysis of travel demand on the basis of theories and
+ analytical methods from a variety of scientific fields. 
+ They include, but are not limited to, the
+ use of time and its allocation to travel and activities, the use of time in a variety of time
+ contexts and stages in the life of people, and the organization and use of space at any level
+ of social organization, such as the individual, the household, the community, and other
+ formal or informal groups. Behavioral issues are also considered in the movement of goods
+ to the extent necessary. The committee is North America’s major forum for the
+ development, promotion, and testing of experimental or emerging interdisciplinary methods.''
+
+
+ https://www.govloop.com/applying-human-centered-design-for-customer-service/
+ Applying Human-Centered Design for Customer Service
+ November 26, 2015
+
+
+ Human Centric Decision Making 
+
+ Human-Centric Decision-Making Models for Social Sciences
+
+ Human-Centered System Optimization
+
+ User-centered design
+ https://en.wikipedia.org/wiki/User-centered_design
+ User-centred design (UCD) is a framework of processes (not restricted to interfaces or technologies) in which the needs, wants, and limitations of end users of a product, service or process are given extensive attention at each stage of the design process. 
+
+ Human-Centred Systems
+ \url{https://en.wikipedia.org/wiki/Mike_Cooley_%28engineer%29#Human-Centred_Systems}
+ Human-centred systems, as used in economics, computing and design, aim to preserve or enhance human skills, in both manual and office work, in environments in which technology tends to undermine the skills that people use in their work
+ The term has now largely been superseded by human-centered computing.
+
+ Human Centered Design
+ The 14th International Conference on Human–Computer Interaction, HCI In- ternational 2011, was held in Orlando, Florida, USA, July 9–14, 2011, jointly with the Symposium on Human Interface (Japan) 2011
+ A total of 4,039 individuals from academia, research institutes, industry and governmental agencies from 67 countries submitted contributions, and 1,318 papers that were judged to be of high scientific quality were included in the program.
+
+ major topics:
+ • Human centered design methods and tools
+ • Mobile and ubiquitous interaction
+ • Human centered design in health and rehabilitation applications • Human centered design in work, business and education
+ • Applications of human centered design
+
+ Peijun Guo • Witold Pedrycz Editors
+ Human-Centric Decision-Making Models for Social Sciences
+ -------
+ Widely recognized that systems 
+
+ main stakeholders humans:
+
+ system must be adapted to best serve the humans needs
+
+ https://www.whitehouse.gov/the-press-office/2015/09/15/executive-order-using-behavioral-science-insights-better-serve-american
+ Executive Order -- Using Behavioral Science Insights to Better Serve the American People
+
+
+ e.g.
+ The White House is encouraging the use of behavioral science techniques, and in September issued an executive order intended to incorporate how people make decisions into policies and programs.
+ 
+ -----------
+ 
+
+Decision making in business, economics, and social sciences is omnipresent yet at the same time it becomes highly difficult to comprehend and model human mental processes. In general, in spite of their diversity the decision problems exhibit a number of highly visible features:
+• the objective of the decision problem is ambiguous;
+• the problem structure describing the relationship among sub-problems might be
+loosely specified;
+• preference relations are not explicitly stated;
+• knowledge of the organizational environments is uncertain;
+• available information is often imprecise, uncertain or there might be an acute
+lack of information; and
+• one-time decision models are needed when dealing with unrepeated problems
+with partially available information.
+The classical decision theories, such as the expected utility (EU) theory of von Neumann and Morgenstern, and the subjective expected utility (SEU) theory of Savage cannot fully address the complexity of the problems and still a number of open critical questions remain that need to be thoroughly addressed.
+This edited volume aims to offer effective methods to deal with different types of uncertainty inherently existing in decision problems and deliver comprehensive decision frameworks to handle different decision scenarios under various facets of uncertainty. The objective is to bring forward diverse decision-making models, which help use effectively the explicit and tacit knowledge and intuition, model perceptions and preferences in a more human-oriented style, and form decisions which become more in rapport with a human line of thinking.
+
+
+In decision theory, lack of knowledge is divided into the two major categories ‘risk’ and ‘uncertainty’ [31], p.20 Chap.7 where “risk” refers to situations where the decision-maker can assign mathematical probabilities to the randomness which he is faced with, where and “uncertainty” refers to situations when this randomness “cannot” be expressed in terms of specific mathematical probabilities.
+[31] Knight,F.H.:Risk, Uncertainty and Profit. Houghton Mifflin Company, Chicago(1921)
+
+Human-centric reinforcement learning
+
+Christopher P. Nemeth: Human Factors Methods for Design Making Systems Human-Centered.
+``I will confess up front that I have a bias: people matter. This bears mention here, because a number of current popular trends lead away from, rather than toward, the better use of technology to serve human needs and wants: technophilia, pseudoscience, revenge effects and perception management.''
+``Human Factors Methods for Design provides selected information on human traits that have particular import for research and development and provides methods for research and development work. ‘Methods’ are a powerful means to collect, use and evaluate information. They can be used in a wide variety of applications.
+In this text, ‘product’ refers to the result of a development effort: artifacts (such as a tool or machine), services and systems. These products do not exist in a vacuum. They typically exist within a real world environment that includes humans and other products. For that reason, the meaning of the word ‘product’ in this book includes artifacts, software, services and systems.
+This book provides a way to design products that extend, amplify and enhance human capabilities. Use it to define and solve problems, to develop new solutions and to evaluate their effectiveness.''
+
+``Why ‘human factors’?
+Life is not easy.'' ``Products are developed and exist to serve human needs.''
+``But how do we know what people need? ''
+``Every day, people around the world who are at work and play enjoy the use of products, buildings and services. Much of the human experience each day relies on items that were made to extend human abilities and to overcome human limits. The sum of all the products, services, environments and systems that humans have produced comprises the operational environment (OE). ''
+``Humans are in and of their systems; they are not apart from them. (Julie Christensen)''
+
+
+``The natural sciences are concerned with how things are. Design, on the other hand, is concerned with how things ought to be, with devising artifacts to attain goals.
+(Herbert Simon)''
+
+``Human factors and ergonomics''
+https://en.wikipedia.org/wiki/Human_factors_and_ergonomics
+``Human factors and ergonomics (HF&E), also known as comfort design, functional design, and systems,[1] is the practice of designing products, systems, or processes to take proper account of the interaction between them and the people who use them.''
+
+
+"human-centric" to refer to groups or processes that aim for deep participation ("deep democracy") with a fundamental goal of meeting multiple human needs (not only financial gain).  Human-centric decision-making values and explicitly deals with diverse needs and opinions more than traditional "voting." 
+\url{http://www.perspegrity.com/papers/CollabDecisionMaking.pdf}
+
+
+Goal: Improve human condition
+
+=======
+
+Decision problems where the main beneficiaries, or subjects of decisions are humans abound.
+Examples include making policies on education, health, transportation, ergonomics, job satisfaction, etc.,
+covering the whole spectrum of policy making, from the public to the private sector.
+As humans are the main beneficiaries, it is natural to start by modeling human preferences so that
+a formal analysis of the decision problem can identify the best course of actions, or policies.
+
+
+Traditionally: Expected utility theory (EUT) is used.
+Here, we consider cumulative prospect theory (CPT), which is a special case 
+of  Generalized Utility Theories.
+Why? 
+1) Strictly generalizes EUT.
+2) Better predictor of human choices (preferences) when humans are subjected to choose between alternatives with uncertain outcomes.
+(CPT outperforms expected utility theory if the gambles involve small probabilities and/or large payoffs.)
+
+Debate whether such generalized utility theories should be used in a prescriptive role,
+  or whether they should be relegated to a descriptive role (to explain observed preferences of human decision makers)
+  we do not see much problem with this, as generalized utility theory (and in particular, cumulative prospect theory)
+  strictly generalizes expected utility theories.
+  
+On "Bridging the divide between behavioral science \& policy":
+https://behavioralpolicy.org/article/bridging-the-divide/  
+"One response to such observations of irrationality is to apply traditional economic tools that attempt to enforce more rational decisionmaking. "
+
+
+
+%Risk-sensitive reinforcement learning (RL) has received a lot of attention recently (cf. \cite{borkar2010learning,borkar2010risk,tamar2012policy,Prashanth13AC}). Previous works consider either an exponential utility formulation (cf. \cite{borkar2010learning}) that implicitly controls the variance or a constrained formulation with explicit constraints on the variance of the cost-to-go (cf. \cite{tamar2012policy,Prashanth13AC}). Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
+
+In this paper we consider human-based decision and more specifically reinforcement learning (RL) problems 
