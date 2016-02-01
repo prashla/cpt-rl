@@ -1,0 +1,114 @@
+For the sake of notational convenience, we assume $w^+=w^-=w$. 
+For proving Proposition \ref{prop:sample-complexity-discrete}, we require Hoeffding's inequality, which is given below.
+\begin{lemma}
+Let $Y_1,...Y_n$ be independent random variables satisfying $P(a\leq Y_i \leq b)= 1,$ for each $i$, where $a<b.
+$ Then for $t>0$,
+$$P(\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt ) \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
+\end{lemma}
+
+
+Let
+\begin{align}
+\label{eq:hatFk}
+\hat F_k = 
+\begin{cases}
+   \sum_{i=1}^k \hat p_k & \text{if   } k \leq l \\
+   \sum_{i=k}^K \hat p_k & \text{if  }  k > l.
+\end{cases}  
+\end{align}
+
+The following proposition gives the rate at which $\hat{F_k}$ converges to $F_k$.
+\begin{proposition}
+\label{prop:hoeffding-discrete}
+Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}, \eqref{eq:hatFk}, Then, we have that, for every $\epsilon >0$, 
+$$P(|\hat{F_k}-F_k| > \epsilon) \leq 2 e^{-2n \epsilon^2}.$$
+\end{proposition}
+\begin{proof}
+We focus on the case when $k > l$, while the case of $k \leq l$ is proved in a similar fashion.
+Notice that when $k>l$,  $\hat F_k =I_{(U_i \geq  x_k) }$. Since the random variables $U_i$ are independent of each other and  for each $i$, are bounded above by $1$, we can apply Hoeffding's inequality to obtain 
+\begin{align*}
+&
+P(\left|\hat{F_k}- F_k \right| > \epsilon) \\ & = P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{U_i \geq
+x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{U_i \geq x_k\}}) \right| > \epsilon) \\ & = P(\left|
+\sum_{i=1}^n I_{\{U_i \geq x_k\}} - \sum_{i=1}^n E(I_{\{U_i \geq x_k\}}) \right| > n\epsilon) \\ &
+    \leq 2e^{-2n \epsilon^2}.
+\end{align*}
+\end{proof}
+
+The proof of Proposition \ref{prop:sample-complexity-discrete} requires the following claim which gives the convergence rate under local Lipschitz weights. 
+\begin{proposition}
+\label{prop:discrete-first-term}
+Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk} \eqref{eq:hatFk},  we have
+$$P(\left| \sum_{i=1}^K x_k w(\hat{F_k}) - \sum_{i=1}^K x_k w(F_k) \right| >\epsilon) < K\cdot (
+e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}) $$ 
+\end{proposition}
+
+\begin{proof}
+Observe that
+
+\begin{align*}
+&
+P(\left| \sum_{k=1}^K x_k w(\hat{F_k}) - \sum_{k=1}^K x_k w(F_k) \right| >\epsilon) \\ & = P (
+\bigcup_{k=1}^K \left| x_k w(\hat{F_k}) -x_k w(F_k) \right| > \frac {\epsilon} {K}) \\ & \leq
+    \sum_{k=1}^K P (\left| x_k w(\hat{F_k}) -x_k w(F_k) \right| > \frac {\epsilon} {K})
+\end{align*}
+Notice that $\forall k =1,....K$
+$[{p_k}- \delta, {p_k}+\delta)$,
+the function $w$ is locally Lipschitz with common constant $L$.
+Therefore, for each k, we can decompose the probability as 
+\begin{align*}
+& P (\left| x_k w(\hat{F_k}) -x_k w(F_k) \right| > \frac {\epsilon} {K}) \\ & = P ( [ \left| F_k -
+\hat{F_k} \right| >\delta ] \bigcap [ \left| x_k w(\hat{F_k}) -x_k w(F_k) \right| ] > \frac
+{\epsilon} {K}) + P ( [ \left| F_k - \hat{F_k} \right| \leq\delta ] \bigcap [ \left| x_k
+    w(\hat{F_k}) -x_k w(F_k) \right| ] > \frac {\epsilon} {K}) \\ & \leq P ( \left| F_k - \hat{F_k}
+    \right| >\delta) + P ( [ \left| F_k - \hat{F_k} \right| \leq\delta ] \bigcap [ \left| x_k
+    w(\hat{F_k}) -x_k w(F_k) \right| ] > \frac {\epsilon} {K}).
+\end{align*}
+ 
+According to the property of locally Lipschitz continuous,
+we have
+\begin{align*}
+& P ( [ \left| F_k - \hat{F_k} \right| \leq\delta ] \bigcap [ \left| x_k w(\hat{F_k}) -x_k w(F_k)
+\right| ] > \frac {\epsilon} {K}) \\ & \leq P(x_k L \left| F_k - \hat{F_k} \right| > \frac
+    {\epsilon} {K}) \leq e^ {-\epsilon\cdot 2n /(K L x_k)^2} \leq e^ {-\epsilon\cdot 2n /(K L A)^2}
+    \text{     for    } \forall k.
+\end{align*}
+And similarly,
+\begin{align*}
+& P(\left| F_k - \hat{F_k} \right| > \delta) \\ & \leq e^{-\delta^2 /2n} \text{    for     } \forall
+    k.
+\end{align*}
+And as a result,
+\begin{align*}
+& P(\left| \sum_{k=1}^K x_k w(\hat{F_k}) - \sum_{k=1}^K x_k w(F_k) \right| >\epsilon) \\ & \leq
+\sum_{k=1}^K P (\left| x_k w(\hat{F_k}) -x_k w(F_k) \right| > \frac {\epsilon} {K}) \\ & \leq
+             \sum_{k=1}^K \left( e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 \cdot 2n/ (KLA)^2} \right) \\ & =K\cdot
+    (e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 \cdot 2n/ (KLA)^2})
+\end{align*}
+\end{proof}
+
+\subsection*{Proof of Proposition \ref{prop:sample-complexity-discrete}}
+\begin{proof}
+We need to prove that
+\begin{align}
+P(\left|\sum_{i=1}^K u(x_k) \cdot(w(\hat{F_k})- w(\hat F_{k+1}) )
+-  
+\sum_{i=1}^K u(x_k) \cdot(w(F_k)- w(F_{k+1}) )
+\right| \leq \epsilon) > 1-\rho
+\text{      ,     } \forall n> \frac{\ln(\frac{4K}{a})} { M}, 
+\end{align}
+where $w$ is Locally Lipschitz continuous with constants $L_1,....L_K$ at the points $F_1,....F_K$.
+From a parallel argument to that in the proof of Proposition \ref{prop:discrete-first-term}, it is easy to infer that
+$$P(\left| \sum_{i=1}^K x_k w(\hat F_{k+1}) - \sum_{i=1}^K x_k w(F_{k+1}) \right| >\epsilon) <
+K\cdot ( e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2})
+$$
+Hence,
+\begin{align*}
+& P(\left|\sum_{i=1}^K x_k \cdot(w(\hat{F_k})- w(\hat F_{k+1}) ) -  \sum_{i=1}^K x_k \cdot(w(F_k)-
+w(F_{k+1}) ) \right| > \epsilon) \\ & \leq P(\left|\sum_{i=1}^K x_k \cdot(w(\hat{F_k})) -
+    \sum_{i=1}^K x_k \cdot(w(F_k)) \right| > \epsilon/2) + P(\left|\sum_{i=1}^K x_k
+    \cdot(w(\hat F_{k+1})) -  \sum_{i=1}^K x_k \cdot(w(F_{k+1})) \right| > \epsilon/2) \\ & \leq 2K
+    (e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2})
+\end{align*}
+The main claim follows.
+\end{proof}
