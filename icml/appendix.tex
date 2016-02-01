@@ -507,7 +507,7 @@ The claim follows by using the fact that $\delta_n \rightarrow 0$ as $n\rightarr
 %Recall that $\F_n = \sigma(\theta_m,m\le n;\Delta_m,m<n)$, $n\ge 1$.
 We first rewrite the update rule \eqref{eq:theta-update} as follows: For $i=1,\ldots,d$,
 \begin{align}
-\theta^{i}_{n+1}  =  \theta^{i}_n -  \gamma_n(\nabla_{i} \C(X^{\theta_n}) + \beta_n + \xi_n), 
+\theta^{i}_{n+1}  =  \theta^{i}_n +  \gamma_n(\nabla_{i} \C(X^{\theta_n}) + \beta_n + \xi_n), 
 \label{eq:1spsa-equiv}
 \end{align}
 where 
@@ -682,7 +682,7 @@ We update the parameter incrementally using a Newton decrement as follows: For $
 \begin{align}
 \label{eq:2spsa}
 % \theta_{n+1} =& \theta_{(1-\xi)\Theta}(\theta_n - \gamma_n \Upsilon(\overline H_n)^{-1} \widehat\nabla V^\theta_n(x^0)), \\
-\theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n - \gamma_n \sum_{j=1}^{d} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
+\theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n + \gamma_n \sum_{j=1}^{d} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
 \overline H_n = & (1-\xi_n) \overline H_{n-1} + \xi_n \widehat H_n,\label{eq:2spsa-H}
 \end{align}
 where $\xi_n$ is a step-size sequence that satisfies 
@@ -789,7 +789,7 @@ The proof follows in a similar manner as the proof of Theorem 7.1 in \cite{Bhatn
 We first rewrite the recursion \eqref{eq:2spsa} as follows:
 For $i=1,\ldots, d$
 \begin{align}
- \theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n - \gamma_n \sum_{j=1}^{d} \bar M^{i,j}(\theta_n) \nabla_{j} \C(X^\theta_n) + \gamma_n \zeta_n + \chi_{n+1} - \chi_n \right), \label{eq:pi-n}
+ \theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n + \gamma_n \sum_{j=1}^{d} \bar M^{i,j}(\theta_n) \nabla_{j} \C(X^\theta_n) + \gamma_n \zeta_n + \chi_{n+1} - \chi_n \right), \label{eq:pi-n}
 \end{align}
 where 
 \begin{align*}

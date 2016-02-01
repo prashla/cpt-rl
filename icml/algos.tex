@@ -51,9 +51,9 @@ This idea of using two-point feedback for estimating the gradient has been emplo
 \cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
 
 
-\subsection{Update rule} We incrementally update the parameter $\theta$ in the descent direction as follows: For every state $i=1,\ldots,d$,
+\subsection{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For every state $i=1,\ldots,d$,
 \begin{align}
-\theta^{i}_{n+1} = \Gamma_{i}\left(\theta^{i}_n - \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
+\theta^{i}_{n+1} = \Gamma_{i}\left(\theta^{i}_n + \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
 \label{eq:theta-update}
 \end{align}
 where  $\gamma_n$ is a step-size chosen to satisfy (A3) below and
@@ -75,7 +75,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 \algrenewtext{EndPEvalPrime}{\algorithmicendPEvalPrime}
 
 \algblock{PImp}{EndPImp}
-\algnewcommand\algorithmicPImp{\textbf{\em Gradient descent}}
+\algnewcommand\algorithmicPImp{\textbf{\em Gradient ascent}}
  \algnewcommand\algorithmicendPImp{}
 \algrenewtext{PImp}[1]{\algorithmicPImp\ #1}
 \algrenewtext{EndPImp}{\algorithmicendPImp}
@@ -145,7 +145,7 @@ The CPT-value estimation scheme is biased, i.e., providing samples with paramete
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
-\theta^{i}_{n+1}  = & \Gamma_{i}\bigg( \theta^{i}_n -  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
+\theta^{i}_{n+1}  = & \Gamma_{i}\bigg( \theta^{i}_n +  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
 &+ \underbrace{\frac{(\epsilon_n^{\theta_n +\delta_n\Delta_n} - \epsilon_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}}_{\kappa_n}\bigg).
 \end{align*}
 Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
@@ -182,7 +182,7 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 %\section{Newton algorithm for CPT-value optimization (CPT-SPSA-N)}
 %\label{sec:2spsa}
 %\subsection{Need for second-order methods}
-%While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
+%While stochastic gradient ascent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
 %Theorem 2.2 in \cite{fathi2013transport}). Thus, it is optimal to average iterates only 
 %after a sufficient number of iterations have passed and all the iterates are very close to the optimum. However, the latter situation serves as a stopping condition in practice.
 %
