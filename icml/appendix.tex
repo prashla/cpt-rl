@@ -218,39 +218,39 @@ n\cdot(1-\frac{i}{n^{(1-\alpha)}})) \\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-
 \end{align*}
 
 \noindent Notice that 
-$E W_t = 1-F(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}})$, and by recalling Hoeffding's inequality, one can derive that
+$E W_t = 1-F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}})$, and by recalling Hoeffding's inequality, one can derive that
 
 \begin{align}
-P ( \sum _{i=1}^{n} W_t - n \cdot [1-F(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } ) ] > n
-\cdot [F(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } ) - \frac{i}{n}]) < e^{-2n\cdot
+P ( \sum _{i=1}^{n} W_t - n \cdot [1-F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } ) ] > n
+\cdot [F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } ) - \frac{i}{n}]) < e^{-2n\cdot
 \delta^{'}_t},
 \end{align}
-with $\delta^{'}_i = F(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }) - \frac{i}{n}$, and if 
-$F(x)$ is Lipschitz, $ \delta^{'}_i \leq L \cdot (\frac{\epsilon}{\nalpha})$.
+with $\delta^{'}_i = F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }) - \frac{i}{n}$, and if 
+$F^{+}(x)$ is Lipschitz, $ \delta^{'}_i \leq L^{+} \cdot (\frac{\epsilon}{\nalpha})$.
 Therefore we will have
 \begin{align}
-P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L
-\frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L  \epsilon}
+P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L^{+}
+\frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L ^{+} \epsilon}
 \end{align}
 In a  similar fashion, one can show that 
 \begin{align*}
-P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L  \epsilon}
+P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}
 \end{align*}
 Because of the assumption that $F(x)$ is Lipschitz continuous, one can state that 
 \begin{align*}
 P ( \left| U^+_{[i]} -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
-e^{-2n^\alpha \cdot L \epsilon} , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
+e^{-2n^\alpha \cdot L^{+} \epsilon} , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
 \end{align*}
 As a result we can derive a bound for the probability in (6) such that
 \begin{align}
 &
 P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
-\epsilon) \leq 2n\cdot e^{-2n^\alpha \cdot L}.\label{eq:holder-sample-complexity-extract}
+\epsilon) \leq 2n\cdot e^{-2n^\alpha \cdot L^{+}}.\label{eq:holder-sample-complexity-extract}
 \end{align}
 
-Notice that $\sum_{n=1}^{+\infty}  2n \cdot e^{-2n^{\alpha}\cdot L \epsilon}< \infty$ since the sequence 
-$2n \cdot e^{-2n^{\alpha}\cdot L}$ will decrease more rapidly than the sequence
+Notice that $\sum_{n=1}^{+\infty}  2n \cdot e^{-2n^{\alpha}\cdot L^{+} \epsilon}< \infty$ since the sequence 
+$2n \cdot e^{-2n^{\alpha}\cdot L^{+}}$ will decrease more rapidly than the sequence
 $\frac{1}{n^k}$, $\forall k>1$.
 
 By applying the Borel Cantelli lemma,
