@@ -1,0 +1,205 @@
+Since the beginning of its history, mankind is deeply immersed in 
+	designing and improving systems to serve humans needs.
+Policy makers are busy with designing 
+	systems that serve the education, transportation, economic, health and other 
+	needs of the public,
+while private sector enterprises or occupied at creating 
+	and optimizing systems to serve other 
+	specific needs of customers.
+While it has been long recognized that 
+	understanding human behavior is a prerequisite 
+	to best serving the needs of humans \citet{},
+%	and the private sector has adopted this strategy a while ago \citet{}
+%	and the private sector quickly adopted this strategy,
+	it is only recently that this approach is gaining a wider recognition.%
+\footnote{
+As evidence for this wider recognition in the public sector,
+we can mention a recent executive order of the white house
+calling for the use of behavioral science in public policy making, 
+or the establishment of the ``Committee on Traveler Behavior and Values'' in the Transportation
+Research Board in the US.}
+%Using Behavioral Science Insights to Better Serve the American People
+
+In this paper we consider \emph{human-centered reinforcement learning problems}
+where the  reinforcement learning agent controls a system 
+to produce long term outcomes (``return'') that are maximally aligned with the preferences of 
+one or possibly multiple humans, an arrangement shown on Figure~\ref{fig:flow}.
+As a running example, consider traffic optimization where the goal is to maximize
+travelers' satisfaction, a problem many of us would agree is 
+perhaps still inadequately addressed today, at least in many big cities.
+In this example, the outcomes (``return'') are travel times, or delays. 
+To capture human preferences, the outcomes are mapped to a single numerical quantity.
+%We will make the assumption that human preferences can 
+%To create a single numerical quantity that faithfully captures human preferences, 
+%a \emph{risk metrics}, mapping the random returns to some scalar deterministic quantity, is used.
+While preferences of rational agents facing uncertain situations can be modeled by expected utilities 
+(i.e., the expectation of a nonlinear transformation, such as the exponential function of the rewards or costs) 
+\citep{NeuMo44,fishburn1970expectedutility}, 
+it is well known that
+\todoc{Some use the world uncertainty in relation to situations
+which can not be modeled probabilistically, and use risk in relation to situations that can be modeled probabilistically.
+So we are inconsistent with these people.}
+	humans are not rational in the mathematical sense
+	but are subject to various emotional and cognitive biases.
+As such, human preferences 
+	are inconsistent with expected utilities, and in particular humans tend to have preferences 
+	that cannot be modeled by using expected utilities alone
+	 \citep{allais53,ellsberg61,kahneman1979prospect}.
+An approach that gained 
+%Behavioral scientists use alternate approaches to model human preferences.
+	strong support amongst behavioral scientists and economists,  \citep[e.g.,][]{starmer2000developments,quiggin2012generalized},
+	is based on \cite{kahneman1979prospect}'s celebrated \emph{prospect theory}.
+In this work, we will use the so-called \emph{cumulative prospect theory} (CPT),
+ 	a refined variant of prospect theory due to \cite{tversky1992advances}, 
+	which is even more supported than prospect theory.
+CPT generalizes expected utility theory in that in addition to having a utility function transforming
+	the outcomes, another function is introduced which distorts the probabilities in the cumulative distribution function.
+As compared to prospect theory, CPT is monotone with respect to stochastic dominance, a property
+	that is thought to be useful and often consistent with human preferences.	
+	
+\if0	
+
+Popular approaches that use such risk metrics include the exponential utility formulation 
+(cf. \cite{borkar2010learning}) that implicitly controls the variance.
+An alternative is a to consider constrained formulations 
+with explicit constraints on the variance of the return (cf. \cite{tamar2012policy,Prashanth13AC}). 
+Another constraint alternative is to bound a coherent risk measure such as Conditional Value-at-Risk (CVaR), 
+while minimizing the usual cost objective (cf. \cite{borkar2010risk,prashanth2014policy}).  
+
+The risk metrics underlying the above-mentioned works 
+are based on the assumption that human decision makers are rational and/or consistent.
+While this may hold in certain restricted settings, a large body of literature indicates that humans are neither rational,
+\todoc{Add literature supporting this. At least three books:)}
+nor consistent (which, in fact, is an unsurprising fact, at least in the experience of the authors of the paper).
+In other words, traditional approaches are based on the belief that optimizing the expected utility (EU) is appealing for human subjects. However, there is substantial evidence that this is not case - see 
+the survey article \cite{starmer2000developments} and Chapter 4 of the book \cite{quiggin2012generalized}. In particular, the aforementioned references describe the Allais and Ellsberg paradoxes popular among economists for arguing against EU. 
+Thus, if the goal is to produce outcomes that are best aligned with human preferences,
+an alternative approach is required.
+A singularly popular and successful approach in behavioral science and economics
+is based on \textit{prospect theory (PT)} \cite{kahneman1979prospect} 
+and its later enhancement, the so-called \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}.
+CPT is a rank dependent expected utility model \cite{quiggin2012generalized} that incorporates decision weights to distort probabilities. 
+The suitability of this approach to model human decision making (and thus preferences) has been widely documented \cite{prelec1998probability}, \cite{wu1996curvature}, \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.
+PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lenert1999associations},  seismic design \cite{goda2008application}, transportation \cite{gao2010adaptive},\cite{fujii2004drivers}, \cite{ramming2001network}, online auctions \cite{weinberg2005exploring}, insurance  \cite{machina1995non} and finance \cite{barberis1999prospect}, \cite{epstein1989substitution}, \cite{epstein1991substitution}.
+\fi
+
+\tikzset{
+  pobl/.style={
+    inner sep=0pt, outer sep=0pt, fill=#1,
+  },
+  pobl gron/.style n args={2}{
+    pobl=#1, rounded corners=#2,
+  },
+  pics/person/.style n args={3}{
+    code={
+      \node (-corff) [pobl=#1, minimum width=.25*#2, minimum height=.375*#2, rotate=#3, pic actions] {};
+      \node (-pen) [minimum width=.3*#2, circle, pobl=#1, outer sep=.01*#2, anchor=south, rotate=#3, pic actions] at (-corff.north) {};
+      \node (-coes dde) [pobl gron={#1}{1pt}, anchor=north west, minimum width=.12125*#2, minimum height=.25*#2, rotate=#3, pic actions] at (-corff.south west) {};
+      \node [pobl=#1, anchor=north, minimum width=.12125*#2, minimum height=.15*#2, rotate=#3, pic actions] at (-coes dde.north) {};
+      \node (-coes chwith) [pobl gron={#1}{1pt}, anchor=north east, minimum width=.12125*#2, minimum height=.25*#2, rotate=#3, pic actions] at (-corff.south east) {};
+      \node [pobl=#1, anchor=north, minimum width=.12125*#2, minimum height=.15*#2, rotate=#3, pic actions] at (-coes chwith.north) {};
+      \node (-braich dde) [pobl gron={#1}{.75pt}, minimum width=.075*#2, minimum height=.325*#2, outer sep=.0064*#2, anchor=north west, rotate=#3, pic actions] at (-corff.north east)  {};
+      \node [pobl=#1, minimum width=.05*#2, minimum height=.2*#2, outer sep=.0064*#2, anchor=north west, rotate=#3, pic actions] at (-corff.north east) {};
+      \node (-braich chwith) [pobl gron={#1}{.75pt}, minimum width=.075*#2, minimum height=.325*#2, outer sep=.0064*#2, anchor=north east, rotate=#3, pic actions] at (-corff.north west) {};
+      \node [pobl=#1, minimum width=.0375*#2, minimum height=.2*#2, outer sep=.0064*#2, anchor=north east, rotate=#3, pic actions] at (-corff.north west) {};
+      \node (-fit person) [fit={(-pen.north) (-braich dde.east) (-coes chwith.south) (-braich chwith.west)}] {};
+      %\node (-pwy) [below=25pt of -fit person, every pin] {\tikzpictext};
+      %\draw [every pin edge] (-fit person) -- (-pwy);
+    },
+  },
+}
+\tikzstyle{block} = [draw, fill=white, rectangle,
+   minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{figure}[h]
+\centering
+\scalebox{0.5}{\begin{tikzpicture}
+\node [block,fill=blue!20, minimum height=4em,] (world) {\makecell{\large\bf World}}; 
+\node [block,fill=red!20, below=2.5cm of world] (agent) {\makecell{\large\bf Agent}}; 
+\node [circle,fill=brown!50!black,right=2cm of world,label=above:{\bf Reward}] (tmp) {};
+\coordinate [below left=2.5cm of world] (tmp2);
+\coordinate [below right=1cm of agent] (belowagent);
+
+\draw [->,thick] (world)  -| (tmp) |-   (agent);
+\draw [->,thick] (agent)  -| (tmp2) |-   (world);
+%\draw [->] (agent) --   (world);
+\draw pic (person)  [right =3cm of tmp] {person={blue}{50pt}{0}};
+\coordinate [right=2.8cm of tmp] (tmp3);
+\coordinate [right=3.3cm of tmp] (tmp31);
+\coordinate [right=1cm of tmp3] (belowhuman);
+\coordinate [right=2.5cm of tmp3] (tmp4);
+\draw [->,thick] (tmp) --   (tmp3);
+\draw [-,thick,dotted] (tmp31)  -- node[below right=0.1cm and 0.5cm] {\textbf{CPT}} (belowhuman) --  (tmp4);
+\draw [->,thick,dotted] (tmp4)  |-  (belowagent) -|  (agent.south);
+\end{tikzpicture}}
+\caption{Operational flow of a human-based decision making system
+\todoc[inline]{Can we add next to the human a heart or something expressing that the human has feelings/preferences?
+Alternatively, make an arrow that comes out from the human to the right, and write CPT on it.
+}
+}
+\label{fig:flow}
+\end{figure}
+%\begin{tikzpicture}
+  %[
+    %every pin edge/.append style={latex-, shorten <=-2.5pt},
+  %]
+
+\if0
+As illustrated in Figure \ref{fig:flow}, we consider a typical RL setting where the environment is unknown, but can be experimented with and propose a CPT based risk metric as the long-term performance objective.  \todoc{This para may need to be rewritten in light that I rewrote the previous one.}
+\todoc{Risk measure is a technical term according to wikipedia. Risk metric does not seem to have this technical meaning so I propose using risk metric everywhere.}
+CPT is a non-coherent and non-convex measure \todoc{I find it strange to emphasize only these aspects.
+What's the goal of announcing these here?}
+that is well known among psychologists and economists to be a good model for human decision-making systems, with strong empirical support.
+To put it differently, CPT captures well the way humans evaluate outcomes and hence, we offer a CPT-variant of the RL notion of ``value function''. Unlike the regular value function which is the expectation of the return random variable, CPT-value employs a functional that distorts the underlying probabilities. The latter is achieved by fitting CPT model parameters to capture human preferences. The goal then for the learning system is to find a policy that maximizes the CPT-value of ``return''. 
+\fi
+%
+%In the realm of sequential decision making under uncertainty, we propose a CPT-based risk measure.  In particular,  
+%The current RL solutions cannot handle distortions and my current work is to develop both prediction and control schemes for probabilistically distorted MDPs.
+%
+%\todop[inline]{Add refs for distorted weights}
+%In this paper, we consider a risk measure based on \textit{cumulative prospect theory} (CPT) \cite{tversky1992advances}, which is a non-coherent and non-convex measure that is well known among psychologists and economists to be a good model for human decision-making systems, with strong empirical support. In this paper, we incorporate CPT-based criteria into the classic objective \textit{value function} in a reinforcement learning framework. Intuitively this combination is appealing because it taps into the notion of how humans evaluate outcomes and also, a CPT objective leads to a randomized policy, which although harder to estimate often leads to more intuitively appealing behavior, as illustrated via an example below and also the numerical experiments later.
+
+%%%%%%%%%%%%\
+\paragraph{Our contributions:}
+This is the first work to combine CPT with RL, and although on the surface it might seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the RL framework. We outline these challenges as well as our solution approach below. \\
+\textbf{\textit{Prediction:}} In the case of the classic value function, which is an expectation, a simple sample mean can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, 
+CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 
+requires that the \textit{entire} distribution to be estimated.\\ 
+\textit{Solution:} 
+We propose a quantile based scheme for estimating the CPT-value.
+We provide both asymptotic convergence and sample complexity results assuming the weight functions are either  \holder continuous, or
+Lipschitz continuous, or
+locally Lipschitz.
+For the Lipschitz case, we obtain the canonical rate $O\left(\frac1{\epsilon^2}\right)$ for Monte Carlo-type schemes, while \holder continuous with constant $\alpha$ results in a rate  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$, for achieving a $\epsilon$-close estimate.\\
+\textbf{\textit{Control:}} 
+Designing algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 
+Thus, it is necessary to design new simulation optimization scheme that use sample CPT-value estimates to optimize the policy, which is generally \textit{randomized}. While classic simulation optimization settings usually have a zero mean noise in function evaluations, our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. \\
+\textit{Solution:} 
+Using the well-known idea of simultaneous perturbation stochastic approximation (SPSA) from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose and analyze a gradient method for CPT value optimization in sequential decision making problems
+under uncertainty.
+Since SPSA by default assumes that the unbiased point-estimates of the optimization objective are available, which
+is not the case in our problem, we extend the analysis of SPSA to handle the case when the optimization objective estimates are noisy, with controlled bias.
+%
+%We derive the condition that specifies the rate at which the number of samples for predicting the CPT-value should increase such that the bias of CPT-value estimates vanishes asymptotically (see (A3) later).
+%
+%, while the second is a Newton algorithm that also uses SPSA-based estimates of the gradient and also the Hessian. We remark again that, unlike traditional settings for SPSA, our estimates for CPT-value have a non-zero (albeit controlled) bias. We establish that our algorithms converge to a locally CPT-value optimal policy. 
+
+To put things in context, risk-sensitive reinforcement learning problems are generally hard to solve. 
+For a discounted MDP, \cite{Sobel82VD} showed that there exists a Bellman equation for the variance of the return, but the underlying Bellman operator is not necessarily monotone and this rules out policy iteration as a solution approach for variance-constrained MDPs.
+Further, even if the transition dynamics are known, \cite{mannor2013algorithmic} show that finding a globally mean-variance optimal policy in a discounted MDP is NP-hard.
+For average reward MDPs, \cite{filar1989variance} motivate a different notion of variance and then provide NP-hardness results for finding a globally variance-optimal policy.
+CVaR as a risk measure is equally complicated as the measure here is a conditional expectation, where the conditioning is on a low probability event. Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \cite{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. 
+
+In contrast, we derive a \textit{provably} sample-efficient scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. Finally, we point out that the CPT-value that we define is a generalization in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a certain weight function used in the definition of CPT value.
+
+\noindent
+\textit{\textbf{Closest related work}} is \cite{lin2013stochastic}, where the authors propose a CPT-measure for an abstract MDP setting (see \cite{bertsekas2013abstract}). We differ from \cite{lin2013stochastic} in several ways:
+\begin{inparaenum}[\bfseries (i)]
+\item We do not have a nested structure for the CPT-value \eqref{eq:cpt-mdp} and this implies the lack of a Bellman equation for our CPT measure; and
+\item We do not assume model information, i.e., we operate in a model-free RL setting. Moreover, we develop both estimation and control algorithms with convergence guarantees for the CPT-value function.
+\end{inparaenum}
+

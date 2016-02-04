@@ -1,50 +1,8 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\documentclass{article}
-\usepackage[margin=1in,a4paper]{geometry}
-
-% \usepackage{aaai}
-% 
-% \frenchspacing
-% \setlength{\pdfpagewidth}{8.5in}
-% \setlength{\pdfpageheight}{11in}
-\usepackage{amsthm}
-\usepackage{macros}
-\usepackage{multirow}
-% \usepackage{enumitem}
-\usepackage{xr}
-\externaldocument{cpt-rl-icml}
-\numberwithin{equation}{section}
-\numberwithin{theorem}{section}
-
-\pgfplotsset{compat=1.3}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{document}
- 
-\onecolumn
-\title{Appendix}
-\date{}
-\author{}
-\maketitle
-\vskip 0.3in
 
 
 \appendix
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- \setcounter{tocdepth}{1}
- \tableofcontents
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
- \newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background on CPT}
@@ -94,7 +52,7 @@ We can now argue against using expected utility (EU) as an objective as follows:
 
 And we have a contradiction from \eqref{eq:12} and \eqref{eq:23}.
 
-\newpage
+%\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -586,7 +544,7 @@ The claim follows from the Kushner-Clark lemma.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
+%\newpage
 \section{Newton algorithm for CPT-value optimization (CPT-SPSA-N)}
 \label{sec:2spsa}
 \subsection{Need for second-order methods}
@@ -608,28 +566,6 @@ Both the gradient estimate $\widehat \nabla \C(X_n^{\theta_n}) = [\widehat \nabl
 
 %%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
 %%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
-\algblock{PEval}{EndPEval}
-\algnewcommand\algorithmicPEval{\textbf{\em CPT-value Estimation (Trajectory 1)}}
- \algnewcommand\algorithmicendPEval{}
-\algrenewtext{PEval}[1]{\algorithmicPEval\ #1}
-\algrenewtext{EndPEval}{\algorithmicendPEval}
-
-\algblock{PEvalPrime}{EndPEvalPrime}
-\algnewcommand\algorithmicPEvalPrime{\textbf{\em CPT-value Estimation (Trajectory 2)}}
- \algnewcommand\algorithmicendPEvalPrime{}
-\algrenewtext{PEvalPrime}[1]{\algorithmicPEvalPrime\ #1}
-\algrenewtext{EndPEvalPrime}{\algorithmicendPEvalPrime}
-
-\algblock{PImp}{EndPImp}
-\algnewcommand\algorithmicPImp{\textbf{\em Gradient descent}}
- \algnewcommand\algorithmicendPImp{}
-\algrenewtext{PImp}[1]{\algorithmicPImp\ #1}
-\algrenewtext{EndPImp}{\algorithmicendPImp}
-
-\algtext*{EndPEval}
-\algtext*{EndPEvalPrime}
-\algtext*{EndPImp}
-
 \algblock{PEvalPrimeDouble}{EndPEvalPrimeDouble}
 \algnewcommand\algorithmicPEvalPrimeDouble{\textbf{\em CPT-value Estimation (Trajectory 3)}}
  \algnewcommand\algorithmicendPEvalPrimeDouble{}
@@ -822,7 +758,3 @@ Since $\C(X^{\theta})$ serves as a Lyapunov function for the ODE \eqref{eq:n-ode
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newpage
-\bibliography{cpt-refs}
-\bibliographystyle{plainnat}
-\end{document}
