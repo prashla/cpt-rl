@@ -119,8 +119,8 @@ Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite.
 H\"{o}lder continuity of $w^+$ together with the fact that $w^+(0)=0$ imply that 
 $$
 \int_0^{+\infty} w^+(P(U^+>t)) dz 
-\le C \int_0^{+\infty} P^{\alpha} (U^+>z) dz
-\le C \int_0^{+\infty} P^{\gamma} (U^+>z) dz 
+\le H \int_0^{+\infty} P^{\alpha} (U^+>z) dz
+\le H \int_0^{+\infty} P^{\gamma} (U^+>z) dz 
 <+\infty.
 $$
 The second inequality is valid since $P(U^+>z) \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
@@ -140,7 +140,7 @@ Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\f
 \end{align}
 \end{proposition}
 
-\todoj[inline]{Substitute $U$, $t dt$, $w$, $\xi$ with $U^+$, $z dz$, $w^+$ and $\xi^+$, and say similar argument holds for $-$ parts,done}
+
 \begin{proof}
 We shall focus on proving the first part of equation (28). Consider the following linear combination of simple functions: 
 \begin{align}
@@ -173,9 +173,9 @@ The second part of equation (28) can be justified in a similar fashion.
 
 %%%%%%%%%\xi^+
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
-\todoj[inline]{Substitute $U$, $t dt$, $w$, $\xi^+$ with $U^+$, $z dz$, $w^+$ and $\xi^+$, resply and say similar argument holds for $-$ parts, done}
+
 \begin{proof}
-We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
+We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion, and assume the constant in \holder continuous $H=1$ without loss of generality.
 
 The main part of the proof is concentrated on finding an upper bound of the probability
 \begin{align}
@@ -194,9 +194,9 @@ w^+{(\frac{n-i-1}{n})}) - \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(
 (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n}) -
 w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} -
 \xi^+_{\frac{i}{n}}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| > \frac{\epsilon}{n})
-\\ & \leq \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}}) \cdot (\frac{1}{n})^{\alpha}
+\\ & \leq \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}}) \cdot \cdot (\frac{1}{n})^{\alpha}
 \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}})
-\right| > \frac{\epsilon}{n^{1-\alpha}}).
+\right| > \frac{\epsilon}{\cdot n^{1-\alpha}}).
 \end{align*}
 Now we find the upper bound of the probability of a single item in the sum above, i.e
 \begin{align*}
@@ -289,7 +289,7 @@ Since $U^+$ is bounded above by $M$ and $w$ is H\"{o}lder with constant $C$ and 
 \begin{align*}
 &\left|\int_0^{\infty} w^+(P(U^+)>t) dt- \int_0^{\infty} w^+(1- {\hat F^+_n}(t)) dt\right| \\ = &
     \left|\int_0^M w^+(P(U^+)>t) dt- \int_0^M w^+(1- {\hat F^+_n}(t)) dt\right| \\
-\leq& \left|\int_0^M C\cdot |P(U^+<t)-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& LC\sup_{x\in
+\leq& \left|\int_0^M H\cdot |P(U^+<t)-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
 \mathbb{R}}\left|P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 Now, plugging in the DKW inequality, we obtain
@@ -297,8 +297,8 @@ Now, plugging in the DKW inequality, we obtain
 &
 P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t)) dt\right|>\epsilon\right)
 \nonumber\\
-& \leq P\left(LM\sup_{t\in \mathbb{R}} \left|(P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha>\epsilon\right)
-\leq  e^{-n \frac{\epsilon ^{(2/\alpha)}} {2 L^2 M^2}}.\label{eq:dkw3}
+& \leq P\left(HM\sup_{t\in \mathbb{R}} \left|(P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha>\epsilon\right)
+\leq  e^{-n \frac{\epsilon ^{(2/\alpha)}} {2 H^2 M^2}}.\label{eq:dkw3}
 \end{align}
 \end{proof}
 

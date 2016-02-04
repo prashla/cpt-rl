@@ -25,13 +25,13 @@ We also provide sample complexity bounds assuming that the utility functions are
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Estimation scheme for \holder continuous weights}
 Recall the H\"{o}lder continuity property first in definition 1:
-\begin{definition}
+\begin{definition}\label{holder}
 {\textbf{\textit{(H\"{o}lder continuity)}}}
 If $0 < \alpha \leq 1$, a function $f \in C([a,b])$ is said to satisfy
 a H\"{o}lder condition of order $\alpha$ (or to be H\"{o}lder continuous
-of order $\alpha$) if $\exists K$, s.t.
+of order $\alpha$) if $\exists H$, s.t.
 \[
-\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq K .
+\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq H .
 \]
 \end{definition}
 
@@ -96,14 +96,14 @@ where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X
 \begin{proof}
 See Appendix \ref{sec:holder-proofs}.
 \end{proof}
-While the above result establishes that $\overline \C_n$ is an unbiased estimate in the asymptotic sense, it is important to know the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
+While the above result establishes that $\overline \C_n$ is an unbiased estimator in the asymptotic sense, it is important to know the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
 The following sample complexity result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
 Assume (A1) and (A2'). Then, $\forall \epsilon, \delta$, we have
 $$
 P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
-\frac{4L^2 M^2}{\epsilon^{2/\alpha}}.$$
+\frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
 \end{proposition}
 \begin{proof}
 %Notice the the following equivalence:
