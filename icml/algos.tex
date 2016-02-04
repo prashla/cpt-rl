@@ -38,7 +38,7 @@
 %\end{figure}
 
 \subsection{Gradient estimation} 
-Given that we operate in a learning setting and only have biased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation optimization scheme that estimates $\nabla \C(X^\theta)$.  
+Given that we operate in a learning setting and only have biased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation scheme to estimate $\nabla \C(X^\theta)$.  
 Simultaneous perturbation methods are a general class of stochastic gradient schemes that optimize a function given only noisy sample values - see \cite{Bhatnagar13SR} for a textbook introduction. SPSA is a well-known scheme that estimates the gradient using two sample values. In our context, at any iteration $n$ of CPT-SPSA-G, with parameter $\theta_n$, the gradient $\nabla \C(X^{\theta_n})$ is estimated as follows: For any  $i=1,\ldots,d$,
 \begin{align}
 \widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}},\label{eq:grad-est-spsa}
@@ -94,7 +94,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$. 
 	    \EndPEval
 	    \PEvalPrime
-  	    \State Simulate $m_n$ samples using $\theta_n-\delta_n \Delta_n$.
+  	    \State Simulate $m_n$ samples using $(\theta_n-\delta_n \Delta_n)$.
 	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$.
 	    \EndPEvalPrime
 	    \PImp

@@ -367,8 +367,8 @@ The main idea is that humans deflate high-probabilities and inflate low-probabil
 For example, humans usually choose a stock that gives one million dollars w.p. $1/10^6$ over one that gives \$$1$ w.p. $1$ and the reverse when signs are flipped. 
 Thus the value seen by the human subject is non-linear in the underlying probabilities - an observation with strong empirical evidence that used human subjects \citep{tversky1992advances}.  In contrast,the traditional value function is linear in the underlying probabilities. 
 As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and  have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
-The authors in \cite{tversky1992advances} recommend $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ and in both cases, the weight function has the inverted-s shape, which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.  
-Weight functions can explain non-linear probability distortions, as illustrated by the following example: \\
+\cite{tversky1992advances} recommend $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ and in both cases, the weight function has the inverted-s shape, which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.  
+Weight functions can explain nonlinear probability distortions, as illustrated by the following example: \\
 \textit{\textbf{[Stock 1]}} This investment results in a gain of \$$10$ with probability (w.p.) $0.1$ and a loss of \$$500$ w.p. $0.9$. The expected return is \$$-449$, but this does not necessarily imply that ``human'' investors' evaluation of the stock is \$$-449$. Instead, it is very likely that the humans evaluate it to a higher value, e.g. \$$-398$ ($=$ gain w.p. $0.2$ and loss w.p. $0.8$).\footnote{See Table 3 in \cite{tversky1992advances} to know why such a human evaluation is likely.}\\
 \textit{\textbf{[Stock 2]}} loss of \$$10$ w.p. $0.9$, gain \$$500$ w.p. $0.1$. Expected return: \$$41$; Human evaluation: \$$92$ ($=$ loss w.p. $0.8$).\\
 \textit{\textbf{[Stock 3]}} loss of \$$10$ w.p. 0.1, gain \$$500$ w.p. $0.9$. Expected return: \$$449$; Human evaluation: \$$398$ ($=$ loss w.p. $0.2$). 
@@ -385,11 +385,11 @@ The above optimization problem has several applications in RL. For instance, $X$
 \subsection{Application: Stochastic Shortest Path}
 We consider a stochastic shortest path (SSP) problem with states $\S=\{0,\ldots,\L\}$, where $0$ is a special reward-free absorbing state.  A randomized policy $\pi$ is a function that maps any state $s\in \S$ onto a probability distribution over the actions $\A(s)$ in state $s$. As is standard in policy gradient algorithms, we parameterize $\pi$ and assume it is continuously differentiable in its parameter $\theta \in \R^d$.  
 An \textit{episode} is a simulated sample path using policy $\theta$ that starts in state $x^0\in \S$, visits $\{x_1,\ldots, x_{\tau-1}\}$ before ending in the absorbing state $0$, where $\tau$ is the first passage time to state $0$.
-Let $D^\theta(x^0)$ be a random variable (r.v) that denote the total reward from an episode, defined by
+Let $D^\theta(s^0)$ be a random variable (r.v) that denote the total reward from an episode, defined by
 $$ D^\theta(s^0) = \sum\limits_{m=0}^{\tau-1} r(s_m,a_m), $$
 where the actions $a_m$ are chosen using policy $\theta$ and $r(s_m, a_m)$ is the single-stage reward in state $s_m\in \S$ when action $a_m \in \A(s_m)$ is chosen. 
 
-Instead of the traditional RL objective for an SSP is to maximize the expected value $\E (D^\theta(x^0))$, 
+Instead of the traditional RL objective for an SSP of maximizing the expected value $\E (D^\theta(s^0))$, 
 we adopt the CPT approach and aim to solve the following problem: 
 $$ \max_{\theta \in \Theta} \C(D^\theta(s^0)),$$
 where $\Theta$ is the set of admissible policies that are \textit{proper}\footnote{A policy $\theta$ is proper if $0$ is recurrent and all other states are transient for the Markov chain underlying $\theta$. It is standard to assume that policies are proper in an SSP setting - cf. \cite{bertsekas1995dynamic}.} and the CPT-value function $\C(D^\theta(s^0))$ is defined as
@@ -401,7 +401,7 @@ where $\Theta$ is the set of admissible policies that are \textit{proper}\footno
 \paragraph{Generalization:} It is easy to see that the CPT-value is a generalization of the traditional value function, as a choice of identity map for the weight and utility functions in \eqref{eq:cpt-mdp} makes it the expectation of the total cost $D^\theta)$.  It is also possible to get \eqref{eq:cpt-mdp} to coincide with coherent risk measures (e.g. CVaR) by the appropriate choice of weight functions.
 
 \paragraph{Sensitivity:}
-Traditional EU based approaches are sensitive to modeling errors as illustrated in the following example: 
+Traditional EU-based approaches are sensitive to modeling errors as illustrated in the following example: 
 Suppose stock $\cal{A}$ gains \$$10000$ w.p $0.001$ and loses nothing w.p. $0.999$, while stock $\cal B$ surely gains $11$. With the classic value function objective, it is optimal to invest in stock $\cal B$ as it returns $11$,  while $\cal A$ returns $10$ in expectation (assuming utility function to be the identity map). Now, if the gain probability for stock $\cal A$ was $0.002$, then it is no longer optimal to invest in stock $\cal B$ and investing in stock $A$ is optimal.
 Notice that a very slight change in the underlying probabilities resulted in a big difference in the investment strategy and a similar observation carries over to a multi-stage scenario (see the house buying example in the numerical experiments section). 
  %A randomized policy that $50$\% in stock $\cal A$ and the rest in a risk-free asset is less sensitive to the error in under-estimating the loss probability. 
