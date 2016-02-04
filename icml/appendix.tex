@@ -1,0 +1,828 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass{article}
+\usepackage[margin=1in,a4paper]{geometry}
+
+% \usepackage{aaai}
+% 
+% \frenchspacing
+% \setlength{\pdfpagewidth}{8.5in}
+% \setlength{\pdfpageheight}{11in}
+\usepackage{amsthm}
+\usepackage{macros}
+\usepackage{multirow}
+% \usepackage{enumitem}
+\usepackage{xr}
+\externaldocument{cpt-rl-icml}
+\numberwithin{equation}{section}
+\numberwithin{theorem}{section}
+
+\pgfplotsset{compat=1.3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+ 
+\onecolumn
+\title{Appendix}
+\date{}
+\author{}
+\maketitle
+\vskip 0.3in
+
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \setcounter{tocdepth}{1}
+ \tableofcontents
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background on CPT}
+For a random variable $X$, let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
+Given a utility function $u$ and weighting function $w$, \textit{\textbf{Prospect theory}} (PT) value is defined as $\C(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
+The idea is to take an utility function that is $S$-shaped, so that it satisfies the \textit{diminishing sensitivity}  property. 
+If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions (see \cite{kahneman1979prospect}, \cite{fennema1997original} for a justification, in particular via empirical tests using human subjects).
+%However, distorting the probabilities via a weighting function (that is not identity) is a useful generalization since it  overcomes some of the ill-effects of expected utility and is closer to human decision making - see \cite{kahneman1979prospect}. 
+However, PT is lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}. Consider the following example from \cite{fennema1997original}: Suppose there are $20$ prospects (outcomes) ranging from $-10$ to $180$, each with probability $0.05$. If the weight function is such that $w(0.05) > 0.05$, then it uniformly overweights all \textit{low-probability} prospects and the resulting PT value is higher than the expected value $85$. This violates stochastic dominance, since a shift in the probability mass from bad outcomes did not result in a better prospect. 
+
+\textbf{Cumulative prospect theory} (CPT) \cite{tversky1992advances} uses a similar measure as PT, except that the weights are a function of cumulative probabilities. First, separate the gains and losses as 
+$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$. Then, the CPT-value is defined as 
+\begin{align*}
+\C(X) = &(u^-(x_1))\cdot w^-(p_1) 
++\sum_{i=2}^l u^-(x_i) \Big(w^-(\sum_{j=1}^i p_j) - w^-(\sum_{j=1}^{i-1} p_j)\Big) 
+\\&
+ + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K p_j) - w^+(\sum_{j=i+1}^K p_j) \Big)
+ + u^+(x_K)\cdot w^+(p_K), 
+\end{align*} 
+where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corresponding to gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
+Unlike PT, the CPT-value does not violate stochastic dominance. In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. Thus, CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.
+
+\subsection*{Allais paradox}
+Suppose we have the following two traffic light switching policies:
+
+\textbf{\textit{[Policy 1]}} A throughput (number of vehicles that reach destination per unit time) of $1000$  w.p. $1$. Let this be denoted by $(1000,1)$.
+
+\textbf{\textit{[Policy 2]}}  $(10000, 0.1; 1000,0.89; 100, 0.01)$ i.e., throughputs $10000$, $1000$ and $100$ with respective probabilities $0.1$, $0.89$ and $0.01$.
+
+Humans usually choose Policy $1$ over Policy $2$. On the other hand, consider the following two policies:
+
+\textbf{\textit{[Policy 3]}} (100,0.89; 1000, 0.11)
+
+\textbf{\textit{[Policy 4]}} (100,0.9; 10000, 0.1)
+
+Humans usually choose Policy $4$ over Policy $3$. 
+
+We can now argue against using expected utility (EU) as an objective as follows: Let $u$ be the utility function in EU.
+\begin{align}
+&\text{Policy 1 is preferred over Policy 2}\nonumber\\ 
+&\Rightarrow u(1000) > 0.1 u(10000) + 0.89 u(1000) + 0.01 u(100)\nonumber\\
+&\Rightarrow 0.11 u(1000) > 0.1 u(10000) + 0.01 u(100) \label{eq:12}\\[1ex]
+&\text{Policy 4 is preferred over Policy 3}\nonumber\\ 
+&\Rightarrow 0.89 u(100) + 0.11 u(1000) < 0.9 u(100) + 0.1 u(10000)\nonumber\\
+&\Rightarrow 0.11 u(1000) < 0.1 u(10000) + 0.01 u(100) \label{eq:23}
+\end{align}
+
+And we have a contradiction from \eqref{eq:12} and \eqref{eq:23}.
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proofs for CPT-value estimator}
+\label{appendix:cpt-est}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{\holder continuous weights}
+\label{sec:holder-proofs}
+\begin{proposition}
+\label{prop:Holder-cpt-finite}
+Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite. 
+\end{proposition}
+\begin{proof}
+
+H\"{o}lder continuity of $w^+$ together with the fact that $w^+(0)=0$ imply that 
+$$
+\int_0^{+\infty} w^+(P(U^+>t)) dz 
+\le H \int_0^{+\infty} P^{\alpha} (U^+>z) dz
+\le H \int_0^{+\infty} P^{\gamma} (U^+>z) dz 
+<+\infty.
+$$
+The second inequality is valid since $P(U^+>z) \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
+\end{proof}
+
+%%%%
+\begin{proposition}
+\label{prop:holder-quantile}
+Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $U^+$ and $U^-$, respectively. Then, we have 
+\begin{align}
+\label{eq:simple-estimation}
+\begin{split}
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^+(P(U^+>z)) dz < +\infty,
+\\
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
+\end{split}
+\end{align}
+\end{proposition}
+
+
+\begin{proof}
+We shall focus on proving the first part of equation (28). Consider the following linear combination of simple functions: 
+\begin{align}
+\sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
+\cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi_\frac{n-i}{n}]}(t),
+\end{align}
+which will converge almost everywhere to the function $w(P(U>t))$ in the interval $[0, +\infty)$, and also notice that 
+\begin{align}
+\sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
+\cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}]}(t)
+<
+w(P(U>t)),
+\text{         } \forall t \in [0,+\infty).
+\end{align}
+
+The integral of (4) equals  
+
+\begin{align}
+& \int_0^{+\infty} \sum_{i=0}^{n-1} w^+_{\frac{i}{n}} \cdot I_{[\xi^+_\frac{n-i-1}{n},
+\xi^+_\frac{n-i}{n}]}(t) \\ & = \sum_{i=0}^{n-1} w^+_{\frac{i}{n}}(t) \cdot (\xi^+_{\frac{n-i}{n}} -
+\xi^+_{\frac{n-i-1}{n}}) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+_{\frac{n-i}{n}}-
+    w^+_{\frac{n-i-1}{n}}).
+\end{align}
+
+The H\"{o}lder continuity property assures the fact that 
+$\lim_{n \rightarrow \infty}  | w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n})| =0$, and the limit in (28) holds through a typical application of the dominated convergence theorem.
+The second part of equation (28) can be justified in a similar fashion.
+\end{proof} 
+%%%
+
+%%%%%%%%%\xi^+
+\subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
+
+\begin{proof}
+We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion, and assume the constant in \holder continuous $H=1$ without loss of generality.
+
+The main part of the proof is concentrated on finding an upper bound of the probability
+\begin{align}
+P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
+\epsilon),
+\end{align}
+for any given $\epsilon>0$.
+Observe that
+\begin{align*}
+& P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
+\epsilon) \\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| U^+_{[i]} \cdot (w^+_(\frac{n-i}{n}) -
+w^+{(\frac{n-i-1}{n})}) - \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) )
+\right| > \frac{\epsilon}{n} \}) \\ & \leq \sum _{i=1}^{n-1} P ( \left| U^+_{[i]} \cdot
+(w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n}) -
+w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} -
+\xi^+_{\frac{i}{n}}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| > \frac{\epsilon}{n})
+\\ & \leq \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}}) \cdot \cdot (\frac{1}{n})^{\alpha}
+\right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}})
+\right| > \frac{\epsilon}{\cdot n^{1-\alpha}}).
+\end{align*}
+Now we find the upper bound of the probability of a single item in the sum above, i.e
+\begin{align*}
+& P( \left | U^+_{[i]} - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{(1-\alpha)}}) \\ & = P (
+    U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon} {n^{(1-\alpha)}}) + P ( U^+_{[i]} -
+    \xi^+_{\frac{i}{n}} < - \frac {\epsilon} {n^{(1-\alpha)}}).
+\end{align*} 
+
+\noindent We focus on the term 
+$
+P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha})
+$.
+Let $W_t = I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1, \ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
+\begin{align*}
+& P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) \\ & = P ( \sum _{t=1}^{n} W_t >
+n\cdot(1-\frac{i}{n^{(1-\alpha)}})) \\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-F^{+}(\xi^+_{\frac{i}{n}}
++\frac{\epsilon}{n^{(1-\alpha)}})] > n \cdot [F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}})
+- \frac{i}{n}]).
+\end{align*}
+
+\noindent Notice that 
+$E W_t = 1-F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}})$, and by recalling Hoeffding's inequality, one can derive that
+
+\begin{align}
+P ( \sum _{i=1}^{n} W_t - n \cdot [1-F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } ) ] > n
+\cdot [F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } ) - \frac{i}{n}]) < e^{-2n\cdot
+\delta^{'}_t},
+\end{align}
+with $\delta^{'}_i = F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }) - \frac{i}{n}$, and if 
+$F^{+}(x)$ is Lipschitz, $ \delta^{'}_i \leq L^{+} \cdot (\frac{\epsilon}{\nalpha})$.
+Therefore we will have
+\begin{align}
+P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L^{+}
+\frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L ^{+} \epsilon}
+\end{align}
+In a  similar fashion, one can show that 
+\begin{align*}
+P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}
+\end{align*}
+Because of the assumption that $F(x)$ is Lipschitz continuous, one can state that 
+\begin{align*}
+P ( \left| U^+_{[i]} -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
+e^{-2n^\alpha \cdot L^{+} \epsilon} , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
+\end{align*}
+As a result we can derive a bound for the probability in (6) such that
+\begin{align}
+&
+P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
+\epsilon) \leq 2n\cdot e^{-2n^\alpha \cdot L^{+}}.\label{eq:holder-sample-complexity-extract}
+\end{align}
+
+Notice that $\sum_{n=1}^{+\infty}  2n \cdot e^{-2n^{\alpha}\cdot L^{+} \epsilon}< \infty$ since the sequence 
+$2n \cdot e^{-2n^{\alpha}\cdot L^{+}}$ will decrease more rapidly than the sequence
+$\frac{1}{n^k}$, $\forall k>1$.
+
+By applying the Borel Cantelli lemma,
+$$
+P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
+\epsilon , i.o.) =0 , \text{   } \forall \epsilon >0 $$
+which implies 
+$$
+\sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \sum_{i=1}^{n-1}
+\xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \xrightarrow{n \rightarrow
++\infty} 0 \text{   w.p } 1 ,
+$$
+which constitutes the proof of theorem's statement, that 
+\begin{align}
+\lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} U^+_{ [i ] } (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
+&\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt , \text{w.p} 1
+\end{align}
+\end{proof}
+
+\subsection*{Proof of Proposition \ref{prop:holder-dkw}}
+For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
+\begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
+Let ${\hat F_n}(x)=\frac{1}{n} \sum_{i=1}^n 1_{((X_i) \leq x)}$ denote the empirical distribution of a r.v. $X$, with $X_1,\ldots,X_n$ being sampled from the true distribution $F(X)$.
+The, for any $n$ and $\epsilon>0$, we have
+$$
+P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
+$$
+\end{lemma}
+
+The reader is referred to Chapter 2 of \cite{wasserman2006} for more on empirical distributions in general and DKW inequality in particular.
+
+\begin{proof}
+We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
+Since $U^+$ is bounded above by $M$ and $w$ is H\"{o}lder with constant $C$ and power $\alpha$, we have
+\begin{align*}
+&\left|\int_0^{\infty} w^+(P(U^+)>t) dt- \int_0^{\infty} w^+(1- {\hat F^+_n}(t)) dt\right| \\ = &
+    \left|\int_0^M w^+(P(U^+)>t) dt- \int_0^M w^+(1- {\hat F^+_n}(t)) dt\right| \\
+\leq& \left|\int_0^M H\cdot |P(U^+<t)-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
+\mathbb{R}}\left|P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha.
+\end{align*}
+Now, plugging in the DKW inequality, we obtain
+\begin{align}
+&
+P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t)) dt\right|>\epsilon\right)
+\nonumber\\
+& \leq P\left(HM\sup_{t\in \mathbb{R}} \left|(P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha>\epsilon\right)
+\leq  e^{-n \frac{\epsilon ^{(2/\alpha)}} {2 H^2 M^2}}.\label{eq:dkw3}
+\end{align}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%Lipschitz-starts-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Lipschitz continuous weights}
+\label{sec:lipschitz-proofs}
+
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. 
+
+Next, in order to prove the asymptotic convergence claim in Proposition \ref{thm:asymp-conv}, we require the dominated convergence theorem in its generalized form, which is provided below.
+\begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
+Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on $E$ that converge pointwise a.e. on a measurable space $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
+If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
+\end{theorem}
+
+
+\begin{proof}
+This is a standard result that can be found in any textbook on measure theory. For instance, see Theorem 2.3.11 in \cite{athreya2006measure}.
+\end{proof}
+
+
+\subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
+\begin{proof}
+Notice the the following equivalence:
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
+and also,
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
+where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+and $u^-(X)$.
+
+Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
+\begin{align}
+\overline \C_n = \intinfinity w^+(1-{\hat F_n}^+(x))  dx - \intinfinity w^-(1-{\hat F_n}^-(x))  dx.
+\label{eq:cpt-est-appendix}
+\end{align}
+We first prove the asymptotic convergence claim for the first integral in \eqref{eq:cpt-est-appendix}, i.e., we show
+\begin{align}
+\intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(U^+>x) dx.\label{eq:3}
+\end{align} 
+
+Since $w^+$ is Lipschitz continuous with constant $L$, we have almost surely that
+$w^{+}(1-\hat{F_n}(x)) \leq L (1-\hat{F_n}(x))$,  
+for all $n$ and 
+ $w^{+}((P(U^+>x)) \leq L\cdot (P(U^+>x)$, since $w^+(0)=0$.
+ 
+Notice that the empirical distribution function 
+${\hat F_n}^+(x)$ 
+generates a Stieltjes measure which takes mass 
+$1/n$ on each of the sample points $U^+_i$. 
+
+We have
+$$\intinfinity (P(U^+>x))  dx = E(U^+)$$
+and
+
+\begin{equation}
+\intinfinity (1-{\hat F_n}^+(x))  dx =\intinfinity \int_x^\infty d \hat{F_n}(t) dx.\label{eq:2}
+\end{equation}
+Since ${\hat F_n}^+(x)$ has bounded support on $\mathbb{R}$ $\forall n$, the integral in \eqref{eq:2} is finite.
+Applying Fubini's theorem to the RHS of \eqref{eq:2}, we obtain
+\begin{equation}
+\intinfinity \int_x^\infty d \hat{F_n}(t) dx = \intinfinity \int_0^t dx d \hat{F_n}(t) = \intinfinity t d\hat{F_n}(t) = \frac{1}{n} \sum_{i=1}^n u^+(X_{[i]}),
+ \end{equation}
+ where $u^+(X_{[i]}), i=1,\ldots,n$ denote the order statistics, i.e., $u^+(X_{[1]}) \le \ldots \le u^+(X_{[n]})$.
+ 
+Now, notice that 
+
+$$
+\frac{1}{n}
+\sum_{i=1}^n u^+(X_{[i]})
+=
+\frac{1}{n}
+\sum_{i=1}^n u^+(X_{[i]})
+\overset{a.s}\longrightarrow 
+E(U^+),
+$$
+From the foregoing,
+$$
+\lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F_n}(x)) dx
+\overset{a.s} \longrightarrow
+\intinfinity L \cdot(P(U^+>x)) dx.$$
+Hence, we have 
+$$
+\int_0^\infty w^{(+)}(1-\widehat{F_n}(x)) dx \xrightarrow{a.s.} 
+\int_0^\infty w^{(+)}(P(U^+)>x) dx.
+$$
+The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(U^+>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
+
+Following similar arguments, it is easy to show that 
+$$
+w^-(1-{\hat F_n}^-(x))  dx \rightarrow \intinfinity w^-(P(U^-)>x) dx.
+$$
+The final claim regarding the almost sure convergence of $\overline \C_n$ to $\C(X)$ now follows.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Proof of Proposition \ref{prop:lipschitz}: Sample complexity}
+
+\begin{proof}
+Since $U^+$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$, we have
+\begin{align*}
+&\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|
+\\
+= & \left|\int_0^M w^+(P(U^+)>x) dx- \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
+\\
+\leq&
+\left|\int_0^M L\cdot |P(U^+<x)-{\hat F_n}^+(x)| dx\right|\\
+\leq&
+LM\sup_{x\in \mathbb{R}}\left|P(U^+<x)-{\hat F_n}^+(x)\right|.
+\end{align*}
+Now, plugging in the DKW inequality, we obtain
+\begin{align}
+&
+P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right)
+\nonumber\\
+&
+\leq
+ P\left(LM\sup_{x\in \mathbb{R}} \left|(P(U^+<x)-{\hat F_n}^+(x)\right|>\epsilon/2\right) \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw1}
+\end{align}
+
+Along similar lines, we obtain
+\begin{align}
+&
+P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)
+ \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw2}
+\end{align}
+
+Combining \eqref{eq:dkw1} and \eqref{eq:dkw2}, we obtain
+\begin{align*}
+P(|\overline \C_n - \C(X)|>\epsilon) 
+&\le P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right) \\
+&+ 
+P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)\\
+&\le 4 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.
+\end{align*} 
+And the claim follows. 
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%Lipschitz-ends-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Proofs for discrete valued $X$}
+\label{sec:proofs-discrete}
+\input{proofs-discrete}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Proofs for CPT-SPSA-G}
+\label{appendix:1spsa}
+
+To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
+
+\todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
+\begin{lemma}
+\label{lemma:1spsa-bias}
+Let $\F_n = \sigma(\theta_m,m\le n)$, $n\ge 1$.
+Then, for any $i = 1,\ldots,d$, we have almost surely,  
+\begin{align}
+\left| \E\left[\left.\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}}\right| \F_n \right] - \nabla_i \C(X^{\theta_n}) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
+\end{align} 
+\end{lemma}
+\begin{proof}
+Recall that the CPT-value estimation scheme is biased, i.e., providing samples with policy $\theta$, we obtain its CPT-value estimate as $V^{\theta}(x_0) + \epsilon^\theta$. Here $\epsilon^\theta$ denotes the bias. 
+% However, since the number of samples $m_n$ go to infinity, we have $$\epsilon^{\theta_n}  \rightarrow 0 \text{ as } n \rightarrow \infty.$$
+
+We claim
+\begin{align}
+\quad\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
+= \quad&\E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \eta_n \mid \F_n\right],
+\end{align}
+where $\eta_n = \left(\dfrac{\epsilon^{\theta_n +\delta_n\Delta} - \epsilon^{\theta_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
+ is the bias arising out of the empirical distribution based CPT-value estimation scheme.
+From Proposition \ref{prop:holder-dkw} and the fact that $\frac{1}{m_n^{\alpha/2} \delta_n} \rightarrow 0$ by assumption (A3), we have that
+$\eta_n$ goes to zero asymptotically. In other words,
+\begin{align}
+\quad\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] 
+&\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) -\C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right].  \label{eq:l1}
+\end{align}
+We now analyse the RHS of \eqref{eq:l1}.
+By using suitable Taylor's expansions,
+\begin{align*}
+\C(X^{\theta_n + \delta_n \Delta_n}) = \C(X^{\theta_n}) + \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n + O(\delta_n^3), \\
+\C(X^{\theta_n - \delta_n \Delta_n}) = \C(X^{\theta_n}) - \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n + O(\delta_n^3).\end{align*}
+From the above, it is easy to see that 
+\begin{align*}
+\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^i}
+- \nabla_i \C(X^{\theta_n})
+=\underbrace{\sum_{j=1,j\not=i}^{N} \frac{\Delta_n^j}{\Delta_n^i}\nabla_j \C(X^{\theta_n})}_{(I)} + O(\delta_n^2).
+\end{align*}
+Taking conditional expectation on both sides, we obtain
+\begin{align}
+\E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^i} \left.\right| \F_n\right] 
+=& \nabla_i \C(X^{\theta_n}) + \E\left[\sum_{j=1,j\not=i}^{N} \frac{\Delta_n^j}{\Delta_n^i}\right]\nabla_j \C(X^{\theta_n}) + O(\delta_n^2)\nonumber\\
+= & \nabla_i \C(X^{\theta_n}) + O(\delta_n^2).\label{eq:l2}
+\end{align}
+The first equality above follows from the fact that $\Delta_n$ is distributed according to a $d$-dimensional vector of Rademacher random variables and is independent of $\F_n$. The second inequality follows by observing that $\Delta_n^i$ is independent of $\Delta_n^j$, for any $i,j =1,\ldots,d$, $j\ne i$. 
+
+The claim follows by using the fact that $\delta_n \rightarrow 0$ as $n\rightarrow \infty$.
+\end{proof}
+
+\subsection*{Proof of Theorem \ref{thm:1spsa-conv}}
+
+\begin{proof}
+
+%Recall that $\F_n = \sigma(\theta_m,m\le n;\Delta_m,m<n)$, $n\ge 1$.
+We first rewrite the update rule \eqref{eq:theta-update} as follows: For $i=1,\ldots,d$,
+\begin{align}
+\theta^{i}_{n+1}  =  \theta^{i}_n +  \gamma_n(\nabla_{i} \C(X^{\theta_n}) + \beta_n + \xi_n), 
+\label{eq:1spsa-equiv}
+\end{align}
+where 
+\begin{align*}
+\beta_n \quad= &\quad \E\left(\dfrac{(\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \mid \F_n \right) - \nabla \C(X^{\theta_n}), \text{ and}\\
+\xi_n \quad = & \quad\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n\Delta_n^{i}}\right)  - \E\left(\dfrac{(\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}}\mid \F_n \right).
+\end{align*}
+In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\xi_n$ is a martingale difference sequence..
+% , while  Lemma \ref{lemma:1spsa-bias} and the fact that $\delta_n \rightarrow 0$ imply that $\beta_n$ vanishes asymptotically. 
+
+Convergence of \eqref{eq:1spsa-equiv} can be inferred from Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}, provided we verify the necessary assumptions given as (B1)-(B5) below:
+\begin{enumerate}[\bfseries (B1)]
+\item $\nabla \C(X^{\theta})$ is a continuous $\R^{d}$-valued function.
+\todop{Don't know how this gets verfied in our setting. Help!}
+\item  The sequence $\beta_n,n\geq 0$ is a bounded random sequence with
+$\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$.
+\item The step-sizes $\gamma_n,n\geq 0$ satisfy
+$  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamma_n=\infty.$
+\item $\{\xi_n, n\ge 0\}$ is a sequence such that for any $\epsilon>0$,
+\[ \lim_{n\rightarrow\infty} P\left( \sup_{m\geq n}  \left\|
+\sum_{k=n}^{m} \gamma_k \xi_k\right\| \geq \epsilon \right) = 0. \]
+\item There exists a compact subset $K$ which is the set of asymptotically stable equilibrium points for the following ODE:
+\begin{align}
+\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for } i=1,\dots,d,\label{eq:pi-ode}
+\end{align}
+\end{enumerate} 
+
+In the following, we verify the above assumptions for the recursion \eqref{eq:theta-update}:
+\begin{itemize}
+\item (B1) holds by assumption in our setting.
+
+\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is $O(\delta_n^2)$ and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. 
+
+\item (B3) holds by assumption (A3).
+
+\item We verify (B4) using arguments similar to those used in \cite{spall} for the classic SPSA algorithm:\\
+We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}):
+\begin{align}
+P\left( \sup_{m\geq 0}   \left\|W_l\right\| \geq \epsilon \right) \le \dfrac{1}{\epsilon^2} \lim_{l\rightarrow \infty} \E \left\|W_l\right\|^2. 
+\end{align}
+Applying the above inequality to the martingale sequence $\{W_l\}$, where  $W_l := \sum_{n=0}^{l-1} \gamma_n \eta_n$, $l\ge 1$, we obtain
+\begin{align}
+P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon \right) \le \dfrac{1}{\epsilon^2} \E \left\|
+\sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 = \dfrac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \eta_n\right\|^2. \label{eq:b4}
+\end{align}
+The last equality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
+We now bound $\E\left\| \xi_n\right\|^2$ as follows:
+\begin{align}
+\E\left\| \xi_n\right\|^2\le &\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
+\le &\left(\left(\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}
++ \left(\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
+\le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha1}} \nonumber\\
+& \times \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} +
+\left[\E\left[ (\overline \C_n^{\theta_n - \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
+\le &\frac1{4\delta_n^2} \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} +
+\left[\E\left[ (\overline \C_n^{\theta_n - \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right) \label{eq:h2}\\
+\le & \frac{C}{\delta_n^2}, \text{ for some } C< \infty. \label{eq:h3}
+\end{align}
+The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
+The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
+The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
+The inequality in \eqref{eq:h3} follows by using the fact that, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
+\todop{Need to update the above arguments for the general case of $X^\theta$, with $\theta$ in a compact set}
+
+Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
+\begin{align*}
+ \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
+\end{align*}
+The equality above follows from (A3) in the main paper.
+\item Observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:pi-ode}. This can be seen as follows:
+$$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Gamma \left(-\nabla \C(X^{\theta}\right) < 0.$$
+Hence, the set $\K = \{\theta \mid \check\Gamma_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
+\end{itemize} 
+The claim follows from the Kushner-Clark lemma.
+\end{proof}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\section{Newton algorithm for CPT-value optimization (CPT-SPSA-N)}
+\label{sec:2spsa}
+\subsection{Need for second-order methods}
+While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
+Theorem 2.2 in \cite{fathi2013transport}). Thus, it is optimal to average iterates only 
+after a sufficient number of iterations have passed and all the iterates are very close to the optimum. However, the latter situation serves as a stopping condition in practice.
+
+An alternative approach is to employ step-sizes of the form $\gamma_n = (a_0/n) M_n$, where $M_n$ converges to $\left(\nabla^2 \C(X^{\theta^*})\right)^{-1}$, i.e., the inverse of the Hessian of the CPT-value at the optimum $\theta^*$. Such a scheme gets rid of the step-size dependency (one can set $a_0=1$) and still obtains optimal convergence rates. This is the motivation behind having a second-order optimization scheme.
+
+\subsection{Gradient and Hessian estimation}
+We estimate the Hessian of the CPT-value function using the scheme suggested by \cite{bhatnagar2015simultaneous}. As in the first-order method, we use Rademacher random variables to simultaneously perturb all the coordinates. However, in this case, we require three system trajectories with corresponding  parameters $\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)$, $\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)$ and $\theta_n$, where $\{\Delta_n^i, \widehat\Delta_n^i, i=1,\ldots,d\}$ are i.i.d. Rademacher and independent of $\theta_0,\ldots,\theta_n$. Using the CPT-value estimates for the aforementioned  parameters, we estimate the Hessian and the gradient of the CPT-value function as follows: For $i,j=1,\ldots,d$, set
+\begin{align*}
+&\widehat \nabla_{i} \C(X_n^{\theta_n})=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}}{2\delta_n \Delta_n^{i}},\\ 
+&\widehat H_n^{i,j}=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^{j}}.
+\end{align*}
+Notice that the above estimates require three samples, while the second-order SPSA algorithm proposed first in \cite{spall2000adaptive} required four.
+%
+Both the gradient estimate $\widehat \nabla \C(X_n^{\theta_n}) = [\widehat \nabla_i \C(X_n^{\theta_n})], i=1,\ldots,d,$ and the Hessian estimate $\widehat{H_n} = [\widehat H_n^{i,j}], i,j=1,\ldots,d,$ can be shown to be an $O(\delta_n^2)$ term away from the true gradient $\nabla \C(X^\theta_n)$ and Hessian $\nabla^2  \C(X^\theta_n)$, respectively (see Lemmas \ref{lemma:2spsa-bias}--\ref{lemma:2spsa-grad}).
+
+%%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
+%%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
+\algblock{PEval}{EndPEval}
+\algnewcommand\algorithmicPEval{\textbf{\em CPT-value Estimation (Trajectory 1)}}
+ \algnewcommand\algorithmicendPEval{}
+\algrenewtext{PEval}[1]{\algorithmicPEval\ #1}
+\algrenewtext{EndPEval}{\algorithmicendPEval}
+
+\algblock{PEvalPrime}{EndPEvalPrime}
+\algnewcommand\algorithmicPEvalPrime{\textbf{\em CPT-value Estimation (Trajectory 2)}}
+ \algnewcommand\algorithmicendPEvalPrime{}
+\algrenewtext{PEvalPrime}[1]{\algorithmicPEvalPrime\ #1}
+\algrenewtext{EndPEvalPrime}{\algorithmicendPEvalPrime}
+
+\algblock{PImp}{EndPImp}
+\algnewcommand\algorithmicPImp{\textbf{\em Gradient descent}}
+ \algnewcommand\algorithmicendPImp{}
+\algrenewtext{PImp}[1]{\algorithmicPImp\ #1}
+\algrenewtext{EndPImp}{\algorithmicendPImp}
+
+\algtext*{EndPEval}
+\algtext*{EndPEvalPrime}
+\algtext*{EndPImp}
+
+\algblock{PEvalPrimeDouble}{EndPEvalPrimeDouble}
+\algnewcommand\algorithmicPEvalPrimeDouble{\textbf{\em CPT-value Estimation (Trajectory 3)}}
+ \algnewcommand\algorithmicendPEvalPrimeDouble{}
+\algrenewtext{PEvalPrimeDouble}[1]{\algorithmicPEvalPrimeDouble\ #1}
+\algrenewtext{EndPEvalPrimeDouble}{\algorithmicendPEvalPrimeDouble}
+\algtext*{EndPEvalPrimeDouble}
+
+\algblock{PImpNewton}{EndPImpNewton}
+\algnewcommand\algorithmicPImpNewton{\textbf{\em Newton step}}
+ \algnewcommand\algorithmicendPImpNewton{}
+\algrenewtext{PImpNewton}[1]{\algorithmicPImpNewton\ #1}
+\algrenewtext{EndPImpNewton}{\algorithmicendPImpNewton}
+
+\algtext*{EndPImpNewton}
+
+%%%%%%%%%%%%%%%%%%%
+
+\begin{algorithm}[t]
+\begin{algorithmic}
+\State {\bf Input:} 
+initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n, \xi_n\}$, operator $\Gamma: \R^d \rightarrow \Theta$.
+\For{$n = 0,1,2,\ldots$}	
+	\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$.
+	\PEval
+	    \State Simulate $m_n$ samples  using parameter $(\theta_n+\delta_n (\Delta_n + \hat \Delta_n))$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n (\Delta_n+\hat \Delta_n)}$ using Algorithm \ref{alg:holder-est}.
+	    \EndPEval
+	    \PEvalPrime
+  	    \State Simulate $m_n$ samples using parameter $(\theta_n-\delta_n (\Delta_n + \hat \Delta_n))$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n (\Delta_n+\hat\Delta_n)}$ Algorithm \ref{alg:holder-est}.
+	    \EndPEvalPrime
+	    	    \PEvalPrimeDouble
+  	    \State Simulate $m_n$ samples using parameter $\theta_n$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n}$ using Algorithm \ref{alg:holder-est}.
+	    \EndPEvalPrimeDouble
+	    \PImpNewton
+		%\State Gradient estimate $\widehat \nabla_{i} \C(X^\theta_n)\quad=\quad\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n}}{2\delta_n \Delta_n^{i}}$
+        %\State Hessian estimate $\widehat H_n\quad=\quad\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\widehat \nabla_{i} \C(X^\theta_n)}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}$
+		\State Update the parameter and Hessian according to \eqref{eq:2spsa}--\eqref{eq:2spsa-H}.
+		\EndPImpNewton
+\EndFor
+\State {\bf Return} $\theta_n.$
+\end{algorithmic}
+\caption{Structure of CPT-SPSA-N algorithm.}
+\label{alg:structure-2}
+\end{algorithm}
+
+\subsection{Update rule}
+We update the parameter incrementally using a Newton decrement as follows: For $i=1,\ldots,d$,
+\begin{align}
+\label{eq:2spsa}
+% \theta_{n+1} =& \theta_{(1-\xi)\Theta}(\theta_n - \gamma_n \Upsilon(\overline H_n)^{-1} \widehat\nabla V^\theta_n(x^0)), \\
+\theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n + \gamma_n \sum_{j=1}^{d} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
+\overline H_n = & (1-\xi_n) \overline H_{n-1} + \xi_n \widehat H_n,\label{eq:2spsa-H}
+\end{align}
+where $\xi_n$ is a step-size sequence that satisfies 
+$\sum_{n} \xi_n = \infty, \sum_n \xi_n^2 < \infty$ and $\frac{\gamma_n}{\xi_n}\rightarrow 0$ as $n\rightarrow \infty$. These conditions on $\xi_n$ ensure that the updates to $\overline H_n$ proceed on a timescale that is faster than that of $\theta_n$ in \eqref{eq:2spsa} - see \cite[Chapter 6]{borkar2008stochastic}.
+Further, $\Gamma$ is a projection operator as in CPT-SPSA-G and  $M_n = [M_n^{i,j}] = \Upsilon(\overline H_n)^{-1}$.
+% ,  $\widehat\nabla V^\theta_n(x^0)$ is an estimate of the gradient of the CPT-value function and $\widehat H_n$ and $\overline H_n$ denote the Hessian estimate and its smooth counterpart, respectively. 
+Notice that we invert $\overline H_n$ in each iteration, and to ensure that this inversion is feasible (so that the $\theta$-recursion descends), we project $\overline H_n$ onto the set of positive definite matrices using the operator $\Upsilon$. The operator has to be such that asymptotically $\Upsilon(\overline H_n)$ should be the same as $\overline H_n$ (since the latter would converge to the true Hessian), while ensuring inversion is feasible in the initial iterations.  The assumption below makes these requirements precise.\\[1ex]
+\textbf{Assumption (A4).}  For any $\{A_n\}$ and $\{B_n\}$,
+${\displaystyle \lim_{n\rightarrow \infty} \left\| A_n-B_n \right\|}= 0 \Rightarrow {\displaystyle \lim_{n\rightarrow \infty} \parallel \Upsilon(A_n)- \Upsilon(B_n) \parallel}= 0$. Further, for any $\{C_n\}$  with
+${\displaystyle \sup_n \parallel C_n\parallel}<\infty$,
+${\displaystyle \sup_n \left(\parallel \Upsilon(C_n)\parallel + \parallel \{\Upsilon(C_n)\}^{-1} \parallel\right) < \infty}$.
+\\[0.5ex]
+%A simple way to define $\Upsilon(\overline H_n)$ is to first perform an eigen-decomposition of $\overline H_n$, followed by projecting all the eigen values onto the positive side (see \cite{gill1981practical} for a similar operator). 
+A simple way to ensure the above is to have $\Upsilon(\cdot)$ as a diagonal matrix and then add a positive scalar $\delta_n$ to the diagonal elements so as to ensure invertibility  - see \cite{gill1981practical}, \cite{spall2000adaptive} for a similar operator.
+%- this choice satisfies requirement (ii) in Theorem \ref{thm:2spsa} presented below.
+
+%We next specify how the gradient $\widehat \nabla_i V^\theta_n(x^0)$ and Hessian $\widehat H_n$ estimates are obtained using SPSA.
+The overall flow on CPT-SPSA-N is similar to Fig. \ref{fig:algorithm-flow}, except that three system trajectories with a different perturbation sequence are used. Algorithm \ref{alg:structure-2} presents the pseudocode.  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Convergence result}
+\begin{theorem}
+\label{thm:2spsa}
+Assume (A1)-(A4). 
+Consider the ODE: 
+$$
+\dot\theta^{i}_t = \check\Gamma_{i}\left( - \Upsilon(\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right), \text { for }i=1,\dots,d,$$
+where 
+$\bar\Gamma_{i}$ is as defined in Theorem \ref{thm:1spsa-conv}. Let $\K = \{\theta \in \Theta \mid
+\nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
+=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:2spsa}, 
+we have
+$$\theta_n \rightarrow \K  \text{~~ a.s. as } n\rightarrow \infty.$$ 
+\end{theorem}
+\begin{proof}
+Before proving Theorem \ref{thm:2spsa}, we bound the bias in the SPSA based estimate of the Hessian in the following lemma.
+\begin{lemma}
+\label{lemma:2spsa-bias}
+For any $i, j= 1,\ldots,d$, we have almost surely,  
+\begin{align}
+    \left| \E\left[\left.\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2 \overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^j}\right| \F_n \right] - \nabla^2_{i,j} \C(X^{\theta_n}) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
+\end{align} 
+\end{lemma}
+\begin{proof}
+As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that
+\begin{align}
+    \quad&\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)} - 2\overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right] \nonumber\\
+     &\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}) + \C(X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}) - 2\C(X^{\theta_n})}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j} \left.\right| \F_n\right].  \label{eq:l21}
+\end{align}
+Now, the RHS of \eqref{eq:l21} approximates the true gradient with only an $O(\delta_n^2)$ error; this can be inferred using arguments similar to those used in the proof of Proposition 4.2 of \cite{bhatnagar2015simultaneous}. We provide the proof here for the sake of completeness.
+Using Taylor's expansion as in Lemma \ref{lemma:1spsa-bias}, we obtain
+\begin{align*}
+&\dfrac{\C(X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}) + \C(X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}) - 2\C(X^{\theta_n})}{\delta_n^2 \Delta_n^i\widehat\Delta_n^j}\\
+=&  \frac{(\Delta_n+\hat{\Delta_n})\tr \nabla^2 \C(X^{\theta_n})(\Delta_n
++\hat{\Delta_n})}{\triangle_i(n)\hat{\triangle}_j(n)}
++ O(\delta_n^2) \\
+=& \sum_{l=1}^{d}\sum_{m=1}^{d} \frac{\Delta_n^l\nabla^2_{l,m}\C(X^{\theta_n})\Delta_n^m}{\Delta_n^i
+\hat{\Delta}_n^j} + 2\sum_{l=1}^{d}\sum_{m=1}^{d} \frac{\Delta_n^l\nabla^2_{l,m}
+\C(X^{\theta_n})\hat{\Delta}_n^m}{\Delta_n^i
+\hat{\Delta}_n^j}+ \sum_{l=1}^{d}\sum_{m=1}^{d} \frac{\hat{\Delta}_n^l\nabla^2_{l,m}\C(X^{\theta_n})\hat{\Delta}_n^m}{\Delta_n^i
+\hat{\Delta}_n^j} + O(\delta_n^2).
+\end{align*}
+Taking conditional expectation, we observe that the first and last term above become zero, while the second term becomes $\nabla^2_{ij}
+\C(X^{\theta_n})$. The claim follows by using the fact that $\delta_n \rightarrow 0$ as $n\rightarrow \infty$.
+\end{proof}
+
+\begin{lemma}
+\label{lemma:2spsa-grad}
+For any $i = 1,\ldots,d$, we have almost surely,  
+\begin{align}
+\left| \E\left[\left.\dfrac{\overline \C_n^{\theta_n + \delta_n (\Delta_n + \hat \Delta_n)} -\overline \C_n^{\theta_n - \delta_n (\Delta_n + \hat \Delta_n)}}{2 \delta_n \Delta_n^i}\right| \F_n \right] - \nabla_i \C(X^{\theta_n}) \right| \rightarrow 0 \text{ as } n\rightarrow\infty.
+\end{align} 
+\end{lemma}
+\begin{proof}
+As in the proof of Lemma \ref{lemma:1spsa-bias}, we can ignore the bias from the CPT-value estimation scheme and conclude that
+\begin{align*}
+\quad&\E\left[\dfrac{\overline \C_n^{\theta_n + \delta_n (\Delta_n+\widehat\Delta_n)} -\overline \C_n^{\theta_n - \delta_n (\Delta_n+\widehat\Delta_n)}}{2 \delta_n \Delta_n^i} \left.\right| \F_n\right] 
+\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) -\C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^i} \left.\right| \F_n\right].  
+\end{align*}
+The rest of the proof amounts to showing that the RHS of the above approximates the true gradient with an $O(\delta_n^2)$ correcting term; this can be done in a similar manner as the proof of Lemma \ref{lemma:1spsa-bias}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection*{Proof of Theorem \ref{thm:2spsa}}
+
+Before we prove Theorem \ref{thm:2spsa}, we show that the Hessian recursion \eqref{eq:2spsa-H} converges to the true Hessian, for any policy $\theta$.
+
+\begin{lemma}
+\label{lemma:h-est}
+For any $i, j= 1,\ldots,d$, we have almost surely,  
+$$\left \| H^{i, j}_n - \nabla^2_{i,j} \C(X^{\theta_n}) \right \| \rightarrow 0,
+\text{ and }\left \| \Upsilon(\overline H_n)^{-1} - \Upsilon(\nabla^2_{i,j} \C(X^{\theta_n}))^{-1} \right \| \rightarrow 0.
+$$
+\end{lemma}
+\begin{proof}
+ Follows in a similar manner as in the proofs of Lemmas 7.10 and 7.11 of \cite{Bhatnagar13SR}.
+\end{proof}
+
+\begin{proof}\textbf{\textit{(Theorem \ref{thm:2spsa})}}
+The proof follows in a similar manner as the proof of Theorem 7.1 in \cite{Bhatnagar13SR}; we provide a sketch below for the sake of completeness.
+
+We first rewrite the recursion \eqref{eq:2spsa} as follows:
+For $i=1,\ldots, d$
+\begin{align}
+ \theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n + \gamma_n \sum_{j=1}^{d} \bar M^{i,j}(\theta_n) \nabla_{j} \C(X^\theta_n) + \gamma_n \zeta_n + \chi_{n+1} - \chi_n \right), \label{eq:pi-n}
+\end{align}
+where 
+\begin{align*}
+\bar M^{i,j}(\theta) = &\Upsilon(\nabla^2 \C(X^{\theta}))^{-1}\\
+ \chi_n =& \sum_{m=0}^{n-1} \gamma_m \sum_{k=1}^{d} {\bar{M}}_{i,k}(\theta_m)\Bigg(
+\frac{\C(X^{\theta_m-\delta_m\Delta_m - \delta_m\widehat\Delta_m}) -
+\C(X^{\theta_m+\delta_m\Delta_m + \delta_m\widehat\Delta_m})}{2\delta_m \Delta^k_m} 
+ \\
+ &- E\left[\frac{\C(X^{\theta_m-\delta_m\Delta_m - \delta_m\widehat\Delta_m}) -
+\C(X^{\theta_m+\delta_m\Delta_m + \delta_m\widehat\Delta_m})}{2\delta_m \Delta^k_m} 
+\mid {\cal F}_m\right]\Bigg) \text{ and}\\
+\zeta_n = &\E\left[\left.\dfrac{\overline \C_n^{\theta_n + \delta_n (\Delta_n + \hat \Delta_n)} -\overline \C_n^{\theta_n - \delta_n (\Delta_n + \hat \Delta_n)}}{2 \delta_n \Delta_n^i}\right| \F_n \right] - \nabla_i \C(X^{\theta_n}).
+\end{align*}
+In lieu of Lemmas \ref{lemma:2spsa-bias}--\ref{lemma:h-est}, it is easy to conclude that $\zeta_n \rightarrow 0$ as $n\rightarrow \infty$, $\chi_n$ is a martingale difference sequence and that $\chi_{n+1} - \chi_n \rightarrow 0$ as $n\rightarrow \infty$. 
+Thus, it is easy to see that \eqref{eq:pi-n} is a discretization of the ODE:
+\begin{align}
+\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t}) \Upsilon(\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right).
+\label{eq:n-ode}
+\end{align}
+Since $\C(X^{\theta})$ serves as a Lyapunov function for the ODE \eqref{eq:n-ode}, it is easy to see that the set \\$\K = \{\theta \mid
+\nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
+=0, \forall i=1,\ldots,d\}$ is an asymptotically stable attractor set for the ODE \eqref{eq:n-ode}. The claim now follows from Kushner-Clark lemma.
+\end{proof}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\bibliography{cpt-refs}
+\bibliographystyle{plainnat}
+\end{document}
