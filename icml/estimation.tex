@@ -100,7 +100,7 @@ While the above result establishes that $\overline \C_n$ is an unbiased estimato
 The following sample complexity result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are required to be $\epsilon$-close to the CPT-value in high probability.
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
-Assume (A1) and (A2'). Then, $\forall \epsilon, \delta$, we have
+Assume (A1) and (A2'). Then, $\forall \epsilon >0, \delta >0$, we have
 $$
 P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
@@ -138,7 +138,7 @@ $$\overline \C_n
 \C(X)
  \text{   a.s. as } n\rightarrow \infty
 $$
-In addition, if we assume (A2'), we have 
+In addition, if we assume (A2'), we have $\forall \epsilon >0, \delta >0$ such that
 $$
 P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4L^2 M^2}{\epsilon^{2}}.
