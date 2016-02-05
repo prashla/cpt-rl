@@ -26,8 +26,9 @@ where the  reinforcement learning agent controls a system
 to produce long term outcomes (``return'') that are maximally aligned with the preferences of 
 one or possibly multiple humans, an arrangement shown on Figure~\ref{fig:flow}.
 As a running example, consider traffic optimization where the goal is to maximize
-travelers' satisfaction, a problem many may agree is 
- still inadequately addressed today, at least in big cities.
+travelers' satisfaction, a challenging problem 
+%many may agree is  still inadequately addressed today, at least 
+in big cities.
 In this example, the outcomes (``return'') are travel times, or delays. 
 To capture human preferences, the outcomes are mapped to a single numerical quantity.
 %We will make the assumption that human preferences can 
@@ -49,9 +50,9 @@ An approach that gained
 	strong support amongst psychologists, behavioral scientists and economists  \citep[e.g.,][]{starmer2000developments,quiggin2012generalized}
 	is based on \cite{kahneman1979prospect}'s celebrated \emph{prospect theory} (PT).
 Therefore, in this work, we will base our models of human preferences on this theory.
-More precisely, we will use the so-called \emph{cumulative prospect theory} (CPT),
+More precisely, we will use \emph{cumulative prospect theory} (CPT),
  	a later, refined variant of prospect theory due to \cite{tversky1992advances}, 
-	which is even more supported than prospect theory \citep[e.g.,][]{Barberis:2012vs}.
+	which is even more empirically and theoretically supported than prospect theory \citep[e.g.,][]{Barberis:2012vs}.
 CPT generalizes expected utility theory in that in addition to having a utility function transforming
 	the outcomes, another function is introduced which distorts the probabilities in the cumulative distribution function.
 As compared to prospect theory, CPT is monotone with respect to stochastic dominance, a property
@@ -176,9 +177,9 @@ Hence, even the problem of estimating the CPT-value given a random sample requir
 %CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 
 %requires that the \textit{entire} distribution to be estimated.\\ 
 %\textit{Solution:} 
-In this paper, we consider a natural quantile based estimator and analyze its behavior.
+In this paper, we consider a natural quantile-based estimator and analyze its behavior.
 Under certain technical assumptions, we prove consistency and sample complexity bounds, the latter based on the
- Dvoretzky–Kiefer–Wolfowitz theorem.
+ Dvoretzky-Kiefer-Wolfowitz theorem.
 As an example, we show that the sample complexity for estimating the CPT-value 
 for Lipschitz probability distortion (so-called ``weight'') functions is  $O\left(\frac1{\epsilon^2}\right)$, which coincides with the canonical rate for Monte Carlo-type schemes. Since weight-functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  jumps to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
 %However, for weight functions which are only \holder continuous with exponent $\alpha \in (0,1)$,
@@ -207,7 +208,7 @@ Further, even if the transition dynamics are known, \citet{mannor2013algorithmic
 For average reward MDPs, \citet{filar1989variance} motivate a different notion of variance and then provide NP-hardness results for finding a globally variance-optimal policy.
 CVaR as a risk measure is equally complicated as the measure here is a conditional expectation, where the conditioning is on a low probability event. Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \citealt{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. \todoc{I do not know the simulation optimization literature very well, but I think a major topic is to estimate CVaR and other tail measures and there are many methods with guarantees. Books are written about this. For example, Kroese et al., or Gerardo Rubino, Bruno Tuffin:	Rare event simulation using Monte Carlo methods.}
 
-In contrast, \todoc{Why is this in contrast?} we derive a \textit{provably} sample-efficient \todoc{lower bound? then mention it earlier} scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. Finally, we point out that the CPT-value that we define is a generalization of the above previous works in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a the distortions used in the definition of the CPT value.
+We derive a \textit{provably} sample-efficient \todoc{lower bound? then mention it earlier} scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. Finally, we point out that the CPT-value that we define is a generalization of the above previous works in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a the distortions used in the definition of the CPT value.
 
 The work closest to our is by \cite{lin2013stochastic}, who proposes a CPT-measure for an abstract MDP setting.
  %(see \cite{bertsekas2013abstract}). 
