@@ -2,6 +2,139 @@ We consider a traffic signal control application where the aim is to improve the
 We adopt a CPT approach, i.e., apply the CPT-functional to the delay experienced by road users. We then optimize the CPT-value of the delay  and contrast this approach with a traditional expected delay optimizing algorithm.
 
 \subsection{Simulation Setup}  
+Consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, where the traffic is generated - see Figure \ref{fig:2x2grid}.
+At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
+We specify the various components of the traffic control MDP in the following.
+The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and path-wise delays.
+The actions are the feasible sign configurations that specify red-green combinations for the traffic lights in the road network considered. 
+The return is defined as follows:
+  
+
+
+The weights and utilities in \eqref{eq:cpt-general} are chosen as follows:
+\begin{align*}
+w^+(p) = &\frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{1/\eta_1}}, \\
+w^-(p) =& \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{1/\eta_2}},\\
+u^+(x) = & |x|^{\sigma}, \text{ and }  u^-(x) = \lambda |x|^{\sigma},
+\end{align*}
+where we set $\eta_1 = 0.61$, $\eta_2 = 0.69$, $\lambda = 2.25$ and $\sigma = 0.88$. These choices are based on median estimates given by \cite{tversky1992advances} and have been employed earlier in a traffic application in \cite{gao2010adaptive}.
+ 
+\begin{figure}
+\centering
+        \includegraphics[width=2.2in,height=1.5in]{fig/2x2grid.pdf}
+  \caption{The 2x2-grid network used in our experiments.}
+\label{fig:2x2grid}
+  \end{figure}
+
+
+ \begin{figure}[t]
+    \centering
+     \begin{tabular}{cc}
+\subfigure[AVG-SPSA]{
+\label{fig:runtimes}
+%\hspace{2em} 
+\tabl{c}{\scalebox{0.7}{\begin{tikzpicture}
+\begin{axis}[
+ybar={2pt},
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Bin}},
+x label style={at={(axis description cs:0.5,-0.15)},anchor=north},
+symbolic x coords={0, -335.86, -315.86, -295.86, -275.86, -255.86, -235.86, -215.86, -195.86, -175.86, -155.86, 11},
+xmin={0},
+xmax={11},
+xtick=data,
+ytick align=outside,
+%xticklabels={{\bf7x9-Grid\\[0.5ex]($d=504$),\bf 14x9-Grid\\[0.5ex]($d=1008$),\bf 14x18-Grid\\[0.5ex]($d=2016$),\bf 28x18-Grid\\[0.5ex]($d=4032$)}},
+xticklabel style={rotate=45, align=center},
+bar width=14pt,
+nodes near coords,
+grid,
+grid style={gray!30},
+width=11cm,
+height=7.33cm,
+]
+\addplot[red, fill=red!20]   coordinates {  (-335.86,1) (-315.86,4) (-295.86,7) (-275.86,7) (-255.86,18) (-235.86,22) (-215.86,17) (-195.86,11) (-175.86,6) (-155.86,5)}; %LSPI
+\end{axis}
+\end{tikzpicture}}\\[1ex]}
+}
+\\
+%%%%%%%%%%%%%%
+\subfigure[EUT-SPSA]{
+\label{fig:runtimes}
+%\hspace{2em} 
+\tabl{c}{\scalebox{0.7}{\begin{tikzpicture}
+\begin{axis}[
+ybar={2pt},
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Bin}},
+x label style={at={(axis description cs:0.5,-0.15)},anchor=north},
+symbolic x coords={0, -335.86, -315.86, -295.86, -275.86, -255.86, -235.86, -215.86, -195.86, -175.86, -155.86, 11},
+xmin={0},
+xmax={11},
+xtick=data,
+ytick align=outside,
+%xticklabels={{\bf7x9-Grid\\[0.5ex]($d=504$),\bf 14x9-Grid\\[0.5ex]($d=1008$),\bf 14x18-Grid\\[0.5ex]($d=2016$),\bf 28x18-Grid\\[0.5ex]($d=4032$)}},
+xticklabel style={rotate=45, align=center},
+bar width=14pt,
+nodes near coords,
+grid,
+grid style={gray!30},
+width=11cm,
+height=7.33cm,
+]
+\addplot   coordinates {  (-335.86,1) (-315.86,4) (-295.86,7) (-275.86,7) (-255.86,18) (-235.86,22) (-215.86,17) (-195.86,11) (-175.86,6) (-155.86,5)}; %LSPI
+\end{axis}
+\end{tikzpicture}}\\[1ex]}
+}
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subfigure[CPT-SPSA]{
+\label{fig:runtimes}
+%\hspace{2em} 
+\tabl{c}{\scalebox{0.7}{\begin{tikzpicture}
+\begin{axis}[
+ybar={2pt},
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Bin}},
+x label style={at={(axis description cs:0.5,-0.15)},anchor=north},
+symbolic x coords={0, -335.86, -315.86, -295.86, -275.86, -255.86, -235.86, -215.86, -195.86, -175.86, -155.86, 11},
+xmin={0},
+xmax={11},
+xtick=data,
+ytick align=outside,
+%xticklabels={{\bf7x9-Grid\\[0.5ex]($d=504$),\bf 14x9-Grid\\[0.5ex]($d=1008$),\bf 14x18-Grid\\[0.5ex]($d=2016$),\bf 28x18-Grid\\[0.5ex]($d=4032$)}},
+xticklabel style={rotate=45, align=center},
+bar width=14pt,
+nodes near coords,
+grid,
+grid style={gray!30},
+width=11cm,
+height=7.33cm,
+]
+\addplot[green, fill=green!20]   coordinates {  (-335.86,1) (-315.86,4) (-295.86,7) (-275.86,7) (-255.86,18) (-235.86,22) (-215.86,17) (-195.86,11) (-175.86,6) (-155.86,5)}; %LSPI
+\end{axis}
+\end{tikzpicture}}\\[1ex]}
+}
+\end{tabular}
+\caption{Histogram of CPT-value of the average delay for four different algorithms}
+\label{fig:normdiff-perf}
+\end{figure}
+
 %We consider a SSP version of an example\footnote{A similar example has been considered in \cite{chow2014algorithms}.} for buying a house at the optimal price. Suppose the house is priced at $x_k$ at any instant $k$ and at the next instant, the price either goes down to $\left(x_k \times C_{down}\right)$ w.p. $p_{down}$ or goes up to $\left(x_k\times C_{up}\right)$ w.p. $1-p_{down}$. The actions are to either wait (denoted $w$), which results in a holding cost $h$ or to buy (denoted $b$) at the current price. The horizon is capped at $T$, with a terminal cost $x_T$.  The goal is to minimize the total cost defined as $ 
 %D^{\theta}(x^0)= \sum_{k=0}^\tau \left(I_{\{a_k =b \} }x_k+I_{\{a_k =w \} } h\right) + I_{\{\tau=T\}} x_T$, where $\tau =  \{k | \theta(x_k)=1 \} \wedge T$.
 %We set $T=20, h=0.1, C_{up}=2, C_{down}=0.5$, and $x_0=1$.  
