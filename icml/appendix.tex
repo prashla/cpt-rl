@@ -283,7 +283,7 @@ P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t))
 \subsection{Lipschitz continuous weights}
 \label{sec:lipschitz-proofs}
 
- Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:Holder-cpt-finite}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. 
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:lipschitz}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. 
 
 Next, in order to prove the asymptotic convergence claim in Proposition \ref{thm:asymp-conv}, we require the dominated convergence theorem in its generalized form, which is provided below.
 \begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
@@ -546,7 +546,9 @@ We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
 The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
-The inequality in \eqref{eq:h3} follows by using the fact that, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
+The inequality in \eqref{eq:h3} follows by using the fact that
+%, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
+$\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
 \todop{Need to update the above arguments for the general case of $X^\theta$, with $\theta$ in a compact set}
 
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
@@ -610,11 +612,11 @@ initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex s
 	\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
 	    \State Simulate $m_n$ samples  using parameter $(\theta_n+\delta_n (\Delta_n + \hat \Delta_n))$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n (\Delta_n+\hat \Delta_n)}$ using Algorithm \ref{alg:holder-est}.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n (\Delta_n+\hat \Delta_n)}$.
 	    \EndPEval
 	    \PEvalPrime
   	    \State Simulate $m_n$ samples using parameter $(\theta_n-\delta_n (\Delta_n + \hat \Delta_n))$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n (\Delta_n+\hat\Delta_n)}$ Algorithm \ref{alg:holder-est}.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n (\Delta_n+\hat\Delta_n)}$.
 	    \EndPEvalPrime
 	    	    \PEvalPrimeDouble
   	    \State Simulate $m_n$ samples using parameter $\theta_n$.
@@ -641,7 +643,7 @@ We update the parameter incrementally using a Newton decrement as follows: For $
 \overline H_n = & (1-\xi_n) \overline H_{n-1} + \xi_n \widehat H_n,\label{eq:2spsa-H}
 \end{align}
 where $\xi_n$ is a step-size sequence that satisfies 
-$\sum_{n} \xi_n = \infty, \sum_n \xi_n^2 < \infty$ and $\frac{\gamma_n}{\xi_n}\rightarrow 0$ as $n\rightarrow \infty$. These conditions on $\xi_n$ ensure that the updates to $\overline H_n$ proceed on a timescale that is faster than that of $\theta_n$ in \eqref{eq:2spsa} - see \cite[Chapter 6]{borkar2008stochastic}.
+$\sum_{n} \xi_n = \infty, \sum_n \xi_n^2 < \infty$ and $\frac{\gamma_n}{\xi_n}\rightarrow 0$ as $n\rightarrow \infty$. These conditions on $\xi_n$ ensure that the updates to $\overline H_n$ proceed on a timescale that is faster than that of $\theta_n$ in \eqref{eq:2spsa} - see Chapter 6 of \cite{borkar2008stochastic}.
 Further, $\Gamma$ is a projection operator as in CPT-SPSA-G and  $M_n = [M_n^{i,j}] = \Upsilon(\overline H_n)^{-1}$.
 % ,  $\widehat\nabla V^\theta_n(x^0)$ is an estimate of the gradient of the CPT-value function and $\widehat H_n$ and $\overline H_n$ denote the Hessian estimate and its smooth counterpart, respectively. 
 Notice that we invert $\overline H_n$ in each iteration, and to ensure that this inversion is feasible (so that the $\theta$-recursion descends), we project $\overline H_n$ onto the set of positive definite matrices using the operator $\Upsilon$. The operator has to be such that asymptotically $\Upsilon(\overline H_n)$ should be the same as $\overline H_n$ (since the latter would converge to the true Hessian), while ensuring inversion is feasible in the initial iterations.  The assumption below makes these requirements precise.\\[1ex]
@@ -655,7 +657,7 @@ A simple way to ensure the above is to have $\Upsilon(\cdot)$ as a diagonal matr
 %- this choice satisfies requirement (ii) in Theorem \ref{thm:2spsa} presented below.
 
 %We next specify how the gradient $\widehat \nabla_i V^\theta_n(x^0)$ and Hessian $\widehat H_n$ estimates are obtained using SPSA.
-The overall flow on CPT-SPSA-N is similar to Fig. \ref{fig:algorithm-flow}, except that three system trajectories with a different perturbation sequence are used. Algorithm \ref{alg:structure-2} presents the pseudocode.  
+Algorithm \ref{alg:structure-2} presents the pseudocode.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
