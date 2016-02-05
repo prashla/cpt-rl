@@ -4,18 +4,16 @@ $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$ and  let
 \begin{align}
 \label{eq:Fk}
  F_k = 
-\begin{cases}
    \sum_{i=1}^k p_k  \text{ if   } k \leq l \text{ and }
    \sum_{i=k}^K p_k  \text{ if  }  k > l.
-\end{cases}  
 \end{align}
 Then, the CPT-value is defined as 
 \begin{small}
 \begin{align*}
-&\C(X) \!=\! (u^-(x_1))\cdot w^-(p_1) 
+&\C(X) \!=\! (u^-(x_1)) w^-(p_1) 
 \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(F_i) - w^-(F_{i-1})\Big) \\
 & + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1}) \Big)
- + u^+(x_K)\cdot w^+(p_K),
+ + u^+(x_K) w^+(p_K),
 \end{align*} 
 \end{small}
 where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corresponding to gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
@@ -25,19 +23,17 @@ Let $\hat p_k= \frac{1}{n} \sum_{i=1}^n I_{\{U =x_k\}}$ and
 \begin{align}
 \label{eq:Fkhat}
  \hat F_k = 
-\begin{cases}
    \sum_{i=1}^k \hat p_k  \text{ if   } k \leq l \text{ and }
    \sum_{i=k}^K \hat p_k  \text{ if  }  k > l.
-\end{cases}  
 \end{align}
 Then, we estimate $\C(X)$ as follows:
 \begin{small}
 \begin{align}
 &\overline \C_n \!=\! 
-u^-(x_1)\cdot w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat F_{i-1})\Big) 
+u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat F_{i-1})\Big) 
 \nonumber\\
 &
-+ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\hat F_i) - w^+(\hat F_{i+1}) \Big) + u^+(x_K)\cdot w^+(\hat p_K). \label{eq:cpt-discrete-est}
++ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\hat F_i) - w^+(\hat F_{i+1}) \Big) + u^+(x_K) w^+(\hat p_K). \label{eq:cpt-discrete-est}
 \end{align}
 \end{small}
 %Because $\hat{p_k}$ converge a.e to $p_k=P(X_i=x_k)$, with $X_i$ be the ith sample of $X$, the above estimator is  strong consistent property by the continuous mapping theorem. 

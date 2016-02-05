@@ -1,24 +1,25 @@
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
-We adopt a CPT approach, i.e., apply the CPT-functional to the delay experienced by road users. We then optimize the CPT-value of the delay  and contrast this approach with a traditional expected delay optimizing algorithm.
+We apply the CPT-functional to the delay experienced by road users, since CPT captures realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms.
 
 %\paragraph{Simulation Setup:}  
 We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, where the traffic is generated - see Figure \ref{fig:2x2grid}.
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP in the following.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and path-wise delays.
-The actions are the feasible sign configurations that specify red-green combinations for the traffic lights in the road network considered. 
+The actions are the feasible sign configurations. Traffic lights that can be simultaneously switched to green form a sign configuration. 
 
-We consider three different notions of return as described below:
+We consider three different notions of return as follows:
 
-\textbf{CPT:} Let $\mu^i$ be the proportion of road users along path $i$, for $i=1,\ldots,\M$. Any road user along path $i$, will evaluate the delay he experiences in a manner that is captured well by CPT. Let $X_i$ be the delay r.v. for path $i$ and let the corresponding CPT-value be $\C(X_i)$. With the objective of maximizing the experience of road users across paths, the overall return to be optimized is given by\\[1ex]
-\centerline{$\text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i).
-$}
-
-\textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
-Thus, the EUT objective is defined as
+\textbf{CPT:} Let $\mu^i$ be the proportion of road users along path $i$, for $i=1,\ldots,\M$. Any road user along path $i$, will evaluate the delay he experiences in a manner that is captured well by CPT. Let $X_i$ be the delay r.v. for path $i$ and let the corresponding CPT-value be $\C(X_i)$. With the objective of maximizing the experience of road users across paths, the overall return to be optimized is given by
 \begin{align}
-\text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),
-\end{align}   
+\text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i).\label{eq:cpt-traffic}
+\end{align}
+\textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
+Thus, the EUT objective is defined as\\
+\begin{small}
+\centerline{$\text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),$}
+  \end{small}
+	
 where $\E(u^+(X_i)) = \intinfinity P(u^+(X_i)>z) dz$ and $\E(u^-(X_i)) - \intinfinity P(u^-(X_i)>z) dz$, for $i=1,\ldots,\M$.
 
 \textbf{AVG:} This is similar to EUT, except that no distinction between gains and losses via utility functions nor distort using weights as in CPT. Thus, $\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i)$. 
@@ -28,15 +29,17 @@ where $\E(u^+(X_i)) = \intinfinity P(u^+(X_i)>z) dz$ and $\E(u^-(X_i)) - \intinf
 %\end{align}   
 %where $\E(X_i) = \intinfinity P(u^+(X_i)>z) dz - \intinfinity P(u^-(X_i)>z) dz$.
 
-An important concept in CPT is to employ a reference point to calculate gains and losses. Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. In our traffic control setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. In other words, if the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. The $d_n^{i,j}$ in the state $s_n$ are to be understood as the delay difference to the pre-timed TLC.  
+An important recommendation of CPT is to employ a reference point to calculate gains and losses. 
+%Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
+In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. In other words, if the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. The $d_n^{i,j}$ in the state $s_n$ are to be understood as the delay difference to the pre-timed TLC.  
 
-The underlying policy in all the algorithms that we implement follows a Boltzmann distribution and has the form
-\begin{equation}
+The underlying policy in all the algorithms that we implement follows a Boltzmann distribution  and has the form
+$
 \pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
-\hspace{6pt} \forall s \in \S,\;\forall a \in \A(s).
-\label{eq:pi-boltzmann}
-\end{equation}	
-We employ the features proposed in \cite{prashanth2012threshold}, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
+\hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
+$
+where the features $\phi(s,a)$ are chosen as in \cite{prashanth2012threshold}.
+%, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
 
 We implement the following TLC algorithms:
 
@@ -46,17 +49,20 @@ We implement the following TLC algorithms:
 
 {\bf\em AVG-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 
-For both CPT-SPSA and EUT-SPSA, the utility functions (see \eqref{eq:cpt-general}) are chosen as follows:
+For both CPT-SPSA and EUT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
 $u^+(x) =  |x|^{\sigma}$, and  $u^-(x) = \lambda |x|^{\sigma}$, with $\lambda = 2.25$ and $\sigma = 0.88$.
-For CPT-SPSA, the weights are chosen as follows:
+For CPT-SPSA, we set the weights as follows:
 $w^+(p) = \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}$ and  
 $w^-(p) = \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}}$, with
-$\eta_1 = 0.61$ and $\eta_2 = 0.69$, . These choices are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
-
-We run each algorithm for $200$ iterations, where each iteration is composed of a two perturbed simulations, each of trajectory length $500$. After this phase, we fix the the policy is fixed for each algorithm and run $100$ independent simulations of the MDP (each with a trajectory length of $1000$). The overall CPT-value is estimated using path-wise $\C(X_i)$ and the results are plotted in Figure \ref{fig:histogram-perf}. For all the algorithms, we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$ and this is motivated by standard guidelines - see \cite{spall2005introduction}. Further, for all algorithms, the initial point $\theta_0$ is the $d=32$-dimensional vector of ones and the operator $\Gamma_i$ projects $\theta_i$ onto the set $[0.1, 10.0]$, for $i=1,\ldots,d$.
+$\eta_1 = 0.61$ and $\eta_2 = 0.69$. These choices are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
+For all the algorithms, we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$ and this is motivated by standard guidelines - see \cite{spall2005introduction}. The initial point $\theta_0$ is the $d$-dimensional vector of ones and $\forall i$, the operator $\Gamma_i$ projects $\theta_i$ onto the set $[0.1, 10.0]$.
     
+The experiments involve two phases.
+A training phase where we run each algorithm for $200$ iterations, with each iteration involving two perturbed simulations, each of trajectory length $500$. This is followed by a test phase where we fix the policy for each algorithm and $100$ independent simulations of the MDP (each with a trajectory length of $1000$) are performed. After each run in the test phase, the overall CPT-value \eqref{eq:cpt-traffic} is estimated. 
 %\paragraph{Results:} 
-Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-value computed for AVG-SPSA, EUT-SPSA and CPT-SPSA, respectively.  It is evident that both AVG-SPSA and EUT-SPSA perform poorly in comparison to CPT-SPSA, thus making apparent the need for specialized algorithms that incorporate CPT-based criteria.
+
+Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA, EUT-SPSA and CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA followed by EUT-SPSA and AVG-SPSA in that order. Intuitively this is expected because AVG-SPSA uses neither utilities nor probability distortions, while EUT-SPSA distinguishes between gains and losses using utilities while not using weights to distort probabilities.
+The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
 
 
  \begin{figure}[t]
@@ -168,7 +174,7 @@ height=6.5cm,
 \end{tikzpicture}}\\[1ex]}
 }
 \end{tabular}
-\caption{Histogram of CPT-value of the average delay for three different algorithms (all based on SPSA): AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both utilites and weights.}
+\caption{Histogram of CPT-value of the average delay for three different algorithms (all based on SPSA): AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both utilites and weights. Note: larger values are better.}
 \label{fig:histogram-perf}
 \end{figure}
 

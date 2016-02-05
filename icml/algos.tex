@@ -53,8 +53,8 @@ where $\delta_n$ is a positive scalar that satisfies (A3) below, $\Delta_n = \le
 %From the asymptotic mean square analysis that we present later, it is optimal to set $\delta_n = \delta_0/n^{0.16}$.
 The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{lemma:1spsa-bias}.
 
-This idea of using two-point feedback for estimating the gradient has been employed in various settings. Machine learning applications include bandit/stochastic convex optimization - cf. 
-\cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
+%This idea of using two-point feedback for estimating the gradient has been employed in various settings. Machine learning applications include bandit/stochastic convex optimization - cf. 
+%\cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
 
 
 \subsection{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For every state $i=1,\ldots,d$,
@@ -81,7 +81,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 \algrenewtext{EndPEvalPrime}{\algorithmicendPEvalPrime}
 
 \algblock{PImp}{EndPImp}
-\algnewcommand\algorithmicPImp{\textbf{\em Gradient ascent}}
+\algnewcommand\algorithmicPImp{\textbf{\em Gradient Ascent}}
  \algnewcommand\algorithmicendPImp{}
 \algrenewtext{PImp}[1]{\algorithmicPImp\ #1}
 \algrenewtext{EndPImp}{\algorithmicendPImp}
@@ -147,7 +147,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 %\end{figure}
 
 \paragraph{On the number of samples $m_n$ per iteration:}
-The CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$ with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike classic simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
+The CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$, with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike classic simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
@@ -156,7 +156,7 @@ To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:the
 \end{align*}
 Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
 $$\sup_{l\ge0} \left (\zeta_{n+l} - \zeta_n \right) \rightarrow 0 \text{ as } n\rightarrow\infty.$$ 
-While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the bias $\epsilon^\theta$ is bounded above, to establish convergence of the policy gradient recursion \eqref{eq:theta-update}, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  Assumption (A3) provides a condition on the rate at which $m_n$ has to increase.
+While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the bias $\epsilon^\theta$ is bounded above, to establish convergence of the policy gradient recursion \eqref{eq:theta-update}, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  The assumption below provides a condition on the increase rate of $m_n$.
 
 \noindent\textbf{Assumption (A3).}  The step-sizes $\gamma_n$ and the perturbation constants 
 $\delta_n$ are positive $\forall n$ and satisfy
@@ -181,6 +181,7 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
  See Appendix \ref{appendix:1spsa}.
 \end{proof}
 
+See Appendix \ref{sec:2spsa} for a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
 

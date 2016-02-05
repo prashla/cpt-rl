@@ -1,5 +1,5 @@
 %!TEX root =  cpt-rl-icml.tex
-Since the beginning of its history, mankind is deeply immersed in 
+Since the beginning of its history, mankind has been deeply immersed in 
 	designing and improving systems to serve humans needs.
 Policy makers are busy with designing 
 	systems that serve the education, transportation, economic, health and other 
@@ -15,7 +15,7 @@ While it has been long recognized that
 	it is only recently that this approach is gaining a wider recognition.%
 \footnote{
 As evidence for this wider recognition in the public sector,
-we can mention a recent executive order of the white house
+we can mention a recent executive order of the White House
 calling for the use of behavioral science in public policy making, 
 or the establishment of the ``Committee on Traveler Behavior and Values'' in the Transportation
 Research Board in the US.}
@@ -42,8 +42,8 @@ it is well known that
 which can not be modeled probabilistically, and use risk in relation to situations that can be modeled probabilistically.
 So we are inconsistent with these people.}
 	humans are subject to various emotional and cognitive biases,
-	and, as it appears, the psychology literature agrees on that human preferences 
-	are inconsistent with expected utilities no matter what nonlinearities are used
+	and, the psychology literature agrees that human preferences 
+	are inconsistent with expected utilities regardless of what nonlinearities are used
 	 \citep{allais53,ellsberg61,kahneman1979prospect}.
 An approach that gained 
 %Behavioral scientists use alternate approaches to model human preferences.
@@ -179,7 +179,7 @@ Hence, even the problem of estimating the CPT-value given a random sample requir
 %\textit{Solution:} 
 In this paper, we consider a natural quantile-based estimator and analyze its behavior.
 Under certain technical assumptions, we prove consistency and sample complexity bounds, the latter based on the
- Dvoretzky-Kiefer-Wolfowitz theorem.
+ Dvoretzky-Kiefer-Wolfowitz (DKW) theorem.
 As an example, we show that the sample complexity for estimating the CPT-value 
 for Lipschitz probability distortion (so-called ``weight'') functions is  $O\left(\frac1{\epsilon^2}\right)$, which coincides with the canonical rate for Monte Carlo-type schemes. Since weight-functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  jumps to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
 %However, for weight functions which are only \holder continuous with exponent $\alpha \in (0,1)$,
@@ -187,7 +187,7 @@ for Lipschitz probability distortion (so-called ``weight'') functions is  $O\lef
 %At the same time, 
 % while \holder continuous with constant $\alpha$ results in a rate  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$, for achieving a $\epsilon$-close estimate.\\
 
-The work on estimating CPT values forms the basis of the algorithms that we propose to maximize CPT values based on interacting either with a real environment, or a simulator. We set up this problem as an instance of policy search: We consider smoothly parameterized policies whose parameters are tuned via stochastic gradient ascent. For estimating gradients, we use two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA), a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}.
+The work on estimating CPT-values forms the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or a simulator. We set up this problem as an instance of policy search: We consider smoothly parameterized policies whose parameters are tuned via stochastic gradient ascent. For estimating gradients, we use two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA), a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}.
 %\textbf{\textit{Control:}} 
 %Designing algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 
 %Thus, it is necessary to design new simulation optimization scheme that use sample CPT-value estimates to optimize the policy, which is generally \textit{randomized}. While classic simulation optimization settings usually have a zero mean noise in function evaluations, our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. \\
@@ -210,7 +210,7 @@ CVaR as a risk measure is equally complicated as the measure here is a condition
 
 We derive a \textit{provably} sample-efficient \todoc{lower bound? then mention it earlier} scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. Finally, we point out that the CPT-value that we define is a generalization of the above previous works in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a the distortions used in the definition of the CPT value.
 
-The work closest to our is by \cite{lin2013stochastic}, who proposes a CPT-measure for an abstract MDP setting.
+The work closest to ours is by \cite{lin2013stochastic}, who proposes a CPT-measure for an abstract MDP setting.
  %(see \cite{bertsekas2013abstract}). 
  We differ from \cite{lin2013stochastic} in several ways:
 \begin{inparaenum}[\it (i)]

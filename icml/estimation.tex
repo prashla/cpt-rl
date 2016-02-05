@@ -2,7 +2,7 @@
 %For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
 
 %\paragraph{On integrability}
-Before diving into the details of CPT value estimation, let us discuss the conditions necessary for the CPT value to be well-defined.
+Before diving into the details of CPT-value estimation, let us discuss the conditions necessary for the CPT-value to be well-defined.
 Observe that the first integral in \eqref{eq:cpt-general}, i.e., 
 $\int_0^{+\infty} w^+(P(u^+(X)>z)) d z$
 may diverge even if the first moment of random variable $u^+(X)$ is finite. 
@@ -31,7 +31,7 @@ Recall the H\"{o}lder continuity property first in definition 1:
 {\textbf{\textit{(H\"{o}lder continuity)}}}
 If $0 < \alpha \leq 1$, a function $f \in C([a,b])$ is said to satisfy
 a H\"{o}lder condition of order $\alpha$ (or to be H\"{o}lder continuous
-of order $\alpha$) if $\exists H$, s.t.
+of order $\alpha$) if $\exists H>0$, s.t.
 \[
 \sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq H .
 \]
@@ -62,17 +62,21 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we n
 \caption{CPT-value estimation for \holder continuous weights}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-\State Simulate $n$ i.i.d. replications follows the distribution of $X$, sort them in ascending order and denoted the ordered sample as 
-$X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
+\State Simulate $n$ i.i.d. samples from the distribution of $X$.
 %\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
-\State Order the simulated samples and label them as follows: 
-$u^+(X_{[1]}),\ldots,u^+(X_{[n]})$.
-\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
+\State Order the samples and label them as follows: 
+$X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Note that $u^+(X_{[1]}),\ldots ,u^+(X_{[n]})$ are also in ascending order.
+%\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
 \State Denote the statistic 
-$\overline \C_n^+:=\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) )$
-\State Repeat the procedure on the sequence $X_{[1]}, X_{[2]}, \ldots X_{[n]}$, with respect to the function $u^-$, 
-and denote the statistic $\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) $
-\State Return the statistic $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
+\vspace{-0.5ex}
+$$\overline \C_n^+:=\sum_{i=1}^{n-1} u^+(X_{[i]}) \left(w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) \right).$$
+\vspace{-0.5ex}
+\State Repeat the procedure on $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$ using $u^-$, 
+and denote the statistic 
+\vspace{-0.5ex}
+$$\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) \left(w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) \right). $$
+\vspace{-0.5ex}
+\State Return $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
 \end{algorithmic}
 \end{algorithm}
 
@@ -86,7 +90,7 @@ For the sample complexity results below, we require (A2'), while (A2) is suffici
 
 \begin{proposition}(\textbf{Asymptotic convergence.})
 \label{prop:holder-asymptotic}
-Assume (A1) and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution functions of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constants $L^+$ and $L^-$, respectively on the interval $(0,+\infty)$, and 
+Assume (A1) and also that $F^+(\cdot)$,$F^-(\cdot)$ - the distribution functions of $u^+(X)$, and $u^-(X)$ are Lipschitz continuous with constants $L^+$ and $L^-$, respectively, on the interval $(0,+\infty)$, and 
 $(-\infty, 0)$ . Then, we have that
 \begin{align}
 \overline \C_n
@@ -132,7 +136,7 @@ In the previous section, it was shown that \holder continuous weights incur a sa
 \textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
 
-Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs dominated convergence theorem and DKW inequalities, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
+Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs the dominated convergence theorem and DKW inequalities, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
 
 \begin{proposition}
 \label{prop:lipschitz}
@@ -142,7 +146,7 @@ $$\overline \C_n
 \C(X)
  \text{   a.s. as } n\rightarrow \infty
 $$
-In addition, if we assume (A2'), we have $\forall \epsilon >0, \delta >0$ such that
+In addition, if we assume (A2'), we have $\forall \epsilon >0, \delta >0$ 
 $$
 P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4L^2 M^2}{\epsilon^{2}}.
