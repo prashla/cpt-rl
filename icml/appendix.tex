@@ -63,7 +63,7 @@ And we have a contradiction from \eqref{eq:12} and \eqref{eq:23}.
 \section{CPT-value in a Stochastic Shortest Path Setting}
 \label{sec:cpt-ssp}
 We consider a stochastic shortest path (SSP) problem with states $\S=\{0,\ldots,\L\}$, where $0$ is a special reward-free absorbing state.  A randomized policy $\pi$ is a function that maps any state $s\in \S$ onto a probability distribution over the actions $\A(s)$ in state $s$. As is standard in policy gradient algorithms, we parameterize $\pi$ and assume it is continuously differentiable in its parameter $\theta \in \R^d$.  
-An \textit{episode} is a simulated sample path using policy $\theta$ that starts in state $x^0\in \S$, visits $\{x_1,\ldots, x_{\tau-1}\}$ before ending in the absorbing state $0$, where $\tau$ is the first passage time to state $0$.
+An \textit{episode} is a simulated sample path using policy $\theta$ that starts in state $s^0\in \S$, visits $\{s_1,\ldots, s_{\tau-1}\}$ before ending in the absorbing state $0$, where $\tau$ is the first passage time to state $0$.
 Let $D^\theta(s^0)$ be a random variable (r.v) that denote the total reward from an episode, defined by
 $$ D^\theta(s^0) = \sum\limits_{m=0}^{\tau-1} r(s_m,a_m), $$
 where the actions $a_m$ are chosen using policy $\theta$ and $r(s_m, a_m)$ is the single-stage reward in state $s_m\in \S$ when action $a_m \in \A(s_m)$ is chosen. 

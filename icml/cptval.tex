@@ -7,8 +7,8 @@ For a real-valued random variable $X$, we introduce a ``CPT-functional'' that re
 %\label{sec:cptdef}
 The CPT-value of the random variable $X$ is defined as
 \begin{align}
-\C_{u,w}(X) = &\intinfinity w^+(P(u^+(X)>z) dz\nonumber \\
-& - \intinfinity w^-(P(u^-(X)>z) dz, \label{eq:cpt-general}
+\C_{u,w}(X) = &\intinfinity w^+(P(u^+(X)>z)) dz\nonumber \\
+& - \intinfinity w^-(P(u^-(X)>z)) dz, \label{eq:cpt-general}
 \end{align}
 where $u=(u^+,u^-)$, $w=(w^+,w^-)$, $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$). For notational convenience, since $u,w$ will be fixed, we drop the dependence on $u,w$ and use $\C(X)$ to denote the CPT-value.
 \cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
@@ -107,7 +107,7 @@ Weight functions can explain nonlinear probability distortions, as illustrated b
 \end{figure}
 
 A few remarks are in order.
-\begin{remark}\textbf{\textit{(RL applications)}}
+\begin{remark}\textit{(RL applications)}
 The CPT-value, as defined in \eqref{eq:cpt-general}, has several applications in RL. In general, for any problem setting, one can define the return for a given policy and then apply CPT-functional on the return. For instance, with a fixed policy, the r.v. $X$ could be the total reward in a stochastic shortest path problem or the infinite horizon cumulative reward in a discounted MDP or the long-run average reward in an MDP - See Appendix \ref{sec:cpt-ssp} for one such application. 
 \end{remark}
 
@@ -128,11 +128,11 @@ The CPT-value, as defined in \eqref{eq:cpt-general}, has several applications in
 %\\&- \intinfinity w^-(P(u^-(D^\theta(s^0)))>z) dz. \label{eq:cpt-mdp}
 %\end{align}
 
-\begin{remark}\textbf{\textit{(Generalization)}}
+\begin{remark}\textit{(Generalization)}
 It is easy to see that the CPT-value is a generalization of the traditional expectation, as a choice of identity map for the weight and utility functions in \eqref{eq:cpt-general} recovers the expectation of $X$.  It is also possible to get \eqref{eq:cpt-general} to coincide with risk measures (e.g. VaR and CVaR) by appropriate choice of weight functions.
 \end{remark}
 
-\begin{remark}\textbf{\textit{(Sensitivity)}}
+\begin{remark}\textit{(Sensitivity)}
 Traditional EU-based approaches are sensitive to modeling errors as illustrated in the following example: 
 Suppose stock $\cal{A}$ gains \$$10000$ w.p $0.001$ and loses nothing w.p. $0.999$, while stock $\cal B$ surely gains $11$. With the classic value function objective, it is optimal to invest in stock $\cal B$ as it returns $11$,  while $\cal A$ returns $10$ in expectation (assuming utility function to be the identity map). Now, if the gain probability for stock $\cal A$ was $0.002$, then it is no longer optimal to invest in stock $\cal B$ and investing in stock $A$ is optimal.
 Notice that a very slight change in the underlying probabilities resulted in a big difference in the investment strategy and a similar observation carries over to a multi-stage scenario (see the house buying example in the numerical experiments section). 
