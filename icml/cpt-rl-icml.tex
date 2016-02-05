@@ -12,6 +12,7 @@
 \usepackage{icml2015} 
 \usepackage{macros}
 \usepackage{xr}
+
 \externaldocument{appendix}
 
 
@@ -44,7 +45,7 @@ Cumulative prospect theory (CPT) is known to model human decisions well, with su
 CPT works by distorting probabilities and is more general than the classic expected utility and coherent risk measures. We bring this idea to a risk-sensitive reinforcement learning (RL) setting and design algorithms for both estimation and control.
 The RL setting presents two particular challenges when CPT is applied: estimating the CPT objective requires estimations of the {\it entire distribution} of the value function and finding a {\it randomized} optimal policy.
 The estimation scheme that we propose uses the empirical distribution to estimate the CPT-value of a random variable. We then use this scheme in the inner loop of policy optimization procedures for a stochastic shortest path problem. 
-We propose a gradient-based policy optimization algorithmbased on the well-known simulation optimization idea of simultaneous perturbation stochastic approximation (SPSA).
+We propose a gradient-based policy optimization algorithm based on the well-known simulation optimization idea of simultaneous perturbation stochastic approximation (SPSA).
 We provide theoretical convergence guarantees for all the proposed algorithms and also empirically demonstrate the usefulness of our algorithms. 
 \end{abstract}
 

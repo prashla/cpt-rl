@@ -1,14 +1,17 @@
-For a real-valued random variable $X$, we first introduce a ``CPT-functional'' that replaces the traditional expectation. Subsequently, we specialize $X$ to be the return of stochastic shortest path problem.
+%!TEX root =  cpt-rl-icml.tex
+
+For a real-valued random variable $X$, we first introduce a ``CPT-functional'' that replaces the traditional expectation operator. Subsequently, we specialize $X$ to be the return of stochastic shortest path problem. \todoc{Can't we just remove that section and instead simply explain that whatever way you get returns given a policy, you can apply the CPT-functional to the returns? In particular, state observability, inherent in MDP formulations, is totally unnecessary. As is to assume finite state or action spaces.}
 \subsection{General definition}
-The CPT-value of the random variable $X$ is a functional defined as
+\label{sec:cptdef}
+The CPT-value of the random variable $X$ is defined as
 \begin{align}
 \C_{u,w}(X) = &\intinfinity w^+(P(u^+(X)>z) dz\nonumber \\
 & - \intinfinity w^-(P(u^-(X)>z) dz, \label{eq:cpt-general}
 \end{align}
-where $u=(u^+,u^-)$, $w=(w^+,w^-)$, $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on the $u$ and $w$). For notational convenience, we drop the dependence on $u,w$ and use $\C(X)$ to denote the CPT-value.  
+where $u=(u^+,u^-)$, $w=(w^+,w^-)$, $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$). For notational convenience, since $u,w$ will be fixed, we drop the dependence on $u,w$ and use $\C(X)$ to denote the CPT-value.
+\cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
 
-Let us deconstruct the above definition:
- \begin{figure}[h]
+ \begin{figure}[t]
    \centering
 \tabl{c}{
 %\includegraphics[width=3.8in]{utility.png}}
@@ -48,19 +51,32 @@ Let us deconstruct the above definition:
  \node at (axis cs:  -3.7,-0.45) {\large\bf Losses};
  \node at (axis cs:  4,2.5) {\large $\bm{u^+}$};
  \node at (axis cs:  -1,-3) {\large $\bm{-u^-}$};
- \node at (axis cs:  2.5,-2.5) {\large\bf Baseline};
-\draw[-{>[scale=2.5,
-          length=5,
-          width=3]},thick] (axis cs:2,-2) -- (axis cs:0,0);
+% \node at (axis cs:  2.5,-2.5) {\large\bf Baseline};
+%\draw[-{>[scale=2.5,
+%          length=5,
+%          width=3]},thick] (axis cs:2,-2) -- (axis cs:0,0);
    \end{axis}
    \end{tikzpicture}}}\\[1ex]
-\caption{Utility function}
+\caption{An example of a utility function.}
 \label{fig:u}
 \end{figure}
 
-\paragraph{Utility functions:} $u^+, u^-$ are utility functions corresponding to gains ($X \ge 0$) and losses ($X \le 0$), respectively. For example, consider a scenario where one can either earn \$$500$ w.p $1$ or earn \$$1000$ w.p. $0.5$ (and nothing otherwise). The human tendency is to choose the former option of a certain gain. If we flip the situation, i.e., a certain loss of \$$500$ or a loss of \$$1000$ w.p. $0.5$, then humans choose the latter option.  Handling losses and gains separately is a salient feature of CPT, and this addresses the tendency of humans to play safe with gains and take risks with losses - see Fig \ref{fig:u}.  In contrast, the traditional value function makes no such distinction between gains and losses.  
+In the definition, $u^+, u^-$ are utility functions corresponding to gains ($X \ge 0$) and losses ($X \le 0$), respectively. For example, consider a scenario where one can either earn \$$500$ w.p $1$ or earn \$$1000$ w.p. $0.5$ (and nothing otherwise). The human tendency is to choose the former option of a certain gain. If we flip the situation, i.e., a certain loss of \$$500$ or a loss of \$$1000$ w.p. $0.5$, then humans choose the latter option.  Handling losses and gains separately is a salient feature of CPT, and this addresses the tendency of humans to play safe with gains and take risks with losses - see Fig \ref{fig:u}.  In contrast, the traditional value function makes no such distinction between gains and losses.  
 
-\begin{figure}[h]
+The functions $w^+, w^-$, called the weight functions, capture the idea that humans deflate high-probabilities and inflate low-probabilities.
+For example, humans usually choose a stock that gives a large reward, e.g., one million dollars w.p. $1/10^6$ over one that gives \$$1$ w.p. $1$ and the reverse when signs are flipped. 
+Thus the value seen by the human subject is non-linear in the underlying probabilities -- an observation backed by strong empirical evidence \citep{tversky1992advances,Barberis:2012vs}.  
+In contrast,the traditional value function is linear in the underlying probabilities. 
+As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and  have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
+\citet{tversky1992advances} recommend $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \citet{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$. In both cases, the weight function has the inverted-s shape.
+% which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.  
+\if0
+Weight functions can explain nonlinear probability distortions, as illustrated by the following example: \\
+\textit{\textbf{[Stock 1]}} This investment results in a gain of \$$10$ with probability (w.p.) $0.1$ and a loss of \$$500$ w.p. $0.9$. The expected return is \$$-449$, but this does not necessarily imply that ``human'' investors' evaluation of the stock is \$$-449$. Instead, it is very likely that the humans evaluate it to a higher value, e.g. \$$-398$ ($=$ gain w.p. $0.2$ and loss w.p. $0.8$).\footnote{See Table 3 in \cite{tversky1992advances} to know why such a human evaluation is likely.}\\
+\textit{\textbf{[Stock 2]}} loss of \$$10$ w.p. $0.9$, gain \$$500$ w.p. $0.1$. Expected return: \$$41$; Human evaluation: \$$92$ ($=$ loss w.p. $0.8$).\\
+\textit{\textbf{[Stock 3]}} loss of \$$10$ w.p. 0.1, gain \$$500$ w.p. $0.9$. Expected return: \$$449$; Human evaluation: \$$398$ ($=$ loss w.p. $0.2$). 
+\fi
+\begin{figure}[t]
 \centering
 \tabl{c}{
 %\includegraphics[width=8cm]{results/Probability_weighting_function.jpg}
@@ -84,23 +100,15 @@ Let us deconstruct the above definition:
   \end{axis}
   \end{tikzpicture}}\\[1ex]
 }
-\caption{Weight function}
+\caption{An example of a weight function.}
 \label{fig:w}
 \end{figure}
 
-\paragraph{Weight functions:} $w^+, w^-$ are functions corresponding to gains and losses, respectively. 
-The main idea is that humans deflate high-probabilities and inflate low-probabilities and this is the rationale behind using a weight function in CPT.
-For example, humans usually choose a stock that gives one million dollars w.p. $1/10^6$ over one that gives \$$1$ w.p. $1$ and the reverse when signs are flipped. 
-Thus the value seen by the human subject is non-linear in the underlying probabilities - an observation with strong empirical evidence that used human subjects \citep{tversky1992advances}.  In contrast,the traditional value function is linear in the underlying probabilities. 
-As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and  have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
-\cite{tversky1992advances} recommend $w(p) = \frac{p^{\delta}}{{(p^{\delta}+ (1-p)^{\delta})}^{1/\delta}}$, while \cite{prelec1998probability} recommends $w(p) = \exp(-(-\ln p)^\delta)$, with $0 < \delta <1$ and in both cases, the weight function has the inverted-s shape, which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.  
-Weight functions can explain nonlinear probability distortions, as illustrated by the following example: \\
-\textit{\textbf{[Stock 1]}} This investment results in a gain of \$$10$ with probability (w.p.) $0.1$ and a loss of \$$500$ w.p. $0.9$. The expected return is \$$-449$, but this does not necessarily imply that ``human'' investors' evaluation of the stock is \$$-449$. Instead, it is very likely that the humans evaluate it to a higher value, e.g. \$$-398$ ($=$ gain w.p. $0.2$ and loss w.p. $0.8$).\footnote{See Table 3 in \cite{tversky1992advances} to know why such a human evaluation is likely.}\\
-\textit{\textbf{[Stock 2]}} loss of \$$10$ w.p. $0.9$, gain \$$500$ w.p. $0.1$. Expected return: \$$41$; Human evaluation: \$$92$ ($=$ loss w.p. $0.8$).\\
-\textit{\textbf{[Stock 3]}} loss of \$$10$ w.p. 0.1, gain \$$500$ w.p. $0.9$. Expected return: \$$449$; Human evaluation: \$$398$ ($=$ loss w.p. $0.2$). 
 
 
-\paragraph{Optimization objective:} Suppose the r.v. $X$ is a function of a $d$-dimensional parameter $\theta$. The goal then is to solve the following problem:
+\paragraph{Optimization objective:} 
+\todoc{Is this the best place for this? How about defining policy search later, after value estimation is done?}
+Suppose the r.v. $X$ is a function of a $d$-dimensional parameter $\theta$. The goal then is to solve the following problem:
 \begin{align}
 \label{eq:opt-general}
 \textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta),

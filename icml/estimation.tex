@@ -1,6 +1,8 @@
-For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. 
+%!TEX root =  cpt-rl-icml.tex
+For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
 
-\paragraph{On integrability}
+%\paragraph{On integrability}
+Before diving into the details of CPT value estimation, let us discuss the conditions necessary for the CPT value to be well-defined.
 Observe that the first integral in \eqref{eq:cpt-mdp}, i.e., 
 $\int_0^{+\infty} w^+(P(u^+(X)>z)) d z$
 may diverge even if the first moment of random variable $u^+(X)$ is finite. 
@@ -13,7 +15,7 @@ $
 does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-mdp} as well.
 
 To overcome the above integrability issues, we make different assumptions on the weight and/or utility functions. In particular, we assume that the weight functions $w^+, w^-$ are either 
-\begin{inparaenum}[\bfseries (i)]
+\begin{inparaenum}[\it (i)]
 \item Lipschitz continuous, or
 \item \holder continuous, or
 \item locally Lipschitz.
@@ -124,6 +126,7 @@ See Appendix \ref{sec:holder-proofs}.
 
 \subsubsection{Results for Lipschitz continuous weights}
 Here we make the following assumption in place of (A1):
+\todoc{How about explaining why we do this? Why do we consider this case? (Every time we do something we should explain why we do it)}
  
 \textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
