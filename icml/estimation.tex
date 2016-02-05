@@ -1,18 +1,18 @@
 %!TEX root =  cpt-rl-icml.tex
-For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
+%For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
 
 %\paragraph{On integrability}
 Before diving into the details of CPT value estimation, let us discuss the conditions necessary for the CPT value to be well-defined.
-Observe that the first integral in \eqref{eq:cpt-mdp}, i.e., 
+Observe that the first integral in \eqref{eq:cpt-general}, i.e., 
 $\int_0^{+\infty} w^+(P(u^+(X)>z)) d z$
 may diverge even if the first moment of random variable $u^+(X)$ is finite. 
 For example, suppose $U$ has the tail distribution function
 $P(U>z)  = \frac{1}{z^2}, z\in [1, +\infty),$
- and $w^+(z)$ takes the form $w(z) = z^{\frac{1}{3}}$. Then, the first integral in \eqref{eq:cpt-mdp}, i.e.,
+ and $w^+(z)$ takes the form $w(z) = z^{\frac{1}{3}}$. Then, the first integral in \eqref{eq:cpt-general}, i.e.,
 $
 \int_1^{+\infty} \frac{1}{z^{\frac{2}{3}}} dz
 $
-does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-mdp} as well.
+does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-general} as well.
 
 To overcome the above integrability issues, we make different assumptions on the weight and/or utility functions. In particular, we assume that the weight functions $w^+, w^-$ are either 
 \begin{inparaenum}[\it (i)]
@@ -20,7 +20,7 @@ To overcome the above integrability issues, we make different assumptions on the
 \item \holder continuous, or
 \item locally Lipschitz.
 \end{inparaenum}
-We devise a scheme for estimating \eqref{eq:cpt-mdp} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
+We devise a scheme for estimating \eqref{eq:cpt-general} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
 We also provide sample complexity bounds assuming that the utility functions are bounded.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -37,13 +37,13 @@ of order $\alpha$) if $\exists H$, s.t.
 \]
 \end{definition}
 
-In order to ensure integrability of the CPT-value \eqref{eq:cpt-mdp}, we make the following assumption:\\[1ex]
+In order to ensure integrability of the CPT-value \eqref{eq:cpt-general}, we make the following assumption:\\[1ex]
 \textbf{Assumption (A1).}  
 The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
 $\exists \gamma \le \alpha \text{   s.t,  }$ 
 $\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty.$
 
-The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-mdp} is finite - see Proposition \ref{prop:Holder-cpt-finite} in 
+The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition \ref{prop:Holder-cpt-finite} in 
 Appendix \ref{sec:holder-proofs} for a formal proof.
 
 
@@ -64,7 +64,7 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we n
 \begin{algorithmic}[1]
 \State Simulate $n$ i.i.d. replications follows the distribution of $X$, sort them in ascending order and denoted the ordered sample as 
 $X_{[1]}, X_{[2]}, \ldots X_{[n]}$.
-\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
+%\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
 \State Order the simulated samples and label them as follows: 
 $u^+(X_{[1]}),\ldots,u^+(X_{[n]})$.
 \State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
@@ -78,9 +78,10 @@ and denote the statistic $\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\
 
 \subsubsection*{Main results}
 %We make the following assumptions on the utility functions:\\[1ex]
-\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and strictly increasing.\\[1ex]
+\textbf{Assumption (A2).}  The utility functions $u^+(X)$ and $u^-(X)$ are continuous and strictly increasing.
 
-\textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.\\[1ex]
+\textbf{Assumption (A2').}  In addition to (A2), the utility functions $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$.
+
 For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic convergence.
 
 \begin{proposition}(\textbf{Asymptotic convergence.})
@@ -125,7 +126,7 @@ See Appendix \ref{sec:holder-proofs}.
 \end{proof}
 
 \subsubsection{Results for Lipschitz continuous weights}
-Here we make the following assumption in place of (A1):
+In the previous section, it was shown that \holder continuous weights incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. In this section, we establish that one can achieve the canonical Monte Carlo rate if we consider Lipschitz continuous weights, i.e., the following assumption in place of (A1):
 \todoc{How about explaining why we do this? Why do we consider this case? (Every time we do something we should explain why we do it)}
  
 \textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 

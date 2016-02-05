@@ -1,3 +1,11 @@
+\paragraph{Optimization objective:} 
+\todoc{Is this the best place for this? How about defining policy search later, after value estimation is done?}
+Suppose the r.v. $X$ in \eqref{eq:cpt-general} is a function of a $d$-dimensional parameter $\theta$. The goal then is to solve the following problem:
+\begin{align}
+\label{eq:opt-general}
+\textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta),
+\end{align}
+where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, the above problem encompasses policy optimization in an MDP that can be discounted or average or episodic and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, while traditional approaches consider the expected return.  
 
 %\begin{figure}[h]
 %\centering
@@ -161,7 +169,7 @@ A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n 
 \subsection{Convergence result}
 \begin{theorem}
 \label{thm:1spsa-conv}
-Assume (A1)-(A3).
+Assume (A1)-(A3) and also that $\C(X^\theta)$ is a continuously differentiable function of $\theta$, for any $\theta \in \Theta$\footnote{In a typical RL setting, it is sufficient to assume that the policy is continuously differentiable in $\theta$.}.
 Consider the  ordinary differential equation (ODE): 
 $$\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
 where 

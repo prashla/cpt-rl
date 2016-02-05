@@ -47,7 +47,7 @@ So we are inconsistent with these people.}
 An approach that gained 
 %Behavioral scientists use alternate approaches to model human preferences.
 	strong support amongst psychologists, behavioral scientists and economists  \citep[e.g.,][]{starmer2000developments,quiggin2012generalized}
-	is based on \cite{kahneman1979prospect}'s celebrated \emph{prospect theory}.
+	is based on \cite{kahneman1979prospect}'s celebrated \emph{prospect theory} (PT).
 Therefore, in this work, we will base our models of human preferences on this theory.
 More precisely, we will use the so-called \emph{cumulative prospect theory} (CPT),
  	a later, refined variant of prospect theory due to \cite{tversky1992advances}, 
@@ -55,7 +55,7 @@ More precisely, we will use the so-called \emph{cumulative prospect theory} (CPT
 CPT generalizes expected utility theory in that in addition to having a utility function transforming
 	the outcomes, another function is introduced which distorts the probabilities in the cumulative distribution function.
 As compared to prospect theory, CPT is monotone with respect to stochastic dominance, a property
-	that is thought to be useful and (mostly) consistent with human preferences.	
+	that is thought to be useful and (mostly) consistent with human preferences\footnote{See Appendix \ref{sec:appendix-cpt-intro} for an introduction to PT/CPT and a description of Allais paradox.}.	
 	
 \if0	
 
@@ -170,7 +170,7 @@ To our best knowledge, we are the first to investigate (and define) human-center
 this is the first work to combine CPT with RL. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the RL framework, as we will soon see. 
 We outline these challenges as well as our solution approach below. 
 
-The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of certain cumulative distribution functions associated with the random variable (cf. \cref{sec:cptdef} for the definition). 
+The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of certain cumulative distribution functions associated with the random variable (cf. \cref{sec:cpt-val} for the definition). 
 Hence, even the problem of estimating the CPT-value given a random sample requires some effort.
 %\textbf{\textit{Prediction:}} In the case of the classic value function, which is an expectation, a simple sample mean can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, 
 %CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 

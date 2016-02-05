@@ -1,8 +1,10 @@
 %!TEX root =  cpt-rl-icml.tex
 
-For a real-valued random variable $X$, we first introduce a ``CPT-functional'' that replaces the traditional expectation operator. Subsequently, we specialize $X$ to be the return of stochastic shortest path problem. \todoc{Can't we just remove that section and instead simply explain that whatever way you get returns given a policy, you can apply the CPT-functional to the returns? In particular, state observability, inherent in MDP formulations, is totally unnecessary. As is to assume finite state or action spaces.}
-\subsection{General definition}
-\label{sec:cptdef}
+For a real-valued random variable $X$, we introduce a ``CPT-functional'' that replaces the traditional expectation operator. 
+%Subsequently, we specialize $X$ to be the return of stochastic shortest path problem. 
+\todoc{Can't we just remove that section and instead simply explain that whatever way you get returns given a policy, you can apply the CPT-functional to the returns? In particular, state observability, inherent in MDP formulations, is totally unnecessary. As is to assume finite state or action spaces.}
+%\subsection{General definition}
+%\label{sec:cptdef}
 The CPT-value of the random variable $X$ is defined as
 \begin{align}
 \C_{u,w}(X) = &\intinfinity w^+(P(u^+(X)>z) dz\nonumber \\
@@ -104,37 +106,33 @@ Weight functions can explain nonlinear probability distortions, as illustrated b
 \label{fig:w}
 \end{figure}
 
+A few remarks are in order.
+\begin{remark}\textbf{\textit{(RL applications)}}
+The CPT-value, as defined in \eqref{eq:cpt-general}, has several applications in RL. In general, for any problem setting, one can define the return for a given policy and then apply CPT-functional on the return. For instance, with a fixed policy, the r.v. $X$ could be the total reward in a episodic MDP or the infinite horizon cumulative reward in a discounted MDP or the long-run average reward in an MDP. 
+\end{remark}
 
 
-\paragraph{Optimization objective:} 
-\todoc{Is this the best place for this? How about defining policy search later, after value estimation is done?}
-Suppose the r.v. $X$ is a function of a $d$-dimensional parameter $\theta$. The goal then is to solve the following problem:
-\begin{align}
-\label{eq:opt-general}
-\textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta),
-\end{align}
-where $\Theta$ is a compact and convex subset of $\R^d$.
-The above optimization problem has several applications in RL. For instance, $X$ could be the total reward/discounted reward/average reward r.v. for a fixed policy (given as $\theta$) in the context of a stochastic shortest path/discounted/average reward MDP, respectively. We illustrate one of these applications next.
+%\subsection{Application: Stochastic Shortest Path}
+%We consider a stochastic shortest path (SSP) problem with states $\S=\{0,\ldots,\L\}$, where $0$ is a special reward-free absorbing state.  A randomized policy $\pi$ is a function that maps any state $s\in \S$ onto a probability distribution over the actions $\A(s)$ in state $s$. As is standard in policy gradient algorithms, we parameterize $\pi$ and assume it is continuously differentiable in its parameter $\theta \in \R^d$.  
+%An \textit{episode} is a simulated sample path using policy $\theta$ that starts in state $x^0\in \S$, visits $\{x_1,\ldots, x_{\tau-1}\}$ before ending in the absorbing state $0$, where $\tau$ is the first passage time to state $0$.
+%Let $D^\theta(s^0)$ be a random variable (r.v) that denote the total reward from an episode, defined by
+%$$ D^\theta(s^0) = \sum\limits_{m=0}^{\tau-1} r(s_m,a_m), $$
+%where the actions $a_m$ are chosen using policy $\theta$ and $r(s_m, a_m)$ is the single-stage reward in state $s_m\in \S$ when action $a_m \in \A(s_m)$ is chosen. 
+%
+%Instead of the traditional RL objective for an SSP of maximizing the expected value $\E (D^\theta(s^0))$, 
+%we adopt the CPT approach and aim to solve the following problem: 
+%$$ \max_{\theta \in \Theta} \C(D^\theta(s^0)),$$
+%where $\Theta$ is the set of admissible policies that are \textit{proper}\footnote{A policy $\theta$ is proper if $0$ is recurrent and all other states are transient for the Markov chain underlying $\theta$. It is standard to assume that policies are proper in an SSP setting - cf. \cite{bertsekas1995dynamic}.} and the CPT-value function $\C(D^\theta(s^0))$ is defined as
+%\begin{align}
+%\C(D^\theta(s^0))& = \intinfinity w^+(P(u^+(D^\theta(s^0)))>z) dz \nonumber
+%\\&- \intinfinity w^-(P(u^-(D^\theta(s^0)))>z) dz. \label{eq:cpt-mdp}
+%\end{align}
 
-\subsection{Application: Stochastic Shortest Path}
-We consider a stochastic shortest path (SSP) problem with states $\S=\{0,\ldots,\L\}$, where $0$ is a special reward-free absorbing state.  A randomized policy $\pi$ is a function that maps any state $s\in \S$ onto a probability distribution over the actions $\A(s)$ in state $s$. As is standard in policy gradient algorithms, we parameterize $\pi$ and assume it is continuously differentiable in its parameter $\theta \in \R^d$.  
-An \textit{episode} is a simulated sample path using policy $\theta$ that starts in state $x^0\in \S$, visits $\{x_1,\ldots, x_{\tau-1}\}$ before ending in the absorbing state $0$, where $\tau$ is the first passage time to state $0$.
-Let $D^\theta(s^0)$ be a random variable (r.v) that denote the total reward from an episode, defined by
-$$ D^\theta(s^0) = \sum\limits_{m=0}^{\tau-1} r(s_m,a_m), $$
-where the actions $a_m$ are chosen using policy $\theta$ and $r(s_m, a_m)$ is the single-stage reward in state $s_m\in \S$ when action $a_m \in \A(s_m)$ is chosen. 
+\begin{remark}\textbf{\textit{(Generalization)}}
+It is easy to see that the CPT-value is a generalization of the traditional expectation, as a choice of identity map for the weight and utility functions in \eqref{eq:cpt-general} recovers the expectation of $X$.  It is also possible to get \eqref{eq:cpt-general} to coincide with risk measures (e.g. VaR and CVaR) by appropriate choice of weight functions.
+\end{remark}
 
-Instead of the traditional RL objective for an SSP of maximizing the expected value $\E (D^\theta(s^0))$, 
-we adopt the CPT approach and aim to solve the following problem: 
-$$ \max_{\theta \in \Theta} \C(D^\theta(s^0)),$$
-where $\Theta$ is the set of admissible policies that are \textit{proper}\footnote{A policy $\theta$ is proper if $0$ is recurrent and all other states are transient for the Markov chain underlying $\theta$. It is standard to assume that policies are proper in an SSP setting - cf. \cite{bertsekas1995dynamic}.} and the CPT-value function $\C(D^\theta(s^0))$ is defined as
-\begin{align}
-\C(D^\theta(s^0))& = \intinfinity w^+(P(u^+(D^\theta(s^0)))>z) dz \nonumber
-\\&- \intinfinity w^-(P(u^-(D^\theta(s^0)))>z) dz. \label{eq:cpt-mdp}
-\end{align}
-
-\paragraph{Generalization:} It is easy to see that the CPT-value is a generalization of the traditional value function, as a choice of identity map for the weight and utility functions in \eqref{eq:cpt-mdp} makes it the expectation of the total cost $D^\theta)$.  It is also possible to get \eqref{eq:cpt-mdp} to coincide with coherent risk measures (e.g. CVaR) by the appropriate choice of weight functions.
-
-\paragraph{Sensitivity:}
+\begin{remark}\textbf{\textit{(Sensitivity)}}
 Traditional EU-based approaches are sensitive to modeling errors as illustrated in the following example: 
 Suppose stock $\cal{A}$ gains \$$10000$ w.p $0.001$ and loses nothing w.p. $0.999$, while stock $\cal B$ surely gains $11$. With the classic value function objective, it is optimal to invest in stock $\cal B$ as it returns $11$,  while $\cal A$ returns $10$ in expectation (assuming utility function to be the identity map). Now, if the gain probability for stock $\cal A$ was $0.002$, then it is no longer optimal to invest in stock $\cal B$ and investing in stock $A$ is optimal.
 Notice that a very slight change in the underlying probabilities resulted in a big difference in the investment strategy and a similar observation carries over to a multi-stage scenario (see the house buying example in the numerical experiments section). 
@@ -142,4 +140,5 @@ Notice that a very slight change in the underlying probabilities resulted in a b
 
 Using CPT makes sense because it inflates low probabilities and thus can account for modeling errors, especially considering that model information is unavailable in practice.
 Note also that in MDPs with expected utility objective, there exists a deterministic policy that is optimal. However, with CPT-value objective, the optimal policy is \textit{not necessarily} deterministic - See also the organ transplant example on pp. 75-81 of \cite{lin2013stochastic}. 
+\end{remark}
 
