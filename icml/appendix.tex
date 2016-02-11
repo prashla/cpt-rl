@@ -112,7 +112,7 @@ Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\f
 \begin{split}
 \lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^+(P(U^+>z)) dz < +\infty,
 \\
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{i}{n})- w^-(\frac{i+1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
 \end{split}
 \end{align}
 \end{proposition}
@@ -300,10 +300,10 @@ This is a standard result that can be found in any textbook on measure theory. F
 \subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
 \begin{proof}
 Notice the the following equivalence:
-$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
 and also,
-$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
-where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
+where $\hat{F^+_n}(x)$ and $\hat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
 and $u^-(X)$.
 
 Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
@@ -358,7 +358,7 @@ $$
 \intinfinity L \cdot(P(U^+>x)) dx.$$
 Hence, we have 
 $$
-\int_0^\infty w^{(+)}(1-\widehat{F_n}(x)) dx \xrightarrow{a.s.} 
+\int_0^\infty w^{(+)}(1-\hat{F_n}(x)) dx \xrightarrow{a.s.} 
 \int_0^\infty w^{(+)}(P(U^+)>x) dx.
 $$
 The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(U^+>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
@@ -546,9 +546,13 @@ We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
 The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
+<<<<<<< Updated upstream
 The inequality in \eqref{eq:h3} follows by using the fact that
 %, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
 $\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
+=======
+The inequality in \eqref{eq:h3} follows by using the fact that, for any $\theta$, the CPT-value estimate $\hat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
+>>>>>>> Stashed changes
 \todop{Need to update the above arguments for the general case of $X^\theta$, with $\theta$ in a compact set}
 
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
