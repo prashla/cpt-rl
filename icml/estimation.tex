@@ -71,11 +71,11 @@ $X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Note that $u^+(X_{[1]}),\ldots ,u^+(X_{[n]}
 \vspace{-0.5ex}
 $$\overline \C_n^+:=\sum_{i=1}^{n-1} u^+(X_{[i]}) \left(w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) \right).$$
 \vspace{-0.5ex}
-\State Repeat the procedure on $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$ using $u^-$, 
-and denote the statistic 
+\State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$, notice that $u^{-}(X_{[i]})$ is in descending order since $u^{-}$ is a decreasing function.     
+\State Denote the statistic
 \vspace{-0.5ex}
-$$\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) \left(w^-(\frac{i}{n})- w^-(\frac{i+1}{n}) \right). $$
-Notice that $u^{-}$ is a decreasing function.
+$$\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) \left(w^-(\frac{i}{n})- w^-(\frac{i-1}{n}) \right). $$
+
 \vspace{-0.5ex}
 \State Return $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
 \end{algorithmic}

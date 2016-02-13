@@ -112,14 +112,14 @@ Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\f
 \begin{split}
 \lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^+(P(U^+>z)) dz < +\infty,
 \\
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{i}{n})- w^-(\frac{i+1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
 \end{split}
 \end{align}
 \end{proposition}
 
 
 \begin{proof}
-We shall focus on proving the first part of equation (28). Consider the following linear combination of simple functions: 
+We shall focus on proving the first part of equation \eqref{eq:simple-estimation}. Consider the following linear combination of simple functions: 
 \begin{align}
 \sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi_\frac{n-i}{n}]}(t),
@@ -152,43 +152,47 @@ The second part of equation (28) can be justified in a similar fashion.
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
 
 \begin{proof}
-We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion, and assume the constant in \holder continuous $H=1$ without loss of generality.
+We firstly that $\overline \C^{+}_n
+\rightarrow
+\C^{+}(X)
+ \text{   a.s. as } n\rightarrow \infty$, and assume the constant in \holder continuous $H=1$ without loss of generality.
 
 The main part of the proof is concentrated on finding an upper bound of the probability
 \begin{align}
-P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+P ( \left| \sum_{i=1}^{n-1} u^+(X_{[i]}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
 \epsilon),
 \end{align}
+
 for any given $\epsilon>0$.
 Observe that
 \begin{align*}
-& P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+& P ( \left| \sum_{i=1}^{n-1} u^+(X_{[i]}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
-\epsilon) \\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| U^+_{[i]} \cdot (w^+_(\frac{n-i}{n}) -
+\epsilon) \\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| u^+(X_{[i]}) \cdot (w^+_(\frac{n-i}{n}) -
 w^+{(\frac{n-i-1}{n})}) - \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) )
-\right| > \frac{\epsilon}{n} \}) \\ & \leq \sum _{i=1}^{n-1} P ( \left| U^+_{[i]} \cdot
+\right| > \frac{\epsilon}{n} \}) \\ & \leq \sum _{i=1}^{n-1} P ( \left| u^+(X_{[i]}) \cdot
 (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n}) -
-w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} -
+w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( u^+(X_{[i]}) -
 \xi^+_{\frac{i}{n}}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| > \frac{\epsilon}{n})
-\\ & \leq \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}}) \cdot \cdot (\frac{1}{n})^{\alpha}
-\right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} - \xi^+_{\frac{i}{n}})
+\\ & \leq \sum _{i=1}^{n-1} P ( \left| ( u^+(X_{[i]}) - \xi^+_{\frac{i}{n}}) \cdot \cdot (\frac{1}{n})^{\alpha}
+\right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( u^+(X_{[i]}) - \xi^+_{\frac{i}{n}})
 \right| > \frac{\epsilon}{\cdot n^{1-\alpha}}).
 \end{align*}
 Now we find the upper bound of the probability of a single item in the sum above, i.e
 \begin{align*}
-& P( \left | U^+_{[i]} - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{(1-\alpha)}}) \\ & = P (
-    U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon} {n^{(1-\alpha)}}) + P ( U^+_{[i]} -
+& P( \left | u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{(1-\alpha)}}) \\ & = P (
+    u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon} {n^{(1-\alpha)}}) + P ( u^+(X_{[i]}) -
     \xi^+_{\frac{i}{n}} < - \frac {\epsilon} {n^{(1-\alpha)}}).
 \end{align*} 
 
 \noindent We focus on the term 
 $
-P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha})
+P ( u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha})
 $.
-Let $W_t = I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1, \ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
+Let $W_t = I_{(u^+(X_t) > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1, \ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
 \begin{align*}
-& P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) \\ & = P ( \sum _{t=1}^{n} W_t >
+& P ( u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) \\ & = P ( \sum _{t=1}^{n} W_t >
 n\cdot(1-\frac{i}{n^{(1-\alpha)}})) \\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-F^{+}(\xi^+_{\frac{i}{n}}
 +\frac{\epsilon}{n^{(1-\alpha)}})] > n \cdot [F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}})
 - \frac{i}{n}]).
@@ -206,22 +210,22 @@ with $\delta^{'}_i = F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} 
 $F^{+}(x)$ is Lipschitz, $ \delta^{'}_i \leq L^{+} \cdot (\frac{\epsilon}{\nalpha})$.
 Therefore we will have
 \begin{align}
-P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L^{+}
+P ( u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L^{+}
 \frac{\epsilon}{\nalpha} } = e^{-2n^\alpha \cdot L ^{+} \epsilon}
 \end{align}
 In a  similar fashion, one can show that 
 \begin{align*}
-P ( U^+_{[i]} -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}
+P ( u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}
 \end{align*}
 Because of the assumption that $F(x)$ is Lipschitz continuous, one can state that 
 \begin{align*}
-P ( \left| U^+_{[i]} -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
+P ( \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
 e^{-2n^\alpha \cdot L^{+} \epsilon} , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
 \end{align*}
 As a result we can derive a bound for the probability in (6) such that
 \begin{align}
 &
-P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+P ( \left| \sum_{i=1}^{n-1} u^+(X_{[i]}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
 \epsilon) \leq 2n\cdot e^{-2n^\alpha \cdot L^{+}}.\label{eq:holder-sample-complexity-extract}
 \end{align}
@@ -232,26 +236,30 @@ $\frac{1}{n^k}$, $\forall k>1$.
 
 By applying the Borel Cantelli lemma,
 $$
-P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
+P ( \left| \sum_{i=1}^{n-1} u^+(X_{[i]}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
 \epsilon , i.o.) =0 , \text{   } \forall \epsilon >0 $$
 which implies 
 $$
-\sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \sum_{i=1}^{n-1}
+\sum_{i=1}^{n-1} u^+(X_{[i]}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \sum_{i=1}^{n-1}
 \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \xrightarrow{n \rightarrow
 +\infty} 0 \text{   w.p } 1 ,
 $$
 which constitutes the proof of theorem's statement, that 
 \begin{align}
-\lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} U^+_{ [i ] } (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
+\lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
 &\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt , \text{w.p} 1
 \end{align}
+For proving 
+$\C_{n}^{-} \rightarrow \C^{-}(X)$, note that since function of $u^{-}$ is decreasing, the statistic
+$u^-(X_{[n-i]})$ will be the estimate of the quantile $\xi^{-}_{\frac{i}{n}}$, and the procedures are exactly the same as above by replacing $u^+(X_{[i]})$ by $u^-(X_{[n-i]})$. 
+
 \end{proof}
 
 \subsection*{Proof of Proposition \ref{prop:holder-dkw}}
 For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
 \begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
-Let ${\hat F_n}(x)=\frac{1}{n} \sum_{i=1}^n 1_{((X_i) \leq x)}$ denote the empirical distribution of a r.v. $X$, with $X_1,\ldots,X_n$ being sampled from the true distribution $F(X)$.
+Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n 1_{((U_i) \leq u)}$ denote the empirical distribution of a r.v. $U$, with $U_1,\ldots,U_n$ being sampled from the true distribution $F(X)$.
 The, for any $n$ and $\epsilon>0$, we have
 $$
 P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
