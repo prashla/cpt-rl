@@ -87,6 +87,13 @@ where $\Theta$ is the set of admissible policies that are \textit{proper}\footno
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{\holder continuous weights}
 \label{sec:holder-proofs}
+For proving Proposition \ref{prop:holder-asymptotic} and \ref{prop:sample-complexity-discrete}, we require Hoeffding's inequality, which is given below.
+\begin{lemma}
+Let $Y_1,...Y_n$ be independent random variables satisfying $P(a\leq Y_i \leq b)= 1,$ for each $i$, where $a<b.
+$ Then for $t>0$,
+$$P(\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt ) \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
+\end{lemma}
+
 \begin{proposition}
 \label{prop:Holder-cpt-finite}
 Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite. 
@@ -95,24 +102,24 @@ Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite.
 
 H\"{o}lder continuity of $w^+$ together with the fact that $w^+(0)=0$ imply that 
 $$
-\int_0^{+\infty} w^+(P(U^+>t)) dz 
-\le H \int_0^{+\infty} P^{\alpha} (U^+>z) dz
-\le H \int_0^{+\infty} P^{\gamma} (U^+>z) dz 
+\int_0^{+\infty} w^+(P(u^{+}(X)>t)) dz 
+\le H \int_0^{+\infty} P^{\alpha} (u^+(X)>z) dz
+\le H \int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz 
 <+\infty.
 $$
-The second inequality is valid since $P(U^+>z) \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
+The second inequality is valid since $P(u^+(X)>z) \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
 \end{proof}
 
 %%%%
 \begin{proposition}
 \label{prop:holder-quantile}
-Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $U^+$ and $U^-$, respectively. Then, we have 
+Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have 
 \begin{align}
 \label{eq:simple-estimation}
 \begin{split}
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^+(P(U^+>z)) dz < +\infty,
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^+(P(u^+(X)>z)) dz < +\infty,
 \\
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(U^->z)) dz < +\infty
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(u^-(X)>z)) dz < +\infty
 \end{split}
 \end{align}
 \end{proposition}
@@ -124,12 +131,12 @@ We shall focus on proving the first part of equation \eqref{eq:simple-estimation
 \sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi_\frac{n-i}{n}]}(t),
 \end{align}
-which will converge almost everywhere to the function $w(P(U>t))$ in the interval $[0, +\infty)$, and also notice that 
+which will converge almost everywhere to the function $w(P(u^{+}(X)>t))$ in the interval $[0, +\infty)$, and also notice that 
 \begin{align}
 \sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}]}(t)
 <
-w(P(U>t)),
+w(P(u^{+}(X)>t)),
 \text{         } \forall t \in [0,+\infty).
 \end{align}
 
@@ -137,9 +144,9 @@ The integral of (4) equals
 
 \begin{align}
 & \int_0^{+\infty} \sum_{i=0}^{n-1} w^+_{\frac{i}{n}} \cdot I_{[\xi^+_\frac{n-i-1}{n},
-\xi^+_\frac{n-i}{n}]}(t) \\ & = \sum_{i=0}^{n-1} w^+_{\frac{i}{n}}(t) \cdot (\xi^+_{\frac{n-i}{n}} -
-\xi^+_{\frac{n-i-1}{n}}) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+_{\frac{n-i}{n}}-
-    w^+_{\frac{n-i-1}{n}}).
+\xi^+_\frac{n-i}{n}]}(t) \\ & = \sum_{i=0}^{n-1} w^+_{\frac{i}{n}}(t) \cdot (\xi^+(\frac{n-i}{n}) -
+\xi^+(\frac{n-i-1}{n})) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n})-
+    w^+(\frac{n-i-1}{n})).
 \end{align}
 
 The H\"{o}lder continuity property assures the fact that 
@@ -259,7 +266,7 @@ $u^-(X_{[n-i]})$ will be the estimate of the quantile $\xi^{-}_{\frac{i}{n}}$, a
 \subsection*{Proof of Proposition \ref{prop:holder-dkw}}
 For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
 \begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
-Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n 1_{((U_i) \leq u)}$ denote the empirical distribution of a r.v. $U$, with $U_1,\ldots,U_n$ being sampled from the true distribution $F(X)$.
+Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n 1_{((u(X_i)) \leq u)}$ denote the empirical distribution of a r.v. $U$, with $u(X_1),\ldots,u(X_n)$ being sampled from the r.v $u(X)$.
 The, for any $n$ and $\epsilon>0$, we have
 $$
 P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
@@ -270,19 +277,19 @@ The reader is referred to Chapter 2 of \cite{wasserman2006} for more on empirica
 
 \begin{proof}
 We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
-Since $U^+$ is bounded above by $M$ and $w$ is H\"{o}lder with constant $C$ and power $\alpha$, we have
+Since $u^+(X)$ is bounded above by $M$ and $w$ is H\"{o}lder with constant $C$ and power $\alpha$, we have
 \begin{align*}
-&\left|\int_0^{\infty} w^+(P(U^+)>t) dt- \int_0^{\infty} w^+(1- {\hat F^+_n}(t)) dt\right| \\ = &
-    \left|\int_0^M w^+(P(U^+)>t) dt- \int_0^M w^+(1- {\hat F^+_n}(t)) dt\right| \\
-\leq& \left|\int_0^M H\cdot |P(U^+<t)-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
-\mathbb{R}}\left|P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha.
+&\left|\int_0^{\infty} w^+(P(u^+(X))>t) dt- \int_0^{\infty} w^+(1- {\hat F^+_n}(t)) dt\right| \\ = &
+    \left|\int_0^M w^+(P(u^+(X))>t) dt- \int_0^M w^+(1- {\hat F^+_n}(t)) dt\right| \\
+\leq& \left|\int_0^M H\cdot |P(u^+(X)<t)-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
+\mathbb{R}}\left|P(u^+(X)<t)-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 Now, plugging in the DKW inequality, we obtain
 \begin{align}
 &
-P\left(\left|\intinfinity w^+(P(U^+)>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t)) dt\right|>\epsilon\right)
+P\left(\left|\intinfinity w^+(P(u^+(X))>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t)) dt\right|>\epsilon\right)
 \nonumber\\
-& \leq P\left(HM\sup_{t\in \mathbb{R}} \left|(P(U^+<t)-{\hat F^+_n}(t)\right|^\alpha>\epsilon\right)
+& \leq P\left(HM\sup_{t\in \mathbb{R}} \left|(P(u^+(X)<t)-{\hat F^+_n}(t)\right|^\alpha>\epsilon\right)
 \leq  e^{-n \frac{\epsilon ^{(2/\alpha)}} {2 H^2 M^2}}.\label{eq:dkw3}
 \end{align}
 \end{proof}
@@ -321,21 +328,21 @@ Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can b
 \end{align}
 We first prove the asymptotic convergence claim for the first integral in \eqref{eq:cpt-est-appendix}, i.e., we show
 \begin{align}
-\intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(U^+>x) dx.\label{eq:3}
+\intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(u^+(X)>x) dx.\label{eq:3}
 \end{align} 
 
 Since $w^+$ is Lipschitz continuous with constant $L$, we have almost surely that
 $w^{+}(1-\hat{F_n}(x)) \leq L (1-\hat{F_n}(x))$,  
 for all $n$ and 
- $w^{+}((P(U^+>x)) \leq L\cdot (P(U^+>x)$, since $w^+(0)=0$.
+ $w^{+}((P(u^+(X)>x)) \leq L\cdot (P(u^+(X)>x)$, since $w^+(0)=0$.
  
 Notice that the empirical distribution function 
 ${\hat F_n}^+(x)$ 
 generates a Stieltjes measure which takes mass 
-$1/n$ on each of the sample points $U^+_i$. 
+$1/n$ on each of the sample points $u^+(X_{i})$. 
 
 We have
-$$\intinfinity (P(U^+>x))  dx = E(U^+)$$
+$$\intinfinity (P(u^+(X)>x))  dx = E(u^+(X))$$
 and
 
 \begin{equation}
@@ -357,23 +364,23 @@ $$
 \frac{1}{n}
 \sum_{i=1}^n u^+(X_{[i]})
 \overset{a.s}\longrightarrow 
-E(U^+),
+E(u^+(X)),
 $$
 From the foregoing,
 $$
 \lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F_n}(x)) dx
 \overset{a.s} \longrightarrow
-\intinfinity L \cdot(P(U^+>x)) dx.$$
+\intinfinity L \cdot(P(u^+(X)>x)) dx.$$
 Hence, we have 
 $$
 \int_0^\infty w^{(+)}(1-\hat{F_n}(x)) dx \xrightarrow{a.s.} 
-\int_0^\infty w^{(+)}(P(U^+)>x) dx.
+\int_0^\infty w^{(+)}(P(u^+(X))>x) dx.
 $$
-The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(U^+>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
+The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(u^+(X)>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
 
 Following similar arguments, it is easy to show that 
 $$
-w^-(1-{\hat F_n}^-(x))  dx \rightarrow \intinfinity w^-(P(U^-)>x) dx.
+\intinfinity w^-(1-{\hat F_n}^-(x))  dx \rightarrow \intinfinity w^-(P(u^-(X))>x) dx.
 $$
 The final claim regarding the almost sure convergence of $\overline \C_n$ to $\C(X)$ now follows.
 \end{proof}
@@ -386,40 +393,40 @@ The final claim regarding the almost sure convergence of $\overline \C_n$ to $\C
 \subsection*{Proof of Proposition \ref{prop:lipschitz}: Sample complexity}
 
 \begin{proof}
-Since $U^+$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$, we have
+Since $u^+(X)$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$, we have
 \begin{align*}
-&\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|
+&\left|\intinfinity w^+(P(u^+(X))>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|
 \\
-= & \left|\int_0^M w^+(P(U^+)>x) dx- \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
+= & \left|\int_0^M w^+(P(u^+(X))>x) dx- \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
 \\
 \leq&
-\left|\int_0^M L\cdot |P(U^+<x)-{\hat F_n}^+(x)| dx\right|\\
+\left|\int_0^M L\cdot |P(u^+(X)<x)-{\hat F_n}^+(x)| dx\right|\\
 \leq&
-LM\sup_{x\in \mathbb{R}}\left|P(U^+<x)-{\hat F_n}^+(x)\right|.
+LM\sup_{x\in \mathbb{R}}\left|P(u^+(X)<x)-{\hat F_n}^+(x)\right|.
 \end{align*}
 Now, plugging in the DKW inequality, we obtain
 \begin{align}
 &
-P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right)
+P\left(\left|\intinfinity w^+(P(u^+(X))>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right)
 \nonumber\\
 &
 \leq
- P\left(LM\sup_{x\in \mathbb{R}} \left|(P(U^+<x)-{\hat F_n}^+(x)\right|>\epsilon/2\right) \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw1}
+ P\left(LM\sup_{x\in \mathbb{R}} \left|(P(u^+(X)<x)-{\hat F_n}^+(x)\right|>\epsilon/2\right) \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw1}
 \end{align}
 
 Along similar lines, we obtain
 \begin{align}
 &
-P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)
+P\left(\left|\intinfinity w^-(P(u^-(X))>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)
  \leq 2 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.\label{eq:dkw2}
 \end{align}
 
 Combining \eqref{eq:dkw1} and \eqref{eq:dkw2}, we obtain
 \begin{align*}
 P(|\overline \C_n - \C(X)|>\epsilon) 
-&\le P\left(\left|\intinfinity w^+(P(U^+)>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right) \\
+&\le P\left(\left|\intinfinity w^+(P(u^+(X))>x) dx- \intinfinity w^+(1- {\hat F_n}^+(x)) dx\right|>\epsilon/2\right) \\
 &+ 
-P\left(\left|\intinfinity w^-(P(U^-)>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)\\
+P\left(\left|\intinfinity w^-(P(u^-(X))>x) dx- \intinfinity w^-(1- {\hat F_n}^-(x)) dx\right|>\epsilon/2\right)\\
 &\le 4 e^{-n \frac{\epsilon^2}{2 L^2 M^2}}.
 \end{align*} 
 And the claim follows. 
