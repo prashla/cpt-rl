@@ -57,7 +57,7 @@ The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{l
 %\cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
 
 
-\subsection{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For every state $i=1,\ldots,d$,
+\subsection{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For $i=1,\ldots,d$,
 \begin{align}
 \theta^{i}_{n+1} = \Gamma_{i}\left(\theta^{i}_n + \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
 \label{eq:theta-update}

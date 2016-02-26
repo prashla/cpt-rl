@@ -1,8 +1,4 @@
-
-
-
-
-Let
+Without loss of generality, assume $w^+=w^-=w$, and let
 \begin{align}
 \label{eq:hatFk}
 \hat F_k = 
@@ -22,8 +18,7 @@ $$P(|\hat{F_k}-F_k| > \epsilon) \leq 2 e^{-2n \epsilon^2}.$$
 We focus on the case when $k > l$, while the case of $k \leq l$ is proved in a similar fashion.
 Notice that when $k>l$,  $\hat F_k =I_{(X_i \geq  x_k) }$. Since the random variables $X_i$ are independent of each other and  for each $i$, are bounded above by $1$, we can apply Hoeffding's inequality to obtain 
 \begin{align*}
-&
-P(\left|\hat{F_k}- F_k \right| > \epsilon) \\ & = P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{X_i \geq
+P(\left|\hat{F_k}- F_k \right| > \epsilon) & = P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{X_i \geq
 x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon) \\ & = P(\left|
 \sum_{i=1}^n I_{\{X_i \geq x_k\}} - \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > n\epsilon) \\ &
     \leq 2e^{-2n \epsilon^2}.
@@ -32,9 +27,11 @@ x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon) \\
 
 The proof of Proposition \ref{prop:sample-complexity-discrete} requires the following claim which gives the convergence rate under local Lipschitz weights. 
 
-\begin{remark}\textit{Notation}
-
-Let 
+\begin{proposition}
+\label{prop:discrete-first-term}
+Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk} and \eqref{eq:hatFk},  we have
+$$P(\left| \sum_{i=1}^K u_{k} w(\hat{F_k}) - \sum_{i=1}^K u_{k} w(F_k) \right| >\epsilon) < K\cdot (
+e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}), \text{where}$$
 \begin{align}
 \label{eq:uplusminusxk}
 u_k = 
@@ -42,25 +39,14 @@ u_k =
    u^{-}(x_{k}) & \text{if   } k \leq l \\
    u^{+}(x_{k}) & \text{if  }  k > l.
 \end{cases}  
-\end{align}
-\end{remark}
-
-
-\begin{proposition}
-\label{prop:discrete-first-term}
-
-
-Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk} \eqref{eq:hatFk},  we have
-$$P(\left| \sum_{i=1}^K u_{k} w(\hat{F_k}) - \sum_{i=1}^K u_{k} w(F_k) \right| >\epsilon) < K\cdot (
-e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}) $$ 
+\end{align} 
 \end{proposition}
 
 \begin{proof}
 Observe that
 
 \begin{align*}
-&
-P(\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon) \\ & = P (
+P(\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon) & = P (
 \bigcup_{k=1}^K \left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}) \\ & \leq
     \sum_{k=1}^K P (\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K})
 \end{align*}
@@ -82,17 +68,17 @@ we have
 \begin{align*}
 & P ( [ \left| F_k - \hat{F_k} \right| \leq\delta ] \bigcap [ \left| u_k w(\hat{F_k}) -u_k w(F_k)
 \right| ] > \frac {\epsilon} {K}) \\ & \leq P(u_k L \left| F_k - \hat{F_k} \right| > \frac
-    {\epsilon} {K}) \leq e^ {-\epsilon\cdot 2n /(K L u_k)^2} \leq e^ {-\epsilon\cdot 2n /(K L A)^2}
-    \text{     for    } \forall k.
+    {\epsilon} {K}) \leq e^ {-\epsilon\cdot 2n /(K L u_k)^2} \leq e^ {-\epsilon\cdot 2n /(K L A)^2},
+     \forall k.
 \end{align*}
 And similarly,
 \begin{align*}
-& P(\left| F_k - \hat{F_k} \right| > \delta) \\ & \leq e^{-\delta^2 /2n} \text{    for     } \forall
+P(\left| F_k - \hat{F_k} \right| > \delta) & \leq e^{-\delta^2 /2n},   \forall
     k.
 \end{align*}
 And as a result,
 \begin{align*}
-& P(\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon) \\ & \leq
+ P(\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon) & \leq
 \sum_{k=1}^K P (\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}) \\ & \leq
              \sum_{k=1}^K \left( e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 \cdot 2n/ (KLA)^2} \right) \\ & =K\cdot
     (e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 \cdot 2n/ (KLA)^2})
@@ -101,13 +87,14 @@ And as a result,
 
 \subsection*{Proof of Proposition \ref{prop:sample-complexity-discrete}}
 \begin{proof}
-We need to prove that
+With $u_k$ as defined in \eqref{eq:uplusminusxk}, we need to prove that
 \begin{align}
 P(\left|\sum_{i=1}^K u_{k} \cdot(w(\hat{F_k})- w(\hat F_{k+1}) )
 -  
 \sum_{i=1}^K u_{k} \cdot(w(F_k)- w(F_{k+1}) )
 \right| \leq \epsilon) > 1-\rho
-\text{      ,     } \forall n> \frac{\ln(\frac{4K}{a})} { M}, 
+\text{      ,     } \forall n> \frac{\ln(\frac{4K}{A})} { M}, 
+\label{eq:dw}
 \end{align}
 where $w$ is Locally Lipschitz continuous with constants $L_1,....L_K$ at the points $F_1,....F_K$.
 From a parallel argument to that in the proof of Proposition \ref{prop:discrete-first-term}, it is easy to infer that
@@ -117,10 +104,12 @@ $$
 Hence,
 \begin{align*}
 & P(\left|\sum_{i=1}^K u_k \cdot(w(\hat{F_k})- w(\hat F_{k+1}) ) -  \sum_{i=1}^K u_k \cdot(w(F_k)-
-w(F_{k+1}) ) \right| > \epsilon) \\ & \leq P(\left|\sum_{i=1}^K u_k \cdot(w(\hat{F_k})) -
-    \sum_{i=1}^K u_k \cdot(w(F_k)) \right| > \epsilon/2) + P(\left|\sum_{i=1}^K u_k
-    \cdot(w(\hat F_{k+1})) -  \sum_{i=1}^K u_k \cdot(w(F_{k+1})) \right| > \epsilon/2) \\ & \leq 2K
+w(F_{k+1}) ) \right| > \epsilon) \\ 
+\leq & \quad P(\left|\sum_{i=1}^K u_k \cdot(w(\hat{F_k})) -
+    \sum_{i=1}^K u_k \cdot(w(F_k)) \right| > \epsilon/2) \\
+		&+ P(\left|\sum_{i=1}^K u_k
+    \cdot(w(\hat F_{k+1})) -  \sum_{i=1}^K u_k \cdot(w(F_{k+1})) \right| > \epsilon/2) \\ \leq & \quad 2K
     (e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2})
 \end{align*}
-The main claim follows.
+The claim in \eqref{eq:dw} now follows.
 \end{proof}
