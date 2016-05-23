@@ -1,12 +1,13 @@
+%!TEX root =  cpt-rl-icml.tex
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
-We apply the CPT-functional to the delay experienced by road users, since CPT captures realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms.
+We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior).
 
 %\paragraph{Simulation Setup:}  
-We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, where the traffic is generated - see Figure \ref{fig:2x2grid}.
+We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, where the traffic is generated -- cf. \cref{fig:2x2grid}. \todoc{Can we have a higher quality figure?}
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP in the following.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and path-wise delays.
-The actions are the feasible sign configurations. Traffic lights that can be simultaneously switched to green form a sign configuration. 
+The actions are the feasible sign configurations. Traffic lights that can be simultaneously switched to green form a sign configuration. \todoc{What is this last sentence doing here? What do we want to say with it?}
 
 We consider three different notions of return as follows:
 
@@ -55,7 +56,9 @@ For CPT-SPSA, we set the weights as follows:
 $w^+(p) = \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}$ and  
 $w^-(p) = \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}}$, with
 $\eta_1 = 0.61$ and $\eta_2 = 0.69$. These choices are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
-For all the algorithms, we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$ and this is motivated by standard guidelines - see \cite{spall2005introduction}. The initial point $\theta_0$ is the $d$-dimensional vector of ones and $\forall i$, the operator $\Gamma_i$ projects $\theta_i$ onto the set $[0.1, 10.0]$.
+For all the algorithms,
+ motivated by standard guidelines (see \citealt{spall2005introduction}),
+ we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$. The initial point $\theta_0$ is the $d$-dimensional vector of ones and $\forall i$, the operator $\Gamma_i$ projects $\theta_i$ onto the set $[0.1, 10.0]$.
     
 The experiments involve two phases.
 A training phase where we run each algorithm for $200$ iterations, with each iteration involving two perturbed simulations, each of trajectory length $500$. This is followed by a test phase where we fix the policy for each algorithm and $100$ independent simulations of the MDP (each with a trajectory length of $1000$) are performed. After each run in the test phase, the overall CPT-value \eqref{eq:cpt-traffic} is estimated. 
@@ -63,6 +66,7 @@ A training phase where we run each algorithm for $200$ iterations, with each ite
 
 Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA, EUT-SPSA and CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA followed by EUT-SPSA and AVG-SPSA in that order. Intuitively this is expected because AVG-SPSA uses neither utilities nor probability distortions, while EUT-SPSA distinguishes between gains and losses using utilities while not using weights to distort probabilities.
 The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
+\todoc{It would be nice to point out how the CPT policy is different than the others.}
 
 
  \begin{figure}[t]

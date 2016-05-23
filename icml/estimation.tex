@@ -85,7 +85,7 @@ $$\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\rig
 
 \subsubsection*{Main results}
 %We make the following assumptions on the utility functions:\\[1ex]
-\textbf{Assumption (A2).}  The utility functions $u^+$ and $u^-$ are continuous and strictly increasing.
+\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
 
 \textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
 
@@ -121,10 +121,11 @@ high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 \label{prop:holder-dkw}
 Assume (A1) and (A2'). Then, $\forall \epsilon >0, \delta >0$, we have
 $$
-P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) >1- \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
 \end{proposition}
 \begin{proof}
+
 %Notice the the following equivalence:
 %$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
 %and also,
@@ -138,6 +139,7 @@ P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \f
 %\label{eq:edf}
 %\end{align}
 %The main claim follows from the equivalence mentioned above together with the well-known Dvoretzky-Kiefer-Wolfowitz (DKW) inequality (cf. Chapter 2 of \cite{wasserman2006}).
+
 See Appendix \ref{sec:holder-proofs}.
 \end{proof}
 

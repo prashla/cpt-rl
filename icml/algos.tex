@@ -1,11 +1,13 @@
+%!TEX root =  cpt-rl-icml.tex
 \paragraph{Optimization objective:} 
 \todoc{Is this the best place for this? How about defining policy search later, after value estimation is done?}
-Suppose the r.v. $X$ in \eqref{eq:cpt-general} is a function of a $d$-dimensional parameter $\theta$. The goal then is to solve the following problem:
+Suppose the r.v. $X$ in \eqref{eq:cpt-general} is a function of a $d$-dimensional parameter $\theta$. 
+In this section we consider the problem 
 \begin{align}
 \label{eq:opt-general}
 \textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta),
 \end{align}
-where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, the above problem encompasses policy optimization in an MDP that can be discounted or average or episodic and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, while traditional approaches consider the expected return.  
+where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, the above problem encompasses policy optimization in an MDP that can be discounted or average or episodic and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, instead of the expected return.  
 
 %\begin{figure}[h]
 %\centering
@@ -180,8 +182,7 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \begin{proof}
  See Appendix \ref{appendix:1spsa}.
 \end{proof}
-
-See Appendix \ref{sec:2spsa} for a second-order CPT-value optimization scheme based on SPSA.
+In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
 

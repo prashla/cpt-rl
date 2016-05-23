@@ -9,26 +9,43 @@
 \section{Background on CPT}
 \label{sec:appendix-cpt-intro}
 \todoc[inline]{Is this section referred to from the main text?}
-For a random variable $X$, let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
-Given a utility function $u$ and weighting function $w$, \textit{\textbf{Prospect theory}} (PT) value is defined as $\C(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
+The purpose of this appendix is to explain the ideas underlying CPT. 
+To avoid technicalities we will do this in the context of discrete random variables.
+Let $X$ be a discrete valued random variables, taking values in $\{x_1,\dots,x_K\}$ (the set of possible ``prospects'') 
+and let $p_i = \Prob{X=x_i}$.
+We shall think of $X$ as a random loss or gain incurred by a human decision maker.
+%For a random variable $X$ taking values in $\{x_1,\dots,x_K\}$, let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
+Given a utility function $u$ and weighting function $w$, \todoc{What is the domain and range of these functions?}
+the \textit{\textbf{prospect theory}} (PT) value of $X$ is defined as $\C(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
 The idea is to take an utility function that is $S$-shaped, so that it satisfies the \textit{diminishing sensitivity}  property. 
-If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions (see \cite{kahneman1979prospect}, \cite{fennema1997original} for a justification, in particular via empirical tests using human subjects).
+If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions. 
+\citet{kahneman1979prospect} and \citet{fennema1997original} present justification of PT in the form of experimental results  using human subjects.
 %However, distorting the probabilities via a weighting function (that is not identity) is a useful generalization since it  overcomes some of the ill-effects of expected utility and is closer to human decision making - see \cite{kahneman1979prospect}. 
-However, PT is lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}. Consider the following example from \cite{fennema1997original}: Suppose there are $20$ prospects (outcomes) ranging from $-10$ to $180$, each with probability $0.05$. If the weight function is such that $w(0.05) > 0.05$, then it uniformly overweights all \textit{low-probability} prospects and the resulting PT value is higher than the expected value $85$. This violates stochastic dominance, since a shift in the probability mass from bad outcomes did not result in a better prospect. 
+However, PT is lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}. Consider the following example borrowed from \citet{fennema1997original}: Suppose there are $20$ prospects ranging from $-10$ to $180$, each with probability $0.05$. If the weight function is such that $w(0.05) > 0.05$, then it \todoc{What does ``it'' refer to here? Consider rephrasing this} uniformly overweights all \textit{low-probability} prospects \todoc{Why is this true??}
+and the resulting PT value is higher than the expected value $85$. 
+This \todoc{What does ``this'' refer to here?}
+violates stochastic dominance, since a shift in the probability mass from bad outcomes does not result in a better prospect.  \todoc{This is hard to understand; consider rephrasing it more clearly.}
 
 \textbf{Cumulative prospect theory} (CPT) \cite{tversky1992advances} uses a similar measure as PT, except that the weights are a function of cumulative probabilities. First, separate the gains and losses as 
-$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$. Then, the CPT-value is defined as 
+$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$,
+where zero is used as an arbitrary reference point.
+Then, the CPT-value of $X$ is defined as 
 \begin{align*}
-\C(X) = &(u^-(x_1))\cdot w^-(p_1) 
-+\sum_{i=2}^l u^-(x_i) \Big(w^-(\sum_{j=1}^i p_j) - w^-(\sum_{j=1}^{i-1} p_j)\Big) 
-\\&
- + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\sum_{j=i}^K p_j) - w^+(\sum_{j=i+1}^K p_j) \Big)
+\C(X) &= u^-(x_1)\cdot w^-(p_1) 
++\sum_{i=2}^l u^-(x_i) \Big(w^-(\textstyle\sum_{j=1}^i p_j) - w^-(\textstyle\sum_{j=1}^{i-1} p_j)\Big)  \\
+& \qquad
+ + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\textstyle\sum_{j=i}^K p_j) - w^+(\textstyle\sum_{j=i+1}^K p_j) \Big)
  + u^+(x_K)\cdot w^+(p_K), 
 \end{align*} 
-where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corresponding to gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
-Unlike PT, the CPT-value does not violate stochastic dominance. In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. Thus, CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.
+where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions to distort gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
+Unlike PT, the CPT-value does not violate stochastic dominance. In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ \todoc{Or the probabilities of the corresponding outcomes!?}
+does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. \todoc{When?}
+Thus, \todoc{Why is this a corollary of the previous paragraph?}
+CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.
 
 \subsection*{Allais paradox}
+Allais paradox is not as much as a paradox, but an argument that shows that 
+expected utility theory is inconsistent with human preferences.
 Suppose we have the following two traffic light switching policies:
 
 \textbf{\textit{[Policy 1]}} A throughput (number of vehicles that reach destination per unit time) of $1000$  w.p. $1$. Let this be denoted by $(1000,1)$.
@@ -37,23 +54,26 @@ Suppose we have the following two traffic light switching policies:
 
 Humans usually choose Policy $1$ over Policy $2$. On the other hand, consider the following two policies:
 
-\textbf{\textit{[Policy 3]}} (100,0.89; 1000, 0.11)
+\textbf{\textit{[Policy 3]}} (100, 0.89; 1000, 0.11)
 
-\textbf{\textit{[Policy 4]}} (100,0.9; 10000, 0.1)
+\textbf{\textit{[Policy 4]}} (100, 0.9; 10000, 0.1)
 
 Humans usually choose Policy $4$ over Policy $3$. 
 
-We can now argue against using expected utility (EU) as an objective as follows: Let $u$ be the utility function in EU.
+We can now argue against using expected utility (EU) as an objective as follows
+accepting the above preferences: Let $u$ be the utility function in EU.
+Since Policy 1 is preferred over Policy 2,
+$u(1000) > 0.1 u(10000) + 0.89 u(1000) + 0.01 u(100)$, which is equivalent to
 \begin{align}
-&\text{Policy 1 is preferred over Policy 2}\nonumber\\ 
-&\Rightarrow u(1000) > 0.1 u(10000) + 0.89 u(1000) + 0.01 u(100)\nonumber\\
-&\Rightarrow 0.11 u(1000) > 0.1 u(10000) + 0.01 u(100) \label{eq:12}\\[1ex]
-&\text{Policy 4 is preferred over Policy 3}\nonumber\\ 
-&\Rightarrow 0.89 u(100) + 0.11 u(1000) < 0.9 u(100) + 0.1 u(10000)\nonumber\\
-&\Rightarrow 0.11 u(1000) < 0.1 u(10000) + 0.01 u(100) \label{eq:23}
+0.11 u(1000) > 0.1 u(10000) + 0.01 u(100)\,.
+ \label{eq:12}
 \end{align}
-
-And we have a contradiction from \eqref{eq:12} and \eqref{eq:23}.
+On the other hand, since Policy 4 is preferred over Policy 3, 
+$0.89 u(100) + 0.11 u(1000) < 0.9 u(100) + 0.1 u(10000)$, which is equivalent to
+\begin{align}
+ 0.11 u(1000) < 0.1 u(10000) + 0.01 u(100) \,.\label{eq:23}
+\end{align}
+Now note that  \eqref{eq:12} contradicts \eqref{eq:23}. Hence, no utility function exist that is consistent with human preferences.
 
 %\newpage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,7 +111,7 @@ For proving Proposition \ref{prop:holder-asymptotic} and \ref{prop:sample-comple
 \begin{lemma}
 Let $Y_1,...Y_n$ be independent random variables satisfying $P(a\leq Y_i \leq b)= 1,$ for each $i$, where $a<b.
 $ Then for $t>0$,
-$$P(\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt ) \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
+$$P\left(\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt \right) \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
 \end{lemma}
 
 \begin{proposition}
@@ -113,7 +133,7 @@ The second inequality is valid since $P(u^+(X)>z) \leq 1$. The claim follows for
 %%%%
 \begin{proposition}
 \label{prop:holder-quantile}
-Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have 
+Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have  \todoc{Fix the ugly parenthesis! Also, why do we suddenly number all equations as if they all needed a number??}
 \begin{align}
 \label{eq:simple-estimation}
 \begin{split}
@@ -158,13 +178,14 @@ The second part of \eqref{eq:simple-estimation} can be justified in a similar fa
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
 
 \begin{proof}
-Without loss of generality, assume that \holder constant $H$ is  $1$.
+Without loss of generality, assume that \holder constant $H$ of the weight functions are both  $1$.
 We first prove  that 
 $$\overline \C^{+}_n
 \rightarrow
 \C^{+}(X)
  \text{   a.s. as } n\rightarrow \infty.$$
-Or equivalently, show that
+Or equivalently, \todoc{Don't start sentences with ''and'' or ''or''.}
+show that
 \begin{align}
 \lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
 &\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt , \text{w.p. } 1
@@ -224,7 +245,7 @@ P ( \sum _{i=1}^{n} W_t - n \cdot [1-F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{
 \delta^{'}_t},
 \end{align}
 where $\delta^{'}_i = F^{+}(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }) - \frac{i}{n}$. Since 
-$F^{+}(x)$ is Lipschitz, we have that $ \delta^{'}_i \leq L^{+} \cdot (\frac{\epsilon}{\nalpha})$.
+$F^{+}$ is Lipschitz, we have that $ \delta^{'}_i \leq L^{+} \cdot (\frac{\epsilon}{\nalpha})$.
 Hence, we obtain
 \begin{align}
 P ( u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) < e^{-2n\cdot L^{+}
@@ -236,7 +257,7 @@ In a  similar fashion, one can show that
 P ( u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}) \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}
 \label{eq:a23}
 \end{align}
-Combining \eqref{eq:a12} and \eqref{eq:a23}, we obtain
+Combining \eqref{eq:a12} and \eqref{eq:a23}, we obtain \todoc{Is not $\mathbb{N} \cap (0,1) =\emptyset$???}
 \begin{align*}
 P ( \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}) \leq 2\cdot
 e^{-2n^\alpha \cdot L^{+} \epsilon} , \text{   }\forall i\in \mathbb{N} \cap (0,1) 
@@ -323,7 +344,7 @@ This is a standard result that can be found in any textbook on measure theory. F
 
 \subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
 \begin{proof}
-Notice the the following equivalence:
+Notice the the following equivalence: \todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
 $$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
 and also,
 $$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{i}{n}) - w^-(\frac{i+1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
@@ -340,7 +361,7 @@ We first prove the asymptotic convergence claim for the first integral in \eqref
 \intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(u^+(X)>x) dx.\label{eq:3}
 \end{align} 
 
-Since $w^+$ is Lipschitz continuous with constant $L$, we have almost surely that
+Since $w^+$ is Lipschitz continuous with, say, constant $L$, we have almost surely that
 $w^{+}(1-\hat{F_n}(x)) \leq L (1-\hat{F_n}(x))$,  
 for all $n$ and 
  $w^{+}((P(u^+(X)>x)) \leq L\cdot (P(u^+(X)>x)$, since $w^+(0)=0$.
