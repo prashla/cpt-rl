@@ -15,16 +15,29 @@ Let $X$ be a discrete valued random variables, taking values in $\{x_1,\dots,x_K
 and let $p_i = \Prob{X=x_i}$.
 We shall think of $X$ as a random loss or gain incurred by a human decision maker.
 %For a random variable $X$ taking values in $\{x_1,\dots,x_K\}$, let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
-Given a utility function $u$ and weighting function $w$, \todoc{What is the domain and range of these functions?}
-the \textit{\textbf{prospect theory}} (PT) value of $X$ is defined as $\C(X) = \sum_{i=1}^K u(x_i) w(p_i)$. 
+Given a utility function $u:\R\rightarrow \R_+:[0,1] \rightarrow [0,1]$ and weighting function $w$, \todoc{What is the domain and range of these functions?}
+the \textit{\textbf{prospect theory}} (PT) value of $X$ is defined as 
+\begin{align}
+\C(X) = \sum_{i=1}^K u(x_i) w(p_i).
+\label{eq:ptval}
+\end{align} 
 The idea is to take an utility function that is $S$-shaped, so that it satisfies the \textit{diminishing sensitivity}  property. 
 If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions. 
 \citet{kahneman1979prospect} and \citet{fennema1997original} present justification of PT in the form of experimental results  using human subjects.
 %However, distorting the probabilities via a weighting function (that is not identity) is a useful generalization since it  overcomes some of the ill-effects of expected utility and is closer to human decision making - see \cite{kahneman1979prospect}. 
-However, PT is lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}. Consider the following example borrowed from \citet{fennema1997original}: Suppose there are $20$ prospects ranging from $-10$ to $180$, each with probability $0.05$. If the weight function is such that $w(0.05) > 0.05$, then it \todoc{What does ``it'' refer to here? Consider rephrasing this} uniformly overweights all \textit{low-probability} prospects \todoc{Why is this true??}
-and the resulting PT value is higher than the expected value $85$. 
-This \todoc{What does ``this'' refer to here?}
-violates stochastic dominance, since a shift in the probability mass from bad outcomes does not result in a better prospect.  \todoc{This is hard to understand; consider rephrasing it more clearly.}
+
+However, the weight function in PT  lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}. We illustrate this via the following example: Consider a prospect, say P1, where outcomes $10$ and $0$ occur with probabilities $0.1,  0.9$, respectively. Let P2 be another prospect  where the outcomes are $10, 10+\epsilon$ and $0$, with respective probabilities $0.05$, $0.05$ and $0.9$.
+
+The weight function $w$ is non-additive as it is non-linear and since $0.05$ and $0.1$ are in the low-probability regime, we can assume that $w(0.1) > 2 w(0.05)$. Suppose $\epsilon>0$ be small enough such that $w(0.1) > (2+\epsilon) w(0.05)$. Then, the PT-value, as defined in \eqref{eq:ptval}, of P1 is higher than that of P2 and hence, P1 is preferred.
+
+On the other hand, P2 stochastically dominates P1, where stochastic dominance is defined as follows:
+A prospect ${\cal B}$ stochastically dominates prospect ${\cal A}$ if the probability of receiving a value $x$ or greater is at least as high under prospect ${\cal B}$ as it is under prospect ${\cal A}$  for all values of $x$, and is strictly greater for some value of $x$.
+  
+\todoc{What does ``it'' refer to here? Consider rephrasing this}  \todoc{Why is this true??}
+\todoc{What does ``this'' refer to here?}
+%Thus, 
+%violates stochastic dominance, since a shift in the probability mass from bad outcomes does not result in a better prospect.  
+\todoc{This is hard to understand; consider rephrasing it more clearly.}
 
 \textbf{Cumulative prospect theory} (CPT) \cite{tversky1992advances} uses a similar measure as PT, except that the weights are a function of cumulative probabilities. First, separate the gains and losses as 
 $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$,
@@ -38,10 +51,11 @@ Then, the CPT-value of $X$ is defined as
  + u^+(x_K)\cdot w^+(p_K), 
 \end{align*} 
 where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions to distort gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
-Unlike PT, the CPT-value does not violate stochastic dominance. In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ \todoc{Or the probabilities of the corresponding outcomes!?}
-does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. \todoc{When?}
-Thus, \todoc{Why is this a corollary of the previous paragraph?}
-CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.
+Unlike PT, the CPT-value does not violate first-order stochastic dominance, as the weight functions act on cumulative probabilities. 
+%In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ \todoc{Or the probabilities of the corresponding outcomes!?}
+%does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. \todoc{When?}
+%Thus, \todoc{Why is this a corollary of the previous paragraph?}
+%CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.
 
 \subsection*{Allais paradox}
 Allais paradox is not as much as a paradox, but an argument that shows that 
@@ -153,23 +167,24 @@ We shall focus on proving the first part of equation \eqref{eq:simple-estimation
 \label{eq:simplew}
 \end{align}
 which will converge almost everywhere to the function $w(P(u^{+}(X)>t))$ in the interval $[0, +\infty)$, and also notice that 
-\begin{align}
+\begin{align*}
 \sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}]}(t)
 <
 w(P(u^{+}(X)>t)),
 \text{         } \forall t \in [0,+\infty).
-\end{align}
+\end{align*}
 
 The integral of \eqref{eq:simplew} can be simplified as follows:
-\begin{align}
+\begin{align*}
  \int_0^{+\infty} \sum_{i=0}^{n-1} w^+_{\frac{i}{n}} \cdot I_{[\xi^+_\frac{n-i-1}{n},
 \xi^+_\frac{n-i}{n}]}(t)  & = \sum_{i=0}^{n-1} w^+_{\frac{i}{n}}(t) \cdot (\xi^+(\frac{n-i}{n}) -
 \xi^+(\frac{n-i-1}{n})) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n})-
     w^+(\frac{n-i-1}{n})).
-\end{align}
+\end{align*}
 The H\"{o}lder continuity property assures the fact that 
 $\lim_{n \rightarrow \infty}  | w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n})| =0$, and the limit in \eqref{eq:simple-estimation} holds through a typical application of the dominated convergence theorem.
+
 The second part of \eqref{eq:simple-estimation} can be justified in a similar fashion.
 \end{proof} 
 %%%
@@ -178,14 +193,13 @@ The second part of \eqref{eq:simple-estimation} can be justified in a similar fa
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
 
 \begin{proof}
-Without loss of generality, assume that \holder constant $H$ of the weight functions are both  $1$.
+Without loss of generality, assume that \holder constant $H$ of the weight functions $w^+$ and $w^-$ are both  $1$.
 We first prove  that 
 $$\overline \C^{+}_n
 \rightarrow
 \C^{+}(X)
  \text{   a.s. as } n\rightarrow \infty.$$
-Or equivalently, \todoc{Don't start sentences with ''and'' or ''or''.}
-show that
+The statement above is equivalent to the following: \todoc{Don't start sentences with ''and'' or ''or''.}
 \begin{align}
 \lim_{n\rightarrow +\infty} \sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i+1}{n})- w^+(\frac{n-i}{n}))
 &\xrightarrow{n \rightarrow\infty} \int_0^{+\infty} w^+(P(U>t)) dt , \text{w.p. } 1
@@ -299,7 +313,7 @@ For proving Proposition \ref{prop:holder-dkw}, we require the following well-kno
 Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n 1_{((u(X_i)) \leq u)}$ denote the empirical distribution of a r.v. $U$, with $u(X_1),\ldots,u(X_n)$ being sampled from the r.v $u(X)$.
 The, for any $n$ and $\epsilon>0$, we have
 $$
-P(\sup_{x\in \mathbb{R}}|\hat{F_n}(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
+P(\sup_{x\in \mathbb{R}}|\hat{F}_n(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
 $$
 \end{lemma}
 
@@ -345,10 +359,10 @@ This is a standard result that can be found in any textbook on measure theory. F
 \subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
 \begin{proof}
 Notice the the following equivalence: \todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
-$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F^+_n}(x)) dx, $$
+$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F}^+_n(x)) dx, $$
 and also,
-$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{i}{n}) - w^-(\frac{i+1}{n})) =  \int_0^M w^-(1-\hat{F^-_n}(x)) dx, $$
-where $\hat{F^+_n}(x)$ and $\hat{F^-_n}(x)$ is the empirical distribution of $u^+(X)$
+$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{i}{n}) - w^-(\frac{i+1}{n})) =  \int_0^M w^-(1-\hat{F}^-_n(x)) dx, $$
+where $\hat{F}^+_n(x)$ and $\hat{F}^-_n(x)$ is the empirical distribution of $u^+(X)$
 and $u^-(X)$.
 
 Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
@@ -362,7 +376,7 @@ We first prove the asymptotic convergence claim for the first integral in \eqref
 \end{align} 
 
 Since $w^+$ is Lipschitz continuous with, say, constant $L$, we have almost surely that
-$w^{+}(1-\hat{F_n}(x)) \leq L (1-\hat{F_n}(x))$,  
+$w^{+}(1-\hat{F}_n(x)) \leq L (1-\hat{F}_n(x))$,  
 for all $n$ and 
  $w^{+}((P(u^+(X)>x)) \leq L\cdot (P(u^+(X)>x)$, since $w^+(0)=0$.
  
@@ -376,12 +390,12 @@ $$\intinfinity (P(u^+(X)>x))  dx = E(u^+(X))$$
 and
 
 \begin{equation}
-\intinfinity (1-{\hat F_n}^+(x))  dx =\intinfinity \int_x^\infty d \hat{F_n}(t) dx.\label{eq:2}
+\intinfinity (1-{\hat F_n}^+(x))  dx =\intinfinity \int_x^\infty d \hat{F}_n(t) dx.\label{eq:2}
 \end{equation}
 Since ${\hat F_n}^+(x)$ has bounded support on $\mathbb{R}$ $\forall n$, the integral in \eqref{eq:2} is finite.
 Applying Fubini's theorem to the RHS of \eqref{eq:2}, we obtain
 \begin{equation}
-\intinfinity \int_x^\infty d \hat{F_n}(t) dx = \intinfinity \int_0^t dx d \hat{F_n}(t) = \intinfinity t d\hat{F_n}(t) = \frac{1}{n} \sum_{i=1}^n u^+(X_{[i]}),
+\intinfinity \int_x^\infty d \hat{F}_n(t) dx = \intinfinity \int_0^t dx d \hat{F}_n(t) = \intinfinity t d\hat{F}_n(t) = \frac{1}{n} \sum_{i=1}^n u^+(X_{[i]}),
  \end{equation}
  where $u^+(X_{[i]}), i=1,\ldots,n$ denote the order statistics, i.e., $u^+(X_{[1]}) \le \ldots \le u^+(X_{[n]})$.
  
@@ -398,15 +412,15 @@ E(u^+(X)),
 $$
 From the foregoing,
 $$
-\lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F_n}(x)) dx
+\lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F}_n(x)) dx
 \overset{a.s} \longrightarrow
 \intinfinity L \cdot(P(u^+(X)>x)) dx.$$
 Hence, we have 
 $$
-\int_0^\infty w^{(+)}(1-\hat{F_n}(x)) dx \xrightarrow{a.s.} 
+\int_0^\infty w^{(+)}(1-\hat{F}_n(x)) dx \xrightarrow{a.s.} 
 \int_0^\infty w^{(+)}(P(u^+(X))>x) dx.
 $$
-The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F_n}(x))$, and noticing that $L\cdot(1-\hat{F_n}(x)) \xrightarrow{a.s.} L(P(u^+(X)>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
+The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F}_n(x))$, and noticing that $L\cdot(1-\hat{F}_n(x)) \xrightarrow{a.s.} L(P(u^+(X)>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
 
 Following similar arguments, it is easy to show that 
 $$

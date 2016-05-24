@@ -158,18 +158,18 @@ As noted earlier, the CPT-value is a generalization of mathematical expectation.
 It is also possible to get \eqref{eq:cpt-general} to coincide with risk measures (e.g. VaR and CVaR) by appropriate choice of weight functions.
 \end{remark}
 
-\begin{remark}\textit{(Sensitivity)}
-\todoc{I think this is really hard to defend.
-Since the derivative of the weight function at zero is very high (even zero),
-the CPT value is hugely sensitive (even more so than the expected value) to error
-in low probabilities. We should remove this remark.
-}
-Traditional EU-based approaches are sensitive to modeling errors as illustrated in the following example: 
-Suppose stock $\cal{A}$ gains \$$10000$ w.p $0.001$ and loses nothing w.p. $0.999$, while stock $\cal B$ surely gains $11$. With the classic value function objective, it is optimal to invest in stock $\cal B$ as it returns $11$,  while $\cal A$ returns $10$ in expectation (assuming utility function to be the identity map). Now, if the gain probability for stock $\cal A$ was $0.002$, then it is no longer optimal to invest in stock $\cal B$ and investing in stock $A$ is optimal.
-Notice that a very slight change in the underlying probabilities resulted in a big difference in the investment strategy and a similar observation carries over to a multi-stage scenario (see the house buying example in the numerical experiments section). 
- %A randomized policy that $50$\% in stock $\cal A$ and the rest in a risk-free asset is less sensitive to the error in under-estimating the loss probability. 
-
-Using CPT makes sense because it inflates low probabilities and thus can account for modeling errors, especially considering that model information is unavailable in practice.
-Note also that in MDPs with expected utility objective, there exists a deterministic policy that is optimal. However, with CPT-value objective, the optimal policy is \textit{not necessarily} deterministic - See also the organ transplant example on pp. 75-81 of \cite{lin2013stochastic}. 
-\end{remark}
+%\begin{remark}\textit{(Sensitivity)}
+%\todoc{I think this is really hard to defend.
+%Since the derivative of the weight function at zero is very high (even zero),
+%the CPT value is hugely sensitive (even more so than the expected value) to error
+%in low probabilities. We should remove this remark.
+%}
+%Traditional EU-based approaches are sensitive to modeling errors as illustrated in the following example: 
+%Suppose stock $\cal{A}$ gains \$$10000$ w.p $0.001$ and loses nothing w.p. $0.999$, while stock $\cal B$ surely gains $11$. With the classic value function objective, it is optimal to invest in stock $\cal B$ as it returns $11$,  while $\cal A$ returns $10$ in expectation (assuming utility function to be the identity map). Now, if the gain probability for stock $\cal A$ was $0.002$, then it is no longer optimal to invest in stock $\cal B$ and investing in stock $A$ is optimal.
+%Notice that a very slight change in the underlying probabilities resulted in a big difference in the investment strategy and a similar observation carries over to a multi-stage scenario (see the house buying example in the numerical experiments section). 
+ %%A randomized policy that $50$\% in stock $\cal A$ and the rest in a risk-free asset is less sensitive to the error in under-estimating the loss probability. 
+%
+%Using CPT makes sense because it inflates low probabilities and thus can account for modeling errors, especially considering that model information is unavailable in practice.
+%Note also that in MDPs with expected utility objective, there exists a deterministic policy that is optimal. However, with CPT-value objective, the optimal policy is \textit{not necessarily} deterministic - See also the organ transplant example on pp. 75-81 of \cite{lin2013stochastic}. 
+%\end{remark}
 
