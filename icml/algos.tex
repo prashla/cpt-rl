@@ -168,7 +168,7 @@ $\delta_n$ are positive $\forall n$ and satisfy
 While the conditions on $\gamma_n$ and $\delta_n$ are standard for SPSA-based algorithms, the condition on $m_n$ is motivated by the earlier discussion. 
 A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n = m_0 n^\nu$ and $\delta_n = \delta_0/{n^\gamma}$, for some $\nu, \gamma >0$ with $\gamma > \nu\alpha/2$.
 
-\subsection{Convergence result}
+\subsection{Convergence result\protect\footnote{The detailed proof is available in \cite{Pracheng2015cpt}.}}
 \begin{theorem}
 \label{thm:1spsa-conv}
 Assume (A1)-(A3) and also that $\C(X^\theta)$ is a continuously differentiable function of $\theta$, for any $\theta \in \Theta$\footnote{In a typical RL setting, it is sufficient to assume that the policy is continuously differentiable in $\theta$.}.
@@ -179,10 +179,11 @@ $\check\Gamma_{i}(f(\theta)) := \lim\limits_{\alpha \downarrow 0} \frac{\Gamma_{
  Let $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla_i \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
 $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \end{theorem}
-\begin{proof}
- See Appendix \ref{appendix:1spsa}.
-\end{proof}
-In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
+
+%\begin{proof}
+ %See Appendix \ref{appendix:1spsa}.
+%\end{proof}
+%In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
 

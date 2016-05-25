@@ -4,10 +4,10 @@
 %\paragraph{On integrability}
 Before diving into the details of CPT-value estimation, let us discuss the conditions necessary for the CPT-value to be well-defined.
 Observe that the first integral in \eqref{eq:cpt-general}, i.e., 
-$\int_0^{+\infty} w^+(P(u^+(X)>z)) d z$
+$\int_0^{+\infty} w^+\left(\Prob{u^+(X)>z}\right) d z$
 may diverge even if the first moment of random variable $u^+(X)$ is finite. 
 For example, suppose $U$ has the tail distribution function
-$P(U>z)  = \frac{1}{z^2}, z\in [1, +\infty),$
+$\Prob{U>z}  = \frac{1}{z^2}, z\in [1, +\infty),$
  and $w^+(z)$ takes the form $w(z) = z^{\frac{1}{3}}$. Then, the first integral in \eqref{eq:cpt-general}, i.e.,
 $
 \int_1^{+\infty}  z^{-\frac{2}{3}}\, dz
@@ -43,17 +43,17 @@ The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\al
 there exists $ \gamma \le \alpha$ such that (s.t.)
 $\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty.$
 
-The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition \ref{prop:Holder-cpt-finite} in 
-Appendix \ref{sec:holder-proofs} for a formal proof.
+The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition 5 in 
+\cite{Pracheng2015cpt} for a formal proof.
 
 
 \paragraph{Approximating CPT-value using quantiles:}
 Let $\xi^+_{\alpha}$ denote the $\alpha$th quantile of the r.v. $u^+(X)$. 
 \todoc{Does this assume that $u^+(x)=0$ for $x<0$?}
-Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Appendix \ref{sec:holder-proofs})
+Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in \cite{Pracheng2015cpt})
 \begin{align}
-&\lim_{n \rightarrow \infty} \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right) \nonumber\\
-&= \int_0^{+\infty} w^+(P(u^+(X)>z)) dz.\label{eq:holder-quant-motiv}
+&\lim_{n \rightarrow \infty} \sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n+1-i}{n}\right)- w^+\left(\frac{n-i}{n}\right) \right) \nonumber\\
+&= \int_0^{+\infty} w^+\left(\Prob{u^+(X)>z}\right) dz.\label{eq:holder-quant-motiv}
 \end{align}
 A similar claim holds with $u^-(X)$, $\xi^-_{\alpha}, w^-$ in place of  $u^+(X)$, $\xi^+_{\alpha}, w^+$, respectively. Here $\xi^-_{\alpha}$ denotes the 
 $\alpha$th quantile of $u^-(X)$.
@@ -71,19 +71,19 @@ $X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Note that $u^+(X_{[1]}),\ldots ,u^+(X_{[n]}
 %\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
 \State Let
 \vspace{-0.5ex}
-$$\overline \C_n^+:=\sum_{i=1}^{n-1} u^+(X_{[i]}) \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right).$$
+$$\hspace{-1.1em}\overline \C_n^+:=\sum_{i=1}^{n} u^+(X_{[i]}) \left(w^+\!\left(\frac{n+1-i}{n}\right)\!-\! w^+\!\left(\frac{n-i}{n}\right) \right).$$
 \vspace{-0.5ex}
 \State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$, notice that $u^{-}(X_{[i]})$ is in descending order since $u^{-}$ is a decreasing function.     
 \State Let
 \vspace{-0.5ex}
-$$\overline \C_n^-:=\sum_{i=1}^{n-1} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right). $$
+$$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right). $$
 
 \vspace{-0.5ex}
 \State Return $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
 \end{algorithmic}
 \end{algorithm}
 
-\subsubsection*{Main results}
+\subsubsection*{Main results\footnote{All proofs can be found in the extended version of the paper \cite{Pracheng2015cpt}}}
 %We make the following assumptions on the utility functions:\\[1ex]
 \textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
 
@@ -107,10 +107,11 @@ $(-\infty, 0)$. Then, we have that
 \end{align}
 where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}.
 \end{proposition}
-\begin{proof}
-See Appendix \ref{sec:holder-proofs}. \todoc{It seems that the statement of the proposition is not consistent with the proof.
+\todoc{It seems that the statement of the proposition is not consistent with the proof.
 The proof assumes H\"older continuity.}
-\end{proof}
+%\begin{proof}
+%See Appendix \ref{sec:holder-proofs}. 
+%\end{proof}
 \todoc{We had here: ``While the above result establishes that $\overline \C_n$ is an unbiased estimator in the asymptotic sense, ''
 This is not true. For this, we would need to prove that $\EE{ \overline \C_n } \to \C(X)$, which requires separate proof.}
 %Our next result concerns the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
@@ -121,27 +122,27 @@ high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 \label{prop:holder-dkw}
 Assume (A1) and (A2'). Then, $\forall \epsilon >0, \delta >0$, we have
 $$
-P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) >1- \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
 \end{proposition}
-\begin{proof}
-
-%Notice the the following equivalence:
-%$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
-%and also,
-%$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
+%\begin{proof}
 %
-%where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ are the empirical distribution functions (EDFs) of $u^+(X)$
-%and $u^-(X)$, defined as follows:
-%\begin{align}
-%{\widehat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
-%{\widehat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
-%\label{eq:edf}
-%\end{align}
-%The main claim follows from the equivalence mentioned above together with the well-known Dvoretzky-Kiefer-Wolfowitz (DKW) inequality (cf. Chapter 2 of \cite{wasserman2006}).
-
-See Appendix \ref{sec:holder-proofs}.
-\end{proof}
+%%Notice the the following equivalence:
+%%$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\widehat{F^+_n}(x)) dx, $$
+%%and also,
+%%$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{n-i}{n}) - w^-(\frac{n-i-1}{n})) =  \int_0^M w^-(1-\widehat{F^-_n}(x)) dx, $$
+%%
+%%where $\widehat{F^+_n}(x)$ and $\widehat{F^-_n}(x)$ are the empirical distribution functions (EDFs) of $u^+(X)$
+%%and $u^-(X)$, defined as follows:
+%%\begin{align}
+%%{\widehat F_n}^+(x)=&\frac{1}{n} \sum_{i=1}^n 1_{(u^+(X_i) \leq x)}, 
+%%{\widehat F_n}^-(x)=\frac{1}{n} \sum_{i=1}^n 1_{(u^-(X_i) \leq x)}.
+%%\label{eq:edf}
+%%\end{align}
+%%The main claim follows from the equivalence mentioned above together with the well-known Dvoretzky-Kiefer-Wolfowitz (DKW) inequality (cf. Chapter 2 of \cite{wasserman2006}).
+%
+%See Appendix \ref{sec:holder-proofs}.
+%\end{proof}
 
 \subsubsection{Results for Lipschitz continuous weights}
 In the previous section, it was shown that \holder continuous weights incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. In this section, we establish that one can achieve the canonical Monte Carlo rate if we consider Lipschitz continuous weights, i.e., the following assumption in place of (A1):
@@ -160,15 +161,15 @@ $$\overline \C_n
 \C(X)
  \text{   a.s. as } n\rightarrow \infty
 $$
-In addition, if we assume (A2'), we have $\forall \epsilon >0, \delta >0$ 
+In addition, if we assume (A2'), we have $\forall \epsilon >0, \delta >0$, 
 $$
-P(\left |\overline \C_n- \C(X) \right| \leq  \epsilon ) > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
 \frac{4L^2 M^2}{\epsilon^{2}}.
 $$
 \end{proposition}
-\begin{proof}
-See Appendix \ref{sec:lipschitz-proofs}.
-\end{proof}
+%\begin{proof}
+%See Appendix \ref{sec:lipschitz-proofs}.
+%\end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

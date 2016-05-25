@@ -56,7 +56,8 @@ More precisely, we will use \emph{cumulative prospect theory} (CPT),
 CPT generalizes expected utility theory in that in addition to having a utility function transforming
 	the outcomes, another function is introduced which distorts the probabilities in the cumulative distribution function.
 As compared to prospect theory, CPT is monotone with respect to stochastic dominance, a property
-	that is thought to be useful and (mostly) consistent with human preferences.\footnote{See Appendix \ref{sec:appendix-cpt-intro} for an introduction to PT/CPT and an explanation of why expected utility theory is inconsistent with human preferences.}
+	that is thought to be useful and (mostly) consistent with human preferences.
+	%\footnote{See Appendix \ref{sec:appendix-cpt-intro} for an introduction to PT/CPT and an explanation of why expected utility theory is inconsistent with human preferences.}
 	
 \if0	
 
@@ -206,7 +207,10 @@ To put things in context, risk-sensitive reinforcement learning problems are gen
 For a discounted MDP, \citet{Sobel82VD} showed that there exists a Bellman equation for the variance of the return, but the underlying Bellman operator is not necessarily monotone, thus ruling out policy iteration as a solution approach for variance-constrained MDPs.
 Further, even if the transition dynamics are known, \citet{mannor2013algorithmic} show that finding a globally mean-variance optimal policy in a discounted MDP is NP-hard.
 For average reward MDPs, \citet{filar1989variance} motivate a different notion of variance and then provide NP-hardness results for finding a globally variance-optimal policy.
-CVaR as a risk measure is equally complicated as the measure here is a conditional expectation, where the conditioning is on a low probability event. Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \citealt{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. \todoc{
+Solving Conditional Value at Risk (CVaR) constrained MDPs is equally complicated as CVaR is a conditional expectation with the conditioning on a low probability event (cf. \citealt{borkar2010risk,prashanth2014policy,tamar2014optimizing}). 
+
+%Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \citealt{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. 
+\todoc{
 We probably have to tame this paragraph and refer to other works.
 I do not know the simulation optimization literature very well, but I think a major topic is to estimate CVaR and other tail measures and there are many methods with guarantees. Books are written about this. For example, Kroese et al., or Gerardo Rubino, Bruno Tuffin:	Rare event simulation using Monte Carlo methods.
 Even I have a paper on CVaR, \citet{yu2009}.

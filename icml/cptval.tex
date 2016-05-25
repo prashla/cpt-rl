@@ -7,10 +7,10 @@ For a real-valued random variable $X$, we introduce a ``CPT-functional'' that re
 The functional, denoted by $\C$,
 indexed by
 $u=(u^+,u^-)$, $w=(w^+,w^-)$, where $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$),
- is defined as \todoc{I would prefer $\Prob{\cdot}$ to $P(\cdot)$ everywhere.}
+ is defined as \todoc{I would prefer $\Prob{\cdot}$ to $\Prob(\cdot)$ everywhere.}
 \begin{align}
-\C_{u,w}(X) &= \intinfinity w^+(P(u^+(X)>z)) dz\nonumber \\
-&\quad - \intinfinity w^-(P(u^-(X)>z)) dz\,. \label{eq:cpt-general}
+\C_{u,w}(X) &= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber \\
+&\quad - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz\,. \label{eq:cpt-general}
 \end{align}
 For notational convenience, when $u,w$ is fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. \todoc{This is a bit wild here. I think we later need $u^+(x)=0$ for $x<0$ and $u^-(x)=0$ for $x>0$. 
 Then we should say this here. The figure needs to be modified. Further, the integral should better go from $-\infty$ to $+\infty$.
@@ -18,7 +18,7 @@ In both cases.}
 Note that when $w^+,w^-$
 and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, 
 are the identity functions, and we let $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$,
-$\C(X) = \intinfinity P(X>z) dz -  \intinfinity P(-X>z)) dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
+$\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z}) dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
 %\cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
 
  \begin{figure}[t]
@@ -133,7 +133,8 @@ tendency of humans doing the same when faces with decisions of uncertain outcome
 A few remarks are in order.
 \begin{remark}\textit{(RL applications)}
 %The CPT-value, as defined in \eqref{eq:cpt-general}, has several applications in RL. In general, 
-For any RL problem setting, one can define the return for a given policy and then apply CPT-functional on the return. For instance, with a fixed policy, the random variable (r.v.) $X$ could be the total reward in a stochastic shortest path problem or the infinite horizon cumulative reward in a discounted MDP or the long-run average reward in an MDP - See Appendix \ref{sec:cpt-ssp} for one such application. 
+For any RL problem setting, one can define the return for a given policy and then apply CPT-functional on the return. For instance, with a fixed policy, the random variable (r.v.) $X$ could be the total reward in a stochastic shortest path problem or the infinite horizon cumulative reward in a discounted MDP or the long-run average reward in an MDP.
+ %- See Appendix \ref{sec:cpt-ssp} for one such application. 
 \end{remark}
 
 

@@ -7,7 +7,9 @@ We consider a road network with $\N$ signalled lanes that are spread across junc
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP in the following.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and path-wise delays.
-The actions are the feasible sign configurations. Traffic lights that can be simultaneously switched to green form a sign configuration. \todoc{What is this last sentence doing here? What do we want to say with it?}
+The actions are the feasible sign configurations. 
+%Traffic lights that can be simultaneously switched to green form a sign configuration. 
+\todoc{What is this last sentence doing here? What do we want to say with it?}
 
 We consider three different notions of return as follows:
 
@@ -20,8 +22,7 @@ Thus, the EUT objective is defined as\\
 \begin{small}
 \centerline{$\text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),$}
   \end{small}
-	
-where $\E(u^+(X_i)) = \intinfinity P(u^+(X_i)>z) dz$ and $\E(u^-(X_i)) - \intinfinity P(u^-(X_i)>z) dz$, for $i=1,\ldots,\M$.
+where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
 
 \textbf{AVG:} This is similar to EUT, except that no distinction between gains and losses via utility functions nor distort using weights as in CPT. Thus, $\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i)$. 
 %Thus, the AVG objective is defined as
@@ -34,15 +35,14 @@ An important recommendation of CPT is to employ a reference point to calculate g
 %Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
 In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. In other words, if the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. The $d_n^{i,j}$ in the state $s_n$ are to be understood as the delay difference to the pre-timed TLC.  
 
-The underlying policy in all the algorithms that we implement follows a Boltzmann distribution  and has the form
+%, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
+
+Using a Boltzmann policy that has the form\footnote{the features $\phi(s,a)$ are chosen as in \cite{prashanth2012threshold}}\\
 $
 \pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
 \hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
 $
-where the features $\phi(s,a)$ are chosen as in \cite{prashanth2012threshold}.
-%, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
-
-We implement the following TLC algorithms:
+we implement the following TLC algorithms:
 
 {\bf\em CPT-SPSA}: This is the first-order algorithm with SPSA-based gradient estimates, as described in Algorithm \ref{alg:1spsa}. In particular, the estimation scheme in Algorithm \ref{alg:holder-est} is invoked to estimate $\C(X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
 

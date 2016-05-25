@@ -107,8 +107,8 @@ we adopt the CPT approach and aim to solve the following problem:
 $$ \max_{\theta \in \Theta} \C(D^\theta(s^0)),$$
 where $\Theta$ is the set of admissible policies that are \textit{proper}\footnote{A policy $\theta$ is proper if $0$ is recurrent and all other states are transient for the Markov chain underlying $\theta$. It is standard to assume that policies are proper in an SSP setting - cf. \cite{bertsekas1995dynamic}.} and the CPT-value function $\C(D^\theta(s^0))$ is defined as
 \begin{align}
-\C(D^\theta(s^0))& = \intinfinity w^+(P(u^+(D^\theta(s^0)))>z) dz \nonumber
-\\&- \intinfinity w^-(P(u^-(D^\theta(s^0)))>z) dz. \label{eq:cpt-mdp}
+\C(D^\theta(s^0))& = \intinfinity w^+\left(\Prob{u^+(D^\theta(s^0))>z}\right) dz \nonumber
+\\&- \intinfinity w^-\left(\Prob{u^-(D^\theta(s^0))>z}\right) dz. \label{eq:cpt-mdp}
 \end{align}
 
 
@@ -123,9 +123,9 @@ where $\Theta$ is the set of admissible policies that are \textit{proper}\footno
 \label{sec:holder-proofs}
 For proving Proposition \ref{prop:holder-asymptotic} and \ref{prop:sample-complexity-discrete}, we require Hoeffding's inequality, which is given below.
 \begin{lemma}
-Let $Y_1,...Y_n$ be independent random variables satisfying $P(a\leq Y_i \leq b)= 1,$ for each $i$, where $a<b.
+Let $Y_1,...Y_n$ be independent random variables satisfying $\Prob{a\leq Y_i \leq b}= 1,$ for each $i$, where $a<b.
 $ Then for $t>0$,
-$$P\left(\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt \right) \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
+$$\Prob{\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt } \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
 \end{lemma}
 
 \begin{proposition}
@@ -136,12 +136,12 @@ Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite.
 
 H\"{o}lder continuity of $w^+$ together with the fact that $w^+(0)=0$ imply that 
 $$
-\int_0^{+\infty} w^+(P(u^{+}(X)>t)) dz 
-\le H \int_0^{+\infty} P^{\alpha} (u^+(X)>z) dz
-\le H \int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz 
+\int_0^{+\infty} w^+\left(\Prob{u^{+}(X)>t}\right) dz 
+\le H \int_0^{+\infty} \mathbb{P}^{\alpha} \left(u^+(X)>z\right) dz
+\le H \int_0^{+\infty} \mathbb{P}^{\gamma} \left(u^+(X)>z\right) dz 
 <+\infty.
 $$
-The second inequality is valid since $P(u^+(X)>z) \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
+The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
 \end{proof}
 
 %%%%
@@ -151,9 +151,9 @@ Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\f
 \begin{align}
 \label{eq:simple-estimation}
 \begin{split}
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} (w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^+(P(u^+(X)>z)) dz < +\infty,
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^+\left(\Prob{u^+(X)>z}\right) dz < +\infty,
 \\
-\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} (w^-(\frac{n-i}{n})- w^-(\frac{n-i-1}{n}) ) = \int_0^{+\infty} w^-(P(u^-(X)>z)) dz < +\infty
+\lim_{n \rightarrow \infty} \sum_0^{n-1} \xi^-_{\frac{i}{n}} \left(w^-\left(\frac{n-i}{n}\right)- w^-\left(\frac{n-i-1}{n}\right) \right) = \int_0^{+\infty} w^-\left(\Prob{u^-(X)>z}\right) dz < +\infty
 \end{split}
 \end{align}
 \end{proposition}
@@ -162,13 +162,13 @@ Assume (A1'). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\f
 \begin{proof}
 We shall focus on proving the first part of equation \eqref{eq:simple-estimation}. Consider the following linear combination of simple functions: 
 \begin{align}
-\sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
-\cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi_\frac{n-i}{n}]}(t),
+\sum_{i=0}^{n-1} w^+ \left(\frac{i}{n}\right) 
+\cdot I_{\left[\xi^+_\frac{n-i-1}{n}, \xi_\frac{n-i}{n}\right]}(t),
 \label{eq:simplew}
 \end{align}
 which will converge almost everywhere to the function $w(P(u^{+}(X)>t))$ in the interval $[0, +\infty)$, and also notice that 
 \begin{align*}
-\sum_{i=0}^{n-1} w^+ (\frac{i}{n}) 
+\sum_{i=0}^{n-1} w^+ \left(\frac{i}{n}\right) 
 \cdot I_{[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}]}(t)
 <
 w(P(u^{+}(X)>t)),

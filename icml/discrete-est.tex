@@ -28,17 +28,19 @@ Let $\hat p_k= \frac{1}{n} \sum_{i=1}^n I_{\{U =x_k\}}$ and
 \end{align}
 Then, we estimate $\C(X)$ as follows:
 \begin{small}
-\begin{align}
+\begin{align*}
 &\overline \C_n \!=\! 
 u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat F_{i-1})\Big) 
 \nonumber\\
 &
-+ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\hat F_i) - w^+(\hat F_{i+1}) \Big) + u^+(x_K) w^+(\hat p_K). \label{eq:cpt-discrete-est}
-\end{align}
++ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\hat F_i) - w^+(\hat F_{i+1}) \Big) + u^+(x_K) w^+(\hat p_K). 
+%\label{eq:cpt-discrete-est}
+\end{align*}
 \end{small}
 %Because $\hat{p_k}$ converge a.e to $p_k=P(X_i=x_k)$, with $X_i$ be the ith sample of $X$, the above estimator is  strong consistent property by the continuous mapping theorem. 
 %The following proposition presents a sample complexity result for the discrete-valued $X$ under the following assumption:\\
-\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L< \infty$ and $\delta>0$, such that
+
+\noindent\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L< \infty$ and $\delta>0$, such that
 $$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\delta,x+\delta). $$
 The main result for discrete-valued $X$ is given below.
 \begin{proposition}
@@ -48,15 +50,15 @@ $F_k$, where $k=1,...l$, and of function $w^+(x)$ at points $k=l+1,...K$.
 Let $A=\max\{u^{-}(x_k), k=1...l\} \bigcup \{u^{+}(x_k), k=l+1...K\}$, $\delta =\min\{\delta_k\}$, where $\delta_k$ is the half the length of the interval centered at point $F_k$ where the locally Lipschitz property with constant $L_k$ holds.
 For any $\epsilon,\rho >0$, we have 
 \begin{align}
-P(\left|
+\Prob{\left|
 \overline \C_n -\C(X)
-\right| \leq \epsilon) > 1-\rho, \forall n> \frac{\ln(\frac{4K}{a})} { M}, 
+\right| \leq \epsilon} > 1-\rho, \forall n> \frac{\ln(\frac{4K}{a})} { M}, 
 \end{align}
 where $M=\min(\delta^2, \epsilon^2/(KLA)^2)$.
 \end{proposition}
 In comparison to Propositions \ref{prop:holder-dkw} and \ref{prop:lipschitz}, 
 observe that the sample complexity for discrete $X$ scales with the local Lipschitz constant $L$ and this can be much smaller the global Lipschitz constant of the weight functions or the weight functions may not be Lipschitz globally.  
-\begin{proof}
- See Section \ref{sec:proofs-discrete}.
-\end{proof}
+%\begin{proof}
+ %See Section \ref{sec:proofs-discrete}.
+%\end{proof}
 
