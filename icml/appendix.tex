@@ -314,32 +314,33 @@ $u^-(X_{[n-i]})$ is an estimate of the quantile $\xi^{-}_{\frac{i}{n}}$.
 \subsection*{Proof of Proposition \ref{prop:holder-dkw}}
 For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provide a finite-time bound on the distance between empirical distribution and the true distribution:
 \begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
-Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n 1_{((u(X_i)) \leq u)}$ denote the empirical distribution of a r.v. $U$, with $u(X_1),\ldots,u(X_n)$ being sampled from the r.v $u(X)$.
+Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n I_{\left[(u(X_i)) \leq u\right]}$ denote the empirical distribution of a r.v. $U$, with $u(X_1),\ldots,u(X_n)$ being sampled from the r.v $u(X)$.
 The, for any $n$ and $\epsilon>0$, we have
 $$
-P(\sup_{x\in \mathbb{R}}|\hat{F}_n(x)-F(x)|>\epsilon ) \leq 2 e^{-2n\epsilon^2}.
+\Prob{\sup_{x\in \mathbb{R}}|\hat{F}_n(x)-F(x)|>\epsilon } \leq 2 e^{-2n\epsilon^2}.
 $$
 \end{lemma}
 
-The reader is referred to Chapter 2 of \cite{wasserman2006} for more on empirical distributions in general and DKW inequality in particular.
+The reader is referred to Chapter 2 of \cite{wasserman2006} for detailed description of empirical distributions in general and DKW inequality in particular.
 
 \begin{proof}
 We prove the $w^+$ part, and the $w^-$ part follows in a similar fashion.
 Since $u^+(X)$ is bounded above by $M$ and $w^+$ is H\"{o}lder-continuous, we have
 \begin{align*}
-&\left|\int_0^{\infty} w^+(P(u^+(X))>t) dt- \int_0^{\infty} w^+(1- {\hat F^+_n}(t)) dt\right| \\ = &
-    \left|\int_0^M w^+(P(u^+(X))>t) dt- \int_0^M w^+(1- {\hat F^+_n}(t)) dt\right| \\
-\leq& \left|\int_0^M H\cdot |P(u^+(X)<t)-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
-\mathbb{R}}\left|P(u^+(X)<t)-{\hat F^+_n}(t)\right|^\alpha.
+&\left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
+    \left|\int_0^M w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^M w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
+\leq& \left|\int_0^M H\cdot |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
+\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 Now, plugging in the DKW inequality, we obtain
 \begin{align}
 &
-P\left(\left|\intinfinity w^+(P(u^+(X))>t) dt- \intinfinity w^+(1- {\hat F^+_n}(t)) dt\right|>\epsilon\right)
+\Prob{\left|\intinfinity w^+\left(\Prob{u^+(X)>t}\right) dt- \intinfinity w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\epsilon}
 \nonumber\\
-& \leq P\left(HM\sup_{t\in \mathbb{R}} \left|(P(u^+(X)<t)-{\hat F^+_n}(t)\right|^\alpha>\epsilon\right)
+& \leq \Prob{HM\sup_{t\in \mathbb{R}} \left|(\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha>\epsilon}
 \leq  e^{-n \frac{\epsilon ^{(2/\alpha)}} {2 H^2 M^2}}.\label{eq:dkw3}
 \end{align}
+The claim follows.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%Lipschitz-starts-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
