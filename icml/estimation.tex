@@ -49,7 +49,6 @@ The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-gene
 
 \paragraph{Approximating CPT-value using quantiles:}
 Let $\xi^+_{\alpha}$ denote the $\alpha$th quantile of the r.v. $u^+(X)$. 
-\todoc{Does this assume that $u^+(x)=0$ for $x<0$?}
 Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in \cite{Pracheng2015cpt})
 \begin{align}
 &\lim_{n \rightarrow \infty} \sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n+1-i}{n}\right)- w^+\left(\frac{n-i}{n}\right) \right) \nonumber\\
@@ -90,8 +89,6 @@ $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right
 \textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
 
 For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
-\todoc{Asymptotic convergence is called asymptotic consistency, because convergence itself does not imply that the limiting
-value will be the correct one.}
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
 Assume (A1) and also that $F^+(\cdot)$, $F^-(\cdot)$ - the distribution functions of $u^+(X)$, and $u^-(X)$ 
@@ -107,13 +104,9 @@ $(-\infty, 0)$. Then, we have that
 \end{align}
 where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}.
 \end{proposition}
-\todoc{It seems that the statement of the proposition is not consistent with the proof.
-The proof assumes H\"older continuity.}
 %\begin{proof}
 %See Appendix \ref{sec:holder-proofs}. 
 %\end{proof}
-\todoc{We had here: ``While the above result establishes that $\overline \C_n$ is an unbiased estimator in the asymptotic sense, ''
-This is not true. For this, we would need to prove that $\EE{ \overline \C_n } \to \C(X)$, which requires separate proof.}
 %Our next result concerns the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
 Under somewhat stronger assumptions, 
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
@@ -146,7 +139,6 @@ $$
 
 \subsubsection{Results for Lipschitz continuous weights}
 In the previous section, it was shown that \holder continuous weights incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. In this section, we establish that one can achieve the canonical Monte Carlo rate if we consider Lipschitz continuous weights, i.e., the following assumption in place of (A1):
-\todoc{How about explaining why we do this? Why do we consider this case? (Every time we do something we should explain why we do it)}
  
 \textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
