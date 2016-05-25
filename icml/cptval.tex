@@ -6,19 +6,17 @@ For a real-valued random variable $X$, we introduce a ``CPT-functional'' that re
 %\label{sec:cptdef}
 The functional, denoted by $\C$,
 indexed by
-$u=(u^+,u^-)$, $w=(w^+,w^-)$, where $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$),
- is defined as \todoc{I would prefer $\Prob{\cdot}$ to $\Prob(\cdot)$ everywhere.}
+$u=(u^+,u^-)$, $w=(w^+,w^-)$, where $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous
+with $u^+(x)=0$ when $x\le 0$ and $u^-(x)=0$ when $x\ge 0$ (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$),
+ is defined as 
 \begin{align}
 \C_{u,w}(X) &= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber \\
 &\quad - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz\,. \label{eq:cpt-general}
 \end{align}
-For notational convenience, when $u,w$ is fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. \todoc{This is a bit wild here. I think we later need $u^+(x)=0$ for $x<0$ and $u^-(x)=0$ for $x>0$. 
-Then we should say this here. The figure needs to be modified. Further, the integral should better go from $-\infty$ to $+\infty$.
-In both cases.}
-Note that when $w^+,w^-$
+For notational convenience, when $u,w$ is fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. Note that when $w^+,w^-$
 and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, 
 are the identity functions, and we let $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$,
-$\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z}) dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
+$\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
 %\cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
 
  \begin{figure}[t]
