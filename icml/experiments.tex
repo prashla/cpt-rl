@@ -7,12 +7,10 @@ We consider a road network with $\N$ signalled lanes that are spread across junc
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP in the following.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and path-wise delays.
-The actions are the feasible sign configurations. 
-%Traffic lights that can be simultaneously switched to green form a sign configuration. 
-\todoc{What is this last sentence doing here? What do we want to say with it?}
+The actions are the feasible traffic signal configurations. 
 
 We consider three different notions of return as follows:
-
+%
 \textbf{CPT:} Let $\mu^i$ be the proportion of road users along path $i$, for $i=1,\ldots,\M$. Any road user along path $i$, will evaluate the delay he experiences in a manner that is captured well by CPT. Let $X_i$ be the delay r.v. for path $i$ and let the corresponding CPT-value be $\C(X_i)$. With the objective of maximizing the experience of road users across paths, the overall return to be optimized is given by
 \begin{align}
 \text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i).\label{eq:cpt-traffic}
