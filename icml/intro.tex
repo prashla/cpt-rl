@@ -176,7 +176,7 @@ In this paper, we consider a natural quantile-based estimator and analyze its be
 Under certain technical assumptions, we prove consistency and give sample complexity bounds, the latter based on the
  Dvoretzky-Kiefer-Wolfowitz (DKW) theorem.
 As an example, we show that the sample complexity for estimating the CPT-value 
-for Lipschitz probability distortion (so-called ``weight'') functions is  $O\left(\frac1{\epsilon^2}\right)$, which coincides with the canonical rate for Monte Carlo-type schemes. Since weight-functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  jumps to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
+for Lipschitz probability distortion (so-called ``weight'') functions is  $O\left(\frac1{\epsilon^2}\right)$, which coincides with the canonical rate for Monte Carlo-type schemes and is thus unimprovable. Since weight-functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  jumps to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
 %However, for weight functions which are only \holder continuous with exponent $\alpha \in (0,1)$,
 %Thus, at least in this case, 
 %At the same time, 
@@ -202,13 +202,8 @@ For a discounted MDP, \citet{Sobel82VD} showed that there exists a Bellman equat
 Further, even if the transition dynamics are known, \citet{mannor2013algorithmic} show that finding a globally mean-variance optimal policy in a discounted MDP is NP-hard.
 For average reward MDPs, \citet{filar1989variance} motivate a different notion of variance and then provide NP-hardness results for finding a globally variance-optimal policy.
 Solving Conditional Value at Risk (CVaR) constrained MDPs is equally complicated (cf. \citealt{borkar2010risk,prashanth2014policy,tamar2014optimizing}). 
-
 %Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \citealt{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. 
-
-We derive a scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. 
-\todoc{This was said before, no!? So delete this sentence and merge the next with the previous paragraph?}
-The scheme is proven to be sample-efficient in a special case when the weight function used in the CPT-value definition is Lipschitz continuous.
-Finally, we point out that the CPT-value that we define is a generalization of the above previous works in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a the distortions used in the definition of the CPT value.
+Finally, we point out that the CPT-value is a generalization of all the risk measures above in the sense that one can recover these particular risk measures such as VaR and CVaR by appropriate choices of the distortions used in the definition of the CPT value.
 
 The work closest to ours is by \citet{lin2013stochastic}, who proposes a CPT-measure for an abstract MDP setting.
  %(see \cite{bertsekas2013abstract}). 
