@@ -34,12 +34,9 @@ To capture human preferences, the outcomes are mapped to a single numerical quan
 %We will make the assumption that human preferences can 
 %To create a single numerical quantity that faithfully captures human preferences, 
 %a \emph{risk metrics}, mapping the random returns to some scalar deterministic quantity, is used.
-While preferences of rational agents facing uncertain situations can be modeled using expected utilities,
+While preferences of rational agents facing decisions with stochastic outcomes can be modeled using expected utilities,
 i.e., the expectation of a nonlinear transformation, such as the exponential function, of the rewards or costs
 \citep{NeuMo44,fishburn1970expectedutility}, 
-\todoc{Some use the world uncertainty in relation to situations
-which can not be modeled probabilistically, and use risk in relation to situations that can be modeled probabilistically.
-So we are inconsistent with these people.}
 	humans are subject to various emotional and cognitive biases,
 	and, as the psychology literature points out, human preferences 
 	are inconsistent with expected utilities regardless of what nonlinearities are used
@@ -139,9 +136,6 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 \draw [->,thick,dotted] (tmp4)  |-  (belowagent) -|  (agent.south);
 \end{tikzpicture}}
 \caption{Operational flow of a human-based decision making system
-\todoc[inline]{Can we add next to the human a heart or something expressing that the human has feelings/preferences?
-Alternatively, make an arrow that comes out from the human to the right, and write CPT on it.
-}
 }
 \label{fig:flow}
 \end{figure}
@@ -207,17 +201,13 @@ To put things in context, risk-sensitive reinforcement learning problems are gen
 For a discounted MDP, \citet{Sobel82VD} showed that there exists a Bellman equation for the variance of the return, but the underlying Bellman operator is not necessarily monotone, thus ruling out policy iteration as a solution approach for variance-constrained MDPs.
 Further, even if the transition dynamics are known, \citet{mannor2013algorithmic} show that finding a globally mean-variance optimal policy in a discounted MDP is NP-hard.
 For average reward MDPs, \citet{filar1989variance} motivate a different notion of variance and then provide NP-hardness results for finding a globally variance-optimal policy.
-Solving Conditional Value at Risk (CVaR) constrained MDPs is equally complicated as CVaR is a conditional expectation with the conditioning on a low probability event (cf. \citealt{borkar2010risk,prashanth2014policy,tamar2014optimizing}). 
+Solving Conditional Value at Risk (CVaR) constrained MDPs is equally complicated (cf. \citealt{borkar2010risk,prashanth2014policy,tamar2014optimizing}). 
 
 %Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \citealt{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. 
-\todoc{
-We probably have to tame this paragraph and refer to other works.
-I do not know the simulation optimization literature very well, but I think a major topic is to estimate CVaR and other tail measures and there are many methods with guarantees. Books are written about this. For example, Kroese et al., or Gerardo Rubino, Bruno Tuffin:	Rare event simulation using Monte Carlo methods.
-Even I have a paper on CVaR, \citet{yu2009}.
-}
 
-We derive a \textit{provably} sample-efficient \todoc{lower bound? then mention it earlier} scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. 
+We derive a scheme for estimating the CPT-value (see next section for a precise definition) for a given policy and use this as the inner loop in a policy optimization scheme. 
 \todoc{This was said before, no!? So delete this sentence and merge the next with the previous paragraph?}
+The scheme is proven to be sample-efficient in a special case when the weight function used in the CPT-value definition is Lipschitz continuous.
 Finally, we point out that the CPT-value that we define is a generalization of the above previous works in the sense that one can recover the regular value function and the risk measures such as VaR and CVaR by appropriate choices of a the distortions used in the definition of the CPT value.
 
 The work closest to ours is by \citet{lin2013stochastic}, who proposes a CPT-measure for an abstract MDP setting.
