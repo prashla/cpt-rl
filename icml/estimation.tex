@@ -84,11 +84,8 @@ $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right
 
 \subsubsection*{Main results\footnote{All proofs can be found in the extended version of the paper \cite{Pracheng2015cpt}}}
 %We make the following assumptions on the utility functions:\\[1ex]
-\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
 
-\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
-
-For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
+%For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
 Assume (A1) and also that $F^+(\cdot)$, $F^-(\cdot)$ - the distribution functions of $u^+(X)$, and $u^-(X)$ 
@@ -108,9 +105,14 @@ where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X
 %See Appendix \ref{sec:holder-proofs}. 
 %\end{proof}
 %Our next result concerns the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
-Under somewhat stronger assumptions, 
+Under (A2') stated below, 
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate:
+
+\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
+
+\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
+
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
 Assume (A1) and (A2'). Then, $\forall \epsilon >0, \delta >0$, we have
