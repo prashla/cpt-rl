@@ -36,11 +36,11 @@ In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the F
 
 %, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
 
-Using a Boltzmann policy that has the form\footnote{The features $\phi(s,a)$, used in the policy $\pi_{\theta}(s,a)$, are chosen as described in Section V-B of \cite{prashanth2012threshold}.}\\[0.5ex]
-\centerline{$
+Using a Boltzmann policy that has the form\footnote{The features $\phi(s,a)$, used in the policy $\pi_{\theta}(s,a)$, are chosen as described in Section V-B of \cite{prashanth2012threshold}.}
+$$
 \pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
 \hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
-$}\\[0.5ex]
+$$
 we implement the following TLC algorithms:
 
 {\bf\em CPT-SPSA}: This is the first-order algorithm with SPSA-based gradient estimates, as described in Algorithm \ref{alg:1spsa}. In particular, the estimation scheme in Algorithm \ref{alg:holder-est} is invoked to estimate $\C(X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
@@ -184,6 +184,6 @@ height=6.5cm,
 \end{tikzpicture}}\\[1ex]}
 }
 \end{tabular}
-\caption{Histogram of CPT-value of the average delay for three different algorithms (all based on SPSA): AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both utilites and weights. Note: larger values are better.}
+\caption{Histogram of CPT-value of the differential delay (calculated with a pre-timed TLC as reference point) for three different algorithms (all based on SPSA): AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both utilites and weights. Note: larger values are better.}
 \label{fig:histogram-perf}
 \end{figure}
