@@ -364,66 +364,66 @@ This is a standard result that can be found in any textbook on measure theory. F
 \subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
 \begin{proof}
 Notice the the following equivalence: \todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
-$$\sum_{i=1}^{n-1} u^+(X_{[i]}) (w^+(\frac{n-i}{n}) - w^+(\frac{n-i-1}{n})) =  \int_0^M w^+(1-\hat{F}^+_n(x)) dx, $$
+$$\sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i}{n}\right) - w^+\left(\frac{n-i-1}{n}\right)\right) =  \int_0^M w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, $$
 and also,
-$$\sum_{i=1}^{n-1} u^-(X_{[i]}) (w^-(\frac{i}{n}) - w^-(\frac{i+1}{n})) =  \int_0^M w^-(1-\hat{F}^-_n(x)) dx, $$
-where $\hat{F}^+_n(x)$ and $\hat{F}^-_n(x)$ is the empirical distribution of $u^+(X)$
-and $u^-(X)$.
+$$\sum_{i=1}^{n-1} u^-\left(X_{[i]}\right) \left(w^-\left(\frac{i}{n}\right) - w^-\left(\frac{i+1}{n}\right)\right) =  \int_0^M w^-\left(1-\hat{F}^-_n\left(x\right)\right) dx, $$
+where $\hat{F}^+_n\left(x\right)$ and $\hat{F}^-_n\left(x\right)$ is the empirical distribution of $u^+\left(X\right)$
+and $u^-\left(X\right)$.
 
 Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
 \begin{align}
-\overline \C_n = \intinfinity w^+(1-{\hat F_n}^+(x))  dx - \intinfinity w^-(1-{\hat F_n}^-(x))  dx.
+\overline \C_n = \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx - \intinfinity w^-\left(1-{\hat F_n}^-\left(x\right)\right)  dx.
 \label{eq:cpt-est-appendix}
 \end{align}
 We first prove the asymptotic convergence claim for the first integral in \eqref{eq:cpt-est-appendix}, i.e., we show
 \begin{align}
-\intinfinity w^+(1-{\hat F_n}^+(x))  dx \rightarrow \intinfinity w^+(P(u^+(X)>x) dx.\label{eq:3}
+\intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \rightarrow \intinfinity w^+\left(P\left(u^+\left(X\right)>x\right)\right) dx.\label{eq:3}
 \end{align} 
 
 Since $w^+$ is Lipschitz continuous with, say, constant $L$, we have almost surely that
-$w^{+}(1-\hat{F}_n(x)) \leq L (1-\hat{F}_n(x))$,  
+$w^{+}\left(1-\hat{F}_n\left(x\right)\right) \leq L \left(1-\hat{F}_n\left(x\right)\right)$,  
 for all $n$ and 
- $w^{+}((P(u^+(X)>x)) \leq L\cdot (P(u^+(X)>x)$, since $w^+(0)=0$.
+ $w^{+}\left(P\left(u^+\left(X\right)>x\right)\right) \leq L\cdot \left(P\left(u^+\left(X\right)>x\right)\right)$, since $w^+\left(0\right)=0$.
  
 Notice that the empirical distribution function 
-${\hat F_n}^+(x)$ 
+${\hat F_n}^+\left(x\right)$ 
 generates a Stieltjes measure which takes mass 
-$1/n$ on each of the sample points $u^+(X_{i})$. 
+$1/n$ on each of the sample points $u^+\left(X_{i}\right)$. 
 
 We have
-$$\intinfinity (P(u^+(X)>x))  dx = E(u^+(X))$$
+$$\intinfinity \left(P\left(u^+\left(X\right)>x\right)\right)  dx = E\left(u^+\left(X\right)\right)$$
 and
 
 \begin{equation}
-\intinfinity (1-{\hat F_n}^+(x))  dx =\intinfinity \int_x^\infty d \hat{F}_n(t) dx.\label{eq:2}
+\intinfinity \left(1-{\hat F_n}^+\left(x\right)\right)  dx =\intinfinity \int_x^\infty d \hat{F}_n\left(t\right) dx.\label{eq:2}
 \end{equation}
-Since ${\hat F_n}^+(x)$ has bounded support on $\mathbb{R}$ $\forall n$, the integral in \eqref{eq:2} is finite.
+Since ${\hat F_n}^+\left(x\right)$ has bounded support on $\mathbb{R}$ $\forall n$, the integral in \eqref{eq:2} is finite.
 Applying Fubini's theorem to the RHS of \eqref{eq:2}, we obtain
 \begin{equation}
-\intinfinity \int_x^\infty d \hat{F}_n(t) dx = \intinfinity \int_0^t dx d \hat{F}_n(t) = \intinfinity t d\hat{F}_n(t) = \frac{1}{n} \sum_{i=1}^n u^+(X_{[i]}),
+\intinfinity \int_x^\infty d \hat{F}_n\left(t\right) dx = \intinfinity \int_0^t dx d \hat{F}_n\left(t\right) = \intinfinity t d\hat{F}_n\left(t\right) = \frac{1}{n} \sum_{i=1}^n u^+\left(X_{[i]}\right),
  \end{equation}
- where $u^+(X_{[i]}), i=1,\ldots,n$ denote the order statistics, i.e., $u^+(X_{[1]}) \le \ldots \le u^+(X_{[n]})$.
+ where $u^+\left(X_{[i]}\right), i=1,\ldots,n$ denote the order statistics, i.e., $u^+\left(X_{[1]}\right) \le \ldots \le u^+\left(X_{[n]}\right)$.
  
 Now, notice that 
 
 $$
 \frac{1}{n}
-\sum_{i=1}^n u^+(X_{[i]})
+\sum_{i=1}^n u^+\left(X_{[i]}\right)
 =
 \frac{1}{n}
-\sum_{i=1}^n u^+(X_{[i]})
+\sum_{i=1}^n u^+\left(X_{[i]}\right)
 \overset{a.s}\longrightarrow 
-E(u^+(X)),
+E\left(u^+\left(X\right)\right),
 $$
 From the foregoing,
 $$
-\lim_{n\rightarrow \infty} \intinfinity L\cdot(1-\hat{F}_n(x)) dx
+\lim_{n\rightarrow \infty} \intinfinity L\cdot\left(1-\hat{F}_n\left(x\right)\right) dx
 \overset{a.s} \longrightarrow
-\intinfinity L \cdot(P(u^+(X)>x)) dx.$$
+\intinfinity L \cdot\left(P\left(u^+\left(X\right)>x\right)\right) dx.$$
 Hence, we have 
 $$
-\int_0^\infty w^{(+)}(1-\hat{F}_n(x)) dx \xrightarrow{a.s.} 
-\int_0^\infty w^{(+)}(P(u^+(X))>x) dx.
+\int_0^\infty w^{\left(+\right)}\left(1-\hat{F}_n\left(x\right)\right) dx \xrightarrow{a.s.} 
+\int_0^\infty w^{\left(+\right)}\left(P\left(u^+\left(X\right)\right)>x\right) dx.
 $$
 The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F}_n(x))$, and noticing that $L\cdot(1-\hat{F}_n(x)) \xrightarrow{a.s.} L(P(u^+(X)>x))$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
 
