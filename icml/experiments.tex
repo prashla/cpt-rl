@@ -17,13 +17,14 @@ We consider three different notions of return as follows:
 \text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i).\label{eq:cpt-traffic}
 \end{align}
 \textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
-Thus, the EUT objective is defined as\\
-\begin{small}
-\centerline{$\text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),$}
-  \end{small}
+Thus, the EUT objective is defined as
+\begin{align*}
+\text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),
+\end{align*}
 where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
 
-\textbf{AVG:} This is similar to EUT, except that no distinction between gains and losses via utility functions nor distort using weights as in CPT. Thus, $\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i)$. 
+\textbf{AVG:} This is similar to EUT, except that no distinction between gains and losses via utility functions nor distort using weights as in CPT. Thus,\\ 
+\centerline{$\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).$} 
 %Thus, the AVG objective is defined as
 %\begin{align}
 %\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).
@@ -32,7 +33,7 @@ where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \in
 
 An important recommendation of CPT is to employ a reference point to calculate gains and losses. 
 %Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
-In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. In other words, if the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. The $d_n^{i,j}$ in the state $s_n$ are to be understood as the delay difference to the pre-timed TLC.  
+In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. If the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay}.  
 
 %, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
 
@@ -50,11 +51,14 @@ we implement the following TLC algorithms:
 {\bf\em AVG-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 
 For both CPT-SPSA and EUT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
-$u^+(x) =  |x|^{\sigma}$, and  $u^-(x) = \lambda |x|^{\sigma}$, with $\lambda = 2.25$ and $\sigma = 0.88$.
+$$u^+(x) =  |x|^{\sigma}, \text{ and  }u^-(x) = \lambda |x|^{\sigma},$$ 
+where $\lambda = 2.25$ and $\sigma = 0.88$.
 For CPT-SPSA, we set the weights as follows:
-$w^+(p) = \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}$ and  
-$w^-(p) = \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}}$, with
-$\eta_1 = 0.61$ and $\eta_2 = 0.69$. These choices are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
+\begin{align*}
+w^+(p) &= \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}, \text{ and }\\  
+w^-(p) &= \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}},
+\end{align*} 
+where $\eta_1 = 0.61$ and $\eta_2 = 0.69$. The choices for $\lambda$, $\sigma$, $\eta_1$ and $\eta_2$ are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
 For all the algorithms,
  motivated by standard guidelines (see \citealt{spall2005introduction}),
  we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$. The initial point $\theta_0$ is the $d$-dimensional vector of ones and $\forall i$, the operator $\Gamma_i$ projects $\theta_i$ onto the set $[0.1, 10.0]$.
