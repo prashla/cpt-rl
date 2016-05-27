@@ -1,5 +1,5 @@
 Here we assume that the r.v. $X$ is discrete valued. 
-Let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$, where 
+Let $p_i, i=1,\ldots,K,$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$, where 
 $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$ and  let
 \begin{align}
 \label{eq:Fk}
@@ -40,25 +40,26 @@ u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat
 %Because $\hat{p_k}$ converge a.e to $p_k=P(X_i=x_k)$, with $X_i$ be the ith sample of $X$, the above estimator is  strong consistent property by the continuous mapping theorem. 
 %The following proposition presents a sample complexity result for the discrete-valued $X$ under the following assumption:\\
 
-\noindent\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L< \infty$ and $\delta>0$, such that
-$$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\delta,x+\delta). $$
+\noindent\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L< \infty$ and $\rho>0$, such that
+$$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\rho,x+\rho). $$
 The main result for discrete-valued $X$ is given below.
 \begin{proposition}
 \label{prop:sample-complexity-discrete}
-Assume (A3). Let $L=\max\{L_k, k=2...K\} $, where $L_k$ is the local Lipschitz constant of function $w^-(x)$ at points
-$F_k$, where $k=1,...l$, and of function $w^+(x)$ at points $k=l+1,...K$. 
-Let $A=\max\{u^{-}(x_k), k=1...l\} \bigcup \{u^{+}(x_k), k=l+1...K\}$, $\delta =\min\{\delta_k\}$, where $\delta_k$ is the half the length of the interval centered at point $F_k$ where the locally Lipschitz property with constant $L_k$ holds.
-For any $\epsilon,\rho >0$, we have 
-\begin{align}
+Assume (A3). Let $L=\max\{L_k, k=2...K\}$, where $L_k$ is the local Lipschitz constant of function $w^-(x)$ at points
+$F_k$, where $k=1,\ldots,l$, and of function $w^+(x)$ at points $k=l+1,\ldots,K$. 
+Let $M=\max\{u^{-}(x_k), k=1,\ldots,l\} \bigcup \{u^{+}(x_k), k=l+1,\ldots,K\}$ and $\rho =\min\{\rho_k\}$, where $\rho_k$ is half the length of the interval centered at point $F_k$ where (A3) holds with constant $L_k$.
+Then, $\forall \epsilon>0,\delta >0$, we have 
+\begin{align*}
 \Prob{\left|
 \overline \C_n -\C(X)
-\right| \leq \epsilon} > 1-\rho, \forall n> \frac{\ln(\frac{4K}{a})} { M}, 
-\end{align}
-where $M=\min(\delta^2, \epsilon^2/(KLA)^2)$.
+\right| \leq \epsilon} \! > \! 1\!-\!\delta, \forall n \ge \frac{1}{\kappa}\ln\!\left(\frac{1}{\delta}\right) \ln\left(\frac{4K}{M}\right)\!, 
+\end{align*}
+where $\kappa=\min(\rho^2, \epsilon^2/(KLM)^2)$.
 \end{proposition}
 In comparison to Propositions \ref{prop:holder-dkw} and \ref{prop:lipschitz}, 
-observe that the sample complexity for discrete $X$ scales with the local Lipschitz constant $L$ and this can be much smaller the global Lipschitz constant of the weight functions or the weight functions may not be Lipschitz globally.  
+observe that the sample complexity for discrete $X$ scales with the local Lipschitz constant $L$ and this can be much smaller than the global Lipschitz constant of the weight functions, or the weight functions may not be Lipschitz globally.  
 %\begin{proof}
  %See Section \ref{sec:proofs-discrete}.
 %\end{proof}
 
+The detailed proofs of Propositions \ref{prop:holder-asymptotic}--\ref{prop:sample-complexity-discrete} are available in \cite{Pracheng2015cpt}.

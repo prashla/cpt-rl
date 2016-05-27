@@ -1,9 +1,9 @@
 %!TEX root =  cpt-rl-icml.tex
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
-We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using GLD traffic simulator \cite{GLDSim} and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
+We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim} and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
 
 %\paragraph{Simulation Setup:}  
-We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, where the traffic is generated -- cf. \cref{fig:2x2grid}. 
+We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated -- cf. \cref{fig:2x2grid}. 
 %\todoc{Can we have a higher quality figure?}
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP below.
@@ -23,7 +23,7 @@ Thus, the EUT objective is defined as
 \end{align*}
 where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
 
-\textbf{AVG:} This is similar to EUT, except that no distinction between gains and losses via utility functions nor distort using weights as in CPT. Thus,\\ 
+\textbf{AVG:} This is EUT without the distinction between gains and losses via utility functions, i.e.,\\[1ex] 
 \centerline{$\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).$} 
 %Thus, the AVG objective is defined as
 %\begin{align}
@@ -31,17 +31,18 @@ where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \in
 %\end{align}   
 %where $\E(X_i) = \intinfinity P(u^+(X_i)>z) dz - \intinfinity P(u^-(X_i)>z) dz$.
 
-An important recommendation of CPT is to employ a reference point to calculate gains and losses. 
+An important component of CPT is to employ a reference point to calculate gains and losses. 
 %Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
 In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. If the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay}.  
 
 %, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
 
-Using a Boltzmann policy that has the form\footnote{The features $\phi(s,a)$, used in the policy $\pi_{\theta}(s,a)$, are chosen as described in Section V-B of \cite{prashanth2012threshold}.}
+Using a Boltzmann policy that has the form
 $$
 \pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
 \hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
 $$
+with features $\phi_{s,a}$ as described in Section V-B of \cite{prashanth2012threshold},
 we implement the following TLC algorithms:
 
 {\bf\em CPT-SPSA}: This is the first-order algorithm with SPSA-based gradient estimates, as described in Algorithm \ref{alg:1spsa}. In particular, the estimation scheme in Algorithm \ref{alg:holder-est} is invoked to estimate $\C(X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
@@ -63,11 +64,11 @@ For all the algorithms,
  motivated by standard guidelines (see \citealt{spall2005introduction}),
  we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$. The initial point $\theta_0$ is the $d$-dimensional vector of ones and $\forall i$, the operator $\Gamma_i$ projects $\theta_i$ onto the set $[0.1, 10.0]$.
     
-The experiments involve two phases.
-A training phase where we run each algorithm for $200$ iterations, with each iteration involving two perturbed simulations, each of trajectory length $500$. This is followed by a test phase where we fix the policy for each algorithm and $100$ independent simulations of the MDP (each with a trajectory length of $1000$) are performed. After each run in the test phase, the overall CPT-value \eqref{eq:cpt-traffic} is estimated. 
+The experiments involve two phases:
+first, a training phase where we run each algorithm for $200$ iterations, with each iteration involving two perturbed simulations, each of trajectory length $500$. This is followed by a test phase where we fix the policy for each algorithm and $100$ independent simulations of the MDP (each with a trajectory length of $1000$) are performed. After each run in the test phase, the overall CPT-value \eqref{eq:cpt-traffic} is estimated. 
 %\paragraph{Results:} 
 
-Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA, EUT-SPSA and CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA followed by EUT-SPSA and AVG-SPSA in that order. Intuitively this is expected because AVG-SPSA uses neither utilities nor probability distortions, while EUT-SPSA distinguishes between gains and losses using utilities while not using weights to distort probabilities.
+Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA, EUT-SPSA and CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA, followed by EUT-SPSA and AVG-SPSA in that order. Intuitively, this is expected because AVG-SPSA uses neither utilities nor probability distortions, while EUT-SPSA distinguishes between gains and losses using utilities while not using weights to distort probabilities.
 The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
 %\todoc{It would be nice to point out how the CPT policy is different than the others.}
 
@@ -80,6 +81,9 @@ The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms 
 
 
  \begin{figure}
+
+\vspace{-2.5ex}
+
     \centering
      \begin{tabular}{c}
 \subfigure[Snapshot of a 2x2-grid network from GLD simulator. The figure shows eight edge nodes that generate traffic, four traffic lights and  four-laned roads carrying cars. ]{
@@ -90,7 +94,7 @@ The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms 
 \subfigure[AVG-SPSA]{
 \label{fig:avg}
 %\hspace{2em} 
-\tabl{c}{\scalebox{0.65}{\begin{tikzpicture}
+\tabl{c}{\scalebox{0.62}{\begin{tikzpicture}
 \begin{axis}[
 ybar={2pt},
 %  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
@@ -124,7 +128,7 @@ height=6.5cm,
 \subfigure[EUT-SPSA]{
 \label{fig:eut}
 %\hspace{2em} 
-\tabl{c}{\scalebox{0.65}{\begin{tikzpicture}
+\tabl{c}{\scalebox{0.62}{\begin{tikzpicture}
 \begin{axis}[
 ybar={2pt},
 %  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
@@ -158,7 +162,7 @@ height=6.5cm,
 \subfigure[CPT-SPSA]{
 \label{fig:cpt}
 %\hspace{2em} 
-\tabl{c}{\scalebox{0.65}{\begin{tikzpicture}
+\tabl{c}{\scalebox{0.62}{\begin{tikzpicture}
 \begin{axis}[
 ybar={2pt},
 %  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},

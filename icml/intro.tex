@@ -1,6 +1,6 @@
 %!TEX root =  cpt-rl-icml.tex
 Since the beginning of its history, mankind has been deeply immersed in 
-	designing and improving systems to serve humans needs.
+	designing and improving systems to serve human needs.
 Policy makers are busy with designing 
 	systems that serve the education, transportation, economic, health and other 
 	needs of the public,
@@ -9,7 +9,7 @@ while private sector enterprises work hard at creating
 	specialized needs of their customers.
 While it has been long recognized that 
 	understanding human behavior is a prerequisite 
-	to best serving human needs \citep[e.g.,]{Simon:1959kd},
+	to best serving human needs \citep{Simon:1959kd},
 %	and the private sector has adopted this strategy a while ago \citet{}
 %	and the private sector quickly adopted this strategy,
 	it is only recently that this approach is gaining a wider recognition.%
@@ -24,7 +24,7 @@ Research Board in the US.}
 In this paper we consider \emph{human-centered reinforcement learning problems}
 where the  reinforcement learning agent controls a system 
 to produce long term outcomes (``return'') that are maximally aligned with the preferences of 
-one or possibly multiple humans, an arrangement shown on Figure~\ref{fig:flow}.
+one or possibly multiple humans, an arrangement shown in Figure~\ref{fig:flow}.
 As a running example, consider traffic optimization where the goal is to maximize
 travelers' satisfaction, a challenging problem 
 %many may agree is  still inadequately addressed today, at least 
@@ -182,14 +182,14 @@ for Lipschitz probability distortion (so-called ``weight'') functions is  $O\lef
 %At the same time, 
 % while \holder continuous with constant $\alpha$ results in a rate  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$, for achieving a $\epsilon$-close estimate.\\
 
-Our results on estimating CPT-values forms the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or a simulator. We set up this problem as an instance of policy search: We consider smoothly parameterized policies whose parameters are tuned via stochastic gradient ascent. For estimating gradients, we use two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA), a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}.
+Our results on estimating CPT-values form the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or a simulator. We set up this problem as an instance of policy search: We consider smoothly parameterized policies whose parameters are tuned via stochastic gradient ascent. For estimating gradients, we use two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA), a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}.
 %\textbf{\textit{Control:}} 
 %Designing algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 
 %Thus, it is necessary to design new simulation optimization scheme that use sample CPT-value estimates to optimize the policy, which is generally \textit{randomized}. While classic simulation optimization settings usually have a zero mean noise in function evaluations, our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. \\
 %\textit{Solution:} 
 %Using the well-known idea of simultaneous perturbation stochastic approximation (SPSA) from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose and analyze a gradient method for CPT value optimization in sequential decision making problems
 %under uncertainty.
-Here a new challenge arises which is that we can only feed the two-point randomized gradient estimator with \emph{biased} estimates of the CPT-value. To guarantee convergence, we propose a particular way of controlling the arising bias-variance tradeoff.
+Here a new challenge arises, which is that we can only feed the two-point randomized gradient estimator with \emph{biased} estimates of the CPT-value. To guarantee convergence, we propose a particular way of controlling the arising bias-variance tradeoff.
 %Since SPSA by default assumes that the unbiased point-estimates of the optimization objective are available, which
 %is not the case in our problem, we extend the analysis of SPSA to handle the case when the optimization objective estimates are noisy, with controlled bias.
 %

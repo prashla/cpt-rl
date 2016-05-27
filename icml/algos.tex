@@ -148,7 +148,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 %\end{figure}
 
 \paragraph{On the number of samples $m_n$ per iteration:}
-The CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$, with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike classic simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
+The CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$, with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike many simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
