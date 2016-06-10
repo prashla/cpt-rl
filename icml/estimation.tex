@@ -26,7 +26,7 @@ We also provide sample complexity bounds assuming that the utility functions are
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Estimation scheme for \holder continuous weights}
-Recall the H\"{o}lder continuity property first in definition 1:
+Recall the H\"{o}lder continuity property first:
 \begin{definition}\label{holder}
 {\textbf{\textit{(H\"{o}lder continuity)}}}
 A function $f \in C([a,b])$ is said to satisfy
@@ -41,14 +41,15 @@ In order to ensure the integrability of the CPT-value \eqref{eq:cpt-general}, we
 \textbf{Assumption (A1).}  
 The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
 there exists $ \gamma \le \alpha$ such that (s.t.)
-$\int_0^{+\infty} P^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} P^{\gamma} (u^-(X)>z) dz < +\infty.$
+$\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
+where $\mathbb{P}^{\gamma}(\cdot) = \left(\mathbb{P}(\cdot)\right)^{\gamma}$.
 
 The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition 5 in 
 \cite{Pracheng2015cpt} for a formal proof.
 
 
 \paragraph{Approximating CPT-value using quantiles:}
-Let $\xi^+_{\alpha}$ denote the $\alpha$th quantile of the r.v. $u^+(X)$. 
+Let $\xi^+_{k}$ denote the $k$th quantile of the r.v. $u^+(X)$. 
 Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in \cite{Pracheng2015cpt})
 \begin{align}
 &\lim_{n \rightarrow \infty} \sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n+1-i}{n}\right)- w^+\left(\frac{n-i}{n}\right) \right) \nonumber\\
@@ -72,7 +73,7 @@ $X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Note that $u^+(X_{[1]}),\ldots ,u^+(X_{[n]}
 \vspace{-0.5ex}
 $$\hspace{-1.1em}\overline \C_n^+:=\sum_{i=1}^{n} u^+(X_{[i]}) \left(w^+\!\left(\frac{n+1-i}{n}\right)\!-\! w^+\!\left(\frac{n-i}{n}\right) \right).$$
 \vspace{-0.5ex}
-\State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$, notice that $u^{-}(X_{[i]})$ is in descending order since $u^{-}$ is a decreasing function.     
+\State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$; notice that $u^{-}(X_{[i]})$ is in descending order since $u^{-}$ is a decreasing function.     
 \State Let
 \vspace{-0.5ex}
 $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right). $$
@@ -82,16 +83,16 @@ $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right
 \end{algorithmic}
 \end{algorithm}
 
-\subsubsection*{Main results\footnote{All proofs can be found in the extended version of the paper \cite{Pracheng2015cpt}}}
+\subsubsection*{Main results}
 %We make the following assumptions on the utility functions:\\[1ex]
 
 %For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
-Assume (A1) and also that $F^+(\cdot)$, $F^-(\cdot)$ - the distribution functions of $u^+(X)$, and $u^-(X)$ 
+Assume (A1) and that $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
 are Lipschitz continuous 
 %with constants $L^+$ and $L^-$, respectively, 
-on the respective intervals of $(0,+\infty)$, and 
+on the respective intervals $(0,+\infty)$, and 
 $(-\infty, 0)$. Then, we have that
 \begin{align}
 \overline \C_n
@@ -105,21 +106,23 @@ where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X
 %See Appendix \ref{sec:holder-proofs}. 
 %\end{proof}
 %Our next result concerns the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
-Under (A2') stated below, 
+%Under (A2') stated below, 
+Under additional assumptions on utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 
 \textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
 
-\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
+%\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
 
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
-Assume (A1) and (A2'). Then, $\forall \epsilon >0, \delta >0$, we have
+Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1. Then, $\forall \epsilon >0, \delta >0$, we have
 $$
-\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot 
 \frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
 \end{proposition}
+
 %\begin{proof}
 %
 %%Notice the the following equivalence:
@@ -145,7 +148,7 @@ In the previous section, it was shown that \holder continuous weights incur a sa
 \textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
 
-Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs the dominated convergence theorem and DKW inequalities, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
+Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs the dominated convergence theorem and Dvoretzky-Kiefer-Wolfowitz (DKW) inequality, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
 
 \begin{proposition}
 \label{prop:lipschitz}
@@ -155,13 +158,13 @@ $$\overline \C_n
 \C(X)
  \text{   a.s. as } n\rightarrow \infty
 $$
-In addition, if we assume (A2'), we have $\forall \epsilon >0, \delta >0$, 
+In addition, if we assume that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1, then we have $\forall \epsilon >0, \delta >0$, 
 $$
-\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } > \delta\text{     ,} \forall n \geq \ln(\frac{1}{\delta})\cdot 
+\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } > 1-\delta\text{     ,} \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot 
 \frac{4L^2 M^2}{\epsilon^{2}}.
 $$
 \end{proposition}
-Note that according to this proposition, our estimation scheme is sample-efficient (choosing the weights to be the identity function, a folklore result of probability theory shows that the sample complexity cannot be improved).
+Note that according to this proposition, our estimation scheme is sample-efficient (choosing the weights to be the identity function, the sample complexity cannot be improved).
 %\begin{proof}
 %See Appendix \ref{sec:lipschitz-proofs}.
 %\end{proof}

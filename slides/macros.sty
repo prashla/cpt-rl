@@ -1,0 +1,132 @@
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{xcolor}
+\usepackage{times}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.3}
+\usepackage{subfigure}
+
+\usepackage{setspace}
+\usepackage{todonotes}
+\usetikzlibrary{positioning,arrows,shapes,calc,patterns,decorations}
+\usepgfplotslibrary{fillbetween}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{colortbl}
+\newcommand{\tabl}[2]{\begin{tabular}{#1} #2 \end{tabular}}
+\newcommand{\ith}[2][th]{$#2^{\text{#1}}$}
+
+
+\xdefinecolor{darkgreen}{rgb}{0,0.35,0}
+
+
+\newcommand{\cL}{\mathcal{L}}
+
+
+% For every picture that defines or uses external nodes, you'll have to
+% apply the 'remember picture' style. To avoid some typing, we'll apply
+% the style to all pictures.
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+% By default all math in TikZ nodes are set in inline mode. Change this to
+% displaystyle so that we don't get small fractions.
+\everymath{\displaystyle}
+
+
+
+
+
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cP}{\mathcal{P}}
+\newcommand{\cS}{\mathcal{S}}
+\newcommand{\cR}{\mathcal{R}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cH}{\mathcal{H}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\E}{\mathbb{E}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\X}{\mathcal{X}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\N}{\mathcal{N}}
+\newcommand{\Z}{\mathcal{Z}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\z}{\tilde{z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Prob}[1]{\mathbb{P}\left( #1 \right)}
+\newcommand{\EE}[1]{\mathbb{E}\left[#1\right]}
+\newcommand{\holder}{H\"{o}lder }
+
+%%%%%%%%%%%%%%%%%%
+\def\M{{\mathcal{M}}}
+\def\expt{{\mathbb{E}}}
+\newcommand{\redbox}[1]{
+\setlength{\fboxrule}{1.5pt}
+\fcolorbox{red}{white}{\mbox{#1}}
+}
+%%%%%%%%%%%%%%
+
+\renewcommand{\v}{\mathcal{V}}
+\renewcommand{\O}{\mathcal{O}}
+
+\newcommand{\tr}{^\mathsf{\scriptscriptstyle T}}
+\newcommand{\str}[1]{^\mathsf{#1\scriptscriptstyle T}}
+\newcommand{\tpi}{\tilde{\Pi}}
+\newcommand{\tgamma}{\tilde{\gamma}}
+\newcommand{\ttheta}{\tilde{\theta}}
+\newcommand{\tz}{\tilde{z}}
+\newcommand{\tF}{\tilde{F}}
+\newcommand{\tM}{\tilde{M}}
+
+\renewcommand{\l}{\left\|}
+\renewcommand{\r}{\right\|_2}
+\newcommand{\vml}{\left\|}
+\newcommand{\vmr}{\right\| _{A_n,2}}
+\newcommand{\ml}{\left\|}
+\newcommand{\mr}{\right\|_2}
+
+\newcommand{\e}{\mathop{exp}}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\definecolor{rouge1}{RGB}{226,0,38}  % red P
+\definecolor{orange1}{RGB}{243,154,38}  % orange P
+\definecolor{jaune}{RGB}{254,205,27}  % jaune P
+\definecolor{blanc}{RGB}{255,255,255} % blanc P
+
+\definecolor{rouge2}{RGB}{230,68,57}  % red S
+\definecolor{orange2}{RGB}{236,117,40}  % orange S
+\definecolor{taupe}{RGB}{134,113,127} % taupe S
+\definecolor{gris}{RGB}{91,94,111} % gris S
+\definecolor{bleu1}{RGB}{38,109,131} % bleu S
+\definecolor{bleu2}{RGB}{28,50,114} % bleu S
+\definecolor{vert1}{RGB}{133,146,66} % vert S
+\definecolor{vert3}{RGB}{20,200,66} % vert S
+\definecolor{vert4}{RGB}{20,200,20} % vert S
+\definecolor{vert2}{RGB}{157,193,7} % vert S
+\definecolor{darkyellow}{RGB}{233,165,0}  % orange S
+\definecolor{lightgray}{rgb}{0.9,0.9,0.9}
+\definecolor{darkgray}{rgb}{0.6,0.6,0.6}
+\definecolor{pink}{rgb}{1,0.07,0.57}
+
+\newcommand{\fn}{\hat{F_n}(x)}
+\newcommand{\wfn}{w^+(1-{\hat F_n}^+(x))}
+\newcommand{\intinfinity}{\int_0^{+\infty}}
+\definecolor{bleu2}{RGB}{28,50,114} % bleu S
+\newcommand{\wfnn}{w^{-}(1-{\hat F_n}^-(x))}
+
+%\newcommand\blfootnote[1]{%
+  %\begingroup
+  %\renewcommand\thefootnote{}\footnote{#1}%
+  %\addtocounter{footnote}{-1}%
+  %\endgroup
+%}

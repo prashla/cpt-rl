@@ -114,8 +114,8 @@ Weight functions can explain nonlinear probability distortions, as illustrated b
            xlabel={\large Probability $\bm{p}$}
            ]
           \addplot[domain=0:1, red, thick,smooth,samples=1500] 
-             {pow(x,0.6)/(pow(x,0.6) + pow(1-x,0.6))}; 
-             \node at (axis cs:  0.8,0.35) (a1) {\large $\bm{\frac{p^{0.6}}{(p^{0.6}+ (1-p)^{0.6})}}$};           
+             {pow(x,0.69)/pow((pow(x,0.69) + pow(1-x,0.69)),1.44)}; 
+             \node at (axis cs:  0.8,0.35) (a1) {\large $\bm{\frac{p^{0.69}}{(p^{0.69}+ (1-p)^{0.69})^{1/0.69}}}$};           
              \draw[->] (a1) -- (axis cs:  0.7,0.6);
                  \addplot[domain=0:1, blue, thick]           {x};                      
   \end{axis}
