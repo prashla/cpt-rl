@@ -200,7 +200,7 @@
 \begin{align*}
 \tikz[baseline]{
             \node[fill=green!20,anchor=base] (t1)
-            {${\cal C} (X^\theta):= \underbrace{\intinfinity w^+(P(u^+(X^\theta))>x) dx}_{\textbf{Gains}} - \underbrace{\intinfinity w^-(P(u^-(X^\theta))>x) dx}_{\textbf{Losses}}$};
+            {$\C(X):= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz$};
         }
 \end{align*}
   \begin{center}
@@ -316,44 +316,10 @@ $\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{   
 \vspace{3ex}
 \pause
 
-\tikzstyle{block} = [draw, fill=white, rectangle,
-   minimum height=5em, minimum width=6em]
-\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
-\tikzstyle{input} = [coordinate]
-\tikzstyle{output} = [coordinate]
-\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
-
-\begin{columns}
-\begin{column}{0.5\textwidth}
-\scalebox{0.6}{\begin{tikzpicture}[auto, node distance=2cm,>=latex']
-% We start by placing the blocks
-\node (theta) {$\boldsymbol{x}$};
-\node [block, fill=blue!20,right=0.6cm of theta,align=center] (sample) {\makecell{\textbf{Measurement}\\\textbf{ Oracle}}}; 
-\node [right=0.6cm of sample] (end) {$\boldsymbol{\mathbf{f(x) + \xi}}$};
-\node [ above right= 0.6cm of end] (bias) {\textbf{Zero mean}};
-\draw [->] (theta) --  (sample);
-\draw [->] (sample) -- (end);
-\path [darkgreen,->] (bias) edge [bend left] (end);
-\end{tikzpicture}}
-
-\hspace{2em}{\scriptsize Simulation optimization}
-\end{column}
-\begin{column}{0.5\textwidth}
-\scalebox{0.6}{\begin{tikzpicture}[auto, node distance=2cm,>=latex']
-% We start by placing the blocks
-\node (theta) {$\boldsymbol{X, \epsilon}$};
-\node [block, fill=blue!20,right=0.6cm of theta,align=center] (sample) {\makecell{\textbf{CPT}\\\textbf{ Estimator}}}; 
-\node [right=0.6cm of sample] (end) {$\boldsymbol{\mathbf{\C(X) + \epsilon}}$};
-\node [ above right= 0.6cm of end] (bias) {\textbf{Controlled bias}};
-\draw [->] (theta) --  (sample);
-\draw [->] (sample) -- (end);
-\path [red,->] (bias) edge [bend left] (end);
-\end{tikzpicture}}
-
-\hspace{1em}{\scriptsize CPT-value optimization}
-\end{column}
-\end{columns}
-
+{\color{darkgreen}\textbf{Special Case:}} Lipschitz weights ($\alpha=1$) \\[1ex]
+\begin{quote}
+Sample complexity \alert{$O\left(1/\epsilon^2\right)$} for accuracy {\color{upmaroon} $\bm{\epsilon}$}
+\end{quote}
 \end{small}
 \end{frame}
 
@@ -429,7 +395,7 @@ $\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{   
  \item[{\color{darkgreen} outer stage}] Update $\theta$ using gradient ascent 
 % \vspace{-1.5ex}
 \end{description}
-\alert{~~$\nabla_{i} \C(X^\theta)$ is not given}
+{\color{upmaroon}~~$\nabla_{i} \C(X^\theta)$ is not given}
 }
  \end{column}
 \end{columns}
@@ -502,20 +468,108 @@ given only biased estimates of $\C(X^\theta)$}
 \end{small}
 \end{frame}
 %%%%%%%%%
+\begin{frame}{}
+\begin{small}
+
+\vspace{3ex}
+
+\tikzstyle{block} = [draw, fill=white, rectangle,
+   minimum height=5em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+
+\begin{columns}
+\begin{column}{0.5\textwidth}
+\scalebox{0.6}{\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+% We start by placing the blocks
+\node (theta) {$\boldsymbol{x}$};
+\node [block, fill=blue!20,right=0.6cm of theta,align=center] (sample) {\makecell{\textbf{Measurement}\\\textbf{ Oracle}}}; 
+\node [right=0.6cm of sample] (end) {$\boldsymbol{\mathbf{f(x) + \xi}}$};
+\node [ above right= 0.6cm of end] (bias) {\textbf{Zero mean}};
+\draw [->] (theta) --  (sample);
+\draw [->] (sample) -- (end);
+\path [darkgreen,->] (bias) edge [bend left] (end);
+\end{tikzpicture}}
+
+\hspace{2em}{\scriptsize Simulation optimization}
+\end{column}
+\begin{column}{0.5\textwidth}
+\scalebox{0.6}{\begin{tikzpicture}[auto, node distance=2cm,>=latex']
+% We start by placing the blocks
+\node (theta) {$\boldsymbol{X, \epsilon}$};
+\node [block, fill=blue!20,right=0.6cm of theta,align=center] (sample) {\makecell{\textbf{CPT}\\\textbf{ Estimator}}}; 
+\node [right=0.6cm of sample] (end) {$\boldsymbol{\mathbf{\C(X) + \epsilon}}$};
+\node [ above right= 0.6cm of end] (bias) {\textbf{Controlled bias}};
+\draw [->] (theta) --  (sample);
+\draw [->] (sample) -- (end);
+\path [red,->] (bias) edge [bend left] (end);
+\end{tikzpicture}}
+
+\hspace{1em}{\scriptsize CPT-value optimization}
+\end{column}
+\end{columns}
+
+\vspace{1ex}
+
+\begin{figure}
+\centering
+\tikzstyle{block} = [draw, fill=white, rectangle,
+   minimum height=3em, minimum width=6em]
+\tikzstyle{sum} = [draw, fill=white, circle, node distance=1cm]
+\tikzstyle{input} = [coordinate]
+\tikzstyle{output} = [coordinate]
+\tikzstyle{pinstyle} = [pin edge={to-,thin,black}]
+\scalebox{0.55}{\begin{tikzpicture}[auto, node distance=3cm,>=latex']
+% We start by placing the blocks
+\node (theta) {\large$\bm{\theta_n}$};
+\node [sum,fill=blue!10, above right=1cm of theta, xshift=1cm] (perturb) {\large$\bm{+}$};
+\node [sum,fill=blue!10, below right=1cm of theta, xshift=1cm] (perturb1) {\large$\bm{-}$};
+\node [above=0.7cm of perturb] (noise) {\large$\bm{\delta_n \Delta_n}$};
+\node [below=0.7cm of perturb1] (noise1) {\large$\bm{\delta_n \Delta_n}$};    
+\node [block,fill=red!10,label={[label distance=0.2cm]above:\color{bleu2}\bf Prediction}, right=3cm of perturb] (psim) {\large\bf {$\bm{\overline \C_n^{\theta_n+\delta_n \Delta_n}}$}}; 
+\node [block,fill=red!10,label={[label distance=0.2cm]above:\color{bleu2}\bf Prediction}, right=3cm of perturb1] (sim) {\large\bf {$\bm{\overline \C_n^{\theta_n-\delta_n \Delta_n}}$}}; 
+\node [block,label={[label distance=0.2cm]above:\color{bleu2}\bf Control},fill=green!10, below right=3cm of psim, minimum height=10em, yshift=3cm,text width=2.5cm] (update) {\large\bf{Update $\bm{\theta_n}$}\\[2ex]\large\bf{(Gradient ascent)}};
+\node [right=1.3cm of update] (thetanext) {\large$\bm{\theta_{n+1}}$};
+
+\draw [->] (perturb) -- node {$m_n$ samples} (psim);
+\draw [->] (perturb1) -- node {$m_n$ samples}  (sim);
+\draw [->] (noise) -- (perturb);
+\draw [->] (noise1) -- (perturb1);
+\draw [->] (psim) -- %node {$\hat J^{\theta(t)+p_1(t)}(x_0)$}
+(update.145);
+\draw [->] (sim) --  %node {$\hat J^{\theta(t)+p_2(t)}(x_0)$} 
+(update.208);
+\draw [->] (update) -- (thetanext);
+\draw [->] (theta) --   (perturb);
+\draw [->] (theta) --   (perturb1);
+\end{tikzpicture}}
+\caption{Overall flow of CPT-SPSA}
+\label{fig:algorithm-flow}
+\end{figure}
+
+\vspace{1ex}
+
+How to choose $m_n$ to ignore estimation bias? ~~~ Ensure $\frac{1}{m_n^{\alpha/2}\delta_n}\rightarrow 0$
+\end{small}
+
+\end{frame}
+
 
 \begin{frame}{Application: Traffic signal control}
 \begin{columns}
-	\begin{column}{0.4\textwidth}
+	\begin{column}{0.38\textwidth}
 	        \includegraphics[width=2in, height=1.2in]{fig/2x2grid.png}
 	\end{column}
-	\begin{column}{0.53\textwidth}
+	\begin{column}{0.57\textwidth}
 	\begin{small}
 	\begin{itemize}
-		\item For any path $i=1,\ldots,\M$, let $X_i$ be the differential delay 
+		\item For any path $i=1,\ldots,\M$, let $X_i$ be the delay gain
 		\begin{itemize}
 			\item {\scriptsize calculated with a pre-timed traffic light controller as reference}
 		\end{itemize} 
-		\item CPT captures the road users' evaluation of the delay $X_i$
+		\item CPT captures the road users' evaluation of the delay gain $X_i$
 		\item Goal: Maximize \tikz[baseline]{
             \node[fill=red!20, anchor=base] (t2)
             {$\text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i)$};
@@ -638,15 +692,30 @@ height=6cm,
 \end{tikzpicture}}\\[1ex]}
 }
 \end{tabular}
-\caption{Histogram of CPT-value of the differential delay: AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both utilites and weights. }
+\caption{{\scriptsize Histogram of CPT-value of the delay gain: AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both. }}
 \label{fig:histogram-perf}
 \end{figure}
 	
 \end{frame}
 
+\begin{frame}{Conclusions}
+\begin{small}
+\begin{itemize}
+	\item \alert{CPT} has been a very popular paradigm for modeling human decisions among psychologists/economists
+	\item We lay the foundations for using \alert{CPT}
+	in an RL setting
+\end{itemize}
+
+\textbf{\color{bleu1} Future directions:}
+\begin{itemize}
+	\item \alert{Crowdsourcing} experiment to validate CPT online 
+	\item \alert{Robustness} to unknown utility and weight function parameters
+\end{itemize}
+\end{small}
+\end{frame}
 \begin{frame}
 \begin{center}
-\LARGE{Thanks! Questions?}
+\LARGE{\color{bleu1} Thanks! Questions?}
 \end{center}
 \end{frame}
 
