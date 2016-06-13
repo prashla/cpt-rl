@@ -14,156 +14,66 @@
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Poll $\#1$}
-\begin{small}
-{\color{purple!80!black}
-Choose between }\\
+\begin{frame}{Human-based decision making system}
 
-\vspace{4ex}
-
-\tikz[baseline]{
-            \node[fill=green!20,anchor=base] (t1)
-{\textbf{A}: a stock that gives \$$1$ w.p. $1$};}
-
-\vspace{3ex}
-
-\tikz[baseline]{
-            \node[fill=red!20,anchor=base] (t1)
-{\makecell{\textbf{B}: a stock that gives \$$1$M w.p. $1/10^6$ and nothing otherwise}};}
-
-\vspace{7ex}
-
-{\bf\color{red!80} Which of the two stocks would you favour?}
-
-
-\end{small}
-\end{frame}
-
-
-\begin{frame}{Poll $\#2$}
-\begin{small}
-{\color{purple!80!black}
-Choose between }\\
-
-\vspace{4ex}
-
-\tikz[baseline]{
-            \node[fill=green!20,anchor=base] (t1)
-{\textbf{C}: a stock that loses \$$1$ w.p. $1$ };}
-
-\vspace{3ex}
-
-\tikz[baseline]{
-            \node[fill=red!20,anchor=base] (t1)
-{\makecell{\textbf{D}: a stock that loses \$$1$M w.p. $1/10^6$ and nothing otherwise}};}
-
-\vspace{7ex}
-
-{\bf\color{red!80} Which of the two stocks would you favour?}
-
-
-\end{small}
-\end{frame}
-
-
-
-\begin{frame}{Message}
 \begin{center}
+\includegraphics[width=4in]{fig/human_system.png}
+\end{center}
+
 \begin{small}
-
-{\color{purple!80!black}
-Humans treat \textbf{\color{red} losses} and \textbf{\color{darkgreen} gains} differently!\\
-}
-
-\vspace{7ex}
-
-{\color{purple!80!black}
-Human view of probabilities is \textbf{\color{red} non-linear}!
-% Nothing in life is as important as you think it is\\ when you are thinking about it. \\
-}
-
-\vspace{7ex}
-
-{\color{taupe!50!black}
-People \textbf{\color{blue} overweight} extreme \& unlikely events and \textbf{\color{brown!60!black} underweight} average events}
-
+\tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+{\makecell{\textit{Cumulative prospect theory (CPT) captures \textbf{human preferences}}}};}
 \end{small}
 
-% \vspace{8ex}
-% 
-% {\color{violet!80!black}
-% Playing it safe is the riskiest choice we can ever make.\\
-% \hfill{Sarah Ban Breathnach}}
-\end{center}
 \end{frame}
-
-\begin{frame}{Prospect Theory}
-\begin{columns}
- \begin{column}{0.25\textwidth}
-\includegraphics[height=1.5in]{fig/tversky.jpg}  
-
-\textbf{~Amos Tversky}
- \end{column}
-
- \begin{column}{0.35\textwidth}
-\includegraphics[height=1.5in]{fig/kahneman.jpeg}  
-
-\textbf{~Daniel Kahneman}
- \end{column}
-\end{columns}
-
-\vspace{7ex}
-
-\begin{scriptsize}
-  Kahneman \& Tversky (1979) ``\textit{Prospect Theory: An analysis of decision under risk}'' is the second most cited paper in economics during the period, 1975-2000 
-\end{scriptsize}
-
-\end{frame}
-
 
 %%%%%%%%%%%%%%%%%
 
-\begin{frame}{Non-linear probability distortion}
-\begin{figure}
-\centering
-  \scalebox{0.8}{\begin{tikzpicture}
-  \begin{axis}[width=11cm,height=6.5cm,legend pos=south east,
-           grid = major,
-           grid style={dashed, gray!30},
-           xmin=0,     % start the diagram at this x-coordinate
-           xmax=1,    % end   the diagram at this x-coordinate
-           ymin=0,     % start the diagram at this y-coordinate
-           ymax=1,   % end   the diagram at this y-coordinate
-           axis background/.style={fill=white},
-           ylabel={\large Weight $\bm{w(p)}$},
-           xlabel={\large Probability $\bm{p}$}
-           ]
-          \addplot[domain=0:1, red, thick,smooth, samples=100] 
-             {pow(x,0.69)/pow((pow(x,0.69) + pow(1-x,0.69)),1.44)}; 
-             \node at (axis cs:  0.75,0.35) (a1) {$\bm{\frac{p^{0.69}}{(p^{0.69}+ (1-p)^{0.69})^{1/0.69}}}$};           
-             \draw[->] (a1) -- (axis cs:  0.7,0.58);
-                 \addplot[domain=0:1, blue, thick]           {x};                      
-  \end{axis}
-  \end{tikzpicture}}
-  \caption{Weight function}
-\end{figure}
 
+%
+
+\begin{frame}{CPT-value}
+\begin{small}
+
+\textbf{\small\color{bleu1} For a given r.v. $X$, CPT-value $\C(X)$ is}
+\begin{align*}
+\tikz[baseline]{
+            \node[fill=green!20,anchor=base] (t1)
+            {$\C(X):= \underbrace{\intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz}_{\textbf{Gains}} - \underbrace{\intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz}_{\textbf{Losses}}$};        }
+\end{align*}
+\begin{scriptsize}
+\alert{\textbf{Utility functions}} $u^+,u^-:\R\rightarrow \R_+$, $u^+(x)=0$ when $x\le 0$, $u^-(x)=0$ when $x\ge 0$
+
+\alert{\textbf{Weight functions}} $w^+,w^-:[0,1] \rightarrow [0,1]$ with $w(0)=0$, $w(1)=1$
+\end{scriptsize}
+
+\pause
 \vspace{2ex}
 
-\begin{center}
-\begin{small}
+\textbf{\small\color{rouge2} Connection to expected value:} 
+\begin{align*}
 \tikz[baseline]{
-            \node[fill=yellow!20,anchor=base] (t1)
-{\it \textbf{Overweight} low probabilities, \textbf{underweight} high probabilities};}
+            \node[fill=red!20,anchor=base] (t1)
+            {\makecell{$\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz$\\[1ex]
+						\hspace{-3em}$= \EE{ (X)^+ } - \EE{ (X)^- }$}};
+        }
+\end{align*}
+{\scriptsize$(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$}
 \end{small}
-\end{center}
+
+
 
 \end{frame}
 
-\begin{frame}{Utility functions}
- \begin{figure}[t]
-   \centering
-   \scalebox{0.8}{\begin{tikzpicture}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Utility and weight functions}
+\begin{columns}
+ \begin{column}{0.48\textwidth}
+\textbf{\color{bleu1}\small Utility functions}\\[2ex]
+
+   \scalebox{0.5}{\begin{tikzpicture}
    \begin{axis}[width=11cm,height=6.5cm,legend pos=south east,
           %  grid = major,         
             axis lines=middle,
@@ -205,72 +115,122 @@ People \textbf{\color{blue} overweight} extreme \& unlikely events and \textbf{\
           %width=3]},thick] (axis cs:2,-2) -- (axis cs:0,0);
    \end{axis}
    \end{tikzpicture}}
-	\caption{Utility functions
+
 %A reference point on the $x$ axis serves as the point of separating gains and losses.
 %For losses, the disutility $-u^-$ is typically convex, for gains, the utility $u^+$ is typically concave; 
 %they are always non-decreasing and both of them take on the value of zero at the reference point.
-}
-\label{fig:u}
-\end{figure}
-
-\vspace{2ex}
-
 \begin{center}
-\begin{small}
+\begin{scriptsize}
 \tikz[baseline]{
             \node[fill=red!20,anchor=base] (t1)
 {\makecell{For losses, the disutility $-u^-$ is \textbf{convex},\\
  for gains, the utility $u^+$ is \textbf{concave}}};}
-\end{small}
+\end{scriptsize}
 \end{center}
+
+ \end{column}
+ \begin{column}{0.48\textwidth}
+\textbf{\color{bleu1}\small Weight function}\\[2ex]
+
+  \scalebox{0.55}{\begin{tikzpicture}
+  \begin{axis}[width=10cm,height=6.5cm,legend pos=south east,
+           grid = major,
+           grid style={dashed, gray!30},
+           xmin=0,     % start the diagram at this x-coordinate
+           xmax=1,    % end   the diagram at this x-coordinate
+           ymin=0,     % start the diagram at this y-coordinate
+           ymax=1,   % end   the diagram at this y-coordinate
+           axis background/.style={fill=white},
+           ylabel={\large Weight $\bm{w(p)}$},
+           xlabel={\large Probability $\bm{p}$}
+           ]
+          \addplot[domain=0:1, red, thick,smooth, samples=100] 
+             {pow(x,0.69)/pow((pow(x,0.69) + pow(1-x,0.69)),1.44)}; 
+             \node at (axis cs:  0.75,0.35) (a1) {$\bm{\frac{p^{0.69}}{(p^{0.69}+ (1-p)^{0.69})^{1/0.69}}}$};           
+             \draw[->] (a1) -- (axis cs:  0.7,0.58);
+                 \addplot[domain=0:1, blue, thick]           {x};                      
+  \end{axis}
+  \end{tikzpicture}}
+\begin{center}
+\begin{scriptsize}
+\tikz[baseline]{
+            \node[fill=red!20,anchor=base] (t1)
+{\makecell{\textbf{Overweight} low probabilities,\\
+ \textbf{underweight} high probabilities}};}
+\end{scriptsize}
+\end{center}
+
+\end{column}
+\end{columns}
+
+
 
 \end{frame}
 
-%
+\begin{frame}{Prospect Theory}
 
-\begin{frame}{CPT-value}
+\begin{columns}
+ \begin{column}{0.35\textwidth}
+
+\includegraphics[height=1.5in]{fig/tversky.jpg}  
+
+\textbf{~Amos Tversky}
+ \end{column}
+
+ \begin{column}{0.35\textwidth}
+
+\includegraphics[height=1.5in]{fig/kahneman.jpeg}  
+
+\textbf{~Daniel Kahneman}
+ \end{column}
+\end{columns}
+
+\vspace{7ex}
+
+\begin{scriptsize}
+  Kahneman \& Tversky (1979) ``\textit{Prospect Theory: An analysis of decision under risk}'' is the second most cited paper in economics during the period, 1975-2000 
+\end{scriptsize}
+
+\end{frame}
+
+%%%%%%%%%%%%%%%%%% Contrib %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{frame}{Our Contributions}
 \begin{small}
-
-{\bf\color{bleu1} For a given r.v. $X$, CPT-value $\C(X)$ is}
+\begin{scriptsize}
 \begin{align*}
 \tikz[baseline]{
             \node[fill=green!20,anchor=base] (t1)
-            {$\C(X):= \underbrace{\intinfinity w^+(P(u^+(X))>x) dx}_{\textbf{Gains}} - \underbrace{\intinfinity w^-(P(u^-(X))>x) dx}_{\textbf{Losses}}$};        }
-\end{align*}
-
-\vspace{3ex}
-{\bf\color{rouge2} Connection to expected value:} When $u,w$ are identity maps, 
-\begin{align*}
-\tikz[baseline]{
-            \node[fill=red!20,anchor=base] (t1)
-            {\makecell{$\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz$\\[1ex]
-						\hspace{-3em}$= \EE{ (X)^+ } - \EE{ (X)^- }$}};
+            {${\cal C} (X^\theta):= \underbrace{\intinfinity w^+(P(u^+(X^\theta))>x) dx}_{\textbf{Gains}} - \underbrace{\intinfinity w^-(P(u^-(X^\theta))>x) dx}_{\textbf{Losses}}$};
         }
 \end{align*}
+  \begin{center}
+\tikz[baseline]{
+            \node[fill=magenta!20,anchor=base] (t1)
+            {$\textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta)$};
+        }\end{center}
+\end{scriptsize}
 
-
-%\begin{align*}
-%\label{eq:opt-general}
-%\textrm{\textbf{Aim}: Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta).
-%\end{align*}
-
+\begin{itemize}
+	\item CPT-value estimation using \alert{\footnotesize\bf\em empirical distribution functions}
+	\item SPSA-based \begin{footnotesize}\alert{\bf\em policy gradient}\end{footnotesize}  algorithm
+	\item sample complexity bounds for estimation + \begin{footnotesize}\alert{\bf\em asymptotic convergence}\end{footnotesize} of policy gradient
+	\item \begin{footnotesize}\alert{\bf\em traffic signal control}\end{footnotesize} application
+\end{itemize}
 \end{small}
+
 \end{frame}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %%%%%%%%%%%%%%%%% Estimation %%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{CPT-value estimation}
+\begin{small}
 
 {\color{red} Problem:} Given samples $X_1, \ldots, X_n$ of $X$, estimate
 %
 \begin{align*}
 \tikz[baseline]{
             \node[fill=blue!20,anchor=base] (t1)
-            {$\C(X):= \intinfinity w^+(P(u^+(X))>x) dx - \intinfinity w^-(P(u^-(X))>x) dx$};
+            {$\C(X):= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz$};
         }
 \end{align*}
 
@@ -281,7 +241,11 @@ People \textbf{\color{blue} overweight} extreme \& unlikely events and \textbf{\
             \node[fill=red!20,anchor=base] (t1)
             {\textbf{Nice to have}: Sample complexity $O\left(1/\epsilon^2\right)$ for accuracy $\epsilon$};
         }
+				
+\end{small}				
 \end{frame}
+
+
 
 %%%%%%%%%%%%%%%%% Estimation %%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{frame}{}
