@@ -87,9 +87,11 @@ Observe that
 \begin{align*}
 & P ( \left| \sum_{i=1}^{n-1} U^+_{[i]} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| >
-\epsilon) \\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| U^+_{[i]} \cdot (w^+_(\frac{n-i}{n}) -
+\epsilon) 
+\\ & \leq P ( \bigcup _{i=1}^{n-1} \{ \left| U^+_{[i]} \cdot (w^+_(\frac{n-i}{n}) -
 w^+{(\frac{n-i-1}{n})}) - \xi^+_{\frac{i}{n}} \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) )
-\right| > \frac{\epsilon}{n} \}) \\ & \leq \sum _{i=1}^{n-1} P ( \left| U^+_{[i]} \cdot
+\right| > \frac{\epsilon}{n} \}) 
+\\ & \leq \sum _{i=1}^{n-1} P ( \left| U^+_{[i]} \cdot
 (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) - \xi^+_{\frac{i}{n}} \cdot (w^+_(\frac{n-i}{n}) -
 w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P ( \left| ( U^+_{[i]} -
 \xi^+_{\frac{i}{n}}) \cdot (w^+(\frac{n-i}{n} )  - w^+(\frac{n-i-1}{n} ) ) \right| > \frac{\epsilon}{n})
@@ -99,7 +101,7 @@ w^+_(\frac{n-i-1}{n})) \right| > \frac{\epsilon}{n}) \\ & = \sum _{i=1}^{n-1} P 
 \end{align*}
 Now we find the upper bound of the probability of a single item in the sum above, i.e
 \begin{align*}
-& P( \left | U^+_{[i]} - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{(1-\alpha)}}) \\ & = P (
+& P( \left | U^+_{[i]} - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n}) \\ & = P (
     U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon} {n^{(1-\alpha)}}) + P ( U^+_{[i]} -
     \xi^+_{\frac{i}{n}} < - \frac {\epsilon} {n^{(1-\alpha)}}).
 \end{align*} 
@@ -108,10 +110,12 @@ Now we find the upper bound of the probability of a single item in the sum above
 $
 P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha})
 $.
-Let $W_t = I_{(U^+_t > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1, \ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
+Let $W_t = I_{(U^+_t > \xi^+_{\frac{i}{n^(1-\alpha)}} + \frac{\epsilon}{n^{(1-\alpha)}})}, t=1, \ldots,n.$ Using the fact that probability distribution function is non-decreasing, we obtain 
 \begin{align*}
-& P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) \\ & = P ( \sum _{t=1}^{n} W_t >
-n\cdot(1-\frac{i}{n^{(1-\alpha)}})) \\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-F(\xi^+_{\frac{i}{n}}
+& P ( U^+_{[i]} - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}) 
+\\ & = P ( \sum _{t=1}^{n} W_t >
+n\cdot(1-\frac{i}{n})) 
+\\ & = P ( \sum _{t=1}^{n} W_t - n \cdot [1-F(\xi^+_{\frac{i}{n}}
 +\frac{\epsilon}{n^{(1-\alpha)}})] > n \cdot [F(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}})
 - \frac{i}{n}]).
 \end{align*}
