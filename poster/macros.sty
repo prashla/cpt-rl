@@ -1,0 +1,376 @@
+\usepackage{xcolor}
+\definecolor{sandybrown}{rgb}{0.96, 0.64, 0.38}
+\definecolor{shockingpink}{rgb}{0.99, 0.06, 0.75}
+\definecolor{teagreen}{rgb}{0.82, 0.94, 0.75}
+\definecolor{antiquefuchsia}{rgb}{0.57, 0.36, 0.51}
+\definecolor{asparagus}{rgb}{0.53, 0.66, 0.42}
+\definecolor{vividcerise}{rgb}{0.85, 0.11, 0.51}
+ 	\definecolor{upmaroon}{rgb}{0.48, 0.07, 0.07}
+	\definecolor{tealgreen}{rgb}{0.0, 0.51, 0.5}
+	 	\definecolor{shamrockgreen}{rgb}{0.0, 0.62, 0.38}
+	\definecolor{tearose}{rgb}{0.97, 0.51, 0.47}
+	\definecolor{bleu1}{RGB}{38,109,131} % bleu S
+\definecolor{vert4}{RGB}{20,200,20} % vert S
+
+\usepackage{times}
+\usepackage{calc}
+\usepackage{url}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{relsize}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{tikz}
+\usepackage{bm}
+\usetikzlibrary{shapes,positioning,arrows,calc,patterns, backgrounds}
+\usepackage{pgfplots}
+\usepgfplotslibrary{fillbetween}
+\pgfplotsset{compat=1.10}
+
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage[T1]{fontenc}
+\usepackage{ae}
+
+\graphicspath{{images/}}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Multicol Settings
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \setlength{\columnsep}{0.7em}
+ \setlength{\columnseprule}{0mm}
+
+% For every picture that defines or uses external nodes, you'll have to
+% apply the 'remember picture' style. To avoid some typing, we'll apply
+% the style to all pictures.
+\tikzstyle{every picture}+=[remember picture]
+\tikzstyle{na} = [baseline=-.5ex]
+% By default all math in TikZ nodes are set in inline mode. Change this to
+% displaystyle so that we don't get small fractions.
+\everymath{\displaystyle}
+
+
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ % Save space in lists. Use this after the opening of the list
+ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ \newcommand{\compresslist}{%
+ \setlength{\itemsep}{1pt}%
+ \setlength{\parskip}{0pt}%
+ \setlength{\parsep}{0pt}%
+ }
+
+
+\usepackage{bm}
+
+
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{nicefrac}
+
+
+\newcommand{\tabl}[2]{\begin{tabular}{#1} #2 \end{tabular}}
+\newcommand{\ith}[2][th]{$#2^{\text{#1}}$}
+
+
+\usepackage{array}
+% \newcolumntype{C}[1]{>{\centering}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+
+%%%%%%%%%%%%%% From commands.tex
+% Turn on/off notes and descriptions of research problems
+\newif\ifcomm
+%\commfalse % also turns off internal todo comments
+\commtrue
+
+\newif\iflong
+\longtrue
+%\longfalse
+
+\DeclareMathOperator{\Exp}{\mathbf{E}}
+\newcommand{\V}{\overline{V}}
+\newcommand{\X}{\mathbf{X}}
+\newcommand{\Y}{\mathbf{Y}}
+\newcommand{\ETA}{\mathbf{\eta}}
+\newcommand{\bPhi}{\mathbf{\Phi}}
+
+\newcommand{\A}{\mathcal{A}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\dkl}[2]{D_{\rm kl}\left({#1} |\!| {#2} \right)}
+\newcommand{\tvnorm}[1]{\norm{#1}_{\rm TV}}
+
+%\renewtheorem{definition}[thm]{Definition}
+%\theoremstyle{definition}
+%\newtheorem{remark}[thm]{Remark}
+
+\newcounter{assumption}%[section]
+\renewcommand{\theassumption}{A\arabic{assumption}}
+\newenvironment{ass}[1][]{\begin{trivlist}\item[] \refstepcounter{assumption}%
+ {\bf Assumption\ \theassumption\ #1} }{%\par\nobreak\noindent\sl\ignorespaces}{%
+ \ifvmode\smallskip\fi\end{trivlist}}
+
+\def\ddefloop#1{\ifx\ddefloop#1\else\ddef{#1}\expandafter\ddefloop\fi}
+
+% \bA, \bB, ...
+\def\ddef#1{\expandafter\def\csname b#1\endcsname{\ensuremath{\mathbf{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% \bbA, \bbB, ...
+\def\ddef#1{\expandafter\def\csname bb#1\endcsname{\ensuremath{\mathbb{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% \cA, \cB, ...
+\def\ddef#1{\expandafter\def\csname c#1\endcsname{\ensuremath{\mathcal{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZ\ddefloop
+
+% \vecA, \vecB, ..., \veca, \vecb, ...
+\def\ddef#1{\expandafter\def\csname vec#1\endcsname{\ensuremath{\boldsymbol{#1}}}}
+\ddefloop ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\ddefloop
+
+% \valpha, \vbeta, ...,  \vGamma, \vDelta, ...,
+\def\ddef#1{\expandafter\def\csname v#1\endcsname{\ensuremath{\boldsymbol{\csname #1\endcsname}}}}
+\ddefloop {alpha}{beta}{gamma}{delta}{epsilon}{varepsilon}{zeta}{eta}{theta}{vartheta}{iota}{kappa}{lambda}{mu}{nu}{xi}{pi}{varpi}{rho}{varrho}{sigma}{varsigma}{tau}{upsilon}{phi}{varphi}{chi}{psi}{omega}{Gamma}{Delta}{Theta}{Lambda}{Xi}{Pi}{Sigma}{varSigma}{Upsilon}{Phi}{Psi}{Omega}\ddefloop
+
+\newcommand\Sig{\ensuremath{\varSigma}}
+\newcommand\veps{\ensuremath{\varepsilon}}
+\newcommand\eps{\ensuremath{\epsilon}}
+
+\renewcommand\t{{\ensuremath{\scriptscriptstyle{\top}}}}
+
+%\newenvironment{remark}
+
+%\newenvironment{proof}{{\bf Proof.}}{\hfill\rule{2mm}{2mm}\\}
+
+% Keep whatever you need from here
+
+\newcommand{\bd}[1]{\mathbf{#1}}
+
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\smallnorm}[1]{\|#1\|}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\supnorm}[1]{\norm{#1}_\infty}
+\newcommand{\trace}{\mathop{\rm trace}}
+\newcommand{\maxEig}{\lambda_{\mbox{max}}}
+
+%\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\cset}[2]{\left\{\,#1\,:\,#2\,\right\}}
+
+\renewcommand{\natural}{\mathbb N}                   % Natural numbers
+\newcommand{\Real}{\mathbb R}                        % Real numbers
+\newcommand{\real}{\mathbb R}                        % again..
+\newcommand{\R}{{\mathbb{R}}}                        % again..
+
+\newcommand{\vv}{\vspace*{-2mm}}
+\newcommand{\hh}{\hspace*{4mm}}
+\newcommand{\hfig}{\hrule\vspace*{-5mm}}
+
+
+\newcommand{\Prob}[1]{{\mathbb P}\left(#1\right)}    % Probabilities; example: \Prob{X>\eps}<1-\delta
+\renewcommand{\P}{{\mathbb P}}                         % Probabilities when we want to control the parenthesis
+\newcommand{\EE}[1]{{\mathbb E}\left[#1\right]}      % Expectations
+\newcommand{\E}{{\mathbb E}}                         % Expectations  when we want to control the parenthesis
+\newcommand{\Var}[1]{{\mathrm{Var}}\left[#1\right]}  % Variances
+%\newcommand{\one}{\mathbb I}
+\newcommand{\one}[1]{{\mathbb I}_{\{#1\}}}           % Characteristic function
+
+\newcommand{\MB}{\mathcal{B}}
+\newcommand{\MA}{\mathcal{A}}
+\newcommand{\MS}{\mathcal{S}}
+\newcommand{\MF}{\mathcal{F}}
+\newcommand{\MG}{\mathcal{G}}
+\newcommand{\MH}{\mathcal{H}}
+\newcommand{\MC}{\mathcal{C}}
+\newcommand{\MRR}{\mathcal{R}}
+\newcommand{\MD}{\mathcal{D}}
+\newcommand{\MP}{\mathcal{P}}
+\newcommand{\MU}{\mathcal{U}}
+\newcommand{\MO}{\mathcal{O}}
+\newcommand{\MX}{\mathcal{X}}
+\newcommand{\MZ}{\mathcal{Z}}
+\newcommand{\MN}{\mathcal{N}}
+\newcommand{\MM}{\mathcal{M}}
+\newcommand{\MR}{\mathcal{R}}
+\newcommand{\ME}{\mathcal{E}}
+\newcommand{\MT}{\mathcal{T}}
+
+\newcommand{\GG}{\mathcal{G}}
+
+
+%\newcommand{\eps}{\varepsilon}                       % Nice epsilon
+\newcommand{\ep}{\varepsilon}                        % Shorthand for nice epsilon
+\newcommand{\de}{\delta}                             % Shorthand for delta
+\newcommand{\To}{\longrightarrow}
+\newcommand{\ra}{\rightarrow}
+
+\newcommand{\argmin}{\mathop{\rm argmin}}
+\newcommand{\argmax}{\mathop{\rm argmax}}
+\newcommand{\diag}{\mathop{\rm diag}}
+\newcommand{\inlinemin}{\wedge}
+\newcommand{\inlinemax}{\vee}
+
+\newcommand{\ip}[1]{\langle #1\rangle}
+\newcommand{\eqdef}{\doteq} %\stackrel{\mbox{\rm\tiny def}}{=}}
+\newcommand{\aP}{{\cal P}}
+
+% Shorthands I use for math environments
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+\newcommand{\beqa}{\begin{eqnarray}}
+\newcommand{\eeqa}{\end{eqnarray}}
+\newcommand{\beqan}{\begin{eqnarray*}}
+\newcommand{\eeqan}{\end{eqnarray*}}
+\newcommand{\ben}{\begin{eqnarray*}}
+\newcommand{\een}{\end{eqnarray*}}
+\newcommand{\bea}{\begin{align*}}
+\newcommand{\eea}{\end{align*}}
+
+
+\newcommand{\RA}{$\Rightarrow$}
+\ifcomm
+   \newcommand\comm[1]{\textcolor{blue}{ #1}}
+   \newcommand{\mtodo}[2]{\todo{{\bf #1}: #2}} % To add comments into the text; the first argument is "who", the second is "what"
+   \def\here#1{{\bf $\langle\langle$#1$\rangle\rangle$}}
+
+\else
+   \newcommand\comm[1]{}
+   \newcommand{\mtodo}[2]{}
+   \def\here#1{}
+\fi
+\newcommand{\remove}[1]{\textcolor{blue}{\sout{#1}}}
+\newcommand{\tO}{\tilde{O}}
+
+\newcommand{\sfrac}{\nicefrac}
+\newcommand{\pai}{{(i)}}
+\newcommand{\integer}{\mathbb{Z}}
+\renewcommand{\phi}{\varphi}
+\newcommand{\ewithin}{\eps_{\text{W}}}
+\newcommand{\ebetween}{\eps_{\text{B}}}
+\newcommand{\emean}{\eps_{\text{M}}}
+%\DeclareMathOperator{\trace}{trace}
+\newcommand{\e}{\mathbf{e}}
+\renewcommand{\eps}{\varepsilon}
+\newcommand{\tM}{\tilde{M}}
+\newcommand{\MRP}{{\cal M}}
+\newcommand{\kfun}{\mathbb{K}}
+
+\newcommand{\aparam}{\omega}
+\newcommand{\dimaction}{d_{\Actions}}
+\newcommand{\dimaparam}{d_{\aparam}}
+\newcommand{\traj}{\xi}
+\newcommand{\Trajset}{\Xi}
+\newcommand{\Traj}{X}
+\newcommand{\perf}{\rho}
+\newcommand{\dstat}{\mu} % stationary distribution underlying a Markov chain
+\newcommand{\Regret}{{\bf R}}
+\renewcommand{\AA}{{\cal A}}
+%\newcommand{\SA}{\States\times\Actions}
+\newcommand{\Sample}{{\cal D}}
+\newcommand{\hA}{\hat{A}}
+\newcommand{\hb}{\hat{b}}
+\newcommand{\ZZ}{{\cal Z}}
+\newcommand{\ttop}{^\top}
+\newcommand{\Stexpra}{\sum_{k=1}^{t} \eta_k m_{k-1}}
+\newcommand{\Stexpraz}{\sum_{k=1}^{t} \eta_k z_{k-1}}
+\newcommand{\Vinit}{V}
+\newcommand{\Us}{U_s}
+\newcommand{\Vtexpra}{\Vinit +\sum_{k=1}^t m_{k-1} m_{k-1}\ttop }
+\newcommand{\CPE}[2]{\EE{ #1 \,| #2 }}
+\newcommand{\PP}[1]{\mathbb{P}\left( #1\right)}
+\newcommand{\normm}[2]{\norm{#1}_{#2}}
+\newcommand{\Vta}[1]{\overline{V}_{#1}}
+\newcommand{\Vt}{\Vta{t}}
+\newcommand{\Vtta}[1]{V_{#1}}
+\newcommand{\Vtt}{\Vtta{t}}
+\newcommand{\beps}{\mathbb{\varepsilon}}
+\newcommand{\bw}{\mathbf{w}}
+
+\newcommand{\FF}{{\cal F}}
+\newcommand{\CrossRef}[1]{#1}
+
+\newcommand{\oZ}{\overline{Z}}
+\newcommand{\oA}{\overline{A}}
+\newcommand{\eqf}[1]{\exp({#1})-1-#1}
+\newcommand{\orho}{\overline{\rho}}
+\newcommand{\QQ}{{\cal Q}}
+
+\newcommand{\mfrac}[2]{{}^{#1}/_{#2}}
+
+\newcommand{\F}{{\mathcal F}}
+\newcommand{\hth}{\widehat{\theta}}
+\newcommand{\tth}{\widetilde{\theta}}
+\newcommand{\hTh}{\widehat\Theta}
+\newcommand{\TTh}{\widetilde\Theta}
+\newcommand{\Xmax}{X_{\max}}
+\newcommand{\Zmax}{Z_{\max}}
+\newcommand{\bVparam}[1]{\mathbf{V}_{#1}}
+\newcommand{\bVn}{\bVparam{n}}
+\newcommand{\bVt}{\bVparam{t}}
+\newcommand{\BVt}{\overline{\bV}_{t}}
+\newcommand{\BVta}{\overline{\bV}_{\tau}}
+
+% for Hilbert spaces
+\newcommand{\keybound}[3]{
+2 R^2 \log\left( \frac{\det\left(I + #2_{1:#3}#1^{-1}#2_{1:#3}^*\right)^{\sfrac12}}{\delta} \right)
+%2 R^2 \log\left( \frac{\det (\Vta{\tau})^{\nicefrac12}\det(\Us)^{-\nicefrac{\kern-2pt-\kern-2pt 1}{2}}}{\delta} \right)
+}
+\newcommand{\keyboundappliedp}[2]{
+ R \sqrt{2 \log\left( \frac{\det (I + #2_{1:#1}#2_{1:#1}^*/\lambda)^{\sfrac12}}{\delta} \right)}
+}
+\newcommand{\keyboundapplied}[1]{\keyboundappliedp{t}{#1}}
+\newcommand{\keyboundappliedworstp}[1]{
+ R \sqrt{\frac{#1 L^2}{\lambda} + 2\log\left( \frac{1}{\delta}\right) }
+}
+\newcommand{\keyboundappliedworst}{\keyboundappliedworstp{t}}
+
+% for Euclidean spaces
+\newcommand{\keyboundEuclidean}[1]{
+2 R^2 \log\left( \frac{\det (\Vta{#1})^{\nicefrac12}\det(\Vinit)^{\nicefrac{\kern-2pt-\kern-2pt 1}{2}}}{\delta} \right)
+}
+
+\newcommand{\keyboundappliedpEuclidean}[1]{
+ R \sqrt{2 \log\left( \frac{\det (\V_{#1})^{1/2}\det(\lambda I)^{-1/2}}{\delta} \right)}
+}
+\newcommand{\keyboundappliedEuclidean}{\keyboundappliedpEuclidean{t}}
+\newcommand{\keyboundappliedworstpEuclidean}[1]{
+ R \sqrt{d \log\left( \frac{1+\frac{#1 L}{\lambda}}{\delta} \right)}
+}
+\newcommand{\keyboundappliedworstEuclidean}{\keyboundappliedworstpEuclidean{t}}
+
+% for LQR
+\newcommand{\keyboundappliedplqr}[1]{
+ n L \sqrt{2 \log\left( \frac{\det (\V_{#1})^{\sfrac12}\det(\lambda I)^{\sfrac{\kern-2pt-\kern-2pt 1}{2}}}{\delta} \right)}
+}
+\newcommand{\keyboundappliedlqr}{\keyboundappliedplqr{t}}
+ \newcommand{\keyboundappliedlqrworstp}[1]{
+ n L \sqrt{(n+d) \log\left( \frac{1+\frac{#1 c_m}{\lambda}}{\delta} \right)}
+}
+ \newcommand{\keyboundappliedlqrworst}{\keyboundappliedlqrworstp{t}}
+
+
+\newcommand{\DR}{D_{\mathcal{R}}}
+
+
+
+%%%%%%%%%%%%%
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\M}{\mathbb{M}}
+\newcommand{\fn}{\hat{F_n}(x)}
+\newcommand{\wfn}{w^+(1-{\hat F_n}^+(x))}
+\newcommand{\intinfinity}{\int_0^{+\infty}}
+\definecolor{bleu2}{RGB}{28,50,114} % bleu S
+\newcommand{\wfnn}{w^{-}(1-{\hat F_n}^-(x))}
+
+\newcommand{\holder}{H\"{o}lder }
+\newcommand{\onenminus}{_{i=1}^{n-1}}
+\newcommand{\nalpha}{n^{(1-\alpha)} }
+\newcommand{\ncalpha} {\left \lceil{\nalpha} \right \rceil }
+\xdefinecolor{darkgreen}{rgb}{0,0.35,0}
+\definecolor{rouge2}{RGB}{230,68,57}  % red S
+
