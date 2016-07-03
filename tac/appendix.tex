@@ -1,0 +1,119 @@
+%!TEX root =  cpt-rl-icml.tex
+
+
+\appendix
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background on CPT}
+\label{sec:appendix-cpt-intro}
+\todoc[inline]{Is this section referred to from the main text?}
+The purpose of this appendix is to explain the ideas underlying CPT. 
+To avoid technicalities we will do this in the context of discrete random variables.
+Let $X$ be a discrete valued random variables, taking values in $\{x_1,\dots,x_K\}$ (the set of possible ``prospects'') 
+and let $p_i = \Prob{X=x_i}$.
+We shall think of $X$ as a random loss or gain incurred by a human decision maker.
+%For a random variable $X$ taking values in $\{x_1,\dots,x_K\}$, let $p_i, i=1,\ldots,K$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$. %Assume $x_1 \le \ldots \le x_K$. 
+Given a utility function $u:\R\rightarrow \R_+:[0,1] \rightarrow [0,1]$ and weighting function $w$, \todoc{What is the domain and range of these functions?}
+the \textit{\textbf{prospect theory}} (PT) value of $X$ is defined as 
+\begin{align}
+\C(X) = \sum_{i=1}^K u(x_i) w(p_i).
+\label{eq:ptval}
+\end{align} 
+The idea is to take an utility function that is $S$-shaped, so that it satisfies the \textit{diminishing sensitivity}  property. 
+If we take the weighting function $w$ to be the identity, then one recovers the classic expected utility. A general weight function inflates low probabilities and deflates high probabilities and this has been shown to be close to the way humans make decisions. 
+In \cite{kahneman1979prospect} and \cite{fennema1997original}, the authors present justification of PT in the form of experimental results  using human subjects.
+%However, distorting the probabilities via a weighting function (that is not identity) is a useful generalization since it  overcomes some of the ill-effects of expected utility and is closer to human decision making - see \cite{kahneman1979prospect}. 
+
+However, the weight function in PT  lacking in some theoretical aspects as it violates first-order \textit{stochastic dominance}. We illustrate this via the following example: Consider a prospect, say P1, where outcomes $10$ and $0$ occur with probabilities $0.1,  0.9$, respectively. Let P2 be another prospect  where the outcomes are $10, 10+\epsilon$ and $0$, with respective probabilities $0.05$, $0.05$ and $0.9$.
+
+The weight function $w$ is non-additive as it is non-linear and since $0.05$ and $0.1$ are in the low-probability regime, we can assume that $w(0.1) > 2 w(0.05)$. Suppose $\epsilon>0$ be small enough such that $w(0.1) > (2+\epsilon) w(0.05)$. Then, the PT-value, as defined in \eqref{eq:ptval}, of P1 is higher than that of P2 and hence, P1 is preferred.
+
+On the other hand, P2 stochastically dominates P1, where stochastic dominance is defined as follows:
+A prospect ${\cal B}$ stochastically dominates prospect ${\cal A}$ if the probability of receiving a value $x$ or greater is at least as high under prospect ${\cal B}$ as it is under prospect ${\cal A}$  for all values of $x$, and is strictly greater for some value of $x$.
+  
+\todoc{What does ``it'' refer to here? Consider rephrasing this}  \todoc{Why is this true??}
+\todoc{What does ``this'' refer to here?}
+%Thus, 
+%violates stochastic dominance, since a shift in the probability mass from bad outcomes does not result in a better prospect.  
+\todoc{This is hard to understand; consider rephrasing it more clearly.}
+
+\textbf{Cumulative prospect theory} (CPT) \cite{tversky1992advances} uses a similar measure as PT, except that the weights are a function of cumulative probabilities. First, separate the gains and losses as 
+$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$,
+where zero is used as an arbitrary reference point.
+Then, the CPT-value of $X$ is defined as 
+\begin{align*}
+\C(X) &= u^-(x_1)\cdot w^-(p_1) + u^+(x_K)\cdot w^+(p_K)\\
+&\quad+\sum\limits_{i=2}^l u^-(x_i) \Big(w^-(\textstyle\sum\limits_{j=1}^i p_j) - w^-(\textstyle\sum\limits_{j=1}^{i-1} p_j)\Big)  \\
+&\quad 
+ + \sum\limits_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\textstyle\sum\limits_{j=i}^K p_j) - w^+(\textstyle\sum\limits_{j=i+1}^K p_j) \Big), 
+\end{align*} 
+where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions to distort gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$ . 
+Unlike PT, the CPT-value does not violate first-order stochastic dominance, as the weight functions act on cumulative probabilities. 
+%In the aforementioned example, increasing $w^-(0.05)$ and $w^+(0.05)$ \todoc{Or the probabilities of the corresponding outcomes!?}
+%does not impact outcomes other than those on the extreme, i.e., $-10$ and $180$, respectively. For instance, the weight for outcome $100$ would be $w^+(0.45) - w^+(0.40)$. \todoc{When?}
+%Thus, \todoc{Why is this a corollary of the previous paragraph?}
+%CPT formalizes the intuitive notion that humans are sensitive to extreme outcomes and relatively insensitive to intermediate ones.
+
+\subsection*{Allais paradox}
+Allais paradox is not as much as a paradox, but an argument that shows that 
+expected utility theory is inconsistent with human preferences.
+Suppose we have the following two traffic light switching policies:
+
+\textbf{\textit{[Policy 1]}} A throughput (number of vehicles that reach destination per unit time) of $1000$  w.p. $1$. Let this be denoted by $(1000,1)$.
+
+\textbf{\textit{[Policy 2]}}  $(10000, 0.1; 1000,0.89; 100, 0.01)$ i.e., throughputs $10000$, $1000$ and $100$ with respective probabilities $0.1$, $0.89$ and $0.01$.
+
+Humans usually choose Policy $1$ over Policy $2$. On the other hand, consider the following two policies:
+
+\textbf{\textit{[Policy 3]}} (100, 0.89; 1000, 0.11)
+
+\textbf{\textit{[Policy 4]}} (100, 0.9; 10000, 0.1)
+
+Humans usually choose Policy $4$ over Policy $3$. 
+
+We can now argue against using expected utility (EU) as an objective as follows
+accepting the above preferences: Let $u$ be the utility function in EU.
+Since Policy 1 is preferred over Policy 2,
+$u(1000) > 0.1 u(10000) + 0.89 u(1000) + 0.01 u(100)$, which is equivalent to
+\begin{align}
+0.11 u(1000) > 0.1 u(10000) + 0.01 u(100)\,.
+ \label{eq:12}
+\end{align}
+On the other hand, since Policy 4 is preferred over Policy 3, 
+$0.89 u(100) + 0.11 u(1000) < 0.9 u(100) + 0.1 u(10000)$, which is equivalent to
+\begin{align}
+ 0.11 u(1000) < 0.1 u(10000) + 0.01 u(100) \,.\label{eq:23}
+\end{align}
+Now note that  \eqref{eq:12} contradicts \eqref{eq:23}. Hence, no utility function exist that is consistent with human preferences.
+
+%\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{CPT-value in a Stochastic Shortest Path Setting}
+\label{sec:cpt-ssp}
+We consider a stochastic shortest path (SSP) problem with states $\S=\{0,\ldots,\L\}$, where $0$ is a special reward-free absorbing state.  A randomized policy $\pi$ is a function that maps any state $s\in \S$ onto a probability distribution over the actions $\A(s)$ in state $s$. As is standard in policy gradient algorithms, we parameterize $\pi$ and assume it is continuously differentiable in its parameter $\theta \in \R^d$.  
+An \textit{episode} is a simulated sample path using policy $\theta$ that starts in state $s^0\in \S$, visits $\{s_1,\ldots, s_{\tau-1}\}$ before ending in the absorbing state $0$, where $\tau$ is the first passage time to state $0$.
+Let $D^\theta(s^0)$ be a random variable (r.v) that denote the total reward from an episode, defined by
+$$ D^\theta(s^0) = \sum\limits_{m=0}^{\tau-1} r(s_m,a_m), $$
+where the actions $a_m$ are chosen using policy $\theta$ and $r(s_m, a_m)$ is the single-stage reward in state $s_m\in \S$ when action $a_m \in \A(s_m)$ is chosen. 
+
+Instead of the traditional RL objective for an SSP of maximizing the expected value $\E (D^\theta(s^0))$, 
+we adopt the CPT approach and aim to solve the following problem: 
+$$ \max_{\theta \in \Theta} \C(D^\theta(s^0)),$$
+where $\Theta$ is the set of admissible policies that are \textit{proper}\footnote{A policy $\theta$ is proper if $0$ is recurrent and all other states are transient for the Markov chain underlying $\theta$. It is standard to assume that policies are proper in an SSP setting - cf. \cite{bertsekas1995dynamic}.} and the CPT-value function $\C(D^\theta(s^0))$ is defined as
+\begin{align}
+\C(D^\theta(s^0))& = \intinfinity w^+\left(\Prob{u^+(D^\theta(s^0))>z}\right) dz \nonumber
+\\&- \intinfinity w^-\left(\Prob{u^-(D^\theta(s^0))>z}\right) dz. \label{eq:cpt-mdp}
+\end{align}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\newpage
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -14,7 +14,7 @@
 \maketitle
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Human-based decision making system}
+\begin{frame}{AI that benefits humans}
 
 \vspace{2ex}
 
@@ -210,7 +210,7 @@
 \begin{align*}
 \tikz[baseline]{
             \node[fill=green!20,anchor=base] (t1)
-            {$\C(X):= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz$};
+            {$\C(X^\theta):= \intinfinity w^+\left(\Prob{u^+(X^\theta)>z}\right) dz - \intinfinity w^-\left(\Prob{u^-(X^\theta)>z}\right) dz$};
         }
 \end{align*}
   \begin{center}
@@ -711,9 +711,15 @@ height=6cm,
 \begin{frame}{Conclusions}
 \begin{small}
 \begin{itemize}
-	\item \alert{CPT} has been a very popular paradigm for modeling human decisions among psychologists/economists
+	\item Want \alert{AI} to be beneficial to humans
+	\item \alert{CPT} - a very popular paradigm for modeling human decisions\pause
 	\item We lay the foundations for using \alert{CPT}
-	in an RL setting
+	in an \alert{RL} setting
+	{\scriptsize
+	\begin{itemize}
+	 \item \alert{Prediction}: Sample means (TD) won't work, but empirical distributions do!
+	 \item \alert{Control}: No Bellman, but SPSA can be employed
+	\end{itemize}}
 \end{itemize}
 
 \textbf{\color{bleu1} Future directions:}

@@ -1,0 +1,130 @@
+\documentclass[twocolumn]{IEEEtran}
+
+\usepackage{macros}
+\pdfminorversion=4
+
+% The following packages will be automatically loaded:
+% amsmath, amssymb, natbib, graphicx, url, algorithm2e
+\begin{document}
+
+\title{Cumulative Prospect Theory Meets Reinforcement Learning: Prediction and Control}
+\author{Cheng Jie$^\sharp$, Prashanth L A$^\dagger$, Michael Fu$^\$$, Steve Marcus$^\ddag$ and Csaba Szepesv\'ari$^\star$
+\thanks{
+$^\dagger$ Institute for Systems Research, University of Maryland, College Park, Maryland,
+E-Mail: prashanth@isr.umd.edu,
+
+$\sharp$ Department of Computer Science and Automation,
+Indian Institute of Science, Bangalore,
+E-Mail: shalabh@csa.iisc.ernet.in, 
+
+$\$$ Robert H. Smith School of Business \& Institute for Systems Research,
+University of Maryland, College Park, Maryland,
+E-Mail: mfu@isr.umd.edu,
+
+$\ddag$ Department of Electrical and Computer Engineering \& Institute for Systems Research,
+University of Maryland, College Park, Maryland,
+ E-Mail: marcus@umd.edu.
+
+$\star$ Department of Computing Science,
+University of Alberta,
+ E-Mail: szepesva@cs.ualberta.ca.
+}}
+\maketitle
+
+
+\begin{abstract}
+Cumulative prospect theory (CPT) is known to model human decisions well, with substantial empirical evidence supporting this claim. 
+CPT works by distorting probabilities and is more general than the classic expected utility and coherent risk measures. We bring this idea to a risk-sensitive reinforcement learning (RL) setting and design algorithms for both estimation and control.
+The RL setting presents two particular challenges when CPT is applied: estimating the CPT objective requires estimations of the {\it entire distribution} of the value function and finding a {\it randomized} optimal policy.
+The estimation scheme that we propose uses the empirical distribution to estimate the CPT-value of a random variable. We then use this scheme in the inner loop of a CPT-value optimization procedure that is based on the well-known simulation optimization idea of simultaneous perturbation stochastic approximation (SPSA).
+We provide theoretical convergence guarantees for all the proposed algorithms and also 
+illustrate the usefulness of CPT-based criteria in a traffic signal control application.
+%empirically demonstrate the usefulness of our algorithms. 
+\end{abstract}
+
+% You may provide any keywords that you 
+% find helpful for describing your paper; 
+\begin{IEEEkeywords}
+Prospect theory, reinforcement learning, stochastic optimization, simultaneous perturbation stochastic approximation.
+\end{IEEEkeywords}
+
+\section{Introduction}
+\label{sec:introduction}
+
+\input{intro}
+
+%%%%%%%%%%%%%5
+\section{CPT-value}
+\label{sec:cpt-val}
+\input{cptval}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Prediction of CPT-value} 
+\label{sec:cpt-sampling}
+
+\input{estimation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Control of CPT-value}
+\label{sec:cpt-control}
+\input{algos}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Convergence Proofs}
+\label{sec:convergence}
+\input{conv-proofs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Simulation Experiments}
+\label{sec:expts}
+
+\input{experiments}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Conclusions}
+\label{sec:conclusions}
+CPT has been a very popular paradigm for modeling human decisions among psychologists/economists, but has escaped the radar of the AI community. This work is the first step in incorporating CPT-based criteria into an RL framework. However, both prediction and control of CPT-based value is challenging. 
+%Using temporal-difference learning type algorithms for estimation was ruled out for CPT-value since the underlying probabilities get (non-linearly) distorted by a weight function. 
+For prediction, we proposed a quantile-based estimation scheme. Next, for the problem of control, since CPT-value does not conform to any Bellman equation, we employed SPSA - a popular simulation optimization scheme and designed a first-order algorithm for optimizing the CPT-value. 
+We provided theoretical convergence guarantees for all the proposed algorithms and illustrated the usefulness of our algorithms for optimizing CPT-based criteria in a traffic signal control application.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\subsubsection*{Acknowledgments}
+%This work was supported by the Alberta Innovates Technology Futures through the Alberta Ingenuity Centre for Machine Learning, NSERC, the National Science Foundation (NSF) under Grants CMMI-1434419, CNS-1446665, and CMMI-1362303, and by the Air Force Office of Scientific Research (AFOSR) under Grant FA9550-15-10050.
+%
+%\clearpage
+%\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibliographystyle{IEEEtran}
+\bibliography{cpt-refs}
+
+ %\section*{Appendix}
+
+\input{appendix}
+\end{document}
+
+

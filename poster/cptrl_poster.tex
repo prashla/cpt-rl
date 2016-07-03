@@ -32,6 +32,23 @@
 \usepackage{palatino} % Use the Palatino font
 \usepackage[font=small,labelfont=bf]{caption} % Required for specifying captions to tables and figures
 
+%%%%%%%%%%% For Fira Sans font to work 
+% \usepackage[sfdefault]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
+\usepackage[sfdefault,light]{FiraSans}
+% \usepackage[T1]{fontenc}
+% \renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
+\usepackage{sfmath}
+\usepackage{mathtools}
+\makeatletter
+\def\bfseries@sf{m}
+\SetSymbolFont{operators}{normal}{\math@encoding}{\math@sfdefault}{l}{n}
+\SetSymbolFont{operators}{bold}{\math@encoding}{\math@sfdefault}{m}{n}
+\DeclareSymbolFont{SFMath}{\math@encoding}{\math@sfdefault}{l}{sl}
+\SetSymbolFont{SFMath}{normal}{\math@encoding}{\math@sfdefault}{l}{sl}
+\SetSymbolFont{SFMath}{bold}{\math@encoding}{\math@sfdefault}{m}{\mathnormal@bold@shape}
+\makeatother
+%%%%%%%%%%%%%%%
+
 \usepackage{multicol} % Required for multiple columns
 \setlength{\columnsep}{1.5em} % Slightly increase the space between columns
 \setlength{\columnseprule}{0mm} % No horizontal rule between columns
@@ -73,8 +90,8 @@ linewidth=2pt % Width of the border lines around content boxes
 {
 \begin{tabular}{c}
 %~~~~\\[0.5ex]
-\includegraphics[width=4.5cm,height=1.8cm]{fig/clark.png} \\
-\includegraphics[width=4.5cm,height=1.4cm]{fig/u-of-alberta-logo} 
+\includegraphics[width=4.5cm]{fig/clark.png} \\
+\includegraphics[width=4.5cm]{fig/u-of-alberta-logo} 
 \end{tabular}
 } % Second university/lab logo on the right
 
@@ -130,8 +147,8 @@ linewidth=2pt % Width of the border lines around content boxes
 \end{scriptsize}
 
 \vspace{1ex}
-
-\textbf{\small Connection to expected value:} Letting {$(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$}, we have
+{\small
+\textbf{Connection to expected value:} Letting {$(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$}, we have}
 \begin{align*}
 \tikz[baseline]{
             \node[fill=red!20,anchor=base] (t1)
@@ -146,7 +163,7 @@ linewidth=2pt % Width of the border lines around content boxes
 %	Tversky-Kahneman
 %----------------------------------------------------------------------------------------
 
-\headerbox{Prospect Theory}{name=pt,column=0,below=humansystems}{
+\headerbox{Prospect theory}{name=pt,column=0,below=humansystems}{
 \begin{tabular}{cc}
 \begin{minipage}{0.45\textwidth}
 \includegraphics[height=1.25in]{../slides/fig/tversky.jpg}  
@@ -288,7 +305,7 @@ linewidth=2pt % Width of the border lines around content boxes
 Samples are from $F(X)$, but $\C(X)$ {\color{red}distorts} 
 $\Rightarrow$ Sample means {\color{red} won't} work
 
-\vspace{1ex}
+% \vspace{1ex}
 
 \begin{tabular}{c|c}
 \begin{minipage}{0.6\textwidth}
@@ -341,10 +358,10 @@ $ \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot
 \frac{4H^2 M^2}{\epsilon^{2/\alpha}}$}};}
 \end{align*}
 
-\textbf {\color{darkgreen}Case $\alpha=1$ (Lipschitz weights):} \\
+\textbf {\color{darkgreen}Case $\alpha=1$ (Lipschitz weights):} \\[1ex]
 %\begin{quote}
 \tikz[baseline]{
-            \node[fill=red!20,anchor=base] (t1)
+            \node[fill=pink!20,anchor=base] (t1)
             {\makecell{Sample complexity $O\left(1/\epsilon^2\right)$\\ for accuracy $\epsilon$}};
         }
 %\end{quote} 
@@ -461,15 +478,23 @@ $ \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot
 
 \vspace{1ex}
 
-{\color{red} \textbf{Challenge}:} {estimating $\nabla_{i} \C(X^\theta)$
-given only biased estimates of $\C(X^\theta)$}
+{\color{red} \textbf{Challenge}:} { Estimate $\nabla_{i} \C(X^\theta)$
+given biased samples of $\C(X^\theta)$}
 
 \vspace{1ex}
 
 {\bf\color{darkgreen} Solution: use SPSA [Spall'92]}
 \begin{align*}
-\widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}}
+\tikz[baseline]{
+            \node[fill=upmaroon!20,anchor=base] (t1)
+            {$\widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}}
+$};
+        }
 \end{align*}
+% 
+% \begin{align*}
+% \widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}}
+% \end{align*}
 {\scriptsize$\Delta_n$ is a vector of independent Rademacher r.v.s and $\delta_n>0$ vanishes asymptotically.}
 
 \end{small}
