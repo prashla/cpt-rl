@@ -24,31 +24,7 @@ We devise a scheme for estimating \eqref{eq:cpt-general} given only samples from
 We also provide sample complexity bounds assuming that the utility functions are bounded.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Estimation scheme for \holder continuous weights}
-Recall the H\"{o}lder continuity property first:
-\begin{definition}\label{holder}
-{\textbf{\textit{(H\"{o}lder continuity)}}}
-A function $f \in C([a,b])$ is said to satisfy
-a H\"{o}lder condition of order $\alpha\in (0,1]$ (or to be H\"{o}lder continuous
-of order $\alpha$) if there exists $ H>0$, s.t.
-\[
-\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq H .
-\]
-\end{definition}
-
-In order to ensure the integrability of the CPT-value \eqref{eq:cpt-general}, we make the following assumption:\\[1ex]
-\textbf{Assumption (A1).}  
-The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
-there exists $ \gamma \le \alpha$ such that (s.t.)
-$\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
-where $\mathbb{P}^{\gamma}(\cdot) = \left(\mathbb{P}(\cdot)\right)^{\gamma}$.
-
-The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition 
-\ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
-
-
-\paragraph{Approximating CPT-value using quantiles:}
+\subsection{CPT-value prediction using quantiles}
 Let $\xi^+_{k}$ denote the $k$th quantile of the r.v. $u^+(X)$. 
 Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
 \begin{align}
@@ -61,7 +37,7 @@ $\alpha$th quantile of $u^-(X)$.
 However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we next present a procedure that uses order statistics for estimating quantiles and this in turn assists estimation of the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
 
 \begin{algorithm}
-\caption{CPT-value estimation for \holder continuous weights}
+\caption{CPT-value prediction}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
 \State Simulate $n$ i.i.d. samples from the distribution of $X$.
@@ -83,7 +59,32 @@ $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right
 \end{algorithmic}
 \end{algorithm}
 
-\subsubsection*{Main results}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Results for \holder continuous weights}
+Recall the H\"{o}lder continuity property first:
+\begin{definition}\label{holder}
+{\textbf{\textit{(H\"{o}lder continuity)}}}
+A function $f \in C([a,b])$ is said to satisfy
+a H\"{o}lder condition of order $\alpha\in (0,1]$ (or to be H\"{o}lder continuous
+of order $\alpha$) if there exists $ H>0$, s.t.
+\[
+\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq H .
+\]
+\end{definition}
+
+%In order to ensure the integrability of the CPT-value \eqref{eq:cpt-general}, we make the following assumption:\\[1ex]
+\noindent\textbf{Assumption (A1).}  
+The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
+there exists $ \gamma \le \alpha$ such that (s.t.)
+$\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
+where $\mathbb{P}^{\gamma}(\cdot) = \left(\mathbb{P}(\cdot)\right)^{\gamma}$.
+
+The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition 
+\ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
+
+
+
+%\subsubsection*{Main results}
 %We make the following assumptions on the utility functions:\\[1ex]
 
 %For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
@@ -111,7 +112,7 @@ Under additional assumptions on utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 
-\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
+\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
 
 %\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
 
@@ -142,10 +143,10 @@ $$
 See Section \ref{sec:holder-proofs}.
 \end{proof}
 
-\subsubsection{Results for Lipschitz continuous weights}
+\subsection{Results for Lipschitz continuous weights}
 In the previous section, it was shown that \holder continuous weights incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. In this section, we establish that one can achieve the canonical Monte Carlo rate if we consider Lipschitz continuous weights, i.e., the following assumption in place of (A1):
  
-\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+\noindent\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
 
 Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs the dominated convergence theorem and Dvoretzky-Kiefer-Wolfowitz (DKW) inequality, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
@@ -172,5 +173,5 @@ See Section \ref{sec:lipschitz-proofs}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Estimation scheme for locally Lipschitz weights and discrete $X$}
+\subsection{Locally Lipschitz weights and discrete-valued $X$}
 \input{discrete-est}

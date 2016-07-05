@@ -124,11 +124,13 @@ w^+\left(\frac{n-i-1}{n}\right)\right) \right| > \frac{\epsilon}{n}\right) \\
 \xi^+_{\frac{i}{n}}\right)\right.\right. \\
 &\quad\qquad\left.\left.\times\left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| > \frac{\epsilon}{n}\right)
 \\ 
-& \leq \sum _{i=1}^{n-1} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right) \cdot \cdot \left(\frac{1}{n}\right)^{\alpha}
-\right| > \frac{\epsilon}{n}} \\ 
+& \leq \sum _{i=1}^{n-1} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right) \left(\frac{1}{n}\right)^{\alpha}
+\right| > \frac{\epsilon}{n}} \stepcounter{equation}\tag{\theequation}\label{eq:bd02}\\ 
 & = \sum _{i=1}^{n-1} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right)
 \right| > \frac{\epsilon}{\cdot n^{1-\alpha}}}.\stepcounter{equation}\tag{\theequation}\label{eq:bd12}
 \end{align*}
+In the above, \eqref{eq:bd02} follows from the fact that $w^+$ is \holder with constant $1$.
+
 Now we find the upper bound of the probability of a single item in the sum above, i.e.,
 \begin{align*}
 & \Prob{ \left | u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}} \right | > \frac {\epsilon} {n^{\left(1-\alpha\right)}}} \\ 
@@ -176,7 +178,8 @@ In a  similar fashion, one can show that
 \Prob{ u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}} \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}.
 \label{eq:a23}
 \end{align}
-Combining \eqref{eq:a12} and \eqref{eq:a23},  $\forall i\in \mathbb{N} \cap (0,1)$ we obtain \todoc{Is not $\mathbb{N} \cap (0,1) =\emptyset$???}
+Combining \eqref{eq:a12} and \eqref{eq:a23},  we obtain 
+%\todoc{Is not $\mathbb{N} \cap (0,1) =\emptyset$???}
 \begin{align*}
 \Prob{ \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}} \leq 2\cdot
 e^{-2n^\alpha \cdot L^{+} \epsilon} , 
@@ -198,7 +201,7 @@ $\frac{1}{n^k}$, $\forall k>1$.
 By applying the Borel Cantelli lemma,  $\forall \epsilon >0$, we have that
 \begin{align*}
 &\mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \cdot \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)\right.\right. \\
-&\qquad\left.\left.-
+&\left.\left.-
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
 \epsilon , i.o.\right) \\
 &=0, 
@@ -361,11 +364,11 @@ Since $u^+(X)$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$,
 \begin{align*}
 &\left|\intinfinity w^+\left(\Prob{u^+(X)>x}\right) dx- \intinfinity w^+\left(1- \hat F_n^+(x)\right) dx\right|
 \\
-= & \left|\int_0^M w^+\left(\Prob{u^+(X)>x}\right) - \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
+&=  \left|\int_0^M w^+\left(\Prob{u^+(X)>x}\right) - \int_0^M w^+(1- {\hat F_n}^+(x)) dx\right|
 \\
-\leq&
+&\leq
 \left|\int_0^M L\cdot |\Prob{u^+(X)<x}-{\hat F_n}^+(x)| dx\right|\\
-\leq&
+&\leq
 LM\sup_{x\in \mathbb{R}}\left|\Prob{u^+(X)<x}-{\hat F_n}^+(x)\right|.
 \end{align*}
 Now, plugging in the DKW inequality, we obtain
@@ -442,7 +445,8 @@ $\eta_n$ goes to zero asymptotically. In other words,
 We now analyse the RHS of \eqref{eq:l1}.
 By using suitable Taylor's expansions,
 \begin{align*}
-\C(X^{\theta_n \pm \delta_n \Delta_n}) = \C(X^{\theta_n}) \pm \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) + \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n + O(\delta_n^3).
+&\C(X^{\theta_n \pm \delta_n \Delta_n}) = \C(X^{\theta_n}) \pm \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) \\
+&\quad+ \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n + O(\delta_n^3).
 \end{align*}
 From the above, it is easy to see that 
 \begin{align*}
@@ -556,7 +560,7 @@ The claim follows from the Kushner-Clark lemma.
 \subsection{Proofs for CPT-SPSA-N}
 \label{sec:proofs-spsa-n}
 To simplify notation, we will use $X^{+}$ (resp. $X^{-}$) to denote $X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}$ (resp. $X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}$) in the proofs below.
-\begin{proof}
+
 Before proving Theorem \ref{thm:2spsa}, we bound the bias in the SPSA based estimate of the Hessian in the following lemma.
 \begin{lemma}
 \label{lemma:2spsa-bias}
@@ -611,9 +615,7 @@ Follows by using completely parallel arguments to that in Lemma \ref{lemma:1spsa
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Proof of Theorem \ref{thm:2spsa}}
-
-Before we prove Theorem \ref{thm:2spsa}, we show that the Hessian recursion \eqref{eq:2spsa-H} converges to the true Hessian, for any policy $\theta$.
+The following lemma establishes that the Hessian recursion \eqref{eq:2spsa-H} converges to the true Hessian, for any policy $\theta$.
 
 \begin{lemma}
 \label{lemma:h-est}
@@ -658,7 +660,6 @@ Thus, it is easy to see that \eqref{eq:pi-n} is a discretization of the ODE:
 Since $\C(X^{\theta})$ serves as a Lyapunov function for the ODE \eqref{eq:n-ode}, it is easy to see that the set \\$\K = \{\theta \mid
 \nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
 =0, \forall i=1,\ldots,d\}$ is an asymptotically stable attractor set for the ODE \eqref{eq:n-ode}. The claim now follows from Kushner-Clark lemma.
-\end{proof}
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
