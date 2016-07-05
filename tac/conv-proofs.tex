@@ -16,7 +16,7 @@ $$\Prob{\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt } \leq 2\exp{
 
 \begin{proposition}
 \label{prop:Holder-cpt-finite}
-Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-mdp} is finite. 
+Under (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-general} is finite. 
 \end{proposition}
 \begin{proof}
 
@@ -27,7 +27,7 @@ H\"{o}lder continuity of $w^+$ together with the fact that $w^+(0)=0$ imply that
 &\le H \int_0^{\infty} \mathbb{P}^{\gamma} \left(u^+(X)>z\right) dz 
 <\infty.
 \end{align*}
-The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-mdp} and the finiteness of the second integral in \eqref{eq:cpt-mdp} can be argued in an analogous fashion.
+The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows for the first integral in \eqref{eq:cpt-general} and the finiteness of the second integral in \eqref{eq:cpt-general} can be argued in an analogous fashion.
 \end{proof}
 
 %%%%
@@ -257,7 +257,7 @@ The claim follows.
 \subsection{Lipschitz continuous weights}
 \label{sec:lipschitz-proofs}
 \todoj[inline]{Can't we have a unified proof of \holder and Lipschitz cases?}
- Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:lipschitz}, it is easy to see that the CPT-value \eqref{eq:cpt-mdp} is finite. 
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:lipschitz}, it is easy to see that the CPT-value \eqref{eq:cpt-general} is finite. 
 
 Next, in order to prove the asymptotic convergence claim in Proposition \ref{prop:lipschitz}, we require the dominated convergence theorem in its generalized form, which is provided below.
 \begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
