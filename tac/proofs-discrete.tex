@@ -27,26 +27,20 @@ x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon) \\
     \leq 2e^{-2n \epsilon^2}.
 \end{align*}
 \end{proof}
-
 The proof of Proposition \ref{prop:sample-complexity-discrete} requires the following claim which gives the convergence rate under local Lipschitz weights. 
-
 \begin{proposition}
 \label{prop:discrete-first-term}
 Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk} and \eqref{eq:hatFk},  we have
-\begin{align*}
-&\Prob{\left| \sum_{i=1}^K u_{k} w(\hat{F_k}) - \sum_{i=1}^K u_{k} w(F_k) \right| >\epsilon}\\
-& < K\left(
-e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}\right),
-\end{align*}
-where
-\todoj{Shouldn't it $\le$ instead of $<$ in the main prop claim}
 \begin{align}
-\label{eq:uplusminusxk}
-u_k = 
+&\Prob{\left| \sum_{i=1}^K u_{k} w(\hat{F_k}) - \sum_{i=1}^K u_{k} w(F_k) \right| >\epsilon}\nonumber\\
+& \le K\left(
+e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}\right), \text{ where }\nonumber\\
+% \todoj{Shouldn't it $\le$ instead of $<$ in the main prop claim}
+&u_k = 
 \begin{cases}
    u^{-}(x_{k}) & \text{if   } k \leq l \\
    u^{+}(x_{k}) & \text{if  }  k > l.
-\end{cases}  
+\end{cases}  \label{eq:uplusminusxk}
 \end{align} 
 \end{proposition}
 

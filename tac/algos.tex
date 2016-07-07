@@ -44,10 +44,10 @@ where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, t
 %\label{fig:algorithm-flow}
 %\end{figure}
 
-\subsection{Gradient algorithm for CPT-value optimization (CPT-SPSA-G)}
+\subsection{Gradient algorithm for CPT-value control (CPT-SPSA-G)}
 \label{sec:1spsa}
 
-\paragraph{Gradient estimation} 
+\subsubsection*{Gradient estimation} 
 Given that we operate in a learning setting and only have biased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation scheme to estimate $\nabla \C(X^\theta)$.  
 Simultaneous perturbation methods are a general class of stochastic gradient schemes that optimize a function given only noisy sample values - see \cite{Bhatnagar13SR} for a textbook introduction. SPSA is a well-known scheme that estimates the gradient using two sample values. In our context, at any iteration $n$ of CPT-SPSA-G, with parameter $\theta_n$, the gradient $\nabla \C(X^{\theta_n})$ is estimated as follows: For any  $i=1,\ldots,d$,
 \begin{align}
@@ -61,7 +61,7 @@ The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{l
 %\cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
 
 
-\paragraph{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For $i=1,\ldots,d$,
+\subsubsection*{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For $i=1,\ldots,d$,
 \begin{align}
 \theta^{i}_{n+1} = \Gamma_{i}\left(\theta^{i}_n + \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
 \label{eq:theta-update}
@@ -150,7 +150,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 %\label{fig:opt-diff}
 %\end{figure}
 
-\paragraph{On the number of samples $m_n$ per iteration:}
+\subsubsection*{On the number of samples $m_n$ per iteration}
 The CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$, with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike many simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
@@ -170,10 +170,14 @@ $\delta_n$ are positive $\forall n$ and satisfy
 While the conditions on $\gamma_n$ and $\delta_n$ are standard for SPSA-based algorithms, the condition on $m_n$ is motivated by the earlier discussion. 
 A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n = m_0 n^\nu$ and $\delta_n = \delta_0/{n^\gamma}$, for some $\nu, \gamma >0$ with $\gamma > \nu\alpha/2$.
 
-\paragraph{Convergence result}
+\noindent\textbf{Assumption (A4).}  CPT-value $\C(X^\theta)$ is a continuously differentiable function of $\theta$, for any $\theta \in \Theta$.
+
+In a typical RL setting, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
+
+\subsubsection*{Convergence result}
 \begin{theorem}
 \label{thm:1spsa-conv}
-Assume (A1)-(A3) and also that $\C(X^\theta)$ is a continuously differentiable function of $\theta$, for any $\theta \in \Theta$\footnote{In a typical RL setting, it is sufficient to assume that the policy is continuously differentiable in $\theta$.}.
+Assume (A1)-(A4).
 Consider the  ordinary differential equation (ODE): 
 $$\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
 where 
@@ -194,10 +198,11 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Newton algorithm for CPT-value optimization (CPT-SPSA-N)}
+\subsection{Newton algorithm for CPT-value control (CPT-SPSA-N)}
 \label{sec:2spsa}
-\paragraph{Need for second-order methods}
-While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
+\subsubsection*{Need for second-order methods}
+While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-
+exponentially fast (see 
 Theorem 2.2 in \cite{fathi2013transport}). Thus, it is optimal to average iterates only 
 after a sufficient number of iterations have passed and all the iterates are very close to the optimum. However, the latter situation serves as a stopping condition in practice.
 
@@ -262,7 +267,7 @@ Both the gradient estimate $\widehat \nabla \C(X_n^{\theta_n}) = [\widehat \nabl
 %\label{alg:structure-2}
 %\end{algorithm}
 
-\paragraph{Update rule}
+\subsubsection*{Update rule}
 We update the parameter incrementally using a Newton decrement as follows: For $i=1,\ldots,d$,
 \begin{align}
 \label{eq:2spsa}
@@ -275,7 +280,7 @@ $\sum_{n} \xi_n = \infty, \sum_n \xi_n^2 < \infty$ and $\frac{\gamma_n}{\xi_n}\r
 Further, $\Gamma$ is a projection operator as in CPT-SPSA-G and  $M_n = [M_n^{i,j}] = \Upsilon(\overline H_n)^{-1}$.
 % ,  $\widehat\nabla V^\theta_n(x^0)$ is an estimate of the gradient of the CPT-value function and $\widehat H_n$ and $\overline H_n$ denote the Hessian estimate and its smooth counterpart, respectively. 
 Notice that we invert $\overline H_n$ in each iteration, and to ensure that this inversion is feasible (so that the $\theta$-recursion descends), we project $\overline H_n$ onto the set of positive definite matrices using the operator $\Upsilon$. The operator has to be such that asymptotically $\Upsilon(\overline H_n)$ should be the same as $\overline H_n$ (since the latter would converge to the true Hessian), while ensuring inversion is feasible in the initial iterations.  The assumption below makes these requirements precise.\\[1ex]
-\textbf{Assumption (A4).}  For any $\{A_n\}$ and $\{B_n\}$,
+\textbf{Assumption (A5).}  For any $\{A_n\}$ and $\{B_n\}$,
 ${\displaystyle \lim_{n\rightarrow \infty} \left\| A_n-B_n \right\|}= 0 \Rightarrow {\displaystyle \lim_{n\rightarrow \infty} \parallel \Upsilon(A_n)- \Upsilon(B_n) \parallel}= 0$. Further, for any $\{C_n\}$  with
 ${\displaystyle \sup_n \parallel C_n\parallel}<\infty$,
 ${\displaystyle \sup_n \left(\parallel \Upsilon(C_n)\parallel + \parallel \{\Upsilon(C_n)\}^{-1} \parallel\right) < \infty}$.
@@ -289,10 +294,10 @@ A simple way to ensure the above is to have $\Upsilon(\cdot)$ as a diagonal matr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\paragraph{Convergence result}
+\subsubsection*{Convergence result}
 \begin{theorem}
 \label{thm:2spsa}
-Assume (A1)-(A4). 
+Assume (A1)-(A5). 
 Consider the ODE: 
 $$
 \dot\theta^{i}_t = \check\Gamma_{i}\left( - \Upsilon(\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right), \text { for }i=1,\dots,d,$$
