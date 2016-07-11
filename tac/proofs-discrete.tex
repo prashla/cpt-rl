@@ -1,46 +1,46 @@
-\todoj[inline]{Check out the notation in Proposition \ref{prop:sample-complexity-discrete} in main paper and change the notation in the proof in this section to be consistent with the one in main paper proposition. In particular, $\delta$ is in prob and Lipscthiz assumption uses $\rho$, $M$ instead of $A$}
+% \todoj[inline]{Check out the notation in Proposition \ref{prop:sample-complexity-discrete} in main paper and change the notation in the proof in this section to be consistent with the one in main paper proposition. In particular, $\delta$ is in prob and Lipscthiz assumption uses $\rho$, $M$ instead of $A$}
 
-Without loss of generality, assume $w^+=w^-=w$, and let
-\begin{align}
-\label{eq:hatFk}
-\hat F_k = 
-\begin{cases}
-   \sum_{i=1}^k \hat p_k & \text{if   } k \leq l \\
-   \sum_{i=k}^K \hat p_k & \text{if  }  k > l.
-\end{cases}  
-\end{align}
+Without loss of generality, assume $w^+=w^-=w$.
+% , and let
+% \begin{align}
+% \label{eq:hatFk}
+% \hat F_k = 
+% \begin{cases}
+%    \sum_{i=1}^k \hat p_k & \text{if   } k \leq l \\
+%    \sum_{i=k}^K \hat p_k & \text{if  }  k > l.
+% \end{cases}  
+% \end{align}
 
-The following proposition gives the rate at which $\hat{F_k}$ converges to $F_k$.
+% The following proposition gives the rate at which $\hat{F_k}$ converges to $F_k$.
 \begin{proposition}
 \label{prop:hoeffding-discrete}
-Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}, \eqref{eq:hatFk}, Then, we have that, for every $\epsilon >0$, 
+Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}, \eqref{eq:Fkhat}, Then, we have that, for every $\epsilon >0$, 
 $$P(|\hat{F_k}-F_k| > \epsilon) \leq 2 e^{-2n \epsilon^2}.$$
 \end{proposition}
 \begin{proof}
 We focus on the case when $k > l$, while the case of $k \leq l$ is proved in a similar fashion.
-Notice that when $k>l$,  $\hat F_k =I_{(X_i \geq  x_k) }$. Since the random variables $X_i$ are independent of each other and  for each $i$, are bounded above by $1$, we can apply Hoeffding's inequality to obtain 
-\begin{align*}
-&P(\left|\hat{F_k}- F_k \right| > \epsilon)  \\
-&= P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{X_i \geq
-x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon) \\ & = P(\left|
-\sum_{i=1}^n I_{\{X_i \geq x_k\}} - \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > n\epsilon) \\ &
-    \leq 2e^{-2n \epsilon^2}.
-\end{align*}
+% Notice that when $k>l$,  $\hat F_k =I_{(X_i \geq  x_k) }$. 
+\begin{align}
+&P(\left|\hat{F_k}- F_k \right| > \epsilon)  \nonumber\\
+&= P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{X_i \geq x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon) \nonumber\\ 
+& = P(\left|\sum_{i=1}^n I_{\{X_i \geq x_k\}} - \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > n\epsilon) \label{eq:hfd} \\ 
+& \leq 2e^{-2n \epsilon^2},
+\end{align}
+where the last inequality above follows by an application of Hoeffding inequality after observing that $X_i$ are independent of each other and for each $i$, the corresponding r.v. in \eqref{eq:hfd} is an indicator that is trivially bounded above by $1$.
 \end{proof}
 The proof of Proposition \ref{prop:sample-complexity-discrete} requires the following claim which gives the convergence rate under local Lipschitz weights. 
 \begin{proposition}
 \label{prop:discrete-first-term}
-Under conditions of Proposition \ref{prop:sample-complexity-discrete}, with $F_k$ and $\hat F_k$ as defined in \eqref{eq:Fk} and \eqref{eq:hatFk},  we have
+Under conditions of Proposition \ref{prop:sample-complexity-discrete}, we have
 \begin{align}
 &\Prob{\left| \sum_{i=1}^K u_{k} w(\hat{F_k}) - \sum_{i=1}^K u_{k} w(F_k) \right| >\epsilon}\nonumber\\
 & \le K\left(
-e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2}\right), \text{ where }\nonumber\\
+e^{-2n\rho^2} + e^{-2n\epsilon^2 /(KLM)^2}\right), \text{ where }\nonumber\\
 % \todoj{Shouldn't it $\le$ instead of $<$ in the main prop claim}
 &u_k = 
-\begin{cases}
-   u^{-}(x_{k}) & \text{if   } k \leq l \\
-   u^{+}(x_{k}) & \text{if  }  k > l.
-\end{cases}  \label{eq:uplusminusxk}
+   u^{-}(x_{k})  \text{ if   } k \leq l \text{ and } 
+   u^{+}(x_{k})  \text{ if  }  k > l.
+ \label{eq:uplusminusxk}
 \end{align} 
 \end{proposition}
 
@@ -53,33 +53,33 @@ Observe that
     \sum_{k=1}^K \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}}\label{eq:dp1}
 \end{align}
 For each $k =1,....K$,
-the function $w$ is locally Lipschitz on $[{p_k}- \delta, {p_k}+\delta)$ with common constant $L$.
+the function $w$ is locally Lipschitz on $[{p_k}- \rho, {p_k}+\rho)$ with common constant $L$.
 Therefore, for each $k$, we can decompose the corresponding probability in \eqref{eq:dp1} as follows: 
 \begin{align*}
 & \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}} \\ 
 & = \Prob{ \left\{ \left| F_k -
-\hat{F_k} \right| >\delta \right\} \bigcap \left\{ \left| u_k w(\hat{F_k}) -u_k w(F_k) \right|  > \frac
+\hat{F_k} \right| >\rho \right\} \bigcap \left\{ \left| u_k w(\hat{F_k}) -u_k w(F_k) \right|  > \frac
 {\epsilon} {K}\right\}}\\
-& + \Prob{ \left\{ \left| F_k - \hat{F_k} \right| \leq\delta \right\} \bigcap \left\{ \left| u_k
+& + \Prob{ \left\{ \left| F_k - \hat{F_k} \right| \leq\rho \right\} \bigcap \left\{ \left| u_k
     w(\hat{F_k}) -u_k w(F_k) \right|  > \frac {\epsilon} {K}\right\}} 
 		\\ & \leq \Prob{ \left| F_k - \hat{F_k}
-    \right| >\delta} \\
-		&+ \Prob{ \left\{ \left| F_k - \hat{F_k} \right| \leq\delta \right\} \bigcap \left\{ \left| u_k
+    \right| >\rho} \\
+		&+ \Prob{ \left\{ \left| F_k - \hat{F_k} \right| \leq\rho \right\} \bigcap \left\{ \left| u_k
     w(\hat{F_k}) -u_k w(F_k) \right|  > \frac {\epsilon} {K}\right\}}.\stepcounter{equation}\tag{\theequation}\label{eq:hd0}
 \end{align*}
 Using the fact that $w$ is $L$-Lipschitz together with Proposition \ref{prop:hoeffding-discrete},
 we obtain
 \begin{align}
-& \Prob{ \left\{ \left| F_k - \hat{F_k} \right| \leq\delta \right\} \bigcap \left\{ \left| u_k
+& \Prob{ \left\{ \left| F_k - \hat{F_k} \right| \leq\rho \right\} \bigcap \left\{ \left| u_k
     w(\hat{F_k}) -u_k w(F_k) \right|  > \frac {\epsilon} {K}\right\}} \nonumber\\ 
 		& \leq \Prob{u_k L \left| F_k - \hat{F_k} \right| > \frac
     {\epsilon} {K}}\nonumber\\
-		&\leq e^ {-\epsilon\cdot 2n /(K L u_k)^2} \leq e^ {-\epsilon\cdot 2n /(K L A)^2},
+		&\leq e^ {-2n\epsilon  /(K L u_k)^2} \leq e^ {-2n\epsilon  /(K L M)^2},
      \forall k.\label{eq:hd1}
 \end{align}
 Using Proposition \ref{prop:hoeffding-discrete}, we obtain
 \begin{align}
-\Prob{\left| F_k - \hat{F_k} \right| > \delta} & \leq e^{-2n\delta^2},   \forall
+\Prob{\left| F_k - \hat{F_k} \right| > \rho} & \leq e^{-2n\rho^2},   \forall
     k.\label{eq:hd2}
 \end{align}
 Using \eqref{eq:hd1} and \eqref{eq:hd2} in \eqref{eq:hd0}, we obtain
@@ -87,20 +87,20 @@ Using \eqref{eq:hd1} and \eqref{eq:hd2} in \eqref{eq:hd0}, we obtain
 & \Prob{\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon}\\
  & \leq
 \sum_{k=1}^K \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}} \\ 
-& \le \sum_{k=1}^K \left( e^{-2n\delta^2} + e^{-\epsilon^2 \cdot 2n/ (KLA)^2} \right) \\ 
-& =K    \left(e^{-2n\delta^2} + e^{-\epsilon^2 \cdot 2n/ (KLA)^2}\right).
+& \le \sum_{k=1}^K \left( e^{-2n\rho^2} + e^{-2n\epsilon^2  / (KLM)^2} \right) \\ 
+& =K    \left(e^{-2n\rho^2} + e^{-2n\epsilon^2 / (KLM)^2}\right).
 \end{align*}
 The claim follows.
 \end{proof}
 
 \subsection*{Proof of Proposition \ref{prop:sample-complexity-discrete}}
 \begin{proof}
-With $u_k$ as defined in \eqref{eq:uplusminusxk}, we need to prove that, $\forall n > \frac{\ln(\frac{4K}{A})} { M}$, the following high-probability bound holds
+With $u_k$ as defined in \eqref{eq:uplusminusxk}, we need to prove that, $\forall n \ge \frac{1}{\kappa}\ln\!\left(\frac{1}{\delta}\right) \ln\left(\frac{4K}{M}\right)\!$, the following high-probability bound holds
 \begin{align}
 &\mathbb{P}\left(\left|\sum_{i=1}^K u_{k} \left(w\left(\hat{F_k}\right)- w\left(\hat F_{k+1}\right) \right)\right.\right.\nonumber\\
 &\quad\left.\left.-  
 \sum_{i=1}^K u_{k} \left(w\left(F_k\right)- w\left(F_{k+1}\right) \right)
-\right| \leq \epsilon\right) > 1-\rho.
+\right| \leq \epsilon\right) > 1-\delta.
 \label{eq:dw}
 \end{align}
 Recall that $w$ is Locally Lipschitz continuous with constants $L_1,....L_K$ at the points $F_1,....F_K$.
@@ -108,7 +108,7 @@ From a parallel argument to that in the proof of Proposition \ref{prop:discrete-
 \begin{align*}
 \Prob{\left| \sum_{i=1}^K u_k w(\hat F_{k+1}) - \sum_{i=1}^K u_k w(F_{k+1}) \right| >\epsilon}\\
 \le
-K\cdot ( e^{-\delta^2\cdot 2n} + e^{-\epsilon^2 2n/(KLA)^2})
+K\cdot ( e^{-2n\rho^2 } + e^{-2n\epsilon^2 /(KLM)^2})
 \end{align*}
 Hence,
 \begin{align*}
@@ -120,7 +120,7 @@ w\left(F_{k+1}\right) \right) \right| > \epsilon\right) \\
 		&+ \Prob{\left|\sum_{i=1}^K u_k
     \left(w\left(\hat F_{k+1}\right)\right) -  \sum_{i=1}^K u_k \left(w\left(F_{k+1}\right)\right) \right| > \epsilon/2} \\ 
 		&\leq  2K
-    (e^{-2n\delta^2} + e^{-2n\epsilon^2/(KLA)^2})
+    (e^{-2n\rho^2} + e^{-2n\epsilon^2/(KLM)^2})
 \end{align*}
 The claim in \eqref{eq:dw} now follows.
 \end{proof}

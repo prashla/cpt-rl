@@ -18,8 +18,9 @@ Then, the CPT-value is defined as
 \end{small}
 where $u^+, u^-$ are utility functions and $w^+, w^-$ are weight functions corresponding to gains and losses, respectively. The utility functions $u^+$ and $u^-$ are non-decreasing, while the weight functions are continuous, non-decreasing and have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
 
-\subsubsection*{Estimation scheme.} 
-Let $\hat p_k= \frac{1}{n} \sum_{i=1}^n I_{\{U =x_k\}}$ and 
+\subsubsection*{Estimation scheme} 
+Let $X_1,\ldots,X_n$ be $n$ samples from the distribution of $X$. 
+Define $\hat p_k:= \frac{1}{n} \sum_{i=1}^n I_{\{X_i =x_k\}}$ and 
 \begin{align}
 \label{eq:Fkhat}
  \hat F_k = 
@@ -40,10 +41,10 @@ u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat
 %Because $\hat{p_k}$ converge a.e to $p_k=P(X_i=x_k)$, with $X_i$ be the ith sample of $X$, the above estimator is  strong consistent property by the continuous mapping theorem. 
 %The following proposition presents a sample complexity result for the discrete-valued $X$ under the following assumption:\\
 
-\noindent\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L< \infty$ and $\rho>0$, such that
+\noindent\textbf{Assumption (A3).}  The weight functions $w^+(X)$ and $w^-(X)$ are locally Lipschitz continuous, i.e., for any $x$, there exist  $L_x< \infty$ and $\rho>0$, such that
 $$| w^+(x) - w^+(y) | \leq L_x |x-y|, \text{ for all } y \in (x-\rho,x+\rho). $$
 
-\subsubsection*{Main result}
+% \subsubsection*{Main result}
 \begin{proposition}
 \label{prop:sample-complexity-discrete}
 Assume (A3). Let $L=\max\{L_k, k=2...K\}$, where $L_k$ is the local Lipschitz constant of function $w^-(x)$ at points
