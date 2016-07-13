@@ -125,6 +125,13 @@ $$
 \frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
 \end{proposition}
 
+\begin{corollary}
+\label{cor:holder-dkw}
+Under conditions of Proposition \ref{prop:holder-dkw}, we have
+$$
+\E \left|\overline \C_n- \C(X) \right|  \le    \frac{(2H M)^\alpha \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.$$
+\end{corollary}
+
 \begin{proof}
 %
 %%Notice the the following equivalence:
@@ -145,31 +152,36 @@ See Section \ref{sec:holder-proofs}.
 \end{proof}
 
 \subsection{Results for Lipschitz continuous weights}
-In the previous section, it was shown that \holder continuous weights incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. In this section, we establish that one can achieve the canonical Monte Carlo rate if we consider Lipschitz continuous weights, i.e., the following assumption in place of (A1):
- 
+% In the previous section, it was shown that \holder continuous weights result in an asymptotically consisent CPT-value predictor $\overline \C_n$ under a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. 
+In this section, we establish that CPT-value predictor $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., the following assumption in place of (A1):
+
 \noindent\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
 
-Setting $\alpha=1$, one can make special cases of the claims regarding asymptotic convergence and sample complexity of Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw}. However, these results are under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique that employs the dominated convergence theorem and Dvoretzky-Kiefer-Wolfowitz (DKW) inequality, one can obtain results similar to Proposition \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} with (A1') and (A2) only. The following claim makes this precise.
+Setting $\alpha=1$, one can make a special case of the asymptotic consistency claim in Proposition \ref{prop:holder-asymptotic}. However, this result is under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique and (A1') in place of (A1), we can obtain a result similar to Proposition \ref{prop:holder-asymptotic}. The following claim makes this precise.
 
 \begin{proposition}
 \label{prop:lipschitz}
-Assume (A1') and (A2). Then, we have that 
+Assume (A1'). Then, we have that 
 $$\overline \C_n
 \rightarrow
 \C(X)
- \text{   a.s. as } n\rightarrow \infty
+ \text{   a.s. as } n\rightarrow \infty.
 $$
-In addition, if we assume that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1, then we have $\forall \epsilon >0, \delta >0$, 
-$$
-\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } > 1-\delta\text{     ,} \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot 
-\frac{4L^2 M^2}{\epsilon^{2}}.
-$$
+% In addition, if we assume that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1, then we have $\forall \epsilon >0, \delta >0$, 
+% $$
+% \Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } > 1-\delta\text{     ,} \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot 
+% \frac{4L^2 M^2}{\epsilon^{2}}.
+% $$
 \end{proposition}
 Note that according to this proposition, our estimation scheme is sample-efficient (choosing the weights to be the identity function, the sample complexity cannot be improved).
 \begin{proof}
 See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
+
+\begin{remark}
+ For \holder continuous weigths, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights.
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

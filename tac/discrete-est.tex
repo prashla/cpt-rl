@@ -58,10 +58,19 @@ Then, $\forall \epsilon>0,\delta >0$, we have
 \end{align*}
 where $\kappa=\min(\rho^2, \epsilon^2/(KLM)^2)$.
 \end{proposition}
+% \begin{corollary}
+% Under conditions of Proposition \ref{prop:sample-complexity-discrete}, we have
+% $$
+% \E \left|\overline \C_n- \C(X) \right|  \le  \frac{(2H M)^\alpha \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.$$
+% \end{corollary}
+
 In comparison to Propositions \ref{prop:holder-dkw} and \ref{prop:lipschitz}, 
 observe that the sample complexity for discrete $X$ scales with the local Lipschitz constant $L$ and this can be much smaller than the global Lipschitz constant of the weight functions, or the weight functions may not be Lipschitz globally.  
+
 \begin{proof}
  See Section \ref{sec:proofs-discrete}.
 \end{proof}
+
+A variant of Corollary \ref{cor:holder-dkw} can be claimed by integrating the high-probability bound in Proposition \ref{prop:sample-complexity-discrete} and we omit the details here.
 
 %The detailed proofs of Propositions \ref{prop:holder-asymptotic}--\ref{prop:sample-complexity-discrete} are available in \cite{Pracheng2015cpt}.
