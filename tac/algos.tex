@@ -63,11 +63,11 @@ The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{l
 
 \subsubsection*{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For $i=1,\ldots,d$,
 \begin{align}
-\theta^{i}_{n+1} = \Gamma_{i}\left(\theta^{i}_n + \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
+\theta^{i}_{n+1} = \Pi_{i}\left(\theta^{i}_n + \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
 \label{eq:theta-update}
 \end{align}
 where  $\gamma_n$ is a step-size chosen to satisfy (A3) below and
-$\Gamma=\left(\Gamma_{1},\ldots,\Gamma_{d}\right)$ is an operator that ensures that the update \eqref{eq:theta-update} stays bounded within a compact and convex set $\Theta$. 
+$\Pi=\left(\Pi_{1},\ldots,\Pi_{d}\right)$ is an operator that ensures that the update \eqref{eq:theta-update} stays bounded within a compact and convex set $\Theta$. 
 Algorithm \ref{alg:1spsa}  presents the pseudocode.  
 
 
@@ -96,7 +96,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 %%%%%%%%%%%%%%%%%%%
 \begin{algorithm}[t]
 \begin{algorithmic}
-    \State {\bf Input:}  initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Gamma: \R^d \rightarrow \Theta$.
+    \State {\bf Input:}  initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Pi: \R^d \rightarrow \Theta$.
 \For{$n = 0,1,2,\ldots$}	
 	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
@@ -155,7 +155,7 @@ The CPT-value estimation scheme is biased, i.e., providing samples with paramete
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
-\theta^{i}_{n+1}  = & \Gamma_{i}\bigg( \theta^{i}_n +  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
+\theta^{i}_{n+1}  = & \Pi_{i}\bigg( \theta^{i}_n +  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
 &+ \underbrace{\frac{(\epsilon_n^{\theta_n +\delta_n\Delta_n} - \epsilon_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}}_{\kappa_n}\bigg).
 \end{align*}
 Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
@@ -179,10 +179,10 @@ In a typical RL setting, a sufficient condition for ensuring (A4) holds is to as
 \label{thm:1spsa-conv}
 Assume (A1)-(A4).
 Consider the  ordinary differential equation (ODE): 
-$$\dot\theta^{i}_t = \check\Gamma_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
+$$\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
 where 
-$\check\Gamma_{i}(f(\theta)) := \lim\limits_{\alpha \downarrow 0} \frac{\Gamma_{i}(\theta + \alpha f(\theta)) - \theta}{\alpha}$, for any continuous $f(\cdot).$
- Let $\K = \{\theta \mid \check\Gamma_{i} \left(\nabla_i \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
+$\check\Pi_{i}(f(\theta)) := \lim\limits_{\alpha \downarrow 0} \frac{\Pi_{i}(\theta + \alpha f(\theta)) - \theta}{\alpha}$, for any continuous $f(\cdot).$
+ Let $\K = \{\theta \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
 $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \end{theorem}
 
@@ -240,7 +240,7 @@ Both the gradient estimate $\widehat \nabla \C(X_n^{\theta_n}) = [\widehat \nabl
 %\begin{algorithm}[t]
 %\begin{algorithmic}
 %\State {\bf Input:} 
-%initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n, \xi_n\}$, operator $\Gamma: \R^d \rightarrow \Theta$.
+%initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n, \xi_n\}$, operator $\Pi: \R^d \rightarrow \Theta$.
 %\For{$n = 0,1,2,\ldots$}	
 	%\State Generate $\{\Delta_n^{i}, \widehat\Delta_n^{i}, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, \widehat \Delta_m, m=0,1,\ldots,n-1\}$.
 	%\PEval
@@ -272,12 +272,12 @@ We update the parameter incrementally using a Newton decrement as follows: For $
 \begin{align}
 \label{eq:2spsa}
 % \theta_{n+1} =& \theta_{(1-\xi)\Theta}(\theta_n - \gamma_n \Upsilon(\overline H_n)^{-1} \widehat\nabla V^\theta_n(x^0)), \\
-\theta^{i}_{n+1} =& \Gamma_{i}\left(\theta^{i}_n + \gamma_n \sum_{j=1}^{d} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
+\theta^{i}_{n+1} =& \Pi_{i}\left(\theta^{i}_n + \gamma_n \sum_{j=1}^{d} M_n^{i,j} \widehat \nabla_{j} \C(X^\theta_n)\right), \\
 \overline H_n = & (1-\xi_n) \overline H_{n-1} + \xi_n \widehat H_n,\label{eq:2spsa-H}
 \end{align}
 where $\xi_n$ is a step-size sequence that satisfies 
 $\sum_{n} \xi_n = \infty, \sum_n \xi_n^2 < \infty$ and $\frac{\gamma_n}{\xi_n}\rightarrow 0$ as $n\rightarrow \infty$. These conditions on $\xi_n$ ensure that the updates to $\overline H_n$ proceed on a timescale that is faster than that of $\theta_n$ in \eqref{eq:2spsa} - see Chapter 6 of \cite{borkar2008stochastic}.
-Further, $\Gamma$ is a projection operator as in CPT-SPSA-G and  $M_n = [M_n^{i,j}] = \Upsilon(\overline H_n)^{-1}$.
+Further, $\Pi$ is a projection operator as in CPT-SPSA-G and  $M_n = [M_n^{i,j}] = \Upsilon(\overline H_n)^{-1}$.
 % ,  $\widehat\nabla V^\theta_n(x^0)$ is an estimate of the gradient of the CPT-value function and $\widehat H_n$ and $\overline H_n$ denote the Hessian estimate and its smooth counterpart, respectively. 
 Notice that we invert $\overline H_n$ in each iteration, and to ensure that this inversion is feasible (so that the $\theta$-recursion descends), we project $\overline H_n$ onto the set of positive definite matrices using the operator $\Upsilon$. The operator has to be such that asymptotically $\Upsilon(\overline H_n)$ should be the same as $\overline H_n$ (since the latter would converge to the true Hessian), while ensuring inversion is feasible in the initial iterations.  The assumption below makes these requirements precise.\\[1ex]
 \textbf{Assumption (A5).}  For any $\{A_n\}$ and $\{B_n\}$,
@@ -300,10 +300,10 @@ A simple way to ensure the above is to have $\Upsilon(\cdot)$ as a diagonal matr
 Assume (A1)-(A5). 
 Consider the ODE: 
 $$
-\dot\theta^{i}_t = \check\Gamma_{i}\left( - \Upsilon(\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right), \text { for }i=1,\dots,d,$$
+\dot\theta^{i}_t = \check\Pi_{i}\left( - \Upsilon(\nabla^2 \C(X^{\theta_t}))^{-1} \nabla \C(X^{\theta^{i}_t}) \right), \text { for }i=1,\dots,d,$$
 where 
-$\bar\Gamma_{i}$ is as defined in Theorem \ref{thm:1spsa-conv}. Let $\K = \{\theta \in \Theta \mid
-\nabla \C(X^{\theta^{i}})  \check\Gamma_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
+$\bar\Pi_{i}$ is as defined in Theorem \ref{thm:1spsa-conv}. Let $\K = \{\theta \in \Theta \mid
+\nabla \C(X^{\theta^{i}})  \check\Pi_{i}\left(-\Upsilon(\nabla^2 \C(X^{\theta}))^{-1} \nabla \C(X^{\theta^{i}})\right)
 =0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:2spsa}, 
 we have
 $$\theta_n \rightarrow \K  \text{~~ a.s. as } n\rightarrow \infty.$$ 

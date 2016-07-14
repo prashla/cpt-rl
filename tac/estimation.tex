@@ -58,6 +58,26 @@ $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right
 \State Return $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
 \end{algorithmic}
 \end{algorithm}
+Notice the the following equivalence: 
+%\todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
+\begin{align*}
+&\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n+1-i}{n}\right) - w^+\left(\frac{n-i}{n}\right)\right) \\
+&=  \int_0^{\infty} w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, 
+\end{align*}
+and also,
+\begin{align*}
+&\sum_{i=1}^{n} u^-\left(X_{[i]}\right) \left(w^-\left(\frac{i}{n}\right) - w^-\left(\frac{i-1}{n}\right)\right)\\
+& =  \int_0^{\infty} w^-\left(1-\hat{F}^-_n\left(x\right)\right) dx, 
+\end{align*}
+where $\hat{F}^+_n\left(x\right)$ and $\hat{F}^-_n\left(x\right)$ are the empirical distributions of $u^+\left(X\right)$
+and $u^-\left(X\right)$, respectively.
+
+Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
+\begin{align}
+\overline \C_n = \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \!-\! \intinfinity w^-\left(1-{\hat F_n}^-\left(x\right)\right)  dx.
+\label{eq:cpt-est-appendix}
+\end{align}
+
 Consider the special case when weight functions are identity (i.e., $w(p)=p$) and utility functions $u^+$ ($-u^-$) are identity, when restricted to the positive (respectively, negative) half line. In this case, the CPT-value predictor $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -129,7 +149,8 @@ $$
 \label{cor:holder-dkw}
 Under conditions of Proposition \ref{prop:holder-dkw}, we have
 $$
-\E \left|\overline \C_n- \C(X) \right|  \le    \frac{(2H M)^\alpha \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.$$
+\E \left|\overline \C_n- \C(X) \right|  \le    \frac{(2H M)^\alpha \Gamma\left(\alpha/2\right)}{n^{\alpha/2}},$$
+where $\Gamma(\cdot)$ is the gamma function.
 \end{corollary}
 
 \begin{proof}
