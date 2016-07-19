@@ -14,7 +14,7 @@ Without loss of generality, assume $w^+=w^-=w$.
 % The following proposition gives the rate at which $\hat{F_k}$ converges to $F_k$.
 \begin{proposition}
 \label{prop:hoeffding-discrete}
-Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}, \eqref{eq:Fkhat}, Then, we have that, for every $\epsilon >0$, 
+Let $F_k$ and $\hat F_k$ be as defined in \eqref{eq:Fk}, \eqref{eq:Fkhat}, Then, for every $\epsilon >0$, 
 $$P(|\hat{F_k}-F_k| > \epsilon) \leq 2 e^{-2n \epsilon^2}.$$
 \end{proposition}
 \begin{proof}
@@ -103,7 +103,7 @@ With $u_k$ as defined in \eqref{eq:uplusminusxk}, we need to prove that, $\foral
 \right| \leq \epsilon\right) > 1-\delta.
 \label{eq:dw}
 \end{align}
-Recall that $w$ is Locally Lipschitz continuous with constants $L_1,....L_K$ at the points $F_1,....F_K$.
+Recall that $w$ is locally Lipschitz continuous with constants $L_1,....L_K$ at the points $F_1,....F_K$.
 From a parallel argument to that in the proof of Proposition \ref{prop:discrete-first-term}, it is easy to infer that
 \begin{align*}
 \Prob{\left| \sum_{i=1}^K u_k w(\hat F_{k+1}) - \sum_{i=1}^K u_k w(F_{k+1}) \right| >\epsilon}\\

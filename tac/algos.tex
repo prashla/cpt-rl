@@ -67,7 +67,7 @@ The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{l
 \label{eq:theta-update}
 \end{align}
 where  $\gamma_n$ is a step-size chosen to satisfy (A3) below and
-$\Pi=\left(\Pi_{1},\ldots,\Pi_{d}\right)$ is an operator that ensures that the update \eqref{eq:theta-update} stays bounded within a compact and convex set $\Theta$. 
+$\Pi=\left(\Pi_{1},\ldots,\Pi_{d}\right)$ is an operator that ensures that the update \eqref{eq:theta-update} stays bounded within the compact and convex set $\Theta$. 
 Algorithm \ref{alg:1spsa}  presents the pseudocode.  
 
 
@@ -181,8 +181,8 @@ Assume (A1)-(A4).
 Consider the  ordinary differential equation (ODE): 
 $$\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
 where 
-$\check\Pi_{i}(f(\theta)) := \lim\limits_{\alpha \downarrow 0} \frac{\Pi_{i}(\theta + \alpha f(\theta)) - \theta}{\alpha}$, for any continuous $f(\cdot).$
- Let $\K = \{\theta \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
+$\check\Pi_{i}(f(\theta)) := \lim\limits_{\vartheta \downarrow 0} \frac{\Pi_{i}(\theta + \vartheta f(\theta)) - \theta}{\vartheta}$, for any continuous $f(\cdot).$
+ Let $\K = \{\theta^* \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta^*})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
 $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \end{theorem}
 
@@ -201,15 +201,15 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \subsection{Newton algorithm for CPT-value control (CPT-SPSA-N)}
 \label{sec:2spsa}
 \subsubsection*{Need for second-order methods}
-While stochastic gradient descent methods are useful in minimizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, and then combine it with averaging of the iterates. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-
-exponentially fast (see 
-Theorem 2.2 in \cite{fathi2013transport}). Thus, it is optimal to average iterates only 
-after a sufficient number of iterations have passed and all the iterates are very close to the optimum. However, the latter situation serves as a stopping condition in practice.
+While stochastic gradient methods are useful in maximizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/\left(3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))\right)$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, for the update iteration \eqref{eq:theta-update} and average the iterates in the end, i.e., $\bar \theta_{n+1} = \frac1{n} \sum_{m=1}^n \theta_m$. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
+Theorem 2.2 in \cite{fathi2013transport}). 
+Thus, it is optimal to average iterates only 
+after a sufficient number of iterations have passed, which implies that the iterates are already close to the optimum and the updates can be stopped.
 
 An alternative approach is to employ step-sizes of the form $\gamma_n = (a_0/n) M_n$, where $M_n$ converges to $\left(\nabla^2 \C(X^{\theta^*})\right)^{-1}$, i.e., the inverse of the Hessian of the CPT-value at the optimum $\theta^*$. Such a scheme gets rid of the step-size dependency (one can set $a_0=1$) and still obtains optimal convergence rates. This is the motivation behind having a second-order optimization scheme.
 
 \paragraph{Gradient and Hessian estimation}
-We estimate the Hessian of the CPT-value function using the scheme suggested by \cite{bhatnagar2015simultaneous}. As in the first-order method, we use Rademacher random variables to simultaneously perturb all the coordinates. However, in this case, we require three system trajectories with corresponding  parameters $\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)$, $\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)$ and $\theta_n$, where $\{\Delta_n^i, \widehat\Delta_n^i, i=1,\ldots,d\}$ are i.i.d. Rademacher and independent of $\theta_0,\ldots,\theta_n$. Using the CPT-value estimates for the aforementioned  parameters, we estimate the Hessian and the gradient of the CPT-value function as follows: For $i,j=1,\ldots,d$, set
+We estimate the Hessian of the CPT-value function using the scheme suggested by \cite{bhatnagar2015simultaneous}. As in the first-order method, we use Rademacher random variables to simultaneously perturb all the coordinates. However, in this case, we require three system trajectories with corresponding  parameters $\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)$, $\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)$ and $\theta_n$, where $\{\Delta_n^i, \widehat\Delta_n^i, i=1,\ldots,d\}$ are i.i.d. Rademacher and independent of $\theta_0,\ldots,\theta_{n-1}$. Using the CPT-value estimates for the aforementioned  parameters, we estimate the Hessian and the gradient of the CPT-value function as follows: For $i,j=1,\ldots,d$, set
 \begin{align*}
 &\widehat \nabla_{i} \C(X_n^{\theta_n})=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}}{2\delta_n \Delta_n^{i}},\\ 
 &\widehat H_n^{i,j}=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n} + \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n} - 2\overline \C_n^{\theta_n}}{\delta_n^2 \Delta_n^{i}\widehat\Delta_n^{j}}.

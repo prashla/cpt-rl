@@ -25,14 +25,13 @@ We also provide sample complexity bounds assuming that the utility functions are
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{CPT-value prediction using quantiles}
-Let $\xi^+_{k}$ denote the $k$th quantile of the r.v. $u^+(X)$. 
+Let $\xi^+_{k}$ and $\xi^-_{k}$ denote the $k$th quantiles of the r.v.s $u^+(X)$ and $u^-(X)$, respectively. 
 Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
 \begin{align}
 &\lim_{n \rightarrow \infty} \sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n+1-i}{n}\right)- w^+\left(\frac{n-i}{n}\right) \right) \nonumber\\
 &= \int_0^{+\infty} w^+\left(\Prob{u^+(X)>z}\right) dz.\label{eq:holder-quant-motiv}
 \end{align}
-A similar claim holds with $u^-(X)$, $\xi^-_{\alpha}, w^-$ in place of  $u^+(X)$, $\xi^+_{\alpha}, w^+$, respectively. Here $\xi^-_{\alpha}$ denotes the 
-$\alpha$th quantile of $u^-(X)$.
+A similar claim holds with $u^-(X)$, $\xi^-_{\alpha}, w^-$ in place of  $u^+(X)$, $\xi^+_{\alpha}, w^+$, respectively. 
 
 However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we next present a procedure that uses order statistics for estimating quantiles and this in turn assists estimation of the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
 
@@ -78,7 +77,7 @@ Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can b
 \label{eq:cpt-est-appendix}
 \end{align}
 
-Consider the special case when weight functions are identity (i.e., $w(p)=p$) and utility functions $u^+$ ($-u^-$) are identity, when restricted to the positive (respectively, negative) half line. In this case, the CPT-value predictor $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
+Consider the special case when $w^+(p)=w^-(p)=p$ and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, are the identity functions. In this case, the CPT-value predictor $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Results for \holder continuous weights}
@@ -129,7 +128,7 @@ See Section \ref{sec:holder-proofs}.
 \end{proof}
 %Our next result concerns the rate at which the estimate $\overline \C_n$ converges to the CPT-value $\C(X)$. 
 %Under (A2') stated below, 
-Under additional assumptions on utility functions,
+Under an additional assumption on the utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 
@@ -174,12 +173,12 @@ See Section \ref{sec:holder-proofs}.
 
 \subsection{Results for Lipschitz continuous weights}
 % In the previous section, it was shown that \holder continuous weights result in an asymptotically consisent CPT-value predictor $\overline \C_n$ under a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. 
-In this section, we establish that CPT-value predictor $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., the following assumption in place of (A1):
+In this section, we establish that the CPT-value predictor $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., the following assumption in place of (A1):
 
 \noindent\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.
 
-Setting $\alpha=1$, one can make a special case of the asymptotic consistency claim in Proposition \ref{prop:holder-asymptotic}. However, this result is under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique and (A1') in place of (A1), we can obtain a result similar to Proposition \ref{prop:holder-asymptotic}. The following claim makes this precise.
+Setting $\alpha=1$, one can obtain the asymptotic consistency claim in Proposition \ref{prop:holder-asymptotic} for Lipschitz weight functions. However, this result is under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique and (A1') in place of (A1), we can obtain a result similar to Proposition \ref{prop:holder-asymptotic} without a Lipschitz assumption on the distribution functions. The following claim makes this precise.
 
 \begin{proposition}
 \label{prop:lipschitz}
@@ -201,7 +200,7 @@ See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
 
 \begin{remark}
- For \holder continuous weigths, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights.
+ For \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

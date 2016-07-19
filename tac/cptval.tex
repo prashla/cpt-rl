@@ -6,7 +6,7 @@ For a real-valued random variable $X$, we introduce a ``CPT-functional'' that re
 %\label{sec:cptdef}
 The functional, denoted by $\C$,
 indexed by
-$u=(u^+,u^-)$, $w=(w^+,w^-)$, where $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous
+$u=(u^+,u^-)$, $w=(w^+,w^-)$, where $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous,
 with $u^+(x)=0$ when $x\le 0$ and $u^-(x)=0$ when $x\ge 0$ (see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$),
  is defined as 
 \begin{align}
@@ -19,7 +19,7 @@ are the identity functions, and we let $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$
 $\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
 %\cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
 
- \begin{figure}[t]
+ \begin{figure}[h]
    \centering
 \tabl{c}{
 %\includegraphics[width=3.8in]{utility.png}}
@@ -71,6 +71,7 @@ they are always non-decreasing and both of them take on the value of zero at the
 \label{fig:u}
 \end{figure}
 
+
 In the definition, $u^+, u^-$ are utility functions corresponding to gains ($X \ge 0$) and losses ($X \le 0$), respectively,
 where zero is chosen as a somewhat arbitrary ``reference point'' to separate gains and losses.
 Handling losses and gains separately is a salient feature of CPT, and this addresses the tendency of humans to play safe with gains and take risks with losses. % - see Fig \ref{fig:u}. 
@@ -83,21 +84,7 @@ This distinction of playing safe with gains and taking risks with losses is capt
 $u^+$ and a convex disutility $-u^-$, cf. \cref{fig:u}.
 %In contrast, the traditional value function makes no such distinction between gains and losses.  
 
-The functions $w^+, w^-$, called the weight functions, capture the idea that humans deflate high-probabilities and inflate low-probabilities.
-For example, humans usually choose a stock that gives a large reward, e.g., 
-one million dollars w.p. $1/10^6$ over one that gives \$$1$ w.p. $1$ and the reverse when signs are flipped. 
-Thus the value seen by a human subject is non-linear in the underlying probabilities -- an observation backed by strong empirical evidence \cite{tversky1992advances,Barberis:2012vs}.  
-%In contrast, the expected utility is linear in the underlying probabilities. 
-As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and  have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
-In \cite{tversky1992advances}, the authors recommend $w(p) = \frac{p^{\eta}}{{(p^{\eta}+ (1-p)^{\eta})}^{1/\eta}}$, while in \cite{prelec1998probability}, the author recommends $w(p) = \exp(-(-\ln p)^\eta)$, with $0 < \eta <1$. In both cases, the weight function has an inverted-s shape.
-% which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.  
-\if0
-Weight functions can explain nonlinear probability distortions, as illustrated by the following example: \\
-\textit{\textbf{[Stock 1]}} This investment results in a gain of \$$10$ with probability (w.p.) $0.1$ and a loss of \$$500$ w.p. $0.9$. The expected return is \$$-449$, but this does not necessarily imply that ``human'' investors' evaluation of the stock is \$$-449$. Instead, it is very likely that the humans evaluate it to a higher value, e.g. \$$-398$ ($=$ gain w.p. $0.2$ and loss w.p. $0.8$).\footnote{See Table 3 in \cite{tversky1992advances} to know why such a human evaluation is likely.}\\
-\textit{\textbf{[Stock 2]}} loss of \$$10$ w.p. $0.9$, gain \$$500$ w.p. $0.1$. Expected return: \$$41$; Human evaluation: \$$92$ ($=$ loss w.p. $0.8$).\\
-\textit{\textbf{[Stock 3]}} loss of \$$10$ w.p. 0.1, gain \$$500$ w.p. $0.9$. Expected return: \$$449$; Human evaluation: \$$398$ ($=$ loss w.p. $0.2$). 
-\fi
-\begin{figure}[t]
+\begin{figure}[h]
 \centering
 \tabl{c}{
 %\includegraphics[width=8cm]{results/Probability_weighting_function.jpg}
@@ -127,6 +114,23 @@ tendency of humans doing the same when faces with decisions of uncertain outcome
 }
 \label{fig:w}
 \end{figure}
+
+The functions $w^+, w^-$, called the weight functions, capture the idea that humans deflate high-probabilities and inflate low-probabilities.
+For example, humans usually choose a stock that gives a large reward, e.g., 
+one million dollars w.p. $1/10^6$ over one that gives \$$1$ w.p. $1$ and the reverse when signs are flipped. 
+Thus the value seen by a human subject is nonlinear in the underlying probabilities -- an observation backed by strong empirical evidence \cite{tversky1992advances,Barberis:2012vs}.  
+%In contrast, the expected utility is linear in the underlying probabilities. 
+As illustrated with $w=w^+=w^-$ in Fig \ref{fig:w}, the weight functions are continuous, non-decreasing and  have the range $[0,1]$ with $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$. 
+In \cite{tversky1992advances}, the authors recommend $w(p) = \frac{p^{\eta}}{{(p^{\eta}+ (1-p)^{\eta})}^{1/\eta}}$, while in \cite{prelec1998probability}, the author recommends $w(p) = \exp(-(-\ln p)^\eta)$, with $0 < \eta <1$. In both cases, the weight function has an inverted-s shape.
+% which is seen to be a good fit from empirical tests on human subjects - see \cite{conlisk1989three}, \cite{camerer1989experimental}, \cite{camerer1992recent}, \cite{harless1992predictions}, \cite{sopher1993test}, \cite{camerer1994violations}, \cite{gonzalez1999shape}, \cite{abdellaoui2000parameter}.  
+\if0
+Weight functions can explain nonlinear probability distortions, as illustrated by the following example: \\
+\textit{\textbf{[Stock 1]}} This investment results in a gain of \$$10$ with probability (w.p.) $0.1$ and a loss of \$$500$ w.p. $0.9$. The expected return is \$$-449$, but this does not necessarily imply that ``human'' investors' evaluation of the stock is \$$-449$. Instead, it is very likely that the humans evaluate it to a higher value, e.g. \$$-398$ ($=$ gain w.p. $0.2$ and loss w.p. $0.8$).\footnote{See Table 3 in \cite{tversky1992advances} to know why such a human evaluation is likely.}\\
+\textit{\textbf{[Stock 2]}} loss of \$$10$ w.p. $0.9$, gain \$$500$ w.p. $0.1$. Expected return: \$$41$; Human evaluation: \$$92$ ($=$ loss w.p. $0.8$).\\
+\textit{\textbf{[Stock 3]}} loss of \$$10$ w.p. 0.1, gain \$$500$ w.p. $0.9$. Expected return: \$$449$; Human evaluation: \$$398$ ($=$ loss w.p. $0.2$). 
+\fi
+
+
 
 %A few remarks are in order.
 \begin{remark}\textit{(RL applications)}

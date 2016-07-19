@@ -205,17 +205,17 @@ Solving Conditional Value at Risk (CVaR) constrained MDPs is equally complicated
 %Apart from the hardness of finding CVaR-optimal solutions, estimating CVaR for a fixed policy in a typical RL setting itself is a challenge considering CVaR relates to rare events and to the best of our knowledge, there is no algorithm with theoretical guarantees to estimate CVaR without wasting a lot of samples. There are proposals based on importance sampling (cf. \citealt{prashanth2014policy,tamar2014optimizing}), but they lack theoretical guarantees. 
 Finally, we point out that the CPT-value is a generalization of all the risk measures above in the sense that one can recover these particular risk measures such as VaR and CVaR by appropriate choices of the distortions used in the definition of the CPT value.
 
- In \cite{lin2013stochastic}, the authors propose a CPT-measure for an abstract MDP setting.
+ In \cite{lin2013stochastic}, the author proposes a CPT-measure for an abstract MDP setting.
  %(see \cite{bertsekas2013abstract}). 
  We differ from the aforementioned work in several ways:
 \begin{inparaenum}[\it (i)]
-\item We do not assume a nested structure for the CPT-value %\eqref{eq:cpt-mdp} 
+\item We do not assume a nested structure for the CPT-value, %\eqref{eq:cpt-mdp} 
 and this implies the lack of a Bellman equation for our CPT measure;
 \item we do not assume model information, i.e., we operate in a model-free RL setting. Moreover, we develop both estimation and control algorithms with convergence guarantees for the CPT-value function.
 \end{inparaenum}
 
 The rest of the paper is organized as follows: 
-In Section~\ref{sec:cpt-val}, we introduce the notion of CPT-value of a general random variable $X$ and make a special case illustration when $X$ is the return of a stochastic shortest path problem.
+In Section~\ref{sec:cpt-val}, we introduce the notion of CPT-value of a general random variable $X$.
 In Section~\ref{sec:cpt-sampling}, we
 describe the empirical distribution based scheme for estimating the CPT-value of any random variable. In Section \ref{sec:cpt-control}, we present the gradient-based algorithms for optimizing the CPT-value. 
 %Next, in Section \ref{sec:mras}, we present a gradient-free model-based algorithm for CPT-value optimization in an MDP. 
