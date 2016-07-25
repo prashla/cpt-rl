@@ -132,29 +132,29 @@ Now we find the upper bound of the probability of a single term in the sum above
 \end{align*} 
 
 We focus on the first term above.
-$$\hspace{-6em}\text{Let } W_t = I_{\left(u^+(X_t) > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}}\right)}, t=1, \ldots,n.$$ Using the fact that a probability distribution function is non-decreasing, we obtain 
+$$\hspace{-6em}\text{Let } W_j = I_{\left(u^+(X_j) > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}}\right)}, j=1, \ldots,n.$$ Using the fact that a probability distribution function is non-decreasing, we obtain 
 \begin{align*}
 & \Prob { u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}}  \\
-& = \Prob { \sum _{t=1}^{n} W_t > n\cdot\left(1-\frac{i}{n}\right)} \\ 
-& = \mathbb{P} \left( \sum _{t=1}^{n} W_t - n \cdot \left[1-F^{+}\left(\xi^+_{\frac{i}{n}}
+& = \Prob { \sum _{j=1}^{n} W_j > n\cdot\left(1-\frac{i}{n}\right)} \\ 
+& = \mathbb{P} \left( \sum _{j=1}^{n} W_j - n \cdot \left[1-F^{+}\left(\xi^+_{\frac{i}{n}}
 +\frac{\epsilon}{n^{(1-\alpha)}}\right)\right] \right. \\
 &\left.\quad\qquad> n \cdot \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)
 - \frac{i}{n}\right]\right).
 \end{align*}
 
 Using the fact that 
-$E W_t = 1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)$ in conjunction with Hoeffding's inequality, we obtain
+$E W_j = 1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)$ in conjunction with Hoeffding's inequality, we obtain
 \begin{align*}
-&\mathbb{P} \left( \sum _{i=1}^{n} W_t - n \cdot \left[1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } \right) \right] \right.\\
+&\mathbb{P} \left( \sum _{i=1}^{n} W_j - n \cdot \left[1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } \right) \right] \right.\\
 &\left.\qquad> n
 \cdot \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } \right) - \frac{i}{n}\right]\right) \le e^{-2n\cdot
-\delta^{'}_t},
+\delta^{'}_i},
 \end{align*}
 where $\delta^{'}_i = F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }\right) - \frac{i}{n}$. Since 
-$F^{+}$ is Lipschitz, we have that $ \delta^{'}_i \leq L^{+} \cdot \left(\frac{\epsilon}{\nalpha}\right)$.
+$F^{+}$ is Lipschitz, we have that $ \delta^{'}_i \leq L^{+} \left(\frac{\epsilon}{\nalpha}\right)$.
 Hence, we obtain
 \begin{align}
-\Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &< e^{-2n\cdot L^{+}
+\Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &\le e^{-2n\cdot L^{+}
 \frac{\epsilon}{\nalpha} } \nonumber\\
 &= e^{-2n^\alpha \cdot L ^{+} \epsilon}
 \label{eq:a12}
@@ -252,7 +252,7 @@ The claim follows.
 
 Next, in order to prove the asymptotic convergence claim in Proposition \ref{prop:lipschitz}, we require the dominated convergence theorem in its generalized form, which is provided below.
 \begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
-Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on a measurable space $E$ that converge pointwise a.e. on a  $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
+Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on a measurable space $E$ that converge pointwise a.e. on $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
 If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
 \end{theorem}
 
@@ -414,8 +414,10 @@ We now analyse the RHS of \eqref{eq:l1}.
 By using suitable Taylor's expansions,
 \begin{align*}
 &\C(X^{\theta_n \pm \delta_n \Delta_n}) = \C(X^{\theta_n}) \pm \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) \\
-&\quad+ \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n + O(\delta_n^3).
+&+ \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n +  \frac{\delta_n^3}{6} \nabla^3 \C(X^{\tilde\theta^{\pm}_n})(\Delta_n \otimes \Delta_n \otimes \Delta_n),
 \end{align*}
+where $\otimes$ denotes the Kronecker product and $\tilde \theta_n^+$ (resp. $\tilde \theta_n^-$) lie on the line segment connecting $\theta_n$ and $(\theta_n + \delta_n \Delta_n)$ (resp. $(\theta_n - \delta_n \Delta_n)$). Using (A4) and arguments similar to those used in the proof of Lemma 1 in \cite{spall}, the fourth order term in each of the Taylor's expansions above can be shown to be $O(\delta_n^3)$.  
+
 From the above, it is easy to see that 
 \begin{align*}
 &\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^i}
@@ -472,7 +474,7 @@ In the following, we verify the above assumptions for the recursion \eqref{eq:th
 \begin{itemize}
 \item (B1) holds by assumption in our setting.
 
-\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is $O(\delta_n^2)$ and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. 
+\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is almost surely bounded and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. 
 
 \item (B3) holds by assumption (A3).
 
@@ -481,7 +483,7 @@ We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kus
 \begin{align}
 \Prob{ \sup_{l\geq 0}   \left\|W_l\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \lim_{l\rightarrow \infty} \E \left\|W_l\right\|^2. 
 \end{align}
-Applying the above inequality to the martingale sequence $\{W_l\}$, where  $W_l := \sum_{n=0}^{l-1} \gamma_n \xi_n$, $l\ge 1$, we obtain
+Applying the above inequality to the martingale difference sequence $\{W_l\}$, where  $W_l := \sum_{n=0}^{l-1} \gamma_n \xi_n$, $l\ge 1$, we obtain
 \begin{align}
 &\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \E \left\|
 \sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 \nonumber\\
@@ -503,7 +505,7 @@ We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 \le & \frac{C}{\delta_n^2}, \text{ for some } C< \infty. \label{eq:h3}
 \end{align}
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
-The inequality in \eqref{eq:holder} uses \holder inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
+The inequality in \eqref{eq:holder} uses \holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
 The inequality in \eqref{eq:h3} follows by using the fact that
 %, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
@@ -515,9 +517,9 @@ Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. 
  \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
 \end{align*}
 The equality above follows from (A3) in the main paper.
-\item Observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:pi-ode}. This can be seen as follows:
-$$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) < 0.$$
-Hence, the set $\K = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
+\item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:pi-ode}. This can be seen as follows:
+$$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) \le 0,$$
+with strict inequality outside the set $\K = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
 \end{itemize} 
 The claim follows from the Kushner-Clark lemma.
 \end{proof}

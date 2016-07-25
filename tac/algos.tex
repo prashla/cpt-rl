@@ -6,7 +6,7 @@ In this section we consider the problem
 \label{eq:opt-general}
 \textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta),
 \end{align}
-where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, the above problem encompasses policy optimization in an MDP that can be discounted or average or episodic and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, instead of the expected return.  
+where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, the above problem encompasses policy optimization in an MDP that can be discounted or average or stochastic shortest path and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, instead of using the expected return.  
 
 %\begin{figure}[h]
 %\centering
@@ -170,9 +170,9 @@ $\delta_n$ are positive $\forall n$ and satisfy
 While the conditions on $\gamma_n$ and $\delta_n$ are standard for SPSA-based algorithms, the condition on $m_n$ is motivated by the earlier discussion. 
 A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n = m_0 n^\nu$ and $\delta_n = \delta_0/{n^\gamma}$, for some $\nu, \gamma >0$ with $\gamma > \nu\alpha/2$.
 
-\noindent\textbf{Assumption (A4).}  CPT-value $\C(X^\theta)$ is a continuously differentiable function of $\theta$, for any $\theta \in \Theta$.
+\noindent\textbf{Assumption (A4).}  CPT-value $\C(X^\theta)$ is a continuously differentiable function of $\theta$, with bounded third derivative.
 
-In a typical RL setting, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
+In a typical RL setting involving finite state action spaces, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
 
 \subsubsection*{Convergence result}
 \begin{theorem}
@@ -201,7 +201,8 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \subsection{Newton algorithm for CPT-value control (CPT-SPSA-N)}
 \label{sec:2spsa}
 \subsubsection*{Need for second-order methods}
-While stochastic gradient methods are useful in maximizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/\left(3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))\right)$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, while $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, for the update iteration \eqref{eq:theta-update} and average the iterates in the end, i.e., $\bar \theta_{n+1} = \frac1{n} \sum_{m=1}^n \theta_m$. However, it is well known  that iterate averaging is optimal only in an asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
+While stochastic gradient methods are useful in maximizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/\left(3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))\right)$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, and $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, for the update iteration \eqref{eq:theta-update} and average the iterates in the end, i.e., $\bar \theta_{n+1} = \frac1{n} \sum_{m=1}^n \theta_m$. However, it is well known  that iterate averaging is optimal only in an 
+asymptotic sense, while finite-time bounds show that the initial condition is not forgotten sub-exponentially fast (see 
 Theorem 2.2 in \cite{fathi2013transport}). 
 Thus, it is optimal to average iterates only 
 after a sufficient number of iterations have passed, which implies that the iterates are already close to the optimum and the updates can be stopped.
