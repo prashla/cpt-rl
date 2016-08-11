@@ -114,3 +114,10 @@
 
 
 
+
+\newenvironment{STDdescription}
+               {\list{}{\labelwidth 0pt \itemindent-\leftmargin
+                        \let\makelabel\descriptionlabel}}
+               {\endlist}
+\renewcommand*\descriptionlabel[1]{\hspace\labelsep
+                                \normalfont\bfseries #1}

@@ -209,7 +209,7 @@ after a sufficient number of iterations have passed, which implies that the iter
 
 An alternative approach is to employ step-sizes of the form $\gamma_n = (a_0/n) M_n$, where $M_n$ converges to $\left(\nabla^2 \C(X^{\theta^*})\right)^{-1}$, i.e., the inverse of the Hessian of the CPT-value at the optimum $\theta^*$. Such a scheme gets rid of the step-size dependency (one can set $a_0=1$) and still obtains optimal convergence rates. This is the motivation behind having a second-order optimization scheme.
 
-\paragraph{Gradient and Hessian estimation}
+\subsubsection*{Gradient and Hessian estimation}
 We estimate the Hessian of the CPT-value function using the scheme suggested by \cite{bhatnagar2015simultaneous}. As in the first-order method, we use Rademacher random variables to simultaneously perturb all the coordinates. However, in this case, we require three system trajectories with corresponding  parameters $\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)$, $\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)$ and $\theta_n$, where $\{\Delta_n^i, \widehat\Delta_n^i, i=1,\ldots,d\}$ are i.i.d. Rademacher and independent of $\theta_0,\ldots,\theta_{n-1}$. Using the CPT-value estimates for the aforementioned  parameters, we estimate the Hessian and the gradient of the CPT-value function as follows: For $i,j=1,\ldots,d$, set
 \begin{align*}
 &\widehat \nabla_{i} \C(X_n^{\theta_n})=\dfrac{\overline \C_n^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)} - \overline \C_n^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}}{2\delta_n \Delta_n^{i}},\\ 
@@ -312,4 +312,194 @@ $$\theta_n \rightarrow \K  \text{~~ a.s. as } n\rightarrow \infty.$$
 
 \begin{proof}
 See Section \ref{sec:proofs-spsa-n}.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Model-based search algorithm (CPT-MPS)}
+\label{sec:mras}
+In this section, we provide a gradient-free algorithm (CPT-MPS) for controlling CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}. We require that there exists a unique global optimum $\theta^*$ for the problem \eqref{eq:opt-general}.
+
+% The crucial difference between CPT-MPS and MRAS$_2$ is that the latter has an expected function value objective, i.e., it aims to minimize a function by using sample observations that have zero-mean noise. On the other hand, the objective in our setting is the CPT-value, which distorts the underlying transition probabilities. The implication here is that MRAS$_2$ can estimate the expected value using sample averages, while we have to resort to integrating the empirical distribution, which results in biased estimates.
+
+
+\subsubsection*{Basic algorithm}
+To illustrate the main idea in the algorithm, assume we know the form of $\C(X^{\theta})$. Then, the idea is to generate a sequence of reference distributions $g_k(\theta)$ on the parameter space $\Theta$, such that it eventually concentrates on the global optimum $\theta^*$. One simple way, suggested in Chapter 4 of \cite{chang2013simulation} is
+\begin{equation}
+\label{eqn:naive}
+g_{k}(\theta)=
+\frac{\mathcal{H}(\C(X^{\theta}))g_{k-1}(\theta)}
+{\int_{\Theta}\mathcal{H}(V^{\theta'}(x^0))g_{k-1}(\theta')\nu(d\theta')},
+~~\forall\, \theta \in \Theta,
+\end{equation}
+where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to policies having higher CPT-values and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
+
+Next, consider a setting where one can obtain the CPT-value $\C(X^{\theta})$ (without any noise) for any parameter $\theta$. In this case, we consider a family of parameterized distributions, say $\{f(\cdot,\eta),\,\eta\in \C \}$ and incrementally update the distribution parameter $\eta$ such that it minimizes the following KL divergence:
+\begin{align}
+\label{eqn:kl}
+\mathcal{D}(g_k,f(\cdot,\eta))&:=E_{g_k}\left[\ln \frac{g_{k}(\mathcal{R}(\Theta))}{f(\mathcal{R}(\Theta),\eta)}\right]\\
+&=\int_{\Theta} \ln \frac{g_{k}(\theta)}{f(\theta,\eta)}g_{k}(\theta)\nu(d\theta), \nonumber
+\end{align}
+where $\mathcal{R}(\Theta)$ is a random vector taking values in the parameter space $\Theta$. 
+%Through \ e intuition for the above is that we project the reference distributions $g_k$ onto the family $\{f(\cdot,\eta),\,\eta\in \C \}$.
+An algorithm to optimize CPT-value in this \textit{noise-less} setting would perform the following update:
+\begin{align}
+ \label{eqn:interior}
+\hspace{-0.5em}\eta_{n+1} \!\in\! \argmax_{\eta \in \C}
+E_{\eta_n}\left[\frac{[\mathcal{H}(\C(X^{\mathcal{R}(\Theta)})]^{n}}
+{f(\mathcal{R}(\Theta),\eta_{n})}
+\ln f(\mathcal{R}(\Theta),\eta)\right],
+\end{align}
+where $E_{\eta_n}[\C(X^{\mathcal{R}(\Theta)})]=\int_{\Theta} \C(X^{\theta})f(\theta,\eta_n)\nu(d\theta).$
+
+
+
+%%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
+\algrenewcommand\algorithmicindent{0.5em}
+
+\algblock{Candidate}{EndCandidate}
+\algnewcommand\algorithmicCandidate{\textbf{\em Candidate Policies}}
+ \algnewcommand\algorithmicendCandidate{}
+\algrenewtext{Candidate}[1]{\algorithmicCandidate\ #1}
+\algrenewtext{EndCandidate}{\algorithmicendCandidate}
+%%%%%%%%%%%%%%%%%%%
+\algblock{Estimation}{EndEstimation}
+\algnewcommand\algorithmicEstimation{\textbf{\em CPT-value Estimation}}
+ \algnewcommand\algorithmicendEstimation{}
+\algrenewtext{Estimation}[1]{\algorithmicEstimation\ #1}
+\algrenewtext{EndEstimation}{\algorithmicendEstimation}
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+\algblock{Elite}{EndElite}
+\algnewcommand\algorithmicElite{\textbf{\em Elite Sampling}}
+ \algnewcommand\algorithmicendElite{}
+\algrenewtext{Elite}[1]{\algorithmicElite\ #1}
+\algrenewtext{EndElite}{\algorithmicendElite}
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+\algblock{Thresholding}{EndThresholding}
+\algnewcommand\algorithmicThresholding{\textbf{\em Thresholding}}
+ \algnewcommand\algorithmicendThresholding{}
+\algrenewtext{Thresholding}[1]{\algorithmicThresholding\ #1}
+\algrenewtext{EndThresholding}{\algorithmicendThresholding}
+%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%
+\algblock{Update}{EndUpdate}
+\algnewcommand\algorithmicUpdate{\textbf{\em Sampling Distribution Update
+}}
+ \algnewcommand\algorithmicendUpdate{}
+\algrenewtext{Update}[1]{\algorithmicUpdate\ #1}
+\algrenewtext{EndUpdate}{\algorithmicendUpdate}
+%%%%%%%%%%%%%%%%%%%
+\algtext*{EndCandidate}
+\algtext*{EndEstimation}
+\algtext*{EndElite}
+\algtext*{EndThresholding}
+%%%%%%%%%%%%%%%%%%%
+
+\begin{algorithm}
+\begin{algorithmic}
+\State {\bf Input:}  family of distributions $\{f(\cdot,\eta)\}$, initial parameter vector $\eta_0$ s.t. $f(\theta,\eta_0)>0 ~\forall\, \theta\in \Theta$, trajectory lengths $\{m_n\}$, 
+$\rho_0 \in (0,1]$, $N_0>1$,
+$\varepsilon> 0$, $\alpha>1$, $\lambda \in(0,1)$,
+strictly increasing function
+$\mathcal{H}\hspace*{-3pt}$.
+
+\For{$n = 0,1,2,\ldots$}	
+	\Candidate
+	    \State 
+	    Generate $N_n$ parameters using the mixed distribution $\widetilde f(\cdot,\eta_n)= (1-\lambda)f(\cdot,\widetilde\eta_n)+\lambda f(\cdot,\eta_0)$. 
+	    \State Denote these candidate policies by $\Lambda_n=\{\theta^1_n, \ldots, \theta^{N_n}\}$.
+	\EndCandidate    
+	\Estimation
+	    \For{$i = 1,2,\ldots,N_n$}
+	      \State Simulate $m_n$ samples from the distribution of $X^{\theta^i_n}$.
+	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ using Algorithm \ref{alg:holder-est}.
+	      \EndFor
+	\EndEstimation
+	%%%%%%%%%%%%%%%%%%%%%%%%%%55
+	\Elite
+	  \State Order the CPT-value estimates as $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$. 
+	  \State Compute the $(1-\rho_n)$-quantile as follows: 
+	  \begin{align}
+\widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_k)N_k \rceil}_n}.\label{eq:quant}
+\end{align}
+	\EndElite
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	\Thresholding
+	\If {$n=0$ or $\widetilde\chi_{n}(\rho_n,N_n)\geq \bar\chi_{n-1}+\varepsilon$}
+	    \State Set $\bar \chi_{k} = \widetilde \chi_{k}(\rho_n,N_n),~\rho_{k+1} = \rho_n,~N_{k+1} = N_{k}$ and \label{step:3a}
+	    \State Set $\theta^*_{n} = \theta_{1-\rho_{n}}$, where $\theta_{1-\rho_{n}}$ is the parameter that corresponds to the $(1-\rho_n)$-quantile in \eqref{eq:quant}.
+	\Else
+             \State find the largest $\bar \rho \in (0, \rho_n)$ such that $\widetilde\chi_{n}(\bar \rho,N_n)\geq \bar\chi_{n-1}+\varepsilon$;             
+             \If {$\bar \rho$ exists} 
+              \State Set $\bar \chi_{n}\! =\! \widetilde \chi_{n}(\bar \rho,N_n),~ \rho_{k+1}  \!=\! \bar \rho,~N_{n+1} \!=\! N_{n}$, 
+              $\theta^*_{n} \!=\! \theta_{1- \bar \rho}$ \label{step:3b} \vspace{-3ex}
+              \Else
+	      \State Set $\bar \chi_{n}  \!=\! \overline \C_n^{\theta^*_{n-1}}$,$\rho_{n+1} \!=\! \rho_n$,$N_{n+1} \!=\! \lceil\alpha N_{n}\rceil,$ 
+          $\theta^*_{n} \!=\! \theta^*_{n-1}$.\label{step:3c}
+	      \EndIf
+         \EndIf
+	\EndThresholding
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+	    \Update
+		                         \begin{align*} 
+\eta_{n+1} \in \argmax_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C^{\theta^i_n}]^n)}{\widetilde f(\theta,\eta_n)}
+\widetilde I\big(\overline \C^{\theta^i_n},\bar \chi_{n}\big) \ln f(\theta,\eta),
+                            \end{align*}
+                            where $\widetilde I(z,\chi):=\left\{\begin{array}{ll}
+                                                          0 & ~\mbox{if $z\leq \chi-\varepsilon$,} \\
+									    (z-\chi+\varepsilon)/ \varepsilon & ~\mbox{if $\chi-\varepsilon<z<\chi$,}\\
+                                                          1 & ~\mbox{if $z\geq \chi$.}
+                                                          \end{array} \right.$
+
+		\EndUpdate
+\EndFor
+\State {\bf Return} $\theta_n$
+\end{algorithmic}
+\caption{Structure of  CPT-MPS algorithm.}
+\label{alg:mras}
+\end{algorithm}
+
+% \footnotetext[1]{Here $\widehat V_n^{\theta^{(i)}_n}(x^0)$ denotes the $i$th order statistic.}
+
+
+Finally, we get to our setting where we only obtain biased estimate
+% \footnote{Recall that the bias is due to a finite sample run followed by estimation scheme in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity, to cancel the estimation bias.} 
+of the CPT-value $\C(X^{\theta})$ for any parameter $\theta$ and Algorithm \ref{alg:mras} presents the pseudocode.
+As noted in \cite{chang2013simulation}, it is efficient to use only an elite portion of the candidate parameters that have been sampled in order to update the sampling distribution $f(\cdot,\eta)$. This can be achieved by using a quantile estimate of the CPT-value function corresponding to candidate policies that were estimated in a particular iteration. The intuition here is that using policies that have performed well guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$.
+
+ A natural question is how to compute the KL-distance \eqref{eqn:kl} in order to update the parameter. A related question is how to choose the family of distributions $f(\cdot,\theta)$, so that the update \eqref{eqn:interior} can be done efficiently. One choice is to employ the natural exponential family (NEF) since it ensures that the KL distance in \eqref{eqn:kl} can be computed analytically. %See Appendix \ref{appendix:mras} for details.
+
+% Assuming this setup, the CPT-MPS algorithm would involve the following steps:
+
+% \begin{STDdescription}
+%  \item[Step 1 (Candidate parameters):] Generate $N_n$ parameters $\{\theta^1_n, \ldots, \theta^{N_n}_n\}$ using the distribution $f(\cdot,\eta_n)$.
+% 
+% \item[Step 2 (CPT-value estimation):]  Obtain CPT-value estimates $\overline C_n^{\theta^i_n}$, corresponding to the parameters $\theta^i_n, i=1,\ldots, N_n$.
+% 
+% \item[Step 3 (Parameter update):]
+%                          \begin{equation} \label{eqn:step4}
+%                            \eta_{n+1} \in \argmax_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C_n^{\theta^i_n})]^n}{ f(\theta_n^i,\eta_n)}\ln f(\theta_n^i,\eta).
+%                             \end{equation}
+% 
+% \end{STDdescription}
+
+                    
+% A few remarks are in order.
+
+\subsubsection*{Convergence result}
+\begin{theorem}\label{thm:mras}
+%Let $\varphi>0$ be a positive constant satisfying the condition that the set $\big\{\theta:\mathcal{H}(\C(X^{\theta})\geq \frac{1}{\varphi} \big\}$ has a strictly positive Lebesgue/counting measure\index{Lebesgue measure}\index{counting measure}.
+Assume (A1)-(A2). Suppose that multivariate normal densities are used for the sampling distribution, i.e., $\eta_n = (\mu_n, \Sigma_n)$, where $\mu_n$ and $\Sigma_n$ denote the mean and covariance of the normal densities.
+Then, 
+\begin{equation}\label{eqn:smain}
+\lim_{n\rightarrow \infty}\mu_n=\theta^* \text{ and } \lim_{n\rightarrow \infty}\Sigma_n=0_{d\times d}~~a.s.
+\end{equation}
+\end{theorem}
+\begin{proof}
+ See Section \ref{appendix:mras}.
 \end{proof}
