@@ -404,7 +404,7 @@ where $E_{\eta_n}[\C(X^{\mathcal{R}(\Theta)})]=\int_{\Theta} \C(X^{\theta})f(\th
 \begin{algorithmic}
 \State {\bf Input:}  family of distributions $\{f(\cdot,\eta)\}$, initial parameter vector $\eta_0$ s.t. $f(\theta,\eta_0)>0 ~\forall\, \theta\in \Theta$, trajectory lengths $\{m_n\}$, 
 $\rho_0 \in (0,1]$, $N_0>1$,
-$\varepsilon> 0$, $\alpha>1$, $\lambda \in(0,1)$,
+$\varepsilon> 0$, $\varsigma>1$, $\lambda \in(0,1)$,
 strictly increasing function
 $\mathcal{H}\hspace*{-3pt}$.
 
@@ -439,7 +439,7 @@ $\mathcal{H}\hspace*{-3pt}$.
               \State Set $\bar \chi_{n}\! =\! \widetilde \chi_{n}(\bar \rho,N_n),~ \rho_{k+1}  \!=\! \bar \rho,~N_{n+1} \!=\! N_{n}$, 
               $\theta^*_{n} \!=\! \theta_{1- \bar \rho}$ \label{step:3b} \vspace{-3ex}
               \Else
-	      \State Set $\bar \chi_{n}  \!=\! \overline \C_n^{\theta^*_{n-1}}$,$\rho_{n+1} \!=\! \rho_n$,$N_{n+1} \!=\! \lceil\alpha N_{n}\rceil,$ 
+	      \State Set $\bar \chi_{n}  \!=\! \overline \C_n^{\theta^*_{n-1}}$,$\rho_{n+1} \!=\! \rho_n$,$N_{n+1} \!=\! \lceil\varsigma N_{n}\rceil,$ 
           $\theta^*_{n} \!=\! \theta^*_{n-1}$.\label{step:3c}
 	      \EndIf
          \EndIf
