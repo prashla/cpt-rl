@@ -174,7 +174,7 @@ A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n 
 
 In a typical RL setting involving finite state action spaces, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
 
-\subsubsection*{Convergence result}
+The main convergence result is stated below.
 \begin{theorem}
 \label{thm:1spsa-conv}
 Assume (A1)-(A4).
@@ -295,7 +295,7 @@ A simple way to ensure the above is to have $\Upsilon(\cdot)$ as a diagonal matr
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Convergence result}
+The main convergence result is stated below.
 \begin{theorem}
 \label{thm:2spsa}
 Assume (A1)-(A5). 
@@ -319,7 +319,7 @@ See Section \ref{sec:proofs-spsa-n}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Model-based search algorithm (CPT-MPS)}
+\subsection{Model-based parameter search algorithm (CPT-MPS)}
 \label{sec:mras}
 In this section, we provide a gradient-free algorithm (CPT-MPS) for controlling CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}. We require that there exists a unique global optimum $\theta^*$ for the problem \eqref{eq:opt-general}.
 
@@ -491,7 +491,7 @@ As noted in \cite{chang2013simulation}, it is efficient to use only an elite por
                     
 % A few remarks are in order.
 
-\subsubsection*{Convergence result}
+The main convergence result is stated below.
 \begin{theorem}\label{thm:mras}
 %Let $\varphi>0$ be a positive constant satisfying the condition that the set $\big\{\theta:\mathcal{H}(\C(X^{\theta})\geq \frac{1}{\varphi} \big\}$ has a strictly positive Lebesgue/counting measure\index{Lebesgue measure}\index{counting measure}.
 Assume (A1)-(A2). Suppose that multivariate normal densities are used for the sampling distribution, i.e., $\eta_n = (\mu_n, \Sigma_n)$, where $\mu_n$ and $\Sigma_n$ denote the mean and covariance of the normal densities.

@@ -21,9 +21,9 @@ or the establishment of the ``Committee on Traveler Behavior and Values'' in the
 Research Board in the US.}
 %Using Behavioral Science Insights to Better Serve the American People
 
-In this paper we consider \emph{human-centered reinforcement learning problems}
-where the  reinforcement learning agent controls a system 
-to produce long term outcomes (``return'') that are maximally aligned with the preferences of 
+In this paper we consider \emph{human-centered stochastic optimization problems}
+where a designer optimizes the system 
+to produce outcomes that are maximally aligned with the preferences of 
 one or possibly multiple humans, an arrangement shown in Figure~\ref{fig:flow}.
 As a running example, consider traffic optimization where the goal is to maximize
 travelers' satisfaction, a challenging problem 
@@ -116,9 +116,9 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 
 \begin{figure}[h]
 \centering
-\scalebox{0.5}{\begin{tikzpicture}
-\node [block,fill=blue!20, minimum height=4em,] (world) {\makecell{\large\bf World}}; 
-\node [block,fill=red!20, below=2.5cm of world] (agent) {\makecell{\large\bf Agent}}; 
+\scalebox{0.65}{\begin{tikzpicture}
+\node [block,fill=blue!20, minimum height=4em,] (world) {\makecell{\large\bf Stochastic \\\large\bf System}}; 
+\node [block,fill=red!20, below=2.5cm of world] (agent) {\makecell{\large\bf Optimization \\\large\bf Algorithm}}; 
 \node [circle,fill=brown!50!black,right=2cm of world,label=above:{\bf Reward}] (tmp) {};
 \coordinate [below left=2.5cm of world] (tmp2);
 \coordinate [below right=1cm of agent] (belowagent);
@@ -130,9 +130,9 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 \coordinate [right=2.8cm of tmp] (tmp3);
 \coordinate [right=3.3cm of tmp] (tmp31);
 \coordinate [right=1cm of tmp3] (belowhuman);
-\coordinate [right=2.5cm of tmp3] (tmp4);
+\coordinate [right=3.5cm of tmp3] (tmp4);
 \draw [->,thick] (tmp) --   (tmp3);
-\draw [-,thick,dotted] (tmp31)  -- node[below right=0.1cm and 0.5cm] {\textbf{CPT}} (belowhuman) --  (tmp4);
+\draw [-,thick,dotted] (tmp31)  -- node[below right=0.1cm and 0.5cm] {\textbf{Preferences}} (belowhuman) --  (tmp4);
 \draw [->,thick,dotted] (tmp4)  |-  (belowagent) -|  (agent.south);
 \end{tikzpicture}}
 \caption{Operational flow of a human-based decision making system
@@ -162,8 +162,8 @@ To put it differently, CPT captures well the way humans evaluate outcomes and he
 %%%%%%%%%%%%\
 \subsection*{Our contributions\footnote{A preliminary version of this paper, without the proofs, was published in ICML 2016 \cite{la2016cumulative}.}}
 
-To our best knowledge, we are the first to investigate (and define) human-centered RL, and, in particular, 
-this is the first work to combine CPT with RL. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the RL framework, as we will soon see. 
+To our best knowledge, we are the first to investigate (and define) human-centered stochastic optimization, and, in particular, 
+this is the first work to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the stochastic optimization framework, as we will soon see. 
 We outline these challenges as well as our approach to addressing them below. 
 
 The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution functions associated with the random variable (cf. \cref{sec:cpt-val} for the definition). 
@@ -182,14 +182,20 @@ for Lipschitz probability distortion (so-called ``weight'') functions is  $O\lef
 %At the same time, 
 % while \holder continuous with constant $\alpha$ results in a rate  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$, for achieving a $\epsilon$-close estimate.\\
 
-Our results on estimating CPT-values form the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or a simulator. We set up this problem as an instance of policy search: We consider smoothly parameterized policies whose parameters are tuned via stochastic gradient ascent. For estimating gradients, we use two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA), a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}.
+Our results on estimating CPT-values form the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or a simulator. 
+% We set up this problem as an instance of policy search: 
+We consider a smooth parameterization of CPT-value and propose three algorithms for updating the CPT-value parameter. The first two algorithms tune the parameter in the ascent direction via a stochastic gradient and Newton scheme, respectively. For estimating gradients, we use two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA), a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}. We employ a three-point SPSA-based Hessian estimator proposed in \cite{bhatnagar2015simultaneous}. 
 %\textbf{\textit{Control:}} 
 %Designing algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 
 %Thus, it is necessary to design new simulation optimization scheme that use sample CPT-value estimates to optimize the policy, which is generally \textit{randomized}. While classic simulation optimization settings usually have a zero mean noise in function evaluations, our setting one has to tradeoff simulation cost with the bias in a manner such that the resulting policy optimization scheme cancels the bias effect and converges. \\
 %\textit{Solution:} 
 %Using the well-known idea of simultaneous perturbation stochastic approximation (SPSA) from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose and analyze a gradient method for CPT value optimization in sequential decision making problems
 %under uncertainty.
-Here a new challenge arises, which is that we can only feed the two-point randomized gradient estimator with \emph{biased} estimates of the CPT-value. To guarantee convergence, we propose a particular way of controlling the arising bias-variance tradeoff.
+The third algorithm is a gradient-free method that is adapted from \cite{chang2013simulation}. The idea is to use a reference model that eventually concentrates on the global minimum and then empirically approximate this reference distribution well-enough. The latter is achieved via natural exponential families in conjunction with Kullback-Leibler (KL) divergence to measure the ``distance'' from the reference distribution. 
+Guaranteeing convergence of the aforementioned three CPT-value optimization is challenging because only  \emph{biased} estimates of the CPT-value are available. We propose a particular way of controlling the arising bias-variance tradeoff and establish convergence for all proposed algorithms.
+% We establish that our algorithm converges to a globally CPT-value optimal policy (assuming it exists).
+% Here a new challenge arises, which is that we can only feed the two-point randomized gradient estimator with \emph{biased} estimates of the CPT-value. To guarantee convergence, we propose a particular way of controlling the arising bias-variance tradeoff.
+
 %Since SPSA by default assumes that the unbiased point-estimates of the optimization objective are available, which
 %is not the case in our problem, we extend the analysis of SPSA to handle the case when the optimization objective estimates are noisy, with controlled bias.
 %
@@ -197,6 +203,7 @@ Here a new challenge arises, which is that we can only feed the two-point random
 %
 %, while the second is a Newton algorithm that also uses SPSA-based estimates of the gradient and also the Hessian. We remark again that, unlike traditional settings for SPSA, our estimates for CPT-value have a non-zero (albeit controlled) bias. We establish that our algorithms converge to a locally CPT-value optimal policy. 
 
+\todoc[inline]{Im not sure what to do with the following para, as we havent talked about RL and position our work as CPT + sto-opt}
 To put things in context, risk-sensitive reinforcement learning problems are generally hard to solve. 
 In \cite{Sobel82VD}, the authors showed for a discounted MDP that there exists a Bellman equation for the variance of the return, but the underlying Bellman operator is not necessarily monotone, thus ruling out policy iteration as a solution approach for variance-constrained MDPs.
 Further, even if the transition dynamics are known, in \cite{mannor2013algorithmic} the authors show that finding a globally mean-variance optimal policy in a discounted MDP is NP-hard.
