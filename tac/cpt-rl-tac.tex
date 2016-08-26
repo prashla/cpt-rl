@@ -33,10 +33,10 @@ University of Alberta,
 
 
 \begin{abstract}
-Cumulative prospect theory (CPT) is known to model human decisions well, with substantial empirical evidence supporting this claim. 
-CPT works by distorting probabilities and is more general than the classic expected utility and coherent risk measures. We bring this idea to a risk-sensitive reinforcement learning (RL) setting and design algorithms for both estimation and control.
-The RL setting presents two particular challenges when CPT is applied: estimating the CPT objective requires estimations of the {\it entire distribution} of the value function and finding a {\it randomized} optimal policy.
-The estimation scheme that we propose uses the empirical distribution to estimate the CPT-value of a random variable. We then use this scheme in the inner loop of a CPT-value optimization procedure that is based on the well-known simulation optimization idea of simultaneous perturbation stochastic approximation (SPSA).
+In several real-world systems involving humans, traditional expected value cannot explain the observed behavior and incorporating distortions in the underlying probabilities of the system can alleviate this problem. Cumulative prospect theory (CPT) is a very popular approach based on probabilistic distortions.
+We employ the notion of a CPT-value in a stochastic optimization framework and propose algorithms for both estimating and maximizing the CPT-value.
+CPT-value estimation is challenging as it requires estimation of the {\it entire distribution} of the underlying random variable.
+We propose an empirical distribution function based scheme to estimate the CPT-value and then use this scheme in the inner loop of a CPT-value optimization procedure that is based on two well-known simulation optimization ideas of simultaneous perturbation stochastic approximation (SPSA) and model-based parameter search (MPS).
 We provide theoretical convergence guarantees for all the proposed algorithms and also 
 illustrate the usefulness of CPT-based criteria in a traffic signal control application.
 %empirically demonstrate the usefulness of our algorithms. 
@@ -45,7 +45,7 @@ illustrate the usefulness of CPT-based criteria in a traffic signal control appl
 % You may provide any keywords that you 
 % find helpful for describing your paper; 
 \begin{IEEEkeywords}
-Prospect theory, reinforcement learning, stochastic optimization, simultaneous perturbation stochastic approximation.
+Cumulative prospect theory, stochastic optimization, simultaneous perturbation stochastic approximation, reinforcement learning.
 \end{IEEEkeywords}
 
 \section{Introduction}
