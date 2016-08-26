@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proofs for CPT-value predictor}
+\subsection{Proofs for CPT-value estimator}
 \label{appendix:cpt-est}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -79,7 +79,7 @@ The second part of \eqref{eq:simple-estimation} can be justified in a similar fa
 
 \begin{proof}
 Without loss of generality, assume the  \holder constants $H$ of the weight functions $w^+$ and $w^-$ are both  $1$.
-We prove the claim for the first integral in the CPT-value predictor $\overline \C_n$ in Algorithm \ref{alg:holder-est}, i.e., we show  that 
+We prove the claim for the first integral in the CPT-value estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est}, i.e., we show  that 
 \todoc{Don't start sentences with ''and'' or ''or''.}
 \begin{align}
 &\lim_{n\rightarrow \infty} \sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right)\nonumber\\
@@ -244,7 +244,7 @@ The claim follows.
 
 
 %%%%%%%%%%%%%%%%%%%%%%Lipschitz-starts-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Lipschitz continuous weights}
+\subsubsection{Lipschitz continuous weights}
 \label{sec:lipschitz-proofs}
  \todoj{Can't we have a unified proof of \holder and Lipschitz cases?}
  Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:lipschitz}, it is easy to see that the CPT-value \eqref{eq:cpt-general} is finite. 
@@ -254,16 +254,14 @@ Next, in order to prove the asymptotic convergence claim in Proposition \ref{pro
 Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on a measurable space $E$ that converge pointwise a.e. on $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
 If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
 \end{theorem}
-
-
 \begin{proof}
 This is a standard result that can be found in any textbook on measure theory. For instance, see Theorem 2.3.11 in \cite{athreya2006measure}.
 \end{proof}
 
 
-\subsection*{Proof of Proposition \ref{prop:lipschitz}: Asymptotic convergence}
+\subsection*{Proof of Proposition \ref{prop:lipschitz}}
 \begin{proof}
-We first prove the asymptotic convergence claim for the first integral  \eqref{eq:cpt-est-appendix} in the CPT-value predictor in Algorithm \ref{alg:holder-est}, i.e., we show
+We first prove the asymptotic convergence claim for the first integral  \eqref{eq:cpt-est-appendix} in the CPT-value estimator in Algorithm \ref{alg:holder-est}, i.e., we show
 \begin{align}
 \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \rightarrow \intinfinity w^+\left(\Prob{u^+\left(X\right)>x}\right) dx.\label{eq:3}
 \end{align} 
@@ -369,18 +367,19 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 %\end{proof}
 %
 %%%%%%%%%%%%%%%%%%%%%%Lipschitz-ends-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proofs for discrete valued $X$}
+\subsubsection{Proofs for discrete valued $X$}
 \label{sec:proofs-discrete}
 \input{proofs-discrete}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proofs for CPT-SPSA-G}
+\subsection{Proofs for CPT-value optimization}
+\subsubsection{Proofs for CPT-SPSA-G}
 \label{appendix:1spsa}
 
 To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
 
-\todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
+% \todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
 \begin{lemma}
 \label{lemma:1spsa-bias}
 Let $\F_n = \sigma(\theta_m,m\le n)$, $n\ge 1$.
@@ -467,14 +466,11 @@ $  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamm
 \end{align}
 \end{enumerate} 
 
-In the following, we verify the above assumptions for the recursion \eqref{eq:theta-update}:
+In the following, we verify the above assumptions for the recursion \eqref{eq:theta-update}:\\
 \begin{inparaenum}[$\bullet$]
-\item (B1) holds by assumption in our setting.
-
-\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is almost surely bounded and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. 
-
-\item (B3) holds by assumption (A3).
-
+\item (B1) holds by assumption in our setting.\\
+\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is almost surely bounded and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. \\
+\item (B3) holds by assumption (A3).\\
 \item We verify (B4) using arguments similar to those used in \cite{spall} for the classic SPSA algorithm:\\
 We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}):
 \begin{align}
@@ -507,14 +503,11 @@ The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\fra
 The inequality in \eqref{eq:h3} follows by using the fact that
 %, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
 $\C(X^\theta)$ is bounded for any parameter $\theta$ and the bias $\epsilon^\theta$ is bounded by Corollary \ref{cor:holder-dkw}.
-\todop{Need to update the above arguments for the general case of $X^\theta$, with $\theta$ in a compact set}
-
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
 \begin{align*}
  \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
 \end{align*}
-The equality above follows from (A3).
-
+The equality above follows from (A3).\\
 \item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:pi-ode}. This can be seen as follows:
 $$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) \le 0,$$
 with strict inequality outside the set $\K = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
@@ -524,7 +517,7 @@ The claim follows from the Kushner-Clark lemma.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{Proofs for CPT-SPSA-N}
+\subsubsection{Proofs for CPT-SPSA-N}
 \label{sec:proofs-spsa-n}
 To simplify notation, we will use $X^{+}$ (resp. $X^{-}$) to denote $X^{\theta_n+\delta_n(\Delta_n+\widehat\Delta_n)}$ (resp. $X^{\theta_n-\delta_n(\Delta_n+\widehat\Delta_n)}$) in the proofs below.
 
@@ -631,7 +624,7 @@ Since $\C(X^{\theta})$ serves as a Lyapunov function for the ODE \eqref{eq:n-ode
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Proofs for CPT-MPS}
+\subsubsection{Proofs for CPT-MPS}
 \label{appendix:mras}
 
 %\textbf{\textit{Natural exponential family (NEF).}} A parameterized family 

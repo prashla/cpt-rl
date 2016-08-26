@@ -24,7 +24,7 @@ We devise a scheme for estimating \eqref{eq:cpt-general} given only samples from
 We also provide sample complexity bounds assuming that the utility functions are bounded.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{CPT-value prediction using quantiles}
+\subsection{CPT-value estimation using quantiles}
 Let $\xi^+_{k}$ and $\xi^-_{k}$ denote the $k$th quantiles of the r.v.s $u^+(X)$ and $u^-(X)$, respectively. 
 Then, it can be seen that (see Proposition \ref{prop:holder-quantile} in Section \ref{sec:holder-proofs})
 \begin{align}
@@ -36,7 +36,7 @@ A similar claim holds with $u^-(X)$, $\xi^-_{k}, w^-$ in place of  $u^+(X)$, $\x
 However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we next present a procedure that uses order statistics for estimating quantiles and this in turn assists estimation of the CPT-value along the lines of \eqref{eq:holder-quant-motiv}. The estimation scheme is presented in Algorithm \ref{alg:holder-est}.
 
 \begin{algorithm}
-\caption{CPT-value prediction}
+\caption{CPT-value estimation}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
 \State Simulate $n$ i.i.d. samples from the distribution of $X$.
@@ -78,7 +78,7 @@ Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can b
 \label{eq:cpt-est-appendix}
 \end{align}
 
-Consider the special case when $w^+(p)=w^-(p)=p$ and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, are the identity functions. In this case, the CPT-value predictor $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
+Consider the special case when $w^+(p)=w^-(p)=p$ and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, are the identity functions. In this case, the CPT-value estimator $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Results for \holder continuous weights}
@@ -174,7 +174,7 @@ See Section \ref{sec:holder-proofs}.
 
 \subsection{Results for Lipschitz continuous weights}
 % In the previous section, it was shown that \holder continuous weights result in an asymptotically consisent CPT-value predictor $\overline \C_n$ under a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. 
-In this section, we establish that the CPT-value predictor $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., the following assumption in place of (A1):
+In this section, we establish that the CPT-value estimator $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., the following assumption in place of (A1):
 
 \noindent\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
 $u^+(X)$ and $u^-(X)$ both have bounded first moments.

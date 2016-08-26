@@ -44,7 +44,7 @@ where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, t
 %\label{fig:algorithm-flow}
 %\end{figure}
 
-\subsection{Gradient algorithm for CPT-value control (CPT-SPSA-G)}
+\subsection{Gradient algorithm using SPSA (CPT-SPSA-G)}
 \label{sec:1spsa}
 
 \subsubsection*{Gradient estimation} 
@@ -189,6 +189,8 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \begin{proof}
  See Section \ref{appendix:1spsa}.
 \end{proof}
+
+Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ denote the set of local minima of the CPT-value. If $\K'$ lies within the set $\Theta$ onto which the iterate $\theta_n$ (updated according to \eqref{eq:theta-update}) is projected, then the above theorem ensures that CPT-SPSA-G converges to $\K'$. However, it not possible to ensure that $\K' \subset \Theta$ in the stochastic optimization setting considered here, which implies that if $\K'$ lies outside $\Theta$, the iterate $\theta_n$ will get stuck on the boundary of $\Theta$.
 %In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
@@ -198,7 +200,7 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Newton algorithm for CPT-value control (CPT-SPSA-N)}
+\subsection{Newton algorithm using SPSA (CPT-SPSA-N)}
 \label{sec:2spsa}
 \subsubsection*{Need for second-order methods}
 While stochastic gradient methods are useful in maximizing the CPT-value given biased estimates, they are sensitive to the choice of the step-size sequence $\{\gamma_n\}$.  In particular, for a step-size choice $\gamma_n = \gamma_0/n$, if $a_0$ is not chosen to be greater than $1/\left(3 \lambda_{min}(\nabla^2 \C(X^{\theta^*}))\right)$, then the optimum rate of convergence is not achieved, where $\lambda_{\min}$ denotes the minimum eigenvalue, and $\theta^*\in \K$ (see Theorem \ref{thm:1spsa-conv}). A standard approach to overcome this step-size dependency is to use iterate averaging, suggested independently by Polyak \cite{polyak1992acceleration} and Ruppert \cite{ruppert1991stochastic}. The idea is to use larger step-sizes $\gamma_n = 1/n^\varsigma$, where $\varsigma \in (1/2,1)$, for the update iteration \eqref{eq:theta-update} and average the iterates in the end, i.e., $\bar \theta_{n+1} = \frac1{n} \sum_{m=1}^n \theta_m$. However, it is well known  that iterate averaging is optimal only in an 
@@ -321,7 +323,7 @@ See Section \ref{sec:proofs-spsa-n}.
 
 \subsection{Model-based parameter search algorithm (CPT-MPS)}
 \label{sec:mras}
-In this section, we provide a gradient-free algorithm (CPT-MPS) for controlling CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}. We require that there exists a unique global optimum $\theta^*$ for the problem \eqref{eq:opt-general}.
+In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}. We require that there exists a unique global optimum $\theta^*$ for the problem \eqref{eq:opt-general}.
 
 % The crucial difference between CPT-MPS and MRAS$_2$ is that the latter has an expected function value objective, i.e., it aims to minimize a function by using sample observations that have zero-mean noise. On the other hand, the objective in our setting is the CPT-value, which distorts the underlying transition probabilities. The implication here is that MRAS$_2$ can estimate the expected value using sample averages, while we have to resort to integrating the empirical distribution, which results in biased estimates.
 
