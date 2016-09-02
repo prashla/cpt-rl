@@ -72,7 +72,7 @@ The second part of equation (28) can be justified in a similar fashion.
 
 %%%%%%%%%\xi^+
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
-\todoj[inline]{Substitute $U$, $t dt$, $w$, $\xi^+$ with $U^+$, $z dz$, $w^+$ and $\xi^+$, resply and say similar argument holds for $-$ parts, done}
+
 \begin{proof}
 We prove the $w^+$ part, and the $w^-$ part is proved in a similar fashion.
 
@@ -355,7 +355,7 @@ And the claim follows.
 
 To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
 
-\todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
+
 \begin{lemma}
 \label{lemma:1spsa-bias}
 Let $\F_n = \sigma(\theta_m,m\le n)$, $n\ge 1$.
@@ -424,7 +424,7 @@ In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\x
 Convergence of \eqref{eq:1spsa-equiv} can be inferred from Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}, provided we verify the necessary assumptions given as (B1)-(B5) below:
 \begin{enumerate}[\bfseries (B1)]
 \item $\nabla \C(X^{\theta})$ is a continuous $\R^{d}$-valued function.
-\todop{Don't know how this gets verfied in our setting. Help!}
+
 \item  The sequence $\beta_n,n\geq 0$ is a bounded random sequence with
 $\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$.
 \item The step-sizes $\gamma_n,n\geq 0$ satisfy
@@ -473,7 +473,7 @@ The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$,
 The inequality in \eqref{eq:holder} uses Holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
 The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
 The inequality in \eqref{eq:h3} follows by using the fact that, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply that $\C(D^\theta)$ is bounded for any policy $\theta$. The bias $\epsilon^\theta$ is bounded by Proposition \ref{prop:holder-dkw} in the main paper.
-\todop{Need to update the above arguments for the general case of $X^\theta$, with $\theta$ in a compact set}
+
 
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
 \begin{align*}
