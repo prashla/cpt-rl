@@ -33,36 +33,37 @@ The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows
 %%%%
 \begin{proposition}
 \label{prop:holder-quantile}
-Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have  \todoc{Fix the ugly parenthesis! Also, why do we suddenly number all equations as if they all needed a number??}
+Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have  
+%\todoc{Fix the ugly parenthesis! Also, why do we suddenly number all equations as if they all needed a number??}
 \begin{align}
-&\lim_{n \rightarrow \infty} \sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n+1-i}{n}\right)- w^+\left(\frac{n-i}{n}\right) \right) \nonumber\\
+&\lim_{n \rightarrow \infty} \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right) \right)  \nonumber\\
 &\qquad= \int_0^{\infty} w^+\left(\Prob{u^+(X)>z}\right) dz < \infty,\label{eq:simple-estimation}\\
-&\lim_{n \rightarrow \infty} \sum_{i=1}^{n} \xi^-_{\frac{i}{n}} \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right) \nonumber\\
+&\lim_{n \rightarrow \infty} \sum_{i=1}^{n-1} \xi^-_{\frac{i}{n}} \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right) \nonumber\\
 &\qquad= \int_0^{\infty} w^-\left(\Prob{u^-(X)>z}\right) dz < \infty.\label{eq:simple-estimation2}
 \end{align}
 \end{proposition}
 
-\todoj[inline]{Fix the upper limit..I think it should run up to $n$}
+%\todoj[inline]{Fix the upper limit..I think it should run up to $n$}
 
 \begin{proof}
 We shall focus on proving the first part of equation \eqref{eq:simple-estimation}. Notice that the following linear combination of simple functions: 
 \begin{align}
-\sum_{i=1}^{n} w^+ \left(\frac{i}{n}\right) 
-I_{\left[\xi^+_\frac{n-i}{n}, \xi^+_\frac{n+1-i}{n}\right]}(z)
+\sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
+I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z)
 \label{eq:simplew}
 \end{align}
 will converge almost everywhere to the function $w^+\left(\Prob{u^{+}(X)>z}\right)$ in the interval $[0, \infty)$. Further, for all $z \in [0,\infty)$, we have
-\begin{align*}
-\sum_{i=1}^{n} w^+ \left(\frac{i}{n}\right) 
-I_{\left[\xi^+_\frac{n-i}{n}, \xi^+_\frac{n+1-i}{n}\right]}(z)
+\begin{align}
+\sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
+I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z)
 <
 w^+\left(\Prob{u^{+}(X)>z}\right).
-\end{align*}
+\end{align}
 
 The integral of \eqref{eq:simplew} can be simplified as follows:
 \begin{align*}
-& \int_0^{\infty} \sum_{i=0}^{n-1} w^+ \left(\frac{i}{n}\right) 
-\cdot I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) dz \\
+& \int_0^{\infty} \sum_{i=0}^{n} w^+ \left(\frac{i}{n}\right) 
+ I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) dz \\
  & = \sum_{i=0}^{n-1} w^+\left(\frac{i}{n}\right) \left(\xi^+_{\frac{n-i}{n}} -
 \xi^+_{\frac{n-i-1}{n}}\right) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)-
     w^+\left(\frac{n-i-1}{n}\right)\right).
@@ -77,48 +78,70 @@ The second part of \eqref{eq:simple-estimation} can be justified in a similar fa
 %%%%%%%%%\xi^+
 \subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
 
+
 \begin{proof}
-Without loss of generality, assume the  \holder constants $H$ of the weight functions $w^+$ and $w^-$ are both  $1$.
+Without loss of generality, assume the  \holder constants $H$ of the weight functions $w^+$ and $w^-$ are both  
+$\alpha$.
 We prove the claim for the first integral in the CPT-value estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est}, i.e., we show  that 
-\todoc{Don't start sentences with ''and'' or ''or''.}
+%\todoc{Don't start sentences with ''and'' or ''or''.}
 \begin{align}
 &\lim_{n\rightarrow \infty} \sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right)\nonumber\\
 &\xrightarrow{n \rightarrow\infty} \int_0^{\infty} w^+\left(P\left(u^+(X)>z\right)\right) dz , \text{ a.s.} 
 \label{eq:claim11}
 \end{align}
-%
-%
-%The main part of the proof is concentrated on finding an upper bound of the probability
-%\begin{align*}
-%\mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \cdot \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right.\\
-%\quad\left.\left. -
-%\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
-%\epsilon\right),
-%\end{align*}
+
+
+The main part of the proof is concentrated on finding an upper bound of the probability
+\begin{align*}
+\mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right.\\
+\quad\left.\left. -
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}}  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
+\epsilon\right),
+\end{align*}
+Observe the fact that 
+\begin{align*}
+&\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right)\nonumber\\
+&-\sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right)\right)\\
+&=\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right) w^+\left(\frac{n+1-i}{n}\right)\\
+&-\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right)w^+\left(\frac{n-i}{n}\right)\\
+&=\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right)\\
+&\qquad\times \left(w^+\left(\frac{n+1-i}{n}\right) 
+-w^+\left(\frac{n-i}{n}\right)  \right) \\
+&\leq u^+\left(X_{[n]}\right) \times \frac{1}{n^{\alpha}}
+\end{align*}
+
+Under the assumption (A1), the term $u^+\left(X_{[n]}\right) w^+(\frac{1}{n})$ converges to 0,
+henceforth, in conjunction with proposition \ref{prop:holder-quantile}, it suffices to show that
+\begin{align*}
+& \mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right. \\
+&\left.\left.-\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)\right| >
+\epsilon \right)\\
+&=0, 
+\end{align*}
 For any given $\epsilon>0$, we have 
 \begin{align*}
-& \mathbb{P} \left( \left| \sum_{i=1}^{n} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right) \right.\right. \\
-&\qquad\left.\left.-\sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right) \right| >
+& \mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right. \\
+&\qquad\left.\left.-\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}}  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
 \epsilon\right) \\ 
 %%%%%%%%%%%%%%%%%%%%%%%%
-& \leq \mathbb{P}\left( \bigcup _{i=1}^{n} \left\{ \left| u^+\left(X_{[i]}\right) \cdot \left(w^+\left(\frac{n+1-i}{n}\right) -
-w^+\left(\frac{n-i}{n}\right)\right)\right.\right.\right. \\
-&\qquad\left.\left.\left.- \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right)
-\right| > \frac{\epsilon}{n} \right\}\right) \\ 
-%%%%%%%%%%%
-& \leq \sum _{i=1}^{n} \mathbb{P}\left( \left| u^+\left(X_{[i]}\right) 
-\left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right)\right.\right. \\
-&\qquad\left.\left.- \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n+1-i}{n}\right) -
-w^+\left(\frac{n-i}{n}\right)\right) \right| > \frac{\epsilon}{n}\right) \\ 
-%%%%%%%%%%%
-& = \sum _{i=1}^{n} \mathbb{P}\left( \left| \left( u^+\left(X_{[i]}\right) -
+& \leq \mathbb{P}\left( \bigcup _{i=1}^{n-1} \left\{ \left| u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i}{n}\right) -
+w^+\left(\frac{n-i-1}{n}\right)\right)\right.\right.\right.\\
+&\qquad\left.\left.\left.- \xi^+_{\frac{i}{n}}  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)
+\right| > \frac{\epsilon}{n-1} \right\}\right) \\ 
+% %%%%%%%%%%%
+& \leq \sum _{i=1}^{n-1} \mathbb{P}\left( \left| u^+\left(X_{[i]}\right) 
+\left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)\right.\right. \\
+&\qquad\left.\left.- \xi^+_{\frac{i}{n}}  \left(w^+\left(\frac{n+1-i}{n}\right) -
+w^+\left(\frac{n-i}{n}\right)\right) \right| > \frac{\epsilon}{n-1}\right) \\ 
+% %%%%%%%%%%%
+& = \sum _{i=1}^{n-1} \mathbb{P}\left( \left| \left( u^+\left(X_{[i]}\right) -
 \xi^+_{\frac{i}{n}}\right)\right.\right. \\
-&\quad\qquad\left.\left.\times\left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right) \right| > \frac{\epsilon}{n}\right)
+&\quad\qquad\left.\left.\times\left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| > \frac{\epsilon}{n-1}\right)
 \\ 
-& \leq \sum _{i=1}^{n} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right) \left(\frac{1}{n}\right)^{\alpha}
-\right| > \frac{\epsilon}{n}} \stepcounter{equation}\tag{\theequation}\label{eq:bd02}\\ 
-& = \sum _{i=1}^{n} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right)
-\right| > \frac{\epsilon}{\cdot n^{1-\alpha}}}.\stepcounter{equation}\tag{\theequation}\label{eq:bd12}
+& \leq \sum _{i=1}^{n-1} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right) \left(\frac{1}{n}\right)^{\alpha}
+\right| > \frac{\epsilon}{n-1}} \stepcounter{equation}\tag{\theequation}\label{eq:bd02}\\ 
+& \le \sum _{i=1}^{n-1} \Prob{ \left| \left( u^+\left(X_{[i]}\right) - \xi^+_{\frac{i}{n}}\right)
+\right| > \frac{\epsilon}{n^{1-\alpha}}}.\stepcounter{equation}\tag{\theequation}\label{eq:bd12}
 \end{align*}
 In the above, \eqref{eq:bd02} follows from the fact that $w^+$ is \holder with constant $1$.
 
@@ -134,61 +157,61 @@ Now we find the upper bound of the probability of a single term in the sum above
 We focus on the first term above.
 $$\hspace{-6em}\text{Let } W_j = I_{\left(u^+(X_j) > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}}\right)}, j=1, \ldots,n.$$ Using the fact that a probability distribution function is non-decreasing, we obtain 
 \begin{align*}
-& \Prob { u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}}  
- = \Prob { \sum _{j=1}^{n} W_j > n\cdot\left(1-\frac{i}{n}\right)} \\ 
-& = \mathbb{P} \left( \sum _{j=1}^{n} W_j - n \cdot \left[1-F^{+}\left(\xi^+_{\frac{i}{n}}
+& \Prob { u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}}  \\
+& = \Prob { \sum _{j=1}^{n} W_j > n\left(1-\frac{i}{n}\right)} \\ 
+& = \mathbb{P} \left( \sum _{j=1}^{n} W_j - n  \left[1-F^{+}\left(\xi^+_{\frac{i}{n}}
 +\frac{\epsilon}{n^{(1-\alpha)}}\right)\right] \right. \\
-&\left.\quad\qquad> n \cdot \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)
+&\left.\quad\qquad> n  \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)
 - \frac{i}{n}\right]\right).
 \end{align*}
 
 Using the fact that 
 $E W_j = 1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)$ in conjunction with Hoeffding's inequality, we obtain
 \begin{align*}
-&\mathbb{P} \left( \sum _{i=1}^{n} W_j - n \cdot \left[1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } \right) \right] \right.\\
+&\mathbb{P} \left( \sum _{i=1}^{n} W_j - n  \left[1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } \right) \right] \right.\\
 &\left.\qquad> n
-\cdot \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } \right) - \frac{i}{n}\right]\right) \le e^{-2n\cdot
+ \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } \right) - \frac{i}{n}\right]\right) \le e^{-2n
 \delta^{'}_i},
 \end{align*}
 where $\delta^{'}_i = F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }\right) - \frac{i}{n}$. Since 
 $F^{+}$ is Lipschitz, we have that $ \delta^{'}_i \leq L^{+} \left(\frac{\epsilon}{\nalpha}\right)$.
 Hence, we obtain
 \begin{align}
-\Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &\le e^{-2n\cdot L^{+}
+\Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &\le e^{-2n L^{+}
 \frac{\epsilon}{\nalpha} } \nonumber\\
-&= e^{-2n^\alpha \cdot L ^{+} \epsilon}
+&= e^{-2n^\alpha  L ^{+} \epsilon}
 \label{eq:a12}
 \end{align}
 In a  similar fashion, one can show that 
 \begin{align}
-\Prob{ u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}} \leq e^{-2n^\alpha \cdot L^{+}  \epsilon}.
+\Prob{ u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}} \leq e^{-2n^\alpha  L^{+}  \epsilon}.
 \label{eq:a23}
 \end{align}
 Combining \eqref{eq:a12} and \eqref{eq:a23},  we obtain 
 %\todoc{Is not $\mathbb{N} \cap (0,1) =\emptyset$???}
 \begin{align*}
-\Prob{ \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}} \leq 2\cdot
-e^{-2n^\alpha \cdot L^{+} \epsilon} , 
+\Prob{ \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}} \leq 2
+e^{-2n^\alpha  L^{+} \epsilon} , 
 \end{align*}
 Plugging the above in \eqref{eq:bd12}, we obtain
 \begin{align}
 &
-\mathbb{P} \left( \left| \sum_{i=1}^{n} u^+\left(X_{[i]}\right) \cdot \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right) \right.\right. \nonumber\\
+\mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right. \nonumber\\
 &\left.\left.\quad -
-\sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right) \right| >
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
 \epsilon\right) \nonumber\\
-&\leq 2n\cdot e^{-2n^\alpha \cdot L^{+}\epsilon}.\label{eq:holder-sample-complexity-extract}
+&\leq 2(n-1) e^{-2n^\alpha  L^{+}\epsilon} \leq 2ne^{-2n^\alpha  L^{+}\epsilon}.\label{eq:holder-sample-complexity-extract}
 \end{align}
 
-Notice that $\sum_{n=1}^{\infty}  2n \cdot e^{-2n^{\alpha}\cdot L^{+} \epsilon}< \infty$ since the sequence 
-$2n \cdot e^{-2n^{\alpha}\cdot L^{+}}$ will decrease more rapidly than the sequence
+Notice that $\sum_{n=1}^{\infty}  2n  e^{-2n^{\alpha} L^{+} \epsilon}< \infty$ since the sequence 
+$2n e^{-2n^{\alpha} L^{+}}$ will decrease more rapidly than the sequence
 $\frac{1}{n^k}$, $\forall k>1$.
 
 By applying the Borel Cantelli lemma,  $\forall \epsilon >0$, we have that
 \begin{align*}
-&\mathbb{P} \left( \left| \sum_{i=1}^{n} u^+\left(X_{[i]}\right) \cdot \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right)\right.\right. \\
+&\mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)\right.\right. \\
 &\left.\left.-
-\sum_{i=1}^{n} \xi^+_{\frac{i}{n}} \cdot \left(w^+\left(\frac{n+1-i}{n} \right)  - w^+\left(\frac{n-i}{n} \right) \right) \right| >
+\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}}  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
 \epsilon , i.o.\right) \\
 &=0, 
 \end{align*}
@@ -198,6 +221,7 @@ The proof of
 $\C_{n}^{-} \rightarrow \C^{-}(X)$ follows in a similar manner as above by replacing $u^+(X_{[i]})$ by $u^-(X_{[n-i]})$, after observing that $u^{-}$ is decreasing, which in turn implies that
 $u^-(X_{[n-i]})$ is an estimate of the quantile $\xi^{-}_{\frac{i}{n}}$.
 \end{proof}
+
 
 \subsection*{Proof of Proposition \ref{prop:holder-dkw}}
 For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provides a finite-time bound on the distance between empirical distribution and the true distribution:
@@ -217,7 +241,7 @@ Since $u^+(X)$ is bounded above by $M$ and $w^+$ is H\"{o}lder-continuous, we ha
 \begin{align*}
 &\left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
     \left|\int_0^M w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^M w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
-\leq& \left|\int_0^M H\cdot |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
+\leq& \left|\int_0^M H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
 \mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 Now, plugging in the DKW inequality, we obtain
@@ -269,7 +293,7 @@ We first prove the asymptotic convergence claim for the first integral  \eqref{e
 Since $w^+$ is Lipschitz continuous with, say, constant $L$, we have almost surely that
 $w^{+}\left(1-\hat{F}_n\left(x\right)\right) \leq L \left(1-\hat{F}_n\left(x\right)\right)$,  
 for all $n$ and 
- $w^{+}\left(\Prob{u^+\left(X\right)>x}\right) \leq L\cdot \left(\Prob{u^+\left(X\right)>x}\right)$, since $w^+\left(0\right)=0$.
+ $w^{+}\left(\Prob{u^+\left(X\right)>x}\right) \leq L \left(\Prob{u^+\left(X\right)>x}\right)$, since $w^+\left(0\right)=0$.
  
 % Notice that the empirical distribution function 
 % ${\hat F_n}^+\left(x\right)$ 
@@ -305,7 +329,7 @@ From the foregoing,
 \overset{a.s} \longrightarrow
 \intinfinity L \left(\Prob{u^+\left(X\right)\!>\!x}\right) dx.
 \end{align*}
-The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L\cdot(1-\hat{F}_n(x))$, and noticing that $L\cdot(1-\hat{F}_n(x)) \xrightarrow{a.s.} L(\Prob{u^+(X)>x})$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
+The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L(1-\hat{F}_n(x))$, and noticing that $L(1-\hat{F}_n(x)) \xrightarrow{a.s.} L(\Prob{u^+(X)>x})$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
 
 Following similar arguments, it is easy to show that 
 $$
