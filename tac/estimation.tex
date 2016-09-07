@@ -64,7 +64,7 @@ Notice the the following equivalence:
 &= \sum_{i=1}^{n} w^+\left(\frac{n-i}{n}\right) \left(u^+\left(X_{[i+1]}\right) - u^+\left(X_{[i]} \right)\right)\\
 &=  \int_0^{\infty} w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, 
 \end{align*}
-\todoj[inline]{Add a few steps above to make the equivalence clear}
+% \todoj[inline]{Add a few steps above to make the equivalence clear}
 and also,
 \begin{align*}
 &\sum_{i=1}^{n} u^-\left(X_{[i]}\right) \left(w^-\left(\frac{i}{n}\right) - w^-\left(\frac{i-1}{n}\right)\right)\\
@@ -112,13 +112,15 @@ The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-gene
 %For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
-Assume (A1) and that $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
-are Lipschitz continuous 
-%with constants $L^+$ and $L^-$, respectively, 
-on the respective intervals $(0,+\infty)$, and 
-$(-\infty, 0)$.
-Meanwhile, assume the maximum of $u^+(X_{[i]})$ converges to infinity slow enough s.t 
-$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0$, and the same property holds to $u^-$.  Then, we have that
+Assume (A1) and that \\
+\begin{inparaenum}[\bfseries (i)]
+\item $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
+are Lipschitz continuous on the respective intervals $(0,+\infty)$, and 
+$(-\infty, 0)$; \\
+\item Utility functions $u^+, u^-$ satisfy 
+$$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0.$$
+\end{inparaenum}
+Then, we have 
 \begin{align}
 \overline \C_n
 \rightarrow
