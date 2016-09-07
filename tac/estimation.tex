@@ -61,6 +61,7 @@ Notice the the following equivalence:
 %\todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
 \begin{align*}
 &\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n+1-i}{n}\right) - w^+\left(\frac{n-i}{n}\right)\right) \\
+&= \sum_{i=1}^{n} w^+\left(\frac{n-i}{n}\right) \left(u^+\left(X_{[i+1]}\right) - u^+\left(X_{[i]} \right)\right)\\
 &=  \int_0^{\infty} w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, 
 \end{align*}
 \todoj[inline]{Add a few steps above to make the equivalence clear}
@@ -95,7 +96,7 @@ of order $\alpha$) if there exists $ H>0$, s.t.
 
 %In order to ensure the integrability of the CPT-value \eqref{eq:cpt-general}, we make the following assumption:\\[1ex]
 \noindent\textbf{Assumption (A1).}  
-The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$. Further,
+The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$ and constant $H$. Further,
 there exists $ \gamma \le \alpha$ such that (s.t.)
 $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
 where $\mathbb{P}^{\gamma}(\cdot) = \left(\mathbb{P}(\cdot)\right)^{\gamma}$.
@@ -115,7 +116,9 @@ Assume (A1) and that $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution 
 are Lipschitz continuous 
 %with constants $L^+$ and $L^-$, respectively, 
 on the respective intervals $(0,+\infty)$, and 
-$(-\infty, 0)$. Then, we have that
+$(-\infty, 0)$.
+Meanwhile, assume the maximum of $u^+(X_{[i]})$ converges to infinity slow enough s.t 
+$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0$, and the same property holds to $u^-$.  Then, we have that
 \begin{align}
 \overline \C_n
 \rightarrow
@@ -141,15 +144,15 @@ high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 \label{prop:holder-dkw}
 Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1. Then, $\forall \epsilon >0, \delta >0$, we have
 $$
-\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \ln\left(\frac{1}{\delta}\right)\cdot 
-\frac{4H^2 M^2}{\epsilon^{2/\alpha}}.$$
+\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \frac{1}{2}\ln\left(\frac{4}{\delta}\right)
+\left(\frac{HM}{\epsilon}\right)^{\frac{2}{\alpha}}.$$
 \end{proposition}
 
 \begin{corollary}
 \label{cor:holder-dkw}
 Under conditions of Proposition \ref{prop:holder-dkw}, we have
 $$
-\E \left|\overline \C_n- \C(X) \right|  \le    \frac{(2H M)^\alpha \Gamma\left(\alpha/2\right)}{n^{\alpha/2}},$$
+\E \left|\overline \C_n- \C(X) \right|  \le    \frac{\left(8HM\right) \Gamma\left(\alpha/2\right)}{n^{\alpha/2}},$$
 where $\Gamma(\cdot)$ is the gamma function.
 \end{corollary}
 

@@ -251,7 +251,7 @@ Now, plugging in the DKW inequality, we obtain
 \nonumber\\
 & \leq \Prob{HM\sup_{t\in \mathbb{R}} \left|(\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha>\epsilon}\nonumber\\
 &
-\leq  e^{-n \frac{\epsilon ^{(2/\alpha)}} {2 H^2 M^2}}.\label{eq:dkw3}
+\leq  2 e^{-2n \left(\frac{\epsilon}{HM} \right)^\frac{2}{\alpha}}.\label{eq:dkw3}
 \end{align}
 The claim follows.
 \end{proof}
@@ -260,9 +260,9 @@ The claim follows.
 \begin{proof}
  Integrating the high-probability bound in Proposition \ref{prop:holder-dkw}, we obtain
  \begin{align*}
-&  \E \left|\overline \C_n- \C(X) \right|  
+& \E \left|\overline \C_n- \C(X) \right|  
   \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
-  &\le \intinfinity \exp(-n\epsilon^{2/\alpha}/4H^2M^2) d\epsilon \le \frac{(2H M)^\alpha \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
+  &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
  \end{align*}
 \end{proof}
 
