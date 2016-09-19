@@ -154,8 +154,7 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 %%%%%%%%%%%%\
 \subsection*{Our contributions\footnote{A preliminary version of this paper was published in ICML 2016 \cite{la2016cumulative}. In comparison to the conference version, this paper includes an additional optimization algorithm, formal proofs of convergence of both estimation and optimization algorithms, some additional experiments and a revised presentation.}}
 
-To our best knowledge, we are the first to investigate (and define) human-centered stochastic optimization, and, in particular, 
-this is the first work to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to apply a CPT objective in the stochastic optimization framework, as we will soon see. 
+To our best knowledge, we are the first to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
 We outline these challenges as well as our approach to addressing them below. 
 
 The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution functions associated with the random variable (cf. \cref{sec:cpt-val} for the definition). 
@@ -174,9 +173,9 @@ for Lipschitz probability distortion (so-called ``weight'') functions is  $O\lef
 %At the same time, 
 % while \holder continuous with constant $\alpha$ results in a rate  $O\left(\frac1{\epsilon^{2/\alpha}}\right)$, for achieving a $\epsilon$-close estimate.\\
 
-Our results on estimating CPT-values form the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or a simulator. 
+Our results on estimating CPT-values form the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or with a simulator. 
 % We set up this problem as an instance of policy search: 
-We consider a smooth parameterization of CPT-value and propose two algorithms for updating the CPT-value parameter. The first algorithm is a stochastic gradient scheme that uses two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA) - a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}\footnote{A second-order CPT-value optimization scheme based on SPSA is described in \cite{la2016cumulative}.}. 
+We consider a smooth parameterization of the CPT-value and propose two algorithms for updating the CPT-value parameter. The first algorithm is a stochastic gradient scheme that uses two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA) - a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}\footnote{A second-order CPT-value optimization scheme based on SPSA is described in \cite{la2016cumulative}.}. 
 % We employ a three-point SPSA-based Hessian estimator proposed in \cite{bhatnagar2015simultaneous}. 
 %\textbf{\textit{Control:}} 
 %Designing algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 
@@ -185,7 +184,7 @@ We consider a smooth parameterization of CPT-value and propose two algorithms fo
 %Using the well-known idea of simultaneous perturbation stochastic approximation (SPSA) from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose and analyze a gradient method for CPT value optimization in sequential decision making problems
 %under uncertainty.
 The second algorithm is a gradient-free method that is adapted from \cite{chang2013simulation}. The idea is to use a reference model that eventually concentrates on the global minimum and then empirically approximate this reference distribution well-enough. The latter is achieved via natural exponential families in conjunction with Kullback-Leibler (KL) divergence to measure the ``distance'' from the reference distribution. 
-Guaranteeing convergence of the aforementioned three CPT-value optimization is challenging because only  \emph{biased} estimates of the CPT-value are available. We propose a particular way of controlling the arising bias-variance tradeoff and establish convergence for all proposed algorithms.
+Guaranteeing convergence of the aforementioned two CPT-value optimization is challenging because only  \emph{biased} estimates of the CPT-value are available. We propose a particular way of controlling the arising bias-variance tradeoff and establish convergence for all proposed algorithms.
 % We establish that our algorithm converges to a globally CPT-value optimal policy (assuming it exists).
 % Here a new challenge arises, which is that we can only feed the two-point randomized gradient estimator with \emph{biased} estimates of the CPT-value. To guarantee convergence, we propose a particular way of controlling the arising bias-variance tradeoff.
 

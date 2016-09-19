@@ -12,7 +12,7 @@ $\Prob{U>z}  = \frac{1}{z^2}, z\in [1, +\infty),$
 $
 \int_1^{+\infty}  z^{-\frac{2}{3}}\, dz
 $
-does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-general} as well.
+does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-general}.
 
 To overcome the above integrability issues, we impose additional  assumptions on the weight and/or utility functions. In particular, we assume that the weight functions $w^+, w^-$ are either 
 \begin{inparaenum}[\it (i)]
@@ -21,7 +21,7 @@ To overcome the above integrability issues, we impose additional  assumptions on
 \item locally Lipschitz.
 \end{inparaenum}
 We devise a scheme for estimating \eqref{eq:cpt-general} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
-We also provide sample complexity bounds assuming that the utility functions are bounded.
+We also provide sample complexity bounds, assuming that the utility functions are bounded.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{CPT-value estimation using quantiles}
@@ -152,7 +152,7 @@ $$
 
 \begin{corollary}
 \label{cor:holder-dkw}
-Under conditions of Proposition \ref{prop:holder-dkw}, we have
+Under the conditions of Proposition \ref{prop:holder-dkw}, we have
 $$
 \E \left|\overline \C_n- \C(X) \right|  \le    \frac{\left(8HM\right) \Gamma\left(\alpha/2\right)}{n^{\alpha/2}},$$
 where $\Gamma(\cdot)$ is the gamma function.
@@ -200,7 +200,7 @@ $$
 % \frac{4L^2 M^2}{\epsilon^{2}}.
 % $$
 \end{proposition}
-Note that according to this proposition, our estimation scheme is sample-efficient (choosing the weights to be the identity function, the sample complexity cannot be improved).
+% Note that according to this proposition, our estimation scheme is sample-efficient (choosing the weights to be the identity function, the sample complexity cannot be improved).
 \begin{proof}
 See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
