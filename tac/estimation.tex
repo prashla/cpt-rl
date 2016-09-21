@@ -200,13 +200,13 @@ $$
 % \frac{4L^2 M^2}{\epsilon^{2}}.
 % $$
 \end{proposition}
-% Note that according to this proposition, our estimation scheme is sample-efficient (choosing the weights to be the identity function, the sample complexity cannot be improved).
+
 \begin{proof}
 See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
 
 \begin{remark}
- For \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights.
+ For \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights. Choosing the weights to be the identity function, we observe that the sample complexity cannot be improved.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
