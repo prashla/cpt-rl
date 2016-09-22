@@ -66,14 +66,14 @@ $\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz = \EE{ (X)^+ 
    \end{axis}
    \end{tikzpicture}}}\\[1ex]
 \caption{An example of a utility function. A reference point on the $x$ axis serves as the point of separating gains and losses.
-For losses, the disutility $-u^-$ is typically convex, for gains, the utility $u^+$ is typically concave; 
-they are always non-decreasing and both of them take on the value of zero at the reference point.}
+For losses, the disutility $-u^-$ is typically convex and for gains, the utility $u^+$ is typically concave; 
+both functions are non-decreasing and take the value of zero at the reference point.}
 \label{fig:u}
 \end{figure}
 
 
 In the definition, $u^+, u^-$ are utility functions corresponding to gains ($X \ge 0$) and losses ($X \le 0$), respectively,
-where zero is chosen as a somewhat arbitrary ``reference point'' to separate gains and losses.
+where zero is chosen as a ``reference point'' to separate gains and losses.
 Handling losses and gains separately is a salient feature of CPT, and this addresses the tendency of humans to play safe with gains and take risks with losses. % - see Fig \ref{fig:u}. 
 To illustrate this tendency, 
 consider a scenario where one can either earn \$$500$ with probability (w.p.) $1$ or earn \$$1000$ w.p. $0.5$ and nothing otherwise. 
@@ -158,7 +158,7 @@ For any RL problem setting, one can define the return for a given policy and the
 
 \begin{remark}\textit{(Generalization)}
 As noted earlier, the CPT-value is a generalization of mathematical expectation. 
-It is also possible to get \eqref{eq:cpt-general} to coincide with risk measures (e.g. VaR and CVaR) by appropriate choice of weight functions.
+It is also possible to obtain \eqref{eq:cpt-general} to coincide with other risk measures, for e.g. value at risk (VaR) and conditional value at risk (CVaR), by appropriate choice of weight functions.
 \end{remark}
 
 %\begin{remark}\textit{(Sensitivity)}

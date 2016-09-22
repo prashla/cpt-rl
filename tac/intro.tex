@@ -21,7 +21,7 @@
 % Research Board in the US.}
 % %Using Behavioral Science Insights to Better Serve the American People
 
-In this paper we consider \emph{human-centered stochastic optimization problems}
+In this paper we consider \emph{stochastic optimization problems}
 where a designer optimizes the system 
 to produce outcomes that are maximally aligned with the preferences of 
 one or possibly multiple humans.
@@ -154,11 +154,11 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 %%%%%%%%%%%%\
 \subsection*{Our contributions\footnote{A preliminary version of this paper was published in ICML 2016 \cite{la2016cumulative}. In comparison to the conference version, this paper includes an additional optimization algorithm, formal proofs of convergence of both estimation and optimization algorithms, some additional experiments and a revised presentation.}}
 
-To our best knowledge, we are the first to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
+To the  best of our knowledge, we are the first to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
 We outline these challenges as well as our approach to addressing them below. 
 
 The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution functions associated with the random variable (cf. \cref{sec:cpt-val} for the definition). 
-Hence, even the problem of estimating the CPT-value given a random sample requires quite an effort.
+Hence, even the problem of estimating the CPT-value given a random sample is challenging.
 %\textbf{\textit{Prediction:}} In the case of the classic value function, which is an expectation, a simple sample mean can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, 
 %CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 
 %requires that the \textit{entire} distribution to be estimated.\\ 
@@ -175,7 +175,7 @@ for Lipschitz probability distortion (so-called ``weight'') functions is  $O\lef
 
 Our results on estimating CPT-values form the basis of the algorithms that we propose to maximize CPT-values based on interacting either with a real environment, or with a simulator. 
 % We set up this problem as an instance of policy search: 
-We consider a smooth parameterization of the CPT-value and propose two algorithms for updating the CPT-value parameter. The first algorithm is a stochastic gradient scheme that uses two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA) - a widely used algorithm in \textit{simulation optimization} \cite{fu2015handbook}\footnote{A second-order CPT-value optimization scheme based on SPSA is described in \cite{la2016cumulative}.}. 
+We consider a smooth parameterization of the CPT-value and propose two algorithms for updating the CPT-value parameter. The first algorithm is a stochastic gradient scheme that uses two-point randomized gradient estimators, borrowed from simultaneous perturbation stochastic approximation (SPSA) \cite{spall}\footnote{A second-order CPT-value optimization scheme based on SPSA is described in \cite{la2016cumulative}.}. 
 % We employ a three-point SPSA-based Hessian estimator proposed in \cite{bhatnagar2015simultaneous}. 
 %\textbf{\textit{Control:}} 
 %Designing algorithms in order to find a \textit{CPT-optimal} policy is challenging because CPT-value is a non-coherent and non-convex risk measure that does not lend itself to dynamic programming approaches such as value/policy iteration due to the lack of a ``Bellman equation''. 

@@ -34,7 +34,8 @@ University of Alberta,
 
 \begin{abstract}
 %aa
-In several real-world systems involving humans, traditional expected value cannot explain the observed behavior and incorporating distortions in the underlying probabilities of the system can alleviate this problem. Cumulative prospect theory (CPT) is a very popular approach that is based on probabilistic distortions and is more general than the expected value.  We bring this idea to a stochastic optimization framework and propose algorithms for both estimation and optimization of the CPT-value objective. We propose an empirical distribution function based scheme to estimate the CPT-value and then use this scheme in the inner loop of a CPT-value optimization procedure. We propose both gradient-based as well as gradient-free CPT-value optimization algorithms, that are based on two well-known simulation optimization ideas: simultaneous perturbation stochastic approximation (SPSA) and model-based parameter search (MPS), respectively.  We provide theoretical convergence guarantees for all the proposed algorithms 
+%In several real-world systems involving humans, traditional expected value cannot explain the observed behavior and incorporating distortions in the underlying probabilities of the system can alleviate this problem. 
+Cumulative prospect theory (CPT) is a very popular approach that is based on probabilistic distortions and is more general than the expected value.  We bring this idea to a stochastic optimization framework and propose algorithms for both estimation and optimization of the CPT-value objective. We propose an empirical distribution function based scheme to estimate the CPT-value and then use this scheme in the inner loop of a CPT-value optimization procedure. We propose both gradient-based as well as gradient-free CPT-value optimization algorithms, that are based on two well-known simulation optimization ideas: simultaneous perturbation stochastic approximation (SPSA) and model-based parameter search (MPS), respectively.  We provide theoretical convergence guarantees for all the proposed algorithms 
 and also illustrate the usefulness of CPT-based criteria in a traffic signal control application.
 \end{abstract}
 
@@ -100,9 +101,9 @@ Cumulative prospect theory, stochastic optimization, simultaneous perturbation s
 
 \section{Conclusions}
 \label{sec:conclusions}
-CPT has been a very popular paradigm for modeling human decisions among psychologists/economists, but has escaped the radar of the reinforcement learning community. This work is the first step in incorporating CPT-based criteria into an RL framework. However, both estimation and control of CPT-based value is challenging. 
+CPT has been a very popular paradigm for modeling human decisions among psychologists/economists and this work is the first step in incorporating CPT-based criteria into a stochastic optimization framework. Estimation and optimization of CPT-based value is challenging. 
 %Using temporal-difference learning type algorithms for estimation was ruled out for CPT-value since the underlying probabilities get (non-linearly) distorted by a weight function. 
-For estimation, we proposed a quantile-based estimation scheme. Next, for the problem of control, since CPT-value does not conform to any Bellman equation, we employed SPSA - a popular simulation optimization scheme and designed a first-order algorithm for optimizing the CPT-value. 
+For estimating the CPT-value, we proposed a quantile-based estimation scheme and for maximizing the CPT-value, we adapted SPSA \cite{spall} and MPS \cite{chang2013simulation} algorithms. 
 We provided theoretical convergence guarantees for all the proposed algorithms and illustrated the usefulness of our algorithms for optimizing CPT-based criteria in a traffic signal control application.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

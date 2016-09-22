@@ -41,7 +41,7 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we n
 \begin{algorithmic}[1]
 \State Simulate $n$ i.i.d. samples from the distribution of $X$.
 %\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
-\State Order the samples and label them as follows: 
+\State Arrange the samples in ascending order and label them as follows: 
 $X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Note that $u^+(X_{[1]}),\ldots ,u^+(X_{[n]})$ are also in ascending order.
 %\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
 \State Let
@@ -57,7 +57,9 @@ $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right
 \State Return $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
 \end{algorithmic}
 \end{algorithm}
-Notice the the following equivalence: 
+
+Let $X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$ denote the order statistics sampled from the distribution of $X$. 
+Then, we have the following equivalence: 
 %\todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
 \begin{align*}
 &\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n+1-i}{n}\right) - w^+\left(\frac{n-i}{n}\right)\right) \\
@@ -73,7 +75,7 @@ and also,
 where $\hat{F}^+_n\left(x\right)$ and $\hat{F}^-_n\left(x\right)$ are the empirical distributions of $u^+\left(X\right)$
 and $u^-\left(X\right)$, respectively.
 
-Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
+Thus, the CPT estimator $\overline \C_n$ (see Algorithm \ref{alg:holder-est}) can be written equivalently as follows:
 \begin{align}
 \overline \C_n = \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \!-\! \intinfinity w^-\left(1-{\hat F_n}^-\left(x\right)\right)  dx.
 \label{eq:cpt-est-appendix}
