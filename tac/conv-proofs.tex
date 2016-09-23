@@ -81,7 +81,7 @@ The second part of \eqref{eq:simple-estimation} can be justified in a similar fa
 
 \begin{proof}
 Without loss of generality, assume the  \holder constants $H$ of the weight functions $w^+$ and $w^-$ are both  
-$\alpha$.
+$1$.
 We prove the claim for the first integral in the CPT-value estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est}, i.e., we show  that 
 %\todoc{Don't start sentences with ''and'' or ''or''.}
 \begin{align}
@@ -91,7 +91,7 @@ We prove the claim for the first integral in the CPT-value estimator $\overline 
 \end{align}
 
 
-The main part of the proof is focused on finding an upper bound of the probability
+The main part of the proof is focused on finding an upper bound for the probability
 \begin{align*}
 \mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right.\\
 \quad\left.\left. -
@@ -145,7 +145,7 @@ w^+\left(\frac{n-i}{n}\right)\right) \right| > \frac{\epsilon}{n-1}\right) \\
 \end{align*}
 In the above, \eqref{eq:bd02} follows from the fact that $w^+$ is \holder with constant $1$.
 
-Now we find the upper bound of the probability of a single term in the sum above, i.e.,
+Now we find the upper bound for the probability of a single term in the sum above, i.e.,
 \begin{align*}
 & \Prob{ \left | u^+\left(X_{[i]}\right)\! -\! \xi^+_{\frac{i}{n}} \right | \!>\! \frac {\epsilon} {n^{\left(1-\alpha\right)}}}  
  \!=\! \Prob{
@@ -207,7 +207,7 @@ Notice that $\sum_{n=1}^{\infty}  2n  e^{-2n^{\alpha} L^{+} \epsilon}< \infty$ s
 $2n e^{-2n^{\alpha} L^{+}}$ will decrease more rapidly than the sequence
 $\frac{1}{n^k}$, $\forall k>1$.
 
-By applying the Borel Cantelli lemma,  $\forall \epsilon >0$, we have that
+By applying the Borel-Cantelli lemma,  $\forall \epsilon >0$, we have that
 \begin{align*}
 &\mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right)  \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)\right.\right. \\
 &\left.\left.-
@@ -227,7 +227,7 @@ $u^-(X_{[n-i]})$ is an estimate of the quantile $\xi^{-}_{\frac{i}{n}}$.
 For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provides a finite-time bound on the distance between the empirical distribution and the true distribution:
 \begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
 Let ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n I_{\left[(u(X_i)) \leq u\right]}$ denote the empirical distribution of a r.v. $u(X)$, with $u(X_1),\ldots,u(X_n)$ being sampled from the r.v $u(X)$.
-The, for any $n$ and $\epsilon>0$, we have
+Then, for any $n$ and $\epsilon>0$, we have
 $$
 \Prob{\sup_{x\in \mathbb{R}}|\hat{F}_n(x)-F(x)|>\epsilon } \leq 2 e^{-2n\epsilon^2}.
 $$
@@ -311,7 +311,7 @@ Applying Fubini's theorem to the RHS of \eqref{eq:2}, we obtain
 \intinfinity \int_x^\infty d \hat{F}_n\left(t\right) dx = \intinfinity \int_0^t dx d \hat{F}_n\left(t\right) \\
 = \intinfinity t d\hat{F}_n\left(t\right) = \frac{1}{n} \sum_{i=1}^n u^+\left(X_{[i]}\right),
  \end{align*}
- where $u^+\left(X_{[i]}\right), i=1,\ldots,n$ denote the order statistics, i.e., $u^+\left(X_{[1]}\right) \le \ldots \le u^+\left(X_{[n]}\right)$.
+ where $u^+\left(X_{[i]}\right), i=1,\ldots,n$ are the order statistics, i.e., $u^+\left(X_{[1]}\right) \le \ldots \le u^+\left(X_{[n]}\right)$.
  
 Notice that 
 \begin{align*}
@@ -401,7 +401,7 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 \subsubsection{Proofs for CPT-SPSA}
 \label{appendix:1spsa}
 
-To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while the regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
+To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
 
 % \todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
 \begin{lemma}
@@ -413,18 +413,17 @@ Then, for any $i = 1,\ldots,d$, we have almost surely,
 \end{align*} 
 \end{lemma}
 \begin{proof}
-Recall that the CPT-value estimation scheme is biased, i.e., providing samples with policy $\theta$, we obtain its CPT-value estimate as $V^{\theta}(x_0) + \epsilon^\theta$. Here $\epsilon^\theta$ denotes the bias. 
+% Recall that the CPT-value estimation scheme is biased, i.e., providing samples with policy $\theta$, we obtain its CPT-value estimate as $\C(X^{\theta}) + \epsilon^\theta$. Here $\epsilon^\theta$ denotes the bias. 
 % However, since the number of samples $m_n$ go to infinity, we have $$\epsilon^{\theta_n}  \rightarrow 0 \text{ as } n \rightarrow \infty.$$
-
 Notice that
 \begin{align}
 &\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] \\
-&= \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \eta_n \mid \F_n\right],
+&= \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] + \E\left[ \psi_n \mid \F_n\right],
 \end{align}
-where $\eta_n = \left(\dfrac{\epsilon^{\theta_n +\delta_n\Delta} - \epsilon^{\theta_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
+where $\psi_n = \left(\dfrac{\epsilon^{\theta_n +\delta_n\Delta} - \epsilon^{\theta_n-\delta_n\Delta}}{2\delta_n\Delta_n^{i}}\right)$
  is the bias arising out of the empirical distribution based CPT-value estimation scheme.
 From Corollary \ref{cor:holder-dkw} and the fact that $\frac{1}{m_n^{\alpha/2} \delta_n} \rightarrow 0$ by assumption (A3), we have that
-$$\E \eta_n \rightarrow 0 \text{ a.s. as } n \rightarrow \infty.$$ 
+$$\E \psi_n \rightarrow 0 \text{ a.s. as } n \rightarrow \infty.$$ 
 Thus,
 \begin{align}
 &\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] \nonumber\\
@@ -450,7 +449,7 @@ Taking conditional expectation on both sides, we obtain
 &= \nabla_i \C(X^{\theta_n}) + \E\left[\sum_{j=1,j\not=i}^{N} \frac{\Delta_n^j}{\Delta_n^i}\right]\nabla_j \C(X^{\theta_n}) + O(\delta_n^2)\nonumber\\
 &=  \nabla_i \C(X^{\theta_n}) + O(\delta_n^2).\label{eq:l2}
 \end{align}
-The first equality above follows from the fact that $\Delta_n$ is distributed according to a $d$-dimensional vector of Rademacher random variables and is independent of $\F_n$. The second inequality follows by observing that $\Delta_n^i$ is independent of $\Delta_n^j$, for any $i,j =1,\ldots,d$, $j\ne i$. 
+The first equality above follows from the fact that $\Delta_n$ is distributed according to a $d$-dimensional vector of symmetric, $\pm 1$-valued Bernoulli r.v.s and is independent of $\F_n$. The second inequality follows by observing that $\Delta_n^i$ is independent of $\Delta_n^j$, for any $i,j =1,\ldots,d$, $j\ne i$. 
 
 The claim follows by using the fact that $\delta_n \rightarrow 0$ as $n\rightarrow \infty$.
 \end{proof}
@@ -471,13 +470,13 @@ where
 \xi_n = & \left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n\Delta_n^{i}}\right) \\
 &\qquad - \E\left(\dfrac{(\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}}\mid \F_n \right).
 \end{align*}
-In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\xi_n$ is a martingale difference sequence.
+In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\{\xi_n\}$ is a martingale difference sequence.
 % , while  Lemma \ref{lemma:1spsa-bias} and the fact that $\delta_n \rightarrow 0$ imply that $\beta_n$ vanishes asymptotically. 
 
 Convergence of \eqref{eq:1spsa-equiv} can be inferred from Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}, provided we verify the necessary assumptions given as (B1)-(B5) below:
 \begin{enumerate}[\bfseries (B1)]
-\item $\nabla \C(X^{\theta})$ is a continuous $\R^{d}$-valued function.
-\item  The sequence $\beta_n,n\geq 0$ is a bounded random sequence with
+\item $\nabla \C(\cdot)$ is a continuous $\R^{d}$-valued function.
+\item  The sequence $\{\beta_n,n\geq 0\}$ is a bounded random sequence with
 $\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$.
 \item The step-sizes $\gamma_n,n\geq 0$ satisfy
 $  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamma_n=\infty.$
@@ -504,7 +503,7 @@ Applying the above inequality to the martingale difference sequence $\{W_l\}$, w
 \begin{align}
 &\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \E \left\|
 \sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 \nonumber\\
-&= \dfrac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \eta_n\right\|^2. \label{eq:b4}
+&= \dfrac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \xi_n\right\|^2. \label{eq:b4}
 \end{align}
 The last equality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
 We now bound $\E\left\| \xi_n\right\|^2$ as follows:
@@ -522,11 +521,11 @@ We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 \le & \frac{C}{\delta_n^2}, \text{ for some } C< \infty. \label{eq:h3}
 \end{align}
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
-The inequality in \eqref{eq:holder} uses \holder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
-The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is Rademacher. 
+The inequality in \eqref{eq:holder} uses H\"{o}lder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
+The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is a symmetric, $\pm 1$-valued Bernoulli r.v. 
 The inequality in \eqref{eq:h3} follows by using the fact that
 %, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
-$\C(X^\theta)$ is bounded for any parameter $\theta$ and the bias $\epsilon^\theta$ is bounded by Corollary \ref{cor:holder-dkw}.
+$\C(X^\theta)$ is bounded a.s. for any parameter $\theta$ and the bias $\epsilon^\theta$ is bounded by Corollary \ref{cor:holder-dkw}.
 Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
 \begin{align*}
  \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.

@@ -1,5 +1,5 @@
 %!TEX root =  cpt-rl-icml.tex
-\subsection{Optimization objective:} 
+\subsection{Optimization objective} 
 Suppose the r.v. $X$ in \eqref{eq:cpt-general} is a function of a $d$-dimensional parameter $\theta$. 
 In this section we consider the problem 
 \begin{align}
@@ -53,7 +53,7 @@ Simultaneous perturbation methods are a general class of stochastic gradient sch
 \begin{align}
 \widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}},\label{eq:grad-est-spsa}
 \end{align}
-where $\delta_n$ is a positive scalar that satisfies (A3) below, $\Delta_n = \left( \Delta_n^{1},\ldots,\Delta_n^{d}\right)\tr$, where $\{\Delta_n^{i}, i=1,\ldots,d\}$, $n=1,2,\ldots$ are i.i.d. Rademacher, independent of $\theta_0,\ldots,\theta_n$ and $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline \C_n^{\theta_n-\delta_n \Delta_n}$) denotes the CPT-value estimate that uses $m_n$ samples of the r.v. $X^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline X^{\theta_n-\delta_n \Delta_n}$).
+where $\delta_n$ is a positive scalar that satisfies (A3) below, $\Delta_n = \left( \Delta_n^{1},\ldots,\Delta_n^{d}\right)\tr$, where $\{\Delta_n^{i}, i=1,\ldots,d\}$, $n=1,2,\ldots$ are i.i.d. symmetric, $\pm 1$-valued Bernoulli r.v.s, independent of $\theta_0,\ldots,\theta_n$ and $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline \C_n^{\theta_n-\delta_n \Delta_n}$) denotes the CPT-value estimate that uses $m_n$ samples of the r.v. $X^{\theta_n+\delta_n \Delta_n}$ (resp. $\overline X^{\theta_n-\delta_n \Delta_n}$).
 %From the asymptotic mean square analysis that we present later, it is optimal to set $\delta_n = \delta_0/n^{0.16}$.
 The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{lemma:1spsa-bias}.
 
@@ -98,7 +98,7 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 \begin{algorithmic}
     \State {\bf Input:}  initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Pi: \R^d \rightarrow \Theta$.
 \For{$n = 0,1,2,\ldots$}	
-	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using Rademacher distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
+	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using symmetric, $\pm 1$-valued Bernoulli distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
 	    \State Simulate $m_n$ samples using  $(\theta_n+\delta_n \Delta_n)$.
 	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$. 
@@ -314,7 +314,7 @@ Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ 
 % 
 % \begin{proof}
 % See Section \ref{sec:proofs-spsa-n}.
-s% \end{proof}
+% \end{proof}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -337,7 +337,7 @@ g_{k}(\theta)=
 {\int_{\Theta}\mathcal{H}(V^{\theta'}(x^0))g_{k-1}(\theta')\nu(d\theta')},
 ~~\forall\, \theta \in \Theta,
 \end{equation}
-where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to policies having higher CPT-values and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
+where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to policies having higher CPT-values, and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
 
 Next, consider a setting where one can obtain the CPT-value $\C(X^{\theta})$ (without any noise) for any parameter $\theta$. In this case, we consider a family of parameterized distributions, say $\{f(\cdot,\eta),\,\eta\in \C \}$ and incrementally update the distribution parameter $\eta$ such that it minimizes the following KL divergence:
 \begin{align}
@@ -347,7 +347,7 @@ Next, consider a setting where one can obtain the CPT-value $\C(X^{\theta})$ (wi
 \end{align}
 where $\mathcal{R}(\Theta)$ is a random vector taking values in the parameter space $\Theta$. 
 %Through \ e intuition for the above is that we project the reference distributions $g_k$ onto the family $\{f(\cdot,\eta),\,\eta\in \C \}$.
-An algorithm to optimize CPT-value in this \textit{noise-less} setting would perform the following update:
+An algorithm to optimize CPT-value in this \textit{noiseless} setting would perform the following update:
 \begin{align}
  \label{eqn:interior}
 \hspace{-0.5em}\eta_{n+1} \!\in\! \argmax_{\eta \in \C}
@@ -469,12 +469,12 @@ $\mathcal{H}\hspace*{-3pt}$.
 % \footnotetext[1]{Here $\widehat V_n^{\theta^{(i)}_n}(x^0)$ denotes the $i$th order statistic.}
 
 
-Finally, we get to our setting where we only obtain biased estimate
+Finally, we get to our setting where we obtain only  biased estimates
 % \footnote{Recall that the bias is due to a finite sample run followed by estimation scheme in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity, to cancel the estimation bias.} 
-of the CPT-value $\C(X^{\theta})$ for any parameter $\theta$ and Algorithm \ref{alg:mras} presents the pseudocode.
+of the CPT-value $\C(X^{\theta})$ for any parameter $\theta$, and Algorithm \ref{alg:mras} presents the pseudocode.
 As noted in \cite{chang2013simulation}, it is efficient to use only an elite portion of the candidate parameters that have been sampled in order to update the sampling distribution $f(\cdot,\eta)$. This can be achieved by using a quantile estimate of the CPT-value function corresponding to candidate policies that were estimated in a particular iteration. The intuition here is that using policies that have performed well guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$.
 
- A natural question is how to compute the KL-distance \eqref{eqn:kl} in order to update the parameter. A related question is how to choose the family of distributions $f(\cdot,\theta)$, so that the update \eqref{eqn:interior} can be done efficiently. One choice is to employ the natural exponential family (NEF) since it ensures that the KL distance in \eqref{eqn:kl} can be computed analytically. %See Appendix \ref{appendix:mras} for details.
+ A natural question is how to compute the KL-distance \eqref{eqn:kl} in order to update the parameter. A related question is how to choose the family of distributions $f(\cdot,\theta)$, so that the update \eqref{eqn:interior} can be done efficiently. One choice is to employ the natural exponential family (NEF), since it ensures that the KL distance in \eqref{eqn:kl} can be computed analytically. %See Appendix \ref{appendix:mras} for details.
 
 % Assuming this setup, the CPT-MPS algorithm would involve the following steps:
 

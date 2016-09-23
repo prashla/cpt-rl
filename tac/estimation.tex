@@ -118,7 +118,7 @@ Assume (A1) and that \\
 \begin{inparaenum}[\bfseries (i)]
 \item $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
 are Lipschitz continuous on the respective intervals $(0,+\infty)$, and 
-$(-\infty, 0)$; \\
+$(-\infty, 0)$. \\
 \item Utility functions $u^+, u^-$ satisfy 
 $$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0.$$
 \end{inparaenum}
@@ -208,7 +208,7 @@ See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
 
 \begin{remark}
- For \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is higher than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights. Choosing the weights to be the identity function, we observe that the sample complexity cannot be improved.
+ For \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is generally worse than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$, since $\alpha \le 1$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights. Choosing the weights to be the identity function, we observe that the sample complexity cannot be improved.
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

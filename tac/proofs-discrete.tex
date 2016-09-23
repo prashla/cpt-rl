@@ -21,9 +21,9 @@ $$P(|\hat{F_k}-F_k| > \epsilon) \leq 2 e^{-2n \epsilon^2}.$$
 We focus on the case when $k > l$, while the case of $k \leq l$ is proved in a similar fashion.
 % Notice that when $k>l$,  $\hat F_k =I_{(X_i \geq  x_k) }$. 
 \begin{align}
-&P(\left|\hat{F_k}- F_k \right| > \epsilon)  \nonumber\\
-&= P(\left| \frac{1}{n} \sum_{i=1}^n I_{\{X_i \geq x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon) \nonumber\\ 
-& = P(\left|\sum_{i=1}^n I_{\{X_i \geq x_k\}} - \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > n\epsilon) \label{eq:hfd} \\ 
+&\Prob{\left|\hat{F_k}- F_k \right| > \epsilon}  \nonumber\\
+&= \Prob{\left| \frac{1}{n} \sum_{i=1}^n I_{\{X_i \geq x_k\}} - \frac{1}{n} \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > \epsilon} \nonumber\\ 
+& = \Prob{\left|\sum_{i=1}^n I_{\{X_i \geq x_k\}} - \sum_{i=1}^n E(I_{\{X_i \geq x_k\}}) \right| > n\epsilon} \label{eq:hfd} \\ 
 & \leq 2e^{-2n \epsilon^2},
 \end{align}
 where the last inequality above follows by an application of Hoeffding inequality after observing that $X_i$ are independent of each other and for each $i$, the corresponding r.v. in \eqref{eq:hfd} is an indicator that is trivially bounded above by $1$.
@@ -48,7 +48,7 @@ e^{-2n\rho^2} + e^{-2n\epsilon^2 /(KLM)^2}\right), \text{ where }\nonumber\\
 Observe that
 \begin{align}
 &\Prob{\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon}\nonumber\\
- & = \Prob{
+ & \le \Prob{
 \bigcup_{k=1}^K \left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}} \nonumber\\ & \leq
     \sum_{k=1}^K \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}}\label{eq:dp1}
 \end{align}
@@ -108,7 +108,7 @@ From a parallel argument to that in the proof of Proposition \ref{prop:discrete-
 \begin{align*}
 \Prob{\left| \sum_{i=1}^K u_k w(\hat F_{k+1}) - \sum_{i=1}^K u_k w(F_{k+1}) \right| >\epsilon}\\
 \le
-K\cdot ( e^{-2n\rho^2 } + e^{-2n\epsilon^2 /(KLM)^2})
+K \left( e^{-2n\rho^2 } + e^{-2n\epsilon^2 /(KLM)^2}\right).
 \end{align*}
 Hence,
 \begin{align*}
