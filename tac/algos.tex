@@ -174,15 +174,21 @@ A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n 
 
 In a typical RL setting involving finite state action spaces, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
 
-The main convergence result is stated below.
+\subsubsection*{Convergence result}
+We use the ordinary differential equation (ODE) method for establishing asymptotic convergence of CPT-SPSA.
+Consider the  ODE: 
+\begin{align}
+\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,
+\label{eq:theta-ode}
+\end{align}
+where 
+$\check\Pi_{i}(f(\theta)) := \lim\limits_{\vartheta \downarrow 0} \frac{\Pi_{i}(\theta + \vartheta f(\theta)) - \theta}{\vartheta}$, for any continuous $f(\cdot).$
+ Let $\K \subset \{\theta^* \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta^*})\right)=0, \forall i=1,\ldots,d\}$ denote the set of asymptotically stable equilibrium points of the ODE \eqref{eq:theta-ode}. The existence of $\K$ can be inferred by using the fact that $\C(X^\theta)$ itself serves as a Lyapunov function for \eqref{eq:theta-ode} (see Section \ref{appendix:1spsa} for details).
+%The main convergence result is stated below.
 \begin{theorem}
 \label{thm:1spsa-conv}
 Assume (A1)-(A4).
-Consider the  ordinary differential equation (ODE): 
-$$\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for }i=1,\dots,d,$$ 
-where 
-$\check\Pi_{i}(f(\theta)) := \lim\limits_{\vartheta \downarrow 0} \frac{\Pi_{i}(\theta + \vartheta f(\theta)) - \theta}{\vartheta}$, for any continuous $f(\cdot).$
- Let $\K = \{\theta^* \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta^*})\right)=0, \forall i=1,\ldots,d\}$. Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
+ Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
 $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \end{theorem}
 
