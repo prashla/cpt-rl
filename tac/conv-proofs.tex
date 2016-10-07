@@ -46,45 +46,49 @@ Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\fr
 %\todoj[inline]{Fix the upper limit..I think it should run up to $n$}
 
 \begin{proof}
-We shall focus on proving the first part of equation \eqref{eq:simple-estimation}. Notice that the following linear combination of simple functions: 
+We shall focus on proving the first part of equation \eqref{eq:simple-estimation}. 
+We have the following convergence claim holds almost everywhere:  % the following linear combination of simple functions: 
 \begin{align}
-\sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
-I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z)
+\sum_{i=1}^{n-1}\! w^+\! \left(\frac{i}{n}\right) 
+I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) \xrightarrow{n \rightarrow\infty} w^+\!\left(\Prob{u^{+}(X)>z}\!\right),
 \label{eq:simplew}
 \end{align}
-will converge almost everywhere to the function $w^+\left(\Prob{u^{+}(X)>z}\right)$ in the interval $[0, \infty)$ as 
-$n \rightarrow +\infty$
-To see this, observe that since $u^+(X)$  
-ranges in $(0,+\infty), \forall z$, there $\exists i$ such that 
-$z \in [\xi^+_{\frac{n-i-1}{n}}, \xi^+{\frac{n-i}{n}}]$, which implies that 
-$$w \left( \mathbb{P} \left( u^+\left( X \right) \geq z \right)\right) \in [w\left(\frac{i}{n} \right), w\left( \frac{i+i}{n} \right)] $$
-As a result, the absolute difference, 
+% will converge almost everywhere to the function $$ in the interval $[0, \infty)$ as 
+% $n \rightarrow +\infty$
+To infer the above claim, observe that since $u^+(X)$  
+ranges in $(0,+\infty), \forall z$, there exists $i$ such that 
+$z \in [\xi^+_{\frac{n-i-1}{n}}, \xi^+_{\frac{n-i}{n}}]$, which implies that 
+$$w^+ \left( \mathbb{P} \left( u^+\left( X \right) \geq z \right)\right) \in \left[w^+\left(\frac{i}{n} \right), w^+\left( \frac{i+1}{n} \right)\right]. $$
+Hence, we have 
 \begin{align}
 &\left| \sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
 I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) - w^+\left(\Prob{u^{+}(X)>z}\right)\right| \nonumber \\
-&\leq  \left| w\left(\frac{i}{n} \right) - w\left( \frac{i+i}{n} \right) \right| \nonumber
+&\leq  \left| w^+\left(\frac{i}{n} \right) - w^+\left( \frac{i+1}{n} \right) \right| \nonumber
 \end{align}
-The H\"{o}lder continuity property assures the fact that 
-$\lim_{n \rightarrow \infty}  | w^+(\frac{i}{n})- w^+(\frac{i+1}{n})| =0$, which implies the convergence property a.e.
+Since $w^+$ is H\"{o}lder continuous, we have 
+$$ \left | w^+\left(\frac{i}{n}\right)- w^+\left(\frac{i+1}{n}\right)\right| \xrightarrow{n \rightarrow \infty} 0,$$
+and hence the claim in \eqref{eq:simplew} follows.
+
 Further, for all $z \in [0,\infty)$,
 \begin{align}
 \sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
 I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z)
 <
-w^+\left(\Prob{u^{+}(X)>z}\right).
+w^+\left(\Prob{u^{+}(X)>z}\right).\label{eq:bddw}
 \end{align}
 
-The integral of \eqref{eq:simplew} can be simplified as follows:
-\begin{align*}
+The integral of LHS of \eqref{eq:simplew} can be simplified as follows:
+\begin{align}
 & \int_0^{\infty} \sum_{i=0}^{n} w^+ \left(\frac{i}{n}\right) 
- I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) dz \\
+ I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) dz \nonumber\\
  & = \sum_{i=0}^{n-1} w^+\left(\frac{i}{n}\right) \left(\xi^+_{\frac{n-i}{n}} -
-\xi^+_{\frac{n-i-1}{n}}\right) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)-
-    w^+\left(\frac{n-i-1}{n}\right)\right).
-\end{align*}
-the limit in \eqref{eq:simple-estimation} holds through an application of the dominated convergence theorem.
+\xi^+_{\frac{n-i-1}{n}}\right) \nonumber\\ 
+& = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)-
+    w^+\left(\frac{n-i-1}{n}\right)\right).\label{eq:intsimp}
+\end{align}
+Now, the main claim in \eqref{eq:simple-estimation} can be inferred from \eqref{eq:simplew},\eqref{eq:bddw} and \eqref{eq:intsimp} in conjunction with the dominated convergence theorem.
 
-The second part of \eqref{eq:simple-estimation} can be justified in a similar fashion.
+The second part of \eqref{eq:simple-estimation} follows in a similar fashion.
 \end{proof} 
 %%%
 

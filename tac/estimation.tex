@@ -63,7 +63,7 @@ Then, we have the following equivalence:
 %\todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
 \begin{align*}
 &\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n+1-i}{n}\right) - w^+\left(\frac{n-i}{n}\right)\right) \\
-&= \sum_{i=1}^{n} w^+\left(\frac{n-i}{n}\right) \left(u^+\left(X_{[i+1]}\right) - u^+\left(X_{[i]} \right)\right)\\
+&= \sum_{i=1}^{n-1} w^+\left(\frac{n-i}{n}\right) \left(u^+\left(X_{[i+1]}\right) - u^+\left(X_{[i]} \right)\right)\\
 &=  \int_0^{\infty} w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, 
 \end{align*}
 % \todoj[inline]{Add a few steps above to make the equivalence clear}
