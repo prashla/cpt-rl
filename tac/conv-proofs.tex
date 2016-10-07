@@ -52,7 +52,21 @@ We shall focus on proving the first part of equation \eqref{eq:simple-estimation
 I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z)
 \label{eq:simplew}
 \end{align}
-will converge almost everywhere to the function $w^+\left(\Prob{u^{+}(X)>z}\right)$ in the interval $[0, \infty)$. Further, for all $z \in [0,\infty)$, we have
+will converge almost everywhere to the function $w^+\left(\Prob{u^{+}(X)>z}\right)$ in the interval $[0, \infty)$ as 
+$n \rightarrow +\infty$
+To see this, observe that since $u^+(X)$  
+ranges in $(0,+\infty), \forall z$, there $\exists i$ such that 
+$z \in [\xi^+_{\frac{n-i-1}{n}}, \xi^+{\frac{n-i}{n}}]$, which implies that 
+$$w \left( \mathbb{P} \left( u^+\left( X \right) \geq z \right)\right) \in [w\left(\frac{i}{n} \right), w\left( \frac{i+i}{n} \right)] $$
+As a result, the absolute difference, 
+\begin{align}
+&\left| \sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
+I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) - w^+\left(\Prob{u^{+}(X)>z}\right)\right| \nonumber \\
+&\leq  \left| w\left(\frac{i}{n} \right) - w\left( \frac{i+i}{n} \right) \right| \nonumber
+\end{align}
+The H\"{o}lder continuity property assures the fact that 
+$\lim_{n \rightarrow \infty}  | w^+(\frac{i}{n})- w^+(\frac{i+1}{n})| =0$, which implies the convergence property a.e.
+Further, for all $z \in [0,\infty)$,
 \begin{align}
 \sum_{i=1}^{n-1} w^+ \left(\frac{i}{n}\right) 
 I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z)
@@ -68,8 +82,7 @@ The integral of \eqref{eq:simplew} can be simplified as follows:
 \xi^+_{\frac{n-i-1}{n}}\right) \\ & = \sum_{i=0}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n}\right)-
     w^+\left(\frac{n-i-1}{n}\right)\right).
 \end{align*}
-The H\"{o}lder continuity property assures the fact that 
-$\lim_{n \rightarrow \infty}  | w^+(\frac{n-i}{n})- w^+(\frac{n-i-1}{n})| =0$, and the limit in \eqref{eq:simple-estimation} holds through an application of the dominated convergence theorem.
+the limit in \eqref{eq:simple-estimation} holds through an application of the dominated convergence theorem.
 
 The second part of \eqref{eq:simple-estimation} can be justified in a similar fashion.
 \end{proof} 
