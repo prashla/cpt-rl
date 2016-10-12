@@ -1,9 +1,4 @@
 %!TEX root =  cpt-rl-icml.tex
-Before diving into the main experiment, we decide to conduct a trivial numerical experiment showing that CPT-value doesn't always have the same preference on the optimal point of parameters as expectation has.  Our simulation objects are 21 Gaussian random variables with different combinations of mean and variance.
-We denote the ith random variable as $X_i \sim {N(\mu_i, \theta_i)}$.Furthermore, we set up $\mu_i$ as the ith value in the vector $[2.5, 2.6,....4.4,4.5]$, an equally increasing sequence of numbers from $2.5$ to $4.5$, and we set up $\theta_i$ as the ith value in the vector $[6, 5.8,.....2.2, 2]$, an evenly decreasing sequence of numbers from $6$ to $2$.
-
-Among all the 21 Gaussian random variables, $X_{21}$ has the largest expectation $E(X_{21}) = 4.5$.
-However, based on our estimation results(with accuracy roughly 0.01) ,$X_{1}$,which is distributed as $N(2.5,6)$, has the largest CPT-value.
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
 We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim} and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
 

@@ -1,3 +1,23 @@
+The main purpose of this numerical section is to justify two things: Firstly we believe that "CPT-functional" tends to react differently the way as expectation do to the change of parameters, specifically, we want to show that there are families of random variables, $X_\theta$ such that $\argmax_{\theta} \mathbb{E}\left( X_\theta \right)$ is quite distinct from 
+$\argmax_{\theta} \mathbb{C} \left( X_\theta \right)$. Secondly we want to justify that our estimator been proposed in algorithm 
+\ref{alg:holder-est} is asymptotically consistent.
+
+The CPT-functional focused on this section is aligned with the form proposed in \eqref{eq:cpt-general}, with $u^+(x) = \max(x,0)$ and 
+$u^-(x) = \min(x,0)$, $\lambda = 0.25$. 
+More specifically,
+\begin{align}
+\C_{u,w}\left(X\right) &= \intinfinity w^+\left(\Prob{(X^+)^{0.88}>z}\right) dz\nonumber \\
+&\quad - 0.25 \intinfinity w^-\left(\Prob{(X^-)^{0.88}>z}\right) dz \label{eq:CPT-numerical-section} , 
+\end{align}
+Where $w^+(p) = w^-(p) = \frac{p^{0.6}}{(p^{0.6} + (1-p)^{0.6})^{1/0.6}}.$ 
+
+\subsection{Comparison between CPT and expectation}
+Firstly we estimate the CPT-functional and expectation of a sequence of Gaussian r.v. $X_i$, distributed as $N(\mu_i, \sigma_i)$, where
+$\mu_i$ is an increasing sequence of $[2.5, 2.6, \ldots 4.4, 4.5]$, and $\sigma_i$ is a decreasing sequence of $[5, 4.9, \ldots 1.1, 1]$.
+Among all the 21 r.v.s, $X_{21}$ has the largest expectation $E(X_{21}) = 4.5$, but $X_1$ generates the largest CPT-value. See table
+\ref{tab:gaussCPT}.
+
+
 \begin{table}
 \centering
 \begin{tabular}{|c|c|c|}
@@ -30,6 +50,106 @@ $\mu$ & $\sigma$ & CPT-value $\C(X^{\mu,\sigma})$\\
 \caption{CPT-value for Gaussian distributed random variables with varying mean $\mu$ and variance $\sigma$. The r.v. (first row) with $(\mu,\sigma)=(2.6,6.0)$ has the highest CPT-value, while the r.v. on the last row has the highest expected value.}
 \label{tab:gaussCPT}
 \end{table}
+
+\begin{table}
+\centering
+\begin{tabular}{|c|c|c|c|}
+\toprule
+$\xi$ & $\omega$ & CPT-value $\C(X^{\xi,\omega})$ & Expected value\\
+\midrule
+-1.00 & 5.0 & 1.7995 & 0.7841\\
+-0.90 & 4.8 & 1.7405 & 0.8128\\
+-0.80 & 4.6 & 1.7069 & 0.8414\\
+-0.70 & 4.4 & 1.6748 & 0.8700\\
+-0.60 & 4.2 & 1.6405 & 0.8987\\
+-0.50 & 4.0 & 1.5878 & 0.9273\\
+-0.40 & 3.8 & 1.5625 & 0.9559\\
+-0.30 & 3.6 & 1.5215 & 0.9846\\
+-0.20 & 3.4 & 1.4747 & 1.0132\\
+-0.10 & 3.2 & 1.4481 & 1.0418\\
+0.00 & 3.0 & 1.4007 & 1.0705\\
+0.10 & 2.8 & 1.3666 & 1.0991\\
+0.20 & 2.6 & 1.3293 & 1.1277\\
+0.30 & 2.4 & 1.3044 & 1.1564\\
+0.40 & 2.2 & 1.2691 & 1.1850\\
+0.50 & 2.0 & 1.2380 & 1.2136\\
+0.60 & 1.8 & 1.2074 & 1.2423\\
+0.70 & 1.6 & 1.1790 & 1.2709\\
+0.80 & 1.4 & 1.1592 & 1.2996\\
+0.90 & 1.2 & 1.1396 & 1.3282\\
+1.00 & 1.0 & 1.1417 & 1.3568\\
+\bottomrule
+\end{tabular}
+\caption{CPT-value for skewed normal distributed random variables with shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$.} 
+\label{tab:skewNormalCPT}
+\end{table}
+
+
+Our second example is concerned with skew normal distribution, 
+$sn(\xi, \omega, \alpha)$, where the mean equals 
+$\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, and variance equals 
+$\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
+We decide to work on 21 r.v.s as well, denoted as $Y_i \sim sn(\xi_i, \omega_i, \alpha_i)$.
+We will vary $\xi$ from $0$ to $2$ with ascending order and evenly gap, and vary $\omega$ from $5$ to $1$ with descending order with evenly gap. 
+The table \ref{tab:skewNormalCPT} exemplifies that the optimal-points of CPT-functional and expectation are very distinct as well. 
+
+\subsection{Justifying consistency of CPT estimator}
+To numerically justify that our CPT-estimator is asymptotically consistent, we design the following steps:
+Firstly we use gaussian-quadrature to numerically calculate the integral \eqref{eq:CPT-numerical-section} with underline r.v. $X$ be skew normal distributed as $sn(2,1,2)$. Notice that when the density of $X$ is known and $w^+(p)$, $w^-(p)$ are differentiable, the CPT-value \eqref{eq:CPT-numerical-section} could be formulated as
+\begin{align}
+\C_{u,w}\left( X \right) & = \intinfinity z^{0.88} (w^{+})^\prime \left(1 - F_{X^+}\left(z\right)\right) f_{X^+}\left(z\right)dz \\
+&\quad - 0.25 \intinfinity (-z)^{0.88} (w^{-})^\prime \left(1 - F_{X^-}\left(z\right)\right) f_{X^-}\left(z\right) dz.
+\end{align}
+To show that CPT estimator is getting closer to the numerical integral, we propose total $100$ simulation phases indexed from $1$ to $100$. In each phase i , we generate 10 i.i.d. estimators $\C^j_{n_i}\left(X\right)$ of $\C_{u,w}\left( X\right)$($j$ from 1 to 10), according to the scheme of algorithm \ref{alg:holder-est} with $n_i$ samples generated from $X \sim sn(2,1,2)$. Additionally, $n_i$ ranges from $100$ to $1000,000$. Furthermore, in each phase $i$, we calculate the deviation of each estimator $\C^j_{n_i}\left(X\right)$ from numerically integrated value. We collect all the deviations and calculate their mean and margin of error , displayed in figure \ref{fig:cpt-est}. Margin of error stands for half length of t-confidence interval of those deviations.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+%%%% Error bars 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\errorband}[5][]{ % x column, y column, error column, optional argument for setting style of the area plot
+\pgfplotstableread[col sep=tab, skip first n=2]{#2}\datatable
+    % Lower bound (invisible plot)
+    \addplot [draw=none, stack plots=y, forget plot] table [
+        x={#3},
+        y expr=\thisrow{#4}-2*\thisrow{#5}
+    ] {\datatable};
+
+    % Stack twice the error, draw as area plot
+    \addplot [draw=none, fill=gray!40, stack plots=y, area legend, #1] table [
+        x={#3},
+        y expr=4*\thisrow{#5}
+    ] {\datatable} \closedcycle;
+
+    % Reset stack using invisible plot
+    \addplot [forget plot, stack plots=y,draw=none] table [x={#3}, y expr=-(\thisrow{#4}+2*\thisrow{#5})] {\datatable};
+}
+
+\begin{figure}
+    \centering
+\scalebox{0.8}{\begin{tikzpicture}
+      \begin{axis}[
+	xlabel={Sample size},
+	ylabel={Estimation error},
+       %legend entries={
+	 %,
+        %estimator,
+        %},
+        %legend pos=north east,
+				grid,grid style={gray!30}
+      ]
+
+      \errorband[red!50!white, opacity=0.3]{results/estimation_accuracy.txt}{0}{1}{4}
+      \addplot [thick, red] table [x index=0, y index=1,col sep=tab] {results/estimation_accuracy.txt};
+      \end{axis}
+      \end{tikzpicture}}
+			\caption{The deviations and its confidence intervals created in each phase }
+      \label{fig:cpt-est} 
+			\end{figure}
+
+
+
+
+
+
 
 
 
