@@ -11,6 +11,8 @@ More specifically,
 \end{align}
 Where $w^+(p) = w^-(p) = \frac{p^{0.6}}{(p^{0.6} + (1-p)^{0.6})^{1/0.6}}.$ 
 
+
+
 \subsection{Comparison between CPT and expectation}
 Firstly we estimate the CPT-functional and expectation of a sequence of Gaussian r.v. $X_i$, distributed as $N(\mu_i, \sigma_i)$, where
 $\mu_i$ is an increasing sequence of $[2.5, 2.6, \ldots 4.4, 4.5]$, and $\sigma_i$ is a decreasing sequence of $[5, 4.9, \ldots 1.1, 1]$.
@@ -18,71 +20,159 @@ Among all the 21 r.v.s, $X_{21}$ has the largest expectation $E(X_{21}) = 4.5$, 
 \ref{tab:gaussCPT}.
 
 
-\begin{table}
-\centering
-\begin{tabular}{|c|c|c|}
-\toprule
-$\mu$ & $\sigma$ & CPT-value $\C(X^{\mu,\sigma})$\\
-\midrule
-\textbf{2.5} & \textbf{6.0} & \textbf{1.8305}\\
-2.6 & 5.8 & 1.8198\\
-2.7 & 5.6 & 1.8008\\
-2.8 & 5.4 & 1.7806\\
-2.9 & 5.2 & 1.7677\\
-3.0 & 5.0 & 1.7595\\
-3.1 & 4.8 & 1.7397\\
-3.2 & 4.6 & 1.7288\\
-3.3 & 4.4 & 1.7158\\
-3.4 & 4.2 & 1.7070\\
-3.5 & 4.0 & 1.6922\\
-3.6 & 3.8 & 1.6808\\
-3.7 & 3.6 & 1.6739\\
-3.8 & 3.4 & 1.6620\\
-3.9 & 3.2 & 1.6560\\
-4.0 & 3.0 & 1.6538\\
-4.1 & 2.8 & 1.6529\\
-4.2 & 2.6 & 1.6531\\
-4.3 & 2.4 & 1.6601\\
-4.4 & 2.2 & 1.6705\\
-\textbf{4.5} & \textbf{2.0} & \textbf{1.6848}\\
-\bottomrule
-\end{tabular}
-\caption{CPT-value for Gaussian distributed random variables with varying mean $\mu$ and variance $\sigma$. The r.v. (first row) with $(\mu,\sigma)=(2.6,6.0)$ has the highest CPT-value, while the r.v. on the last row has the highest expected value.}
-\label{tab:gaussCPT}
-\end{table}
+% \begin{table}
+% \centering
+% \begin{tabular}{|c|c|c|}
+% \toprule
+% $\mu$ & $\sigma$ & CPT-value $\C(X^{\mu,\sigma})$\\
+% \midrule
+% \textbf{2.5} & \textbf{6.0} & \textbf{1.8305}\\
+% 2.6 & 5.8 & 1.8198\\
+% 2.7 & 5.6 & 1.8008\\
+% 2.8 & 5.4 & 1.7806\\
+% 2.9 & 5.2 & 1.7677\\
+% 3.0 & 5.0 & 1.7595\\
+% 3.1 & 4.8 & 1.7397\\
+% 3.2 & 4.6 & 1.7288\\
+% 3.3 & 4.4 & 1.7158\\
+% 3.4 & 4.2 & 1.7070\\
+% 3.5 & 4.0 & 1.6922\\
+% 3.6 & 3.8 & 1.6808\\
+% 3.7 & 3.6 & 1.6739\\
+% 3.8 & 3.4 & 1.6620\\
+% 3.9 & 3.2 & 1.6560\\
+% 4.0 & 3.0 & 1.6538\\
+% 4.1 & 2.8 & 1.6529\\
+% 4.2 & 2.6 & 1.6531\\
+% 4.3 & 2.4 & 1.6601\\
+% 4.4 & 2.2 & 1.6705\\
+% \textbf{4.5} & \textbf{2.0} & \textbf{1.6848}\\
+% \bottomrule
+% \end{tabular}
+% \caption{CPT-value for Gaussian distributed random variables with varying mean $\mu$ and variance $\sigma$. The r.v. (first row) with $(\mu,\sigma)=(2.6,6.0)$ has the highest CPT-value, while the r.v. on the last row has the highest expected value.}
+% \label{tab:gaussCPT}
+% \end{table}
+% 
+% \begin{table}
+% \centering
+% \begin{tabular}{|c|c|c|c|}
+% \toprule
+% $\xi$ & $\omega$ & CPT-value $\C(X^{\xi,\omega})$ & Expected value\\
+% \midrule
+% -1.00 & 5.0 & 1.7995 & 0.7841\\
+% -0.90 & 4.8 & 1.7405 & 0.8128\\
+% -0.80 & 4.6 & 1.7069 & 0.8414\\
+% -0.70 & 4.4 & 1.6748 & 0.8700\\
+% -0.60 & 4.2 & 1.6405 & 0.8987\\
+% -0.50 & 4.0 & 1.5878 & 0.9273\\
+% -0.40 & 3.8 & 1.5625 & 0.9559\\
+% -0.30 & 3.6 & 1.5215 & 0.9846\\
+% -0.20 & 3.4 & 1.4747 & 1.0132\\
+% -0.10 & 3.2 & 1.4481 & 1.0418\\
+% 0.00 & 3.0 & 1.4007 & 1.0705\\
+% 0.10 & 2.8 & 1.3666 & 1.0991\\
+% 0.20 & 2.6 & 1.3293 & 1.1277\\
+% 0.30 & 2.4 & 1.3044 & 1.1564\\
+% 0.40 & 2.2 & 1.2691 & 1.1850\\
+% 0.50 & 2.0 & 1.2380 & 1.2136\\
+% 0.60 & 1.8 & 1.2074 & 1.2423\\
+% 0.70 & 1.6 & 1.1790 & 1.2709\\
+% 0.80 & 1.4 & 1.1592 & 1.2996\\
+% 0.90 & 1.2 & 1.1396 & 1.3282\\
+% 1.00 & 1.0 & 1.1417 & 1.3568\\
+% \bottomrule
+% \end{tabular}
+% \caption{CPT-value for skewed normal distributed random variables with shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$.} 
+% \label{tab:skewNormalCPT}
+% \end{table}
 
-\begin{table}
-\centering
-\begin{tabular}{|c|c|c|c|}
-\toprule
-$\xi$ & $\omega$ & CPT-value $\C(X^{\xi,\omega})$ & Expected value\\
-\midrule
--1.00 & 5.0 & 1.7995 & 0.7841\\
--0.90 & 4.8 & 1.7405 & 0.8128\\
--0.80 & 4.6 & 1.7069 & 0.8414\\
--0.70 & 4.4 & 1.6748 & 0.8700\\
--0.60 & 4.2 & 1.6405 & 0.8987\\
--0.50 & 4.0 & 1.5878 & 0.9273\\
--0.40 & 3.8 & 1.5625 & 0.9559\\
--0.30 & 3.6 & 1.5215 & 0.9846\\
--0.20 & 3.4 & 1.4747 & 1.0132\\
--0.10 & 3.2 & 1.4481 & 1.0418\\
-0.00 & 3.0 & 1.4007 & 1.0705\\
-0.10 & 2.8 & 1.3666 & 1.0991\\
-0.20 & 2.6 & 1.3293 & 1.1277\\
-0.30 & 2.4 & 1.3044 & 1.1564\\
-0.40 & 2.2 & 1.2691 & 1.1850\\
-0.50 & 2.0 & 1.2380 & 1.2136\\
-0.60 & 1.8 & 1.2074 & 1.2423\\
-0.70 & 1.6 & 1.1790 & 1.2709\\
-0.80 & 1.4 & 1.1592 & 1.2996\\
-0.90 & 1.2 & 1.1396 & 1.3282\\
-1.00 & 1.0 & 1.1417 & 1.3568\\
-\bottomrule
-\end{tabular}
-\caption{CPT-value for skewed normal distributed random variables with shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$.} 
-\label{tab:skewNormalCPT}
-\end{table}
+ \begin{figure}[h]
+   \centering
+   \begin{tabular}{c}
+   \subfigure[Gaussian distributed r.v.s with parameters mean $\mu$ and variance $\sigma$] 
+   {
+   \scalebox{0.65}{\begin{tikzpicture}
+   \begin{axis}[width=13cm,height=6.5cm,legend pos=south east,
+          %  grid = major,         
+            axis lines=middle,
+           % grid style={dashed, gray!30},
+            xmin=-1,     % start the diagram at this x-coordinate
+            xmax=5,    % end   the diagram at this x-coordinate
+            ymin=-1,     % start the diagram at this y-coordinate
+            ymax=8,   % end   the diagram at this y-coordinate
+           % axis background/.style={fill=white},
+            ylabel={\large Variance $\sigma$},
+            xlabel={\large Mean $\mu$},
+            x label style={at={(axis cs:4.7,-2)}},
+            y label style={at={(axis cs:-1.5,4.8)}},
+%             xticklabels=\empty,
+%             yticklabels=\empty
+            ]
+               
+               \path[name path=diagplus] (axis cs:0.5,6) -- (axis cs:2.5,2);
+               \draw (axis cs:0.5,6) -- (axis cs:2.5,2);
+                \path[name path=xaxisplus] (axis cs:0.5,2) -- (axis cs:2.5,2);
+               \draw (axis cs:0.5,2) -- (axis cs:2.5,2);
+                 \path[name path=yaxisplus] (axis cs:0.5,2) -- (axis cs:0.5,6);
+		\draw (axis cs:0.5,2) -- (axis cs:0.5,6);
+               
+ \addplot [green!40]  fill between[of= diagplus and xaxisplus];
+ 
+%  \node at (axis cs:  1.2,3) {Feasible region};
+         %%%%% CPT optimal point
+\node at (axis cs:  2,7) {\makecell{\bf CPT-value \\ \bf optima}};
+         \path[->] (axis cs:1.5,7.3) edge [out=180,in=90] (axis cs:0.5,6);
+
+         %%%%% Expected optimal point
+          \node at (axis cs:  4,2) {\makecell{\bf Expected value\\\bf optima}};
+         \path[->] (axis cs:3.3,2.3) edge [out=180,in=0] (axis cs:2.5,2);
+   \end{axis}
+   \end{tikzpicture}}
+   }
+   \\
+\subfigure[Skewed normal distributed r.v.s with fixed shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$] 
+   {
+   \scalebox{0.65}{\begin{tikzpicture}
+   \begin{axis}[width=13cm,height=6.5cm,legend pos=south east,
+          %  grid = major,         
+            axis lines=middle,
+           % grid style={dashed, gray!30},
+            xmin=-3,     % start the diagram at this x-coordinate
+            xmax=3,    % end   the diagram at this x-coordinate
+            ymin=-1,     % start the diagram at this y-coordinate
+            ymax=8,   % end   the diagram at this y-coordinate
+           % axis background/.style={fill=white},
+            ylabel={\large Location $\xi$},
+            xlabel={\large Scale $\omega$},
+            x label style={at={(axis cs:2.5,-2)}},
+            y label style={at={(axis cs:-1.5,7)}},
+%             xticklabels=\empty,
+%             yticklabels=\empty
+            ]
+               
+               \path[name path=diagplus] (axis cs:-1,5) -- (axis cs:1,1);
+               \draw (axis cs:-1,5) -- (axis cs:1,1);
+                \path[name path=xaxisplus] (axis cs:-1,1) -- (axis cs:1,1);
+               \draw (axis cs:-1,1) -- (axis cs:1,1);
+                 \path[name path=yaxisplus] (axis cs:-1,1) -- (axis cs:-1,5);
+		\draw (axis cs:-1,1) -- (axis cs:-1,5);
+               
+ \addplot [green!40]  fill between[of= diagplus and xaxisplus];
+ 
+         %%%%% CPT optimal point
+\node at (axis cs:  -2,3) {\makecell{\bf CPT-value\\ \bf optima}};
+         \path[->] (axis cs:-2,3.4) edge [out=180,in=90] (axis cs:-1,5);
+
+         %%%%% Expected optimal point
+          \node at (axis cs:  2,4) {\makecell{\bf Expected value\\\bf optima}};
+         \path[->] (axis cs:1.8,4.4) edge [out=180,in=10] (axis cs:1,1);
+   \end{axis}
+   \end{tikzpicture}}
+   } 
+   \end{tabular}
+\caption{Optimal expected and CPT-values within the feasible region (shaded green) for two different distributions.}
+\label{fig:normal-cpt}
+\end{figure}
 
 
 Our second example is concerned with skew normal distribution, 
