@@ -6,19 +6,29 @@ The CPT-functional focused on this section is aligned with the form proposed in 
 $u^-(x) = \min(x,0)$, $\lambda = 0.25$. 
 More specifically,
 \begin{align}
-\C_{u,w}\left(X\right) &= \intinfinity w^+\left(\Prob{(X^+)^{0.88}>z}\right) dz\nonumber \\
-&\quad - 0.25 \intinfinity w^-\left(\Prob{(X^-)^{0.88}>z}\right) dz \label{eq:CPT-numerical-section} , 
+\C_{u,w}\left(X\right) &= \intinfinity w^+\left(\Prob{(X^+)>z}\right) dz\nonumber \\
+&\quad - 0.25 \intinfinity w^-\left(\Prob{(X^-)>z}\right) dz \label{eq:CPT-numerical-section} , 
 \end{align}
 Where $w^+(p) = w^-(p) = \frac{p^{0.6}}{(p^{0.6} + (1-p)^{0.6})^{1/0.6}}.$ 
 
 
 
 \subsection{Comparison between CPT and expectation}
-Firstly we estimate the CPT-functional and expectation of a sequence of Gaussian r.v. $X_i$, distributed as $N(\mu_i, \sigma_i)$, where
-$\mu_i$ is an increasing sequence of $[2.5, 2.6, \ldots 4.4, 4.5]$, and $\sigma_i$ is a decreasing sequence of $[5, 4.9, \ldots 1.1, 1]$.
-Among all the 21 r.v.s, $X_{21}$ has the largest expectation $E(X_{21}) = 4.5$, but $X_1$ generates the largest CPT-value. See table
-\ref{tab:gaussCPT}.
+Before diving into the simulation step, notice that it's usually hard to attain an analytical form of CPT-functional, henceforth, we try to find estimate it through trapezoid rule. Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore we propose grid search within feasible set , where each given point in the grid has $0.05$ distance from its adjacent points, to find an approximated optimal point.
 
+We select normal distribution $\mathcal{N}(\mu, \sigma)$ in our first simulation example, where
+the feasible region of $(\mu, \sigma)$ is triangle composed with points.
+$(0.5,2), (0.5,6), (2.5,2)$. The expectation takes maximum apparently $N (2.5, 2)$. After numerically calculating all the CPT values at the grid points, we found out that  $N(0.5, 6)$ returns the maximum CPT-value with $2.6467$
+In contrast, the r.v. $N (2.5, 2)$ only returns CPT value $2.3681$, see figure \ref{fig:normal-cpt}.
+
+Our second example is concerned with skew normal distribution, 
+$X_{(\xi, \omega, \alpha)} \sim sn(\xi, \omega, \alpha)$, where the mean equals 
+$\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, and variance equals 
+$\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
+As of skew normal distribution, we firstly fix the shape parameter $\alpha$ to be 0.5. And set up the feasible region of parameters $(\xi, \omega) $ to be the triangle composed with $(-1,1), (1,1), (-1,5)$.  Again we try to find the points returning the largest expectation and the largest CPT.
+It turns out that the point $(-1,5)$ returns the largest CPT-value, and $\C(X_{(-1,5,0.5)}) = 2.3031$, in the meanwhile,
+$\mathbb{E}(X_{-1,5,0.5}) = 0.7841$.
+On the contrary, the point $(1,1)$ has the largest expectation $\mathbb{E}(X_{1,1,0.5}) = 1.3568$, but the CPT value of the same r.v. is only been approximately to be $1.2532$
 
 % \begin{table}
 % \centering
@@ -175,13 +185,13 @@ Among all the 21 r.v.s, $X_{21}$ has the largest expectation $E(X_{21}) = 4.5$, 
 \end{figure}
 
 
-Our second example is concerned with skew normal distribution, 
-$sn(\xi, \omega, \alpha)$, where the mean equals 
-$\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, and variance equals 
-$\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
-We decide to work on 21 r.v.s as well, denoted as $Y_i \sim sn(\xi_i, \omega_i, \alpha_i)$.
-We will vary $\xi$ from $0$ to $2$ with ascending order and evenly gap, and vary $\omega$ from $5$ to $1$ with descending order with evenly gap. 
-The table \ref{tab:skewNormalCPT} exemplifies that the optimal-points of CPT-functional and expectation are very distinct as well. 
+%Our second example is concerned with skew normal distribution, 
+%$sn(\xi, \omega, \alpha)$, where the mean equals 
+%$\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, and variance equals 
+%$\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
+%We decide to work on 21 r.v.s as well, denoted as $Y_i \sim sn(\xi_i, \omega_i, \alpha_i)$.
+%We will vary $\xi$ from $0$ to $2$ with ascending order and evenly gap, and vary $\omega$ from $5$ to $1$ with descending order with evenly gap. 
+%The table \ref{tab:skewNormalCPT} exemplifies that the optimal-points of CPT-functional and expectation are very distinct as well. 
 
 \subsection{Justifying consistency of CPT estimator}
 To numerically justify that our CPT-estimator is asymptotically consistent, we design the following steps:
