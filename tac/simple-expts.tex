@@ -1,34 +1,27 @@
-The main purpose of this numerical section is to justify two things: Firstly we believe that "CPT-functional" tends to react differently the way as expectation do to the change of parameters, specifically, we want to show that there are families of random variables, $X_\theta$ such that $\argmax_{\theta} \mathbb{E}\left( X_\theta \right)$ is quite distinct from 
-$\argmax_{\theta} \mathbb{C} \left( X_\theta \right)$. Secondly we want to justify that our estimator been proposed in algorithm 
-\ref{alg:holder-est} is asymptotically consistent.
+In this section is to illustrate the following: \\
+\begin{inparaenum}[\bfseries (i)]
+\item The CPT-functional reacts differently to the change of parameters of the underlying distribution as compared expected value. In particular, we show that there are families of random variables $\{X_\theta, \theta \in \Theta\}$ where $\argmax_{\theta} \mathbb{E}\left( X_\theta \right)$ is radically different from 
+$\argmax_{\theta} \mathbb{C} \left( X_\theta \right)$. \\
+\item The estimator in Algorithm \ref{alg:holder-est} converges rapidly.
+\end{inparaenum}
 
 The CPT-functional focused on this section is aligned with the form proposed in \eqref{eq:cpt-general}, with $u^+(x) = \max(x,0)$ and 
 $u^-(x) = \min(x,0)$, $\lambda = 0.25$. 
 More specifically,
-\begin{align}
-\C_{u,w}\left(X\right) &= \intinfinity w^+\left(\Prob{(X^+)>z}\right) dz\nonumber \\
-&\quad - 0.25 \intinfinity w^-\left(\Prob{(X^-)>z}\right) dz \label{eq:CPT-numerical-section} , 
-\end{align}
-Where $w^+(p) = w^-(p) = \frac{p^{0.6}}{(p^{0.6} + (1-p)^{0.6})^{1/0.6}}.$ 
-
-
+\begin{small}
+\begin{align*}
+\C\left(X\right) &= \intinfinity w\left(\Prob{X^+>z}\right) dz - \frac{1}{4} \intinfinity w\left(\Prob{X^->z}\right) dz, 
+\end{align*}
+\end{small}
+where $w(p) = \frac{p^{0.6}}{(p^{0.6} + (1-p)^{0.6})^{1/0.6}}.$ 
 
 \subsection{Comparison between CPT and expectation}
-Before diving into the simulation step, notice that it's usually hard to attain an analytical form of CPT-functional, henceforth, we try to find estimate it through trapezoid rule. Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore we propose grid search within feasible set , where each given point in the grid has $0.05$ distance from its adjacent points, to find an approximated optimal point.
+Before presenting the results, we remark that it is usually hard to obtain an analytical expression for CPT-functional and we overcome this difficulty by using numerical integration, in particular, through the trapezoid rule. 
+% Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore 
+We present two settings where the feasible region is triangle shaped over two distribution parameters. In each setting, the parameters corresponding to the maximum expected value is calculated directly, while for CPT-value, we perform a grid search, where each given point in the grid has $0.05$ distance from its adjacent point. 
+% , to find an approximated optimal point.
 
-We select normal distribution $\mathcal{N}(\mu, \sigma)$ in our first simulation example, where
-the feasible region of $(\mu, \sigma)$ is triangle composed with points.
-$(0.5,2), (0.5,6), (2.5,2)$. The expectation takes maximum apparently $N (2.5, 2)$. After numerically calculating all the CPT values at the grid points, we found out that  $N(0.5, 6)$ returns the maximum CPT-value with $2.6467$
-In contrast, the r.v. $N (2.5, 2)$ only returns CPT value $2.3681$, see figure \ref{fig:normal-cpt}.
 
-Our second example is concerned with skew normal distribution, 
-$X_{(\xi, \omega, \alpha)} \sim sn(\xi, \omega, \alpha)$, where the mean equals 
-$\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, and variance equals 
-$\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
-As of skew normal distribution, we firstly fix the shape parameter $\alpha$ to be 0.5. And set up the feasible region of parameters $(\xi, \omega) $ to be the triangle composed with $(-1,1), (1,1), (-1,5)$.  Again we try to find the points returning the largest expectation and the largest CPT.
-It turns out that the point $(-1,5)$ returns the largest CPT-value, and $\C(X_{(-1,5,0.5)}) = 2.3031$, in the meanwhile,
-$\mathbb{E}(X_{-1,5,0.5}) = 0.7841$.
-On the contrary, the point $(1,1)$ has the largest expectation $\mathbb{E}(X_{1,1,0.5}) = 1.3568$, but the CPT value of the same r.v. is only been approximately to be $1.2532$
 
 % \begin{table}
 % \centering
@@ -101,6 +94,7 @@ On the contrary, the point $(1,1)$ has the largest expectation $\mathbb{E}(X_{1,
    \begin{tabular}{c}
    \subfigure[Gaussian distributed r.v.s with parameters mean $\mu$ and variance $\sigma$] 
    {
+   \label{fig:normal-cpt}
    \scalebox{0.65}{\begin{tikzpicture}
    \begin{axis}[width=13cm,height=6.5cm,legend pos=south east,
           %  grid = major,         
@@ -142,6 +136,7 @@ On the contrary, the point $(1,1)$ has the largest expectation $\mathbb{E}(X_{1,
    \\
 \subfigure[Skewed normal distributed r.v.s with fixed shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$] 
    {
+   \label{fig:skewnormal-cpt}
    \scalebox{0.65}{\begin{tikzpicture}
    \begin{axis}[width=13cm,height=6.5cm,legend pos=south east,
           %  grid = major,         
@@ -181,9 +176,23 @@ On the contrary, the point $(1,1)$ has the largest expectation $\mathbb{E}(X_{1,
    } 
    \end{tabular}
 \caption{Optimal expected and CPT-values within the feasible region (shaded green) for two different distributions.}
-\label{fig:normal-cpt}
+\label{fig:cpt-synthetic}
 \end{figure}
+\begin{example}
+We consider normal distributed r.v.s with mean $\mu$ and variance $\sigma$. As shown in Figure \ref{fig:normal-cpt}, the feasible region for $(\mu, \sigma)$ is the triangle composed of points $(0.5,2), (0.5,6)$ and $(2.5,2)$. The expected value hits a maximum at $(2.5, 2)$, while a numerical optimization of CPT-value returned a maximum at $(0.5, 6)$, with corresponding CPT-value $2.6467$. On the other hand, CPT value of the r.v. $N(2.5, 2)$ was $2.3681$.
+\end{example}
 
+\begin{example}
+Here we consider skew normal distributed r.v.s $sn(\xi, \omega, \alpha)$ with location $\xi$, scale $\omega$ and shape $\alpha$.  
+The mean of $X_{(\xi, \omega, \alpha)} \sim sn(\xi, \omega, \alpha)$ equals 
+$\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, while the  variance is
+$\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
+
+As shown in Figure \ref{fig:skewnormal-cpt}, we fix the shape parameter $\alpha$ to be 0.5 and set up the feasible region for parameters $(\xi, \omega)$ to be the triangle composed with $(-1,1), (1,1), (-1,5)$.  
+It turns out that the point $(-1,5)$ returns the largest CPT-value, with $\C(X_{(-1,5,0.5,0.5)}) = 2.3031$, while
+$\mathbb{E}(X_{-1,5,0.5}) = 0.7841$.
+On the other hand, the point $(1,1)$ has the largest expected value with $\mathbb{E}(X_{1,1,0.5}) = 1.3568$, but the CPT value of the same r.v. is about $1.2532$.
+\end{example}
 
 %Our second example is concerned with skew normal distribution, 
 %$sn(\xi, \omega, \alpha)$, where the mean equals 
@@ -193,14 +202,17 @@ On the contrary, the point $(1,1)$ has the largest expectation $\mathbb{E}(X_{1,
 %We will vary $\xi$ from $0$ to $2$ with ascending order and evenly gap, and vary $\omega$ from $5$ to $1$ with descending order with evenly gap. 
 %The table \ref{tab:skewNormalCPT} exemplifies that the optimal-points of CPT-functional and expectation are very distinct as well. 
 
-\subsection{Justifying consistency of CPT estimator}
-To numerically justify that our CPT-estimator is asymptotically consistent, we design the following steps:
-Firstly we use gaussian-quadrature to numerically calculate the integral \eqref{eq:CPT-numerical-section} with underline r.v. $X$ be skew normal distributed as $sn(2,1,2)$. Notice that when the density of $X$ is known and $w^+(p)$, $w^-(p)$ are differentiable, the CPT-value \eqref{eq:CPT-numerical-section} could be formulated as
-\begin{align}
-\C_{u,w}\left( X \right) & = \intinfinity z^{0.88} (w^{+})^\prime \left(1 - F_{X^+}\left(z\right)\right) f_{X^+}\left(z\right)dz \\
-&\quad - 0.25 \intinfinity (-z)^{0.88} (w^{-})^\prime \left(1 - F_{X^-}\left(z\right)\right) f_{X^-}\left(z\right) dz.
-\end{align}
-To show that CPT estimator is getting closer to the numerical integral, we propose total $100$ simulation phases indexed from $1$ to $100$. In each phase i , we generate 10 i.i.d. estimators $\C^j_{n_i}\left(X\right)$ of $\C_{u,w}\left( X\right)$($j$ from 1 to 10), according to the scheme of algorithm \ref{alg:holder-est} with $n_i$ samples generated from $X \sim sn(2,1,2)$. Additionally, $n_i$ ranges from $100$ to $1000,000$. Furthermore, in each phase $i$, we calculate the deviation of each estimator $\C^j_{n_i}\left(X\right)$ from numerically integrated value. We collect all the deviations and calculate their mean and margin of error , displayed in figure \ref{fig:cpt-est}. Margin of error stands for half length of t-confidence interval of those deviations.
+\subsection{Consistency of CPT estimator}
+We perform the following experiment to understand the consistency of the CPT-estimator in Algorithm \ref{alg:holder-est}:
+We consider a skew normal distributed  r.v. $X$ with location, scale and shape parameters set to $2,1$ and $2$, respectively and use 
+gaussian-quadrature to numerically calculate the CPT-value $\C(X)$. 
+For numerical integration, we use the following form for the CPT-value, after observing that $w^+(p)$, $w^-(p)$ are differentiable:
+\begin{align*}
+\C\left( X \right) & = \intinfinity z^{0.88} (w)^\prime \left(1 - F_{X^+}\left(z\right)\right) f_{X^+}\left(z\right)dz \\
+&\quad - \frac1{4} \intinfinity (-z)^{0.88} (w)^\prime \left(1 - F_{X^-}\left(z\right)\right) f_{X^-}\left(z\right) dz.
+\end{align*}
+To show that CPT estimator is getting closer to the numerical integral, 
+We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ using Algorithm \ref{alg:holder-est} and $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$ that corresponds to $n_i$ number of samples, we calculate the deviation of the estimator $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ from numerically integrated value. Figure \ref{fig:cpt-est} presents the mean and margin of error for each $n_i$. Here, the margin of error denotes half the length of t-confidence interval. It is evident from Figure \ref{fig:cpt-est} that our CPT estimation scheme converges rapidly.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %%%% Error bars 
@@ -227,8 +239,8 @@ To show that CPT estimator is getting closer to the numerical integral, we propo
     \centering
 \scalebox{0.8}{\begin{tikzpicture}
       \begin{axis}[
-	xlabel={Sample size},
-	ylabel={Estimation error},
+	xlabel={Sample size $n_i$},
+	ylabel={Estimation error $|\overline \C_{n_i} - \tilde \C(X)|$},
        %legend entries={
 	 %,
         %estimator,
@@ -241,22 +253,6 @@ To show that CPT estimator is getting closer to the numerical integral, we propo
       \addplot [thick, red] table [x index=0, y index=1,col sep=tab] {results/estimation_accuracy.txt};
       \end{axis}
       \end{tikzpicture}}
-			\caption{The deviations and its confidence intervals created in each phase }
+			\caption{Difference between CPT-estimate $\overline \C_{n_i}$ using Algorithm \ref{alg:holder-est} and numerically integrated approximation $\tilde \C(X)$ to CPT-value $\C(X)$ of a skew normal distributed r.v. $X$ with shape $2$, location $2$ and scale $1$. The shaded bands denote the margin of error calculated from ten independent simulations. }
       \label{fig:cpt-est} 
 			\end{figure}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
