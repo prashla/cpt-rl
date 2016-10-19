@@ -16,14 +16,14 @@ We consider three different notions of return as follows:
 \begin{align}
 \text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i).\label{eq:cpt-traffic}
 \end{align}
-\textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
-Thus, the EUT objective is defined as
-\begin{align*}
-\text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),
-\end{align*}
-where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
+% \textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
+% Thus, the EUT objective is defined as
+% \begin{align*}
+% \text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),
+% \end{align*}
+% where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
 
-\textbf{AVG:} This is EUT without the distinction between gains and losses via utility functions, i.e.,\\[1ex] 
+\textbf{AVG:} This is the usual expected value with no distinction between gains and losses via utility functions and no distortion of probabilities, i.e.,\\[1ex] 
 \centerline{$\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).$} 
 %Thus, the AVG objective is defined as
 %\begin{align}
@@ -47,11 +47,11 @@ we implement the following TLC algorithms:
 
 {\bf\em CPT-SPSA}: This is the first-order algorithm with SPSA-based gradient estimates, as described in Algorithm \ref{alg:1spsa}. In particular, the estimation scheme in Algorithm \ref{alg:holder-est} is invoked to estimate $\C(X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
 
-{\bf\em EUT-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
+% {\bf\em EUT-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 
-{\bf\em AVG-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
+{\bf\em AVG-SPSA}: This is similar to CPT-SPSA, except that the underlying SPSA algorithm uses average delays for each path for performing the descent. 
 
-For both CPT-SPSA and EUT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
+For both CPT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
 $$u^+(x) =  |x|^{\sigma}, \text{ and  }u^-(x) = \lambda |x|^{\sigma},$$ 
 where $\lambda = 2.25$ and $\sigma = 0.88$.
 For CPT-SPSA, we set the weights as follows:
@@ -68,7 +68,7 @@ The experiments involve two phases:
 first, a training phase where we run each algorithm for $200$ iterations, with each iteration involving two perturbed simulations, each of trajectory length $500$. This is followed by a test phase where we fix the policy for each algorithm and $100$ independent simulations of the MDP (each with a trajectory length of $1000$) are performed. After each run in the test phase, the overall CPT-value \eqref{eq:cpt-traffic} is estimated. 
 %\paragraph{Results:} 
 
-Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA, EUT-SPSA and CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA, followed by EUT-SPSA and AVG-SPSA in that order. Intuitively, this is expected because AVG-SPSA uses neither utilities nor probability distortions, while EUT-SPSA distinguishes between gains and losses using utilities while not using weights to distort probabilities.
+Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA, CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA. Intuitively, this is expected because AVG-SPSA uses neither utilities nor probability distortions.
 The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
 %\todoc{It would be nice to point out how the CPT policy is different than the others.}
 

@@ -526,10 +526,9 @@ The last equality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n)
 We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 \begin{align}
 &\E\left\| \xi_n\right\|^2\le \E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
-\le &\left(\left(\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right.\nonumber\\ 
-&\qquad\left.+ \left(\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
-\le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha1}} \nonumber\\
-& \times \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} \right.\nonumber\\
+\le &\left(\left(\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right. 
+\left.+ \left(\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
+\le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha_1}} \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} \right.\nonumber\\
 &\left.\qquad+
 \left[\E\left[ (\overline \C_n^{\theta_n - \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
 \le &\frac1{4\delta_n^2} \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} \right.\nonumber\\
@@ -691,12 +690,10 @@ Since we obtain samples of the objective (CPT) in a manner that differs from MRA
 \begin{proof}
     Let $\mathcal{A}_n$ be the event that either the first if statement (see \ref{step:3a}) is true or the second if statement in the else clause (see \ref{step:3b}) is true within the \textit{thresholding} step of Algorithm \ref{alg:mras}. Let $\mathcal{B}_n:=\{\C(X^{\theta^*_{n}})-\C(X^{\theta^*_{n-1}})\leq \frac{\varepsilon}{2}\}$.
     Whenever $\mathcal{A}_n$ holds, we have $\overline \C_n^{\theta^*_{n}}-\overline \C_n^{\theta^*_{n-1}}\geq \varepsilon$ and hence, we obtain
-
 \begin{align*}
 &P(\mathcal{A}_{n}\cap \mathcal{B}_n) \\
 &\leq P 
-\left(\big\{\overline \C_n^{\theta^*_{n}}-\overline \C_{n-1}^{\theta^*_{n-1}}\geq \varepsilon\big\}\right. \\
-&\quad\left.\cap \left\{\C(X^{\theta^*_{n}})-\C(X^{\theta^*_{n-1}})\leq \frac{\varepsilon}{2}\right\}\right)\\
+\left(\big\{\overline \C_n^{\theta^*_{n}}-\overline \C_{n-1}^{\theta^*_{n-1}}\geq \varepsilon\big\}\cap \left\{\C(X^{\theta^*_{n}})-\C(X^{\theta^*_{n-1}})\leq \frac{\varepsilon}{2}\right\}\right)\\
  &\leq 
 P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \\
 &\qquad\quad\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
