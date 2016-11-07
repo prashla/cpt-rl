@@ -2,7 +2,7 @@
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
 We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim} and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
 
-%\paragraph{Simulation Setup:}  
+% \subsection{Simulation Setup}  
 We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated -- cf. \cref{fig:2x2grid}. 
 %\todoc{Can we have a higher quality figure?}
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
@@ -10,7 +10,90 @@ We specify the various components of the traffic control MDP below.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and pathwise delays.
 The actions are the feasible traffic signal configurations. 
 
-We consider three different notions of return as follows:
+ \begin{figure}
+    \centering
+     \begin{tabular}{c}
+\subfigure[Snapshot of a 2x2-grid network from GLD simulator. The figure shows eight edge nodes that generate traffic, four traffic lights and  four-laned roads carrying cars. ]{
+\label{fig:2x2grid}
+        \includegraphics[width=2.3in,height=2in]{fig/2x2grid.png}
+}
+\\		
+\subfigure[AVG-SPSA]{
+\label{fig:avg}
+\hspace{-2em} 
+\tabl{c}{\scalebox{0.75}{\begin{tikzpicture}
+\begin{axis}[
+ybar={2pt},
+ymax=400,
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Delay}},
+x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+symbolic x coords={0, 1000, 1050, 1100,1150,1200,1250,1300,1350,1400,1450, 1500, 1550, 13},
+xmin={0},
+xmax={13},
+xtick=data,
+ytick align=outside,
+xticklabel style={rotate=50, align=center},
+bar width=14pt,
+% nodes near coords,
+grid,
+grid style={gray!30},
+width=11.5cm,
+height=9.5cm,
+]
+\addplot[red, fill=red!20]   coordinates { (1000,12) (1050,7) (1100,10)   (1150,35) (1200,137) (1250,248) (1300,375) (1350,324) (1400,138) (1450,19) (1500,10) (1550,1) (1600,0) }; 
+% \addplot[red, fill=red!20]   coordinates { (1100,3) (1150,15) (1200,36) (1250,100) (1300,145) (1350,47) (1400,5) (1450,0) }; 
+\end{axis}
+\end{tikzpicture}}\\[0.5ex]}
+}
+\\
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subfigure[CPT-SPSA]{
+\label{fig:cpt}
+\hspace{-2em} 
+\tabl{c}{\scalebox{0.75}{\begin{tikzpicture}
+\begin{axis}[
+ybar={2pt},
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+ymax=400,
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Delay}},
+x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+symbolic x coords={0, 1000, 1050, 1100,1150,1200,1250,1300,1350,1400,1450,1500, 12},
+xmin={0},
+xmax={12},
+xtick=data,
+ytick align=outside,
+xticklabel style={rotate=50, align=center},
+bar width=14pt,
+% nodes near coords,
+grid,
+grid style={gray!30},
+width=11.5cm,
+height=9.5cm,
+]
+% \addplot[darkgreen, fill=darkgreen!20]   coordinates {  (1100,16) (1150,38) (1200,69) (1250,44) (1300,51) (1350,16) (1400,22) (1450,17) (1500,24) }; 
+\addplot[darkgreen, fill=darkgreen!20]   coordinates {  (1000,5) (1050,10) (1100,4) (1150,19) (1200,105) (1250,232) (1300,326) (1350,363) (1400,180) (1450,19) (1500,0) }; 
+ 
+
+\end{axis}
+\end{tikzpicture}}\\[0.5ex]}
+}
+\end{tabular}
+\caption{Histogram of the delays for two SPSA-based algorithms: AVG-SPSA uses plain sample means (no utility/weights) and CPT-SPSA uses both utilites and weights. }
+\label{fig:histogram-perf}
+\end{figure}
+
+We consider two different notions of return as follows:
 %
 \textbf{CPT:} Let $\mu^i$ be the proportion of road users along path $i$, for $i=1,\ldots,\M$. Any road user along path $i$ will evaluate the delay he experiences in a manner that is captured well by CPT. Let $X_i$ be the delay r.v. for path $i$ and let the corresponding CPT-value be $\C(X_i)$. With the objective of maximizing the experience of road users across paths, the overall return to be optimized is given by
 \begin{align}
@@ -22,18 +105,18 @@ We consider three different notions of return as follows:
 % \text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),
 % \end{align*}
 % where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
-
-\textbf{AVG:} This is the usual expected value with no distinction between gains and losses via utility functions and no distortion of probabilities, i.e.,\\[1ex] 
-\centerline{$\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).$} 
+\textbf{AVG:} This is the usual expected value with no distinction between gains and losses via utility functions and no distortion of probabilities, i.e., 
+\begin{align}
+\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i). 
+\end{align}
 %Thus, the AVG objective is defined as
 %\begin{align}
 %\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).
 %\end{align}   
 %where $\E(X_i) = \intinfinity P(u^+(X_i)>z) dz - \intinfinity P(u^-(X_i)>z) dz$.
-
 An important component of CPT is to employ a reference point to calculate gains and losses. 
 %Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
-In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. If the delay of any algorithm (say CPT-SPSA) is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay}.  
+In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. If the delay of any TLC algorithm is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay}.  
 
 %, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
 
@@ -49,149 +132,45 @@ we implement the following TLC algorithms:
 
 % {\bf\em EUT-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 
-{\bf\em AVG-SPSA}: This is similar to CPT-SPSA, except that the underlying SPSA algorithm uses average delays for each path for performing the descent. 
+{\bf\em AVG-SPSA}: Here we employ SPSA to update the policy parameter in the descent direction, with sample averages of the delays as input. 
 
-For both CPT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
+For CPT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
 $$u^+(x) =  |x|^{\sigma}, \text{ and  }u^-(x) = \lambda |x|^{\sigma},$$ 
 where $\lambda = 2.25$ and $\sigma = 0.88$.
-For CPT-SPSA, we set the weights as follows:
+The weight functions $w^+,w^-$ have the formas set as follows:
 \begin{align*}
-w^+(p) &= \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}, \text{ and }\\  
-w^-(p) &= \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}},
+w^+(p) &= \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}, w^-(p) = \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}},
 \end{align*} 
 where $\eta_1 = 0.61$ and $\eta_2 = 0.69$. The choices for $\lambda$, $\sigma$, $\eta_1$ and $\eta_2$ are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
 For all the algorithms,
  motivated by standard guidelines (see \cite{spall2005introduction}),
  we set $\delta_n = 1.9/n^{0.101}$ and $a_n = 1/(n+50)$. The initial point $\theta_0$ is the $d$-dimensional vector of ones and $\forall i$, the operator $\Gamma_i$ keeps the iterate $\theta_i$ bounded within $[0.1, 1.0]$.
-    
-The experiments involve two phases:
-first, a training phase where we run each algorithm for $200$ iterations, with each iteration involving two perturbed simulations, each of trajectory length $500$. This is followed by a test phase where we fix the policy for each algorithm and $100$ independent simulations of the MDP (each with a trajectory length of $1000$) are performed. After each run in the test phase, the overall CPT-value \eqref{eq:cpt-traffic} is estimated. 
-%\paragraph{Results:} 
 
-Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the CPT-values from the test phase for AVG-SPSA and CPT-SPSA, respectively.  A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. It is evident that each algorithm converges to a different policy. However, the CPT-value of the resulting policies is highest in the case of CPT-SPSA. Intuitively, this is expected because AVG-SPSA uses neither utilities nor probability distortions.
-The results in Figure \ref{fig:histogram-perf} argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
+\begin{table}
+ \centering
+ \begin{tabular}{c|c|c}
+  \toprule 
+   & \textbf{Expected value}& \textbf{CPT-value }\\\midrule
+   AVG-SPSA & $1596.55$ & $624.68$ \\\midrule
+   CPT-SPSA & $1744.94$ & $659.61$\\
+   \bottomrule
+  \end{tabular}
+  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA algorithms. Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while expected value uses plain delays.}
+  \label{tab:cpt-results}
+\end{table}
+
+ 
+The experiments involve two phases:
+first, a training phase where we run each algorithm for $500$ iterations, with each iteration involving two perturbed simulations. Each simulation involves running the traffic simulator with a fixed policy parameter for $2000$ steps and this corresponds to approximately $2000$ delay samples. The training phase is followed by a test phase where we fix the policy obtained at the end of training (i.e., after $500$ steps of SPSA) and then run the traffic simulator with the aforementioned parameter for $30000$ steps. 
+
+% \subsection{Results} 
+
+Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the delays obtained from the test phase for AVG-SPSA and CPT-SPSA, respectively.  
+% A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. 
+It is evident that each algorithm converges to a different policy and the difference, in $\ell_1$ norm, between policy parameters obtained at the end of training phase for AVG-SPSA and CPT-SPSA was $4.93$. 
+As shown in Table \ref{tab:cpt-results},  AVG-SPSA results in a TLC policy with lower expected delay, while CPT-SPSA's policy has higher CPT-value. This is expected because AVG-SPSA uses neither utilities nor probability distortions and minimizes overall delay, while CPT-SPSA uses a pre-timed TLC baseline and treats delay gains and losses differently. 
+Interestingly, CPT-SPSA results in a policy that has a distribution which is more spread out, i.e., with heavier tail, as compared to AVG-SPSA and this is apparent from Figures \ref{fig:avg}--\ref{fig:cpt}. 
+
+The results in this as well as previous section argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
 %\todoc{It would be nice to point out how the CPT policy is different than the others.}
 
- %\begin{figure}
-    %\centering
-        %\includegraphics[width=2in, height=1.2in]{fig/2x2grid.png}
-%\caption{Snapshot of a 2x2-grid network from GLD simulator. The figure shows eight edge nodes that generate traffic, four traffic lights and twelve four-laned roads carrying cars.}
-%\label{fig:2x2grid}
-%\end{figure}
-
-
- \begin{figure}
-
-%\vspace{-2.5ex}
-
-    \centering
-     \begin{tabular}{c}
-\subfigure[Snapshot of a 2x2-grid network from GLD simulator. The figure shows eight edge nodes that generate traffic, four traffic lights and  four-laned roads carrying cars. ]{
-\label{fig:2x2grid}
-        \includegraphics[width=2in,height=1.5in]{fig/2x2grid.png}
-}
-\\		
-\subfigure[AVG-SPSA]{
-\label{fig:avg}
-%\hspace{2em} 
-\tabl{c}{\scalebox{0.72}{\begin{tikzpicture}
-\begin{axis}[
-ybar={2pt},
-%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
-legend pos=outer north east,
-legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
-(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
-(-2mm,-2mm) rectangle (2mm,2mm);},
-ylabel={\bf Frequency},
-xlabel={\textbf{CPT-value}},
-x label style={at={(axis description cs:0.5,-0.25)},anchor=north},
-symbolic x coords={0, -335.86, -315.86, -295.86, -275.86, -255.86, -235.86, -215.86, -195.86, -175.86, -155.86, 11},
-xmin={0},
-xmax={11},
-xtick=data,
-ytick align=outside,
-%xticklabels={{\bf7x9-Grid\\[0.5ex]($d=504$),\bf 14x9-Grid\\[0.5ex]($d=1008$),\bf 14x18-Grid\\[0.5ex]($d=2016$),\bf 28x18-Grid\\[0.5ex]($d=4032$)}},
-xticklabel style={rotate=50, align=center},
-bar width=14pt,
-nodes near coords,
-grid,
-grid style={gray!30},
-width=11cm,
-height=6.5cm,
-]
-\addplot[red, fill=red!20]   coordinates {  (-335.86,1) (-315.86,4) (-295.86,7) (-275.86,7) (-255.86,18) (-235.86,22) (-215.86,17) (-195.86,11) (-175.86,6) (-155.86,5)}; %LSPI
-\end{axis}
-\end{tikzpicture}}\\[1ex]}
-}
-\\
-%%%%%%%%%%%%%%
-\subfigure[EUT-SPSA]{
-\label{fig:eut}
-%\hspace{2em} 
-\tabl{c}{\scalebox{0.72}{\begin{tikzpicture}
-\begin{axis}[
-ybar={2pt},
-%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
-legend pos=outer north east,
-legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
-(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
-(-2mm,-2mm) rectangle (2mm,2mm);},
-ylabel={\bf Frequency},
-xlabel={\textbf{CPT-value}},
-x label style={at={(axis description cs:0.5,-0.25)},anchor=north},
-symbolic x coords={0,-188.19,-175.69,-163.19,-150.69,-138.19,-125.69,-113.19,-100.69,-88.19,-75.69,11},
-xmin={0},
-xmax={11},
-xtick=data,
-ytick align=outside,
-%xticklabels={{\bf7x9-Grid\\[0.5ex]($d=504$),\bf 14x9-Grid\\[0.5ex]($d=1008$),\bf 14x18-Grid\\[0.5ex]($d=2016$),\bf 28x18-Grid\\[0.5ex]($d=4032$)}},
-xticklabel style={rotate=50, align=center},
-bar width=14pt,
-nodes near coords,
-grid,
-grid style={gray!30},
-width=11cm,
-height=6.5cm,
-]
-\addplot   coordinates {  (-188.19,1) (-175.69,0) (-163.19,0) (-150.69,1) (-138.19,9) (-125.69,14) (-113.19,21) (-100.69,26) (-88.19,19) (-75.69,8) }; %LSPI
-\end{axis}
-\end{tikzpicture}}\\[1ex]}
-}
-\\
-%%%%%%%%%%%%%%%%%%%%%%%%%
-\subfigure[CPT-SPSA]{
-\label{fig:cpt}
-%\hspace{2em} 
-\tabl{c}{\scalebox{0.72}{\begin{tikzpicture}
-\begin{axis}[
-ybar={2pt},
-%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
-legend pos=outer north east,
-legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
-(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
-(-2mm,-2mm) rectangle (2mm,2mm);},
-ylabel={\bf Frequency},
-xlabel={\textbf{CPT-value}},
-x label style={at={(axis description cs:0.5,-0.22)},anchor=north},
-symbolic x coords={0, -43.36,-33.36,-23.36,-13.36,-3.36,6.64,16.64,26.64,36.64,46.64, 11},
-xmin={0},
-xmax={11},
-xtick=data,
-ytick align=outside,
-%xticklabels={{\bf7x9-Grid\\[0.5ex]($d=504$),\bf 14x9-Grid\\[0.5ex]($d=1008$),\bf 14x18-Grid\\[0.5ex]($d=2016$),\bf 28x18-Grid\\[0.5ex]($d=4032$)}},
-xticklabel style={rotate=50, align=center},
-bar width=14pt,
-nodes near coords,
-grid,
-grid style={gray!30},
-width=11cm,
-height=6.5cm,
-]
-\addplot[darkgreen, fill=darkgreen!20]   coordinates {  (-43.36,1) (-33.36,0) (-23.36,0) (-13.36,1) (-3.36,0) (6.64,1) (16.64,8) (26.64,52) (36.64,24) (46.64,12) }; %LSPI
-\end{axis}
-\end{tikzpicture}}\\[1ex]}
-}
-\end{tabular}
-\caption{Histogram of CPT-value of the differential delay (calculated with a pre-timed TLC as reference point) for three different algorithms (all based on SPSA): AVG uses plain sample means (no utility/weights), EUT uses utilities but no weights and CPT uses both utilites and weights. Note: larger values are better.}
-\label{fig:histogram-perf}
-\end{figure}
