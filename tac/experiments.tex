@@ -157,18 +157,19 @@ For all the algorithms,
  \centering
  \begin{tabular}{c|c|c}
   \toprule 
-   & \textbf{Expected value}& \textbf{CPT-value }\\\midrule
+   & \textbf{AVG-value}& \textbf{CPT-value }\\\midrule
    AVG-SPSA & $1596.55$ & $624.68$ \\\midrule
    CPT-SPSA & $1744.94$ & $659.61$\\
    \bottomrule
   \end{tabular}
-  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA algorithms. Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while expected value uses plain delays.}
+  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA algorithms. Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while 
+  AVG-value uses plain delays.}
   \label{tab:cpt-results}
 \end{table}
 
  
 The experiments involve two phases:
-first, a training phase where we run each algorithm for $500$ iterations, with each iteration involving two perturbed simulations. Each simulation involves running the traffic simulator with a fixed policy parameter for $2000$ steps and this corresponds to approximately $2000$ delay samples. The training phase is followed by a test phase where we fix the policy obtained at the end of training (i.e., after $500$ steps of SPSA) and then run the traffic simulator with the aforementioned parameter for $30000$ steps. 
+first, a training phase where we run each algorithm for $1000$ iterations, with each iteration involving two perturbed simulations. Each simulation involves running the traffic simulator with a fixed policy parameter for $2000$ steps and this corresponds to approximately $2000$ delay samples. The training phase is followed by a test phase where we fix the policy obtained at the end of training (i.e., after $1000$ iterations of SPSA) and then run the traffic simulator with the aforementioned parameter for $30000$ steps. 
 
 % \subsection{Results} 
 
