@@ -726,10 +726,10 @@ then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 \end{align*}
 In the above, the first equality follows from the fact that if the else clause in the second if statement (see \ref{step:3c}) in Algorithm \ref{alg:mras} is hit, then $\theta^*_{n} = \theta^*_{n-1}$.
 %
-From the last equality above, we conclude that it is a contradiction because, $\C(X^{\theta}) < \C(X^{\theta^*})$ for any $\theta$ (since $\theta^*$ is the global maximum). The main claim now follows since $\mathcal{A}_n$ can happen only a finite number of times.
+From the last equality above, we conclude that it is a contradiction because, $\C(X^{\theta}) < \C(X^{\theta^*})$ for any $\theta$ (since $\theta^*$ is the global maximum). The main claim now follows, since $\mathcal{A}_n$ can happen only a finite number of times.
 \end{proof}
 
 \subsection*{Proof of Theorem \ref{thm:mras}}
 \begin{proof}
-Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}. This is because our algorithm operates in a similar manner as MRAS$_2$ w.r.t. generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$ and hence the rest of the proof follows from \cite{chang2013simulation}.
+Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}, because our algorithm operates in a similar manner as MRAS$_2$ w.r.t. generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$, and hence the rest of the proof follows from \cite{chang2013simulation}.
 \end{proof}

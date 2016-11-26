@@ -3,7 +3,7 @@ We consider a traffic signal control application where the aim is to improve the
 We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay optimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim} and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
 
 % \subsection{Simulation Setup}  
-We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated -- cf. \cref{fig:2x2grid}. 
+We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated -- See \cref{fig:2x2grid}. 
 %\todoc{Can we have a higher quality figure?}
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP below.
@@ -100,55 +100,75 @@ height=9.5cm,
 \end{tikzpicture}}\\[0.5ex]}
 }
 \end{tabular}
-\caption{Histogram of the delays for two SPSA-based algorithms: AVG-SPSA uses plain sample means (no utility/weights) and CPT-SPSA uses both utilites and weights. }
+\caption{Histogram of the sample delays for the path from node $0$ to $4$ (see Figure \ref{fig:2x2grid}) for AVG-SPSA that minimizes overall expected  delay (see \eqref{eq:avg-traffic}) and CPT-SPSA that maximizes CPT-value of differential delay (see \eqref{eq:cpt-traffic}. }
 \label{fig:histogram-perf}
 \end{figure}
 
-We consider two different notions of return as follows:
-%
-\textbf{CPT:} Let $\mu^i$ be the proportion of road users along path $i$, for $i=1,\ldots,\M$. Any road user along path $i$ will evaluate the delay he experiences in a manner that is captured well by CPT. Let $X_i$ be the delay r.v. for path $i$ and let the corresponding CPT-value be $\C(X_i)$. With the objective of maximizing the experience of road users across paths, the overall return to be optimized is given by
+We consider Boltzmann policies that have the form
+$$
+\pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
+\hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
+$$
+with features $\phi_{s,a}$ as described in Section V-B of \cite{prashanth2012threshold}.
+% We consider two different notions of return as follows:
+% %
+% \textbf{CPT:} 
+For any policy $\theta$, let $X_i^\theta$ be the delay r.v. and $\mu_i^\theta$ the proportion of road users along path $i$, for $i=1,\ldots,\M$. 
+Any road user along path $i$ will evaluate the delay (s)he experiences in a manner that is captured well by CPT. 
+An important component of CPT is to employ a reference point to calculate gains and losses. 
+%Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
+In our setting, we use path-wise delays, say $B_i$ for path $i$, obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point.
+If the delay of any TLC algorithm is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(B_i-X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay} w.r.t. $B_i$.  
+Now, the objective is to maximize the weighted sum of CPT-values across paths, i.e., 
+% With the objective of maximizing the experience of road users across paths, the overall return to be optimized is given by
 \begin{align}
-\text{CPT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \C(X_i).\label{eq:cpt-traffic}
+\max_{\theta \in \Theta} \text{CPT}(X_1^\theta,\ldots,X_{\M}^\theta) = \sum_{i=1}^{\M} \mu_i^\theta \C(B_i - X_i^\theta),\label{eq:cpt-traffic}
 \end{align}
+where $\Theta$ is the $d$-dimensional hypercube formed by intervals $[0.1,1.0]$ in each dimension.  
+% where  $\C(B_i-X_i)$ is the CPT-value along path $i$ for differential delay r.v. $B_i-X_i$. 
 % \textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
 % Thus, the EUT objective is defined as
 % \begin{align*}
 % \text{EUT}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \left(\E(u^+(X_i) - \E(u^-(X_i)\right),
 % \end{align*}
 % where $\E(u^+(X_i)) = \intinfinity \Prob{u^+(X_i)>z} dz$ and $\E(u^-(X_i)) - \intinfinity \Prob{u^-(X_i)>z} dz$, for $i=1,\ldots,\M$.
-\textbf{AVG:} This is the usual expected value with no distinction between gains and losses via utility functions and no distortion of probabilities, i.e., 
+
+For the sake of comparison, we consider the traditional objective of minimizing the overall average delay, i.e.,
 \begin{align}
-\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i). 
+\min_{\theta\in \Theta}\text{AVG}(X_1^\theta,\ldots,X_{\M}^\theta) = \sum_{i=1}^{\M} \mu_i^\theta \E(X_i^\theta). \label{eq:avg-traffic} 
 \end{align}
+In comprison to CPT objective, the above does not incorporate baseline delays, makes no distinction between gains and losses via utility functions and does not distort probabilities. 
 %Thus, the AVG objective is defined as
 %\begin{align}
 %\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).
 %\end{align}   
 %where $\E(X_i) = \intinfinity P(u^+(X_i)>z) dz - \intinfinity P(u^-(X_i)>z) dz$.
-An important component of CPT is to employ a reference point to calculate gains and losses. 
-%Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
-In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. If the delay of any TLC algorithm is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay}.  
+% An important component of CPT is to employ a reference point to calculate gains and losses. 
+% %Choosing a suitable reference point is challenging, but \cite{tversky1992advances} advocate using status-quo as the reference point. 
+% In our setting, we use path-wise delays obtained from a pre-timed TLC (cf. the Fixed TLCs in \cite{prashanth2011reinforcement}) as the reference point. If the delay of any TLC algorithm is less than that of pre-timed TLC, then the (positive) difference in delays is perceived as a gain and in the complementary case, the delay difference is perceived as a loss. Thus, the CPT-value $\C(X_i)$ for any path $i$ in \eqref{eq:cpt-traffic} is to be understood as a \textit{differential delay}.  
+% 
+% %, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
+% 
+% Using a Boltzmann policy that has the form
+% $$
+% \pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
+% \hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
+% $$
+% with features $\phi_{s,a}$ as described in Section V-B of \cite{prashanth2012threshold},
+% 
 
-%, as the road network considered is high-dimensional (state space cardinality $> 10^{60}$). 
+We implement the following TLC algorithms:
 
-Using a Boltzmann policy that has the form
-$$
-\pi_{\theta}(s,a) = \frac{e^{\theta^{\top} \phi_{s,a}}}{\sum_{a' \in {\A(s)}} e^{\theta^{\top} \phi_{s,a'}}},
-\hspace{6pt} \forall s \in \S,\;\forall a \in \A(s),
-$$
-with features $\phi_{s,a}$ as described in Section V-B of \cite{prashanth2012threshold},
-we implement the following TLC algorithms:
-
-{\bf\em CPT-SPSA}: This is the first-order algorithm with SPSA-based gradient estimates, as described in Algorithm \ref{alg:1spsa}. In particular, the estimation scheme in Algorithm \ref{alg:holder-est} is invoked to estimate $\C(X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
+{\bf\em CPT-SPSA}: This is a first-order algorithm (see Algorithm \ref{alg:1spsa}) that solves \eqref{eq:cpt-traffic} using SPSA-based gradient estimates and the scheme from Algorithm \ref{alg:holder-est} for estimating CPT-value \\$\C(B_i-X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
 
 % {\bf\em EUT-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 
-{\bf\em AVG-SPSA}: Here we employ SPSA to update the policy parameter in the descent direction, with sample averages of the delays as input. 
+{\bf\em AVG-SPSA}: This is SPSA-based first-order algorithm that solves \eqref{eq:avg-traffic}, while using sample averages of the delays to estimate the expected delay $\E(X_i)$ for each path $i=1,\ldots,\M$. 
 
-For CPT-SPSA, we set the utility functions (see \eqref{eq:cpt-general}) as follows:
-$$u^+(x) =  |x|^{\sigma}, \text{ and  }u^-(x) = \lambda |x|^{\sigma},$$ 
+As in Section \ref{sec:expts-simple}, the utility functions underlying the CPT-value $\C(X_i), \forall i$ have the form
+$$u^+(x) =  |x|^{\sigma} \text{ and  }u^-(x) = \lambda |x|^{\sigma},$$ 
 where $\lambda = 2.25$ and $\sigma = 0.88$.
-The weight functions $w^+,w^-$ have the formas set as follows:
+The weight functions $w^+,w^-$ are set as follows:
 \begin{align*}
 w^+(p) &= \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}, w^-(p) = \frac{p^{\eta_2}}{{(p^{\eta_2}+ (1-p)^{\eta_2})}^{\frac{1}{\eta_2}}},
 \end{align*} 
@@ -159,16 +179,19 @@ For all the algorithms,
 
 \begin{table}
  \centering
- \begin{tabular}{c|c|c}
+  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA algorithms. Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while 
+  AVG-value uses absolute delays.}
+  \label{tab:cpt-results}
+ \begin{tabular}{|c|c|c|}
   \toprule 
    & \textbf{AVG-value}& \textbf{CPT-value }\\\midrule
-   AVG-SPSA & $1596.55$ & $624.68$ \\\midrule
-   CPT-SPSA & $1744.94$ & $659.61$\\
+   AVG-SPSA & $\bm{1596.55}$ & $624.68$ \\\midrule
+   CPT-SPSA & $1744.94$ & $\bm{659.61}$\\
    \bottomrule
   \end{tabular}
-  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA algorithms. Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while 
-  AVG-value uses plain delays.}
-  \label{tab:cpt-results}
+%   
+%   \vspace{1ex}
+%   
 \end{table}
 
  
@@ -179,10 +202,11 @@ first, a training phase where we run each algorithm for $1000$ iterations, with 
 
 Figures \ref{fig:avg}--\ref{fig:cpt} present the histogram of the delays for the path from node $0$ to node $4$, obtained from the test phase for AVG-SPSA and CPT-SPSA, respectively.  
 % A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. 
-It is evident that each algorithm converges to a different policy and the difference, in $\ell_1$ norm, between policy parameters obtained at the end of training phase for AVG-SPSA and CPT-SPSA was $6.51$. 
+It is evident that each algorithm converges to a different policy and the difference, in $\ell_1$ norm, between policy parameters obtained at the end of training phase for AVG-SPSA and CPT-SPSA was observed to be $6.51$. 
 % As shown in Table \ref{tab:cpt-results},  AVG-SPSA results in a TLC policy with lower expected delay, while CPT-SPSA's policy has higher CPT-value. This is expected because AVG-SPSA uses neither utilities nor probability distortions and minimizes overall delay, while CPT-SPSA uses a pre-timed TLC baseline and treats delay gains and losses differently. 
-Interestingly, from Figures \ref{fig:avg}--\ref{fig:cpt} we observe that CPT-SPSA results in right-skewed delay distribution that avoids higher delay values, while the delay distribution of AVG-SPSA is closer to a bell-shape. While the histograms are for a single path $0-4$, we observed similar trends in the paths originating at node $0$ and node $7$, which constitute bulk of the traffic volume. As shown in Table \ref{tab:cpt-results}, AVG-SPSA scores over CPT-SPSA from expected value standpoint, but CPT-SPSA results in a higher CPT value - this is expected as AVG-SPSA uses neither utilities nor probability distortions and minimizes overall delay.
+Interestingly, from Figures \ref{fig:avg}--\ref{fig:cpt} we observe that CPT-SPSA results in left-skewed delay distribution that avoids higher delay values, while the delay distribution of AVG-SPSA is closer to a bell-shape. While the histograms are for a single path $0-4$, we observed similar trends in the paths originating at node $0$ and node $7$, which constitute the bulk of the traffic volume. As shown in Table \ref{tab:cpt-results}, AVG-SPSA is better than CPT-SPSA in terms of expected delay, but CPT-SPSA results in a higher CPT value.
 
-The results in this as well as previous section argue for specialized algorithms that incorporate CPT-based criteria, esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
+The results in this as well as in the previous section argue for specialized algorithms for optimizing CPT-based criteria, since expected value optimizing algorithms cannot be used as surrogates. 
+% esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
 %\todoc{It would be nice to point out how the CPT policy is different than the others.}
 

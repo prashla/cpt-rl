@@ -8,20 +8,20 @@ $\argmax_{\theta} \mathbb{C} \left( X_\theta \right)$. \\
 The CPT-value in this section is aligned with the form proposed in \eqref{eq:cpt-general}. In particular,
 \begin{small}
 \begin{align*}
-\C\left(X\right) &= \intinfinity w\left(\Prob{X^+>z}\right) dz - \lambda \intinfinity w\left(\Prob{X^->z}\right) dz, 
+\C\left(X\right) \!=\! \intinfinity \!\!w\left(\Prob{u^+(X)>z}\right) dz \!-\! \intinfinity \!\!w\left(\Prob{u^-(X)>z}\right) dz, 
 \end{align*}
 \end{small}
-where $u^+(x) = \max(x,0)$, $u^-(x) = \min(x,0)$, $\lambda = 0.25$ and
-$w(p) = \frac{p^{0.6}}{(p^{0.6} + (1-p)^{0.6})^{1/0.6}}.$ 
+where $u^+(x) =  |x|^{\sigma}$  and  $u^-(x) = \lambda |x|^{\sigma}$, 
+with $\lambda = 0.25$ and $\sigma = 0.88$. Further, $w(p) = \frac{p^{0.61}}{(p^{0.61} + (1-p)^{0.61})^{1/0.61}}$. The choices for $\sigma$ and $w(\cdot)$ are based on the recommendations given by \cite{tversky1992advances}. 
 
 \subsection{Comparison between CPT and expectation}
-Before presenting the results, we remark that it is usually hard to obtain an analytical expression for the CPT-value, so  use numerical integration via the trapezoidal rule. 
+Before presenting the results, we remark that it is usually hard to obtain an analytical expression for the CPT-value, so we use numerical integration via the trapezoidal rule. 
 % Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore 
 We present two settings where the feasible region is triangle shaped over two distribution parameters. In each setting, the parameters corresponding to the maximum expected value are calculated directly, while for the CPT-value, we perform a grid search, where the distance between points in the grid is $0.05$. 
  \begin{figure}[h]
    \centering
    \begin{tabular}{c}
-   \subfigure[Gaussian distributed r.v.s with parameters mean $\mu$ and variance $\sigma$] 
+   \subfigure[Normal distributed r.v.s with parameters mean $\mu$ and variance $\sigma$] 
    {
    \label{fig:normal-cpt}
    \scalebox{0.65}{\begin{tikzpicture}
@@ -137,13 +137,14 @@ We consider a skew normal distributed  r.v. $X$ with location, scale and shape p
 numerically calculate the CPT-value $\C(X)$. 
 For numerical integration, we use the following form for the CPT-value, since $w$ is differentiable:
 \begin{align*}
-\C\left( X \right) & = \intinfinity z^{0.88} w^\prime \left(1 - F_{X^+}\left(z\right)\right) f_{X^+}\left(z\right)dz \\
-&\quad - \frac1{4} \intinfinity (-z)^{0.88} w^\prime \left(1 - F_{X^-}\left(z\right)\right) f_{X^-}\left(z\right) dz.
+\C\left( X \right) & = \intinfinity z^{\sigma} w^\prime \left(1 - F_{X^+}\left(z\right)\right) f_{X^+}\left(z\right)dz \\
+&\quad - \lambda \intinfinity (-z)^{\sigma} w^\prime \left(1 - F_{X^-}\left(z\right)\right) f_{X^-}\left(z\right) dz,
 \end{align*}
+where, as mentioned before, $\sigma=0.88$ and $\lambda=0.25$.
 To show that the CPT estimator is getting closer to the numerical integral, 
 we conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ using Algorithm \ref{alg:holder-est} and $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$ that corresponds to $n_i$ samples, we calculate the deviation of the estimator $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ from numerically integrated value. Figure \ref{fig:cpt-est} presents the mean and standard error for each $n_i$. 
 % Here, the margin of error denotes half the length of t-confidence interval. 
-It is evident from Figure \ref{fig:cpt-est} that our CPT estimation scheme converges rapidly.
+It is evident from Figure \ref{fig:cpt-est} that our CPT-value estimate gets very close to the true CPT-value rapidly.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 %%%% Error bars 
