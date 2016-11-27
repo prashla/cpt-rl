@@ -75,7 +75,7 @@ and also,
 where $\hat{F}^+_n\left(x\right)$ and $\hat{F}^-_n\left(x\right)$ are the empirical distributions of $u^+\left(X\right)$
 and $u^-\left(X\right)$, respectively.
 
-Thus, the CPT estimator $\overline \C_n$ (see Algorithm \ref{alg:holder-est}) can be written equivalently as follows:
+Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
 \begin{align}
 \overline \C_n = \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \!-\! \intinfinity w^-\left(1-{\hat F_n}^-\left(x\right)\right)  dx.
 \label{eq:cpt-est-appendix}
@@ -90,7 +90,7 @@ Recall the H\"{o}lder continuity property first:
 {\textbf{\textit{(H\"{o}lder continuity)}}}
 A function $f \in C([a,b])$ is said to satisfy
 a H\"{o}lder condition of order $\alpha\in (0,1]$ (or to be H\"{o}lder continuous
-of order $\alpha$) if there exists $ H>0$, s.t.
+of order $\alpha$) if there exists $ H>0$ s.t.
 \[
 \sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq H .
 \]
@@ -114,7 +114,7 @@ The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-gene
 %For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
-Assume (A1) and that \\
+Assume (A1) and \\
 \begin{inparaenum}[\bfseries (i)]
 \item $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
 are Lipschitz continuous on the respective intervals $(0,+\infty)$, and 
@@ -140,7 +140,7 @@ Under an additional assumption on the utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 
-\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing.
+\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing respectively on their support $\R^+$ and $\R^-$.
 
 %\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
 
