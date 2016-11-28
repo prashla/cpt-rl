@@ -42,13 +42,13 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we n
 \State Simulate $n$ i.i.d. samples from the distribution of $X$.
 %\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
 \State Arrange the samples in ascending order and label them as follows: 
-$X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Note that $u^+(X_{[1]}),\ldots ,u^+(X_{[n]})$ are also in ascending order.
+$X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Since we assume $u^+$ is increasing (see (A2) below),  $u^+(X_{[1]}),\ldots ,u^+(X_{[n]})$ are in ascending order.
 %\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
 \State Let
 \vspace{-0.5ex}
 $$\hspace{-1.1em}\overline \C_n^+:=\sum_{i=1}^{n} u^+(X_{[i]}) \left(w^+\!\left(\frac{n+1-i}{n}\right)\!-\! w^+\!\left(\frac{n-i}{n}\right) \right).$$
 \vspace{-0.5ex}
-\State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$; notice that $u^{-}(X_{[i]})$ is in descending order since $u^{-}$ is a decreasing function.     
+\State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$; since we assume $u^{-}$ is decreasing (see (A2) below), $u^{-}(X_{[1]}), \ldots, u^{-}(X_{[n]})$ are in descending order.     
 \State Let
 \vspace{-0.5ex}
 $$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right). $$
@@ -140,7 +140,7 @@ Under an additional assumption on the utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate:
 
-\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing respectively on their support $\R^+$ and $\R^-$.
+\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing on their support $\R^+$ and $\R^-$, respectively.
 
 %\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
 
