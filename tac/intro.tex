@@ -157,7 +157,7 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 To the  best of our knowledge, we are the first to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
 We outline these challenges as well as our approach to addressing them below. 
 
-The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution functions associated with the random variable (See \cref{sec:cpt-val} for the definition). 
+The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution function associated with the underlying random variable (See \cref{sec:cpt-val} for the definition). 
 Hence, even the problem of estimating the CPT-value given a random sample is challenging.
 %\textbf{\textit{Prediction:}} In the case of the classic value function, which is an expectation, a simple sample mean can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, 
 %CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 
@@ -212,7 +212,7 @@ and this implies the lack of a Bellman equation for our CPT measure;
 \end{inparaenum}
 
 The rest of the paper is organized as follows: 
-In Section~\ref{sec:cpt-val}, we introduce the notion of CPT-value for a general random variable $X$.
+In Section~\ref{sec:cpt-val}, we introduce the notion of CPT-value for a general random variable.
 In Section~\ref{sec:cpt-sampling}, we
 describe the empirical distribution-based scheme for estimating the CPT-value of any random variable. In Section \ref{sec:cpt-control}, we present the gradient-based algorithms for optimizing the CPT-value. 
 %Next, in Section \ref{sec:mras}, we present a gradient-free model-based algorithm for CPT-value optimization in an MDP. 

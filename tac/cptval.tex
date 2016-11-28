@@ -7,19 +7,19 @@ For a real-valued random variable $X$, we introduce a ``CPT-functional'' that re
 The functional, denoted by $\C$,
 indexed by
 $u=(u^+,u^-)$, $w=(w^+,w^-)$, where $u^+,u^-:\R\rightarrow \R_+$ and $w^+,w^-:[0,1] \rightarrow [0,1]$ are continuous,
-with $u^+(x)=0$ when $x\le 0$ and increasing when otherwise, and with $u^-(x)=0$ when $x\ge 0$ and decreasing when otherwise$$(see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$),
+with $u^+(x)=0$ when $x\le 0$ and increasing when otherwise, and with $u^-(x)=0$ when $x\ge 0$ and decreasing when otherwise(see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$),
  is defined as 
 \begin{align}
 \C_{u,w}(X) &= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber \\
 &\quad - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz\,. \label{eq:cpt-general}
 \end{align}
+
 For notational convenience, when $u,w$ are fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. Note that when $w^+,w^-$
 and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, 
 are the identity functions, and we let $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$,
 $\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
 %\cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
-
- \begin{figure}[h]
+ \begin{figure}[t]
    \centering
 \tabl{c}{
 %\includegraphics[width=3.8in]{utility.png}}
@@ -70,6 +70,7 @@ For losses, the disutility $-u^-$ is typically convex and for gains, the utility
 both functions are non-decreasing and take the value of zero at the reference point.}
 \label{fig:u}
 \end{figure}
+
 
 
 In the definition, $u^+, u^-$ are utility functions corresponding to gains ($X \ge 0$) and losses ($X \le 0$), respectively,
