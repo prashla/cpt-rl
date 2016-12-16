@@ -6,7 +6,7 @@ In this section we consider the problem
 \label{eq:opt-general}
 \textrm{Find ~}\theta^* = \argmax_{\theta \in \Theta} \C(X^\theta),
 \end{align}
-where $\Theta$ is a compact and convex subset of $\R^d$. As mentioned earlier, the above problem encompasses policy optimization in an MDP that can be discounted or average or stochastic shortest path and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, instead of using the expected return.  
+where $\Theta$ is a compact and convex subset of $\R^d$. The above problem encompasses policy optimization in an MDP that can be discounted or average or stochastic shortest path and/or partially observed. The difference here is that we apply the CPT-functional to the return of a policy, instead of using the expected return.  
 
 %\begin{figure}[h]
 %\centering
@@ -101,11 +101,11 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using symmetric, $\pm 1$-valued Bernoulli distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
 	    \State Simulate $m_n$ samples using  $(\theta_n+\delta_n \Delta_n)$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$. 
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ using Algorithm \ref{alg:holder-est}. 
 	    \EndPEval
 	    \PEvalPrime
   	    \State Simulate $m_n$ samples using $(\theta_n-\delta_n \Delta_n)$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ using Algorithm \ref{alg:holder-est}.
 	    \EndPEvalPrime
 	    \PImp
 		\State Update $\theta_n$ using \eqref{eq:theta-update}.
@@ -156,9 +156,9 @@ The CPT-value estimation scheme is biased, i.e., providing samples with paramete
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
 \theta^{i}_{n+1}  = & \Pi_{i}\bigg( \theta^{i}_n +  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
-&+ \underbrace{\frac{(\epsilon_n^{\theta_n +\delta_n\Delta_n} - \epsilon_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}}_{\kappa_n}\bigg).
+&+ \frac{(\epsilon_n^{\theta_n +\delta_n\Delta_n} - \epsilon_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg).
 \end{align*}
-Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
+Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$, where $\kappa_l = \frac{(\epsilon_l^{\theta_l +\delta_l\Delta_l} - \epsilon_l^{\theta_l-\delta_l\Delta_l})}{2\delta_l\Delta_l^{i}}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
 $$\sup_{l\ge0} \left (\zeta_{n+l} - \zeta_n \right) \rightarrow 0 \text{ as } n\rightarrow\infty.$$ 
 While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the bias $\epsilon^\theta$ is bounded above, to establish convergence of the policy gradient recursion \eqref{eq:theta-update}, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  The assumption below provides a condition on the increase rate of $m_n$.
 
@@ -183,12 +183,12 @@ Consider the  ODE:
 \end{align}
 where 
 $\check\Pi_{i}(f(\theta)) := \lim\limits_{\vartheta \downarrow 0} \frac{\Pi_{i}(\theta + \vartheta f(\theta)) - \theta}{\vartheta}$, for any continuous $f(\cdot).$
- Let $\K \subset \{\theta^* \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta^*})\right)=0, \forall i=1,\ldots,d\}$ denote the set of asymptotically stable equilibrium points of the ODE \eqref{eq:theta-ode}. The existence of $\K$ can be inferred by using the fact that $\C(X^\theta)$ itself serves as a Lyapunov function for \eqref{eq:theta-ode} (see Section \ref{appendix:1spsa} for details).
+ Let $\K \subset \{\theta^* \mid \check\Pi_{i} \left(\nabla_i \C(X^{\theta^*})\right)=0, \forall i=1,\ldots,d\}$ denote the set of asymptotically stable equilibrium points of the ODE \eqref{eq:theta-ode}. That  $\K\ne\phi$ can be inferred by using the fact that $\C(X^\theta)$ itself serves as a Lyapunov function for \eqref{eq:theta-ode} (see Section \ref{appendix:1spsa} for details).
 %The main convergence result is stated below.
 \begin{theorem}
 \label{thm:1spsa-conv}
 Assume (A1)-(A4).
- Then, for $\theta_n$ governed by \eqref{eq:theta-update}, we have
+ Then, $\K\ne\phi$ and for $\theta_n$ governed by \eqref{eq:theta-update}, we have
 $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 \end{theorem}
 
@@ -196,7 +196,7 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
  See Section \ref{appendix:1spsa}.
 \end{proof}
 
-Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ denote the set of local minima of the CPT-value. If $\K'$ lies within the set $\Theta$ onto which the iterate $\theta_n$ (updated according to \eqref{eq:theta-update}) is projected, then the above theorem ensures that CPT-SPSA converges to $\K'$. However, it not possible to ensure that $\K' \subset \Theta$ in the stochastic optimization setting considered here, which implies that if $\K'$ lies outside $\Theta$, the iterate $\theta_n$ will get stuck on the boundary of $\Theta$.
+Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ denote the set of local minima of the CPT-value. If $\K'$ lies within the set $\Theta$ onto which the iterate $\theta_n$ (updated according to \eqref{eq:theta-update}) is projected, then the above theorem ensures that CPT-SPSA converges to $\K'$. When it not possible to ensure that $\K' \subset \Theta$, the iterate $\theta_n$ will get stuck on the boundary of $\Theta$.
 %In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
@@ -329,7 +329,8 @@ Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ 
 
 \subsection{Model-based parameter search algorithm (CPT-MPS)}
 \label{sec:mras}
-In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}. We require that there exists a unique global optimum $\theta^*$ for the problem \eqref{eq:opt-general}.
+In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing the CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}.
+While CPT-SPSA is a local optimization scheme, CPT-MPS converges to the global optimum, say $\theta^*$, for the problem \eqref{eq:opt-general}, assuming one exists.
 
 % The crucial difference between CPT-MPS and MRAS$_2$ is that the latter has an expected function value objective, i.e., it aims to minimize a function by using sample observations that have zero-mean noise. On the other hand, the objective in our setting is the CPT-value, which distorts the underlying transition probabilities. The implication here is that MRAS$_2$ can estimate the expected value using sample averages, while we have to resort to integrating the empirical distribution, which results in biased estimates.
 
@@ -369,7 +370,7 @@ where $E_{\eta_n}[\C(X^{\mathcal{R}(\Theta)})]=\int_{\Theta} \C(X^{\theta})f(\th
 \algrenewcommand\algorithmicindent{0.5em}
 
 \algblock{Candidate}{EndCandidate}
-\algnewcommand\algorithmicCandidate{\textbf{\em Candidate Policies}}
+\algnewcommand\algorithmicCandidate{\textbf{\em Candidate Parameters}}
  \algnewcommand\algorithmicendCandidate{}
 \algrenewtext{Candidate}[1]{\algorithmicCandidate\ #1}
 \algrenewtext{EndCandidate}{\algorithmicendCandidate}

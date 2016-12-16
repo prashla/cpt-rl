@@ -16,9 +16,10 @@ The CPT-functional indexed by $u$ and $w$ is defined as
 \C_{u,w}(X) &= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber \\
 &\quad - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz\,. \label{eq:cpt-general}
 \end{align}
+For notational convenience, when $u,w$ are fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. 
 
-For notational convenience, when $u,w$ are fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. Consider the case when $w^+,w^-$ are identity functions,  
-$u^+(x)=x$ for $x>0$ and $0$ otherwise and $u^-(-x)=-x$ for $x<0$ and $0$ otherwise. Then,  letting $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$, we have 
+Consider the case when $w^+,w^-$ are identity functions,  
+$u^+(x)=x$ for $x\ge0$ and $0$ otherwise and $u^-(x)=-x$ for $x\le0$ and $0$ otherwise. Then,  letting $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$, we have 
 $\C(X) = \intinfinity \Prob{X>z} dz -  \intinfinity \Prob{-X>z} dz = \EE{ (X)^+ } - \EE{ (X)^- }$, showing the connection to expectations.
 %\cref{fig:u} shows an example of the utility functions $u= (u^+,u^-)$ and how they relate to each other, while \cref{fig:w} shows an example of a typical weight function.
  \begin{figure}[t]
