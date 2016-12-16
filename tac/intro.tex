@@ -37,19 +37,19 @@ To capture human preferences, the outcomes are mapped to a single numerical quan
 While preferences of rational agents facing decisions with stochastic outcomes can be modeled using expected utilities,
 i.e., the expectation of a nonlinear transformation, such as the exponential function, of the rewards or costs
 \cite{NeuMo44,fishburn1970expectedutility}, 
-	humans are subject to various emotional and cognitive biases,
-	and, as the psychology literature points out, human preferences 
+	humans are subject to various emotional and cognitive biases.
+	As the psychology literature points out, human preferences 
 	are inconsistent with expected utilities regardless of what nonlinearities are used
 	 \cite{allais53,ellsberg61,kahneman1979prospect}.
 An approach that gained 
 %Behavioral scientists use alternate approaches to model human preferences.
 	strong support amongst psychologists, behavioral scientists and economists (cf. \cite{starmer2000developments,quiggin2012generalized})
-	is based on \cite{kahneman1979prospect}'s celebrated \emph{prospect theory} (PT),
-	the theory that we will base our models of human preferences on
+	is based on Kahneman and Tversky's \cite{kahneman1979prospect} celebrated \emph{prospect theory} (PT),
+	the theory that we will also base our models of human preferences on
 	 in this work.
 More precisely, we will use \emph{cumulative prospect theory} (CPT),
- 	a later, refined variant of prospect theory due to \cite{tversky1992advances}, 
-	which superseded prospect theory (e.g.,\cite{Barberis:2012vs}).
+ 	a later, refined variant of prospect theory due to Tversky and Kahneman \cite{tversky1992advances}, 
+	which superseded prospect theory (cf. \cite{Barberis:2012vs}).
 CPT generalizes expected utility theory in that in addition to having a utility function transforming
 	the outcomes, another function is introduced which distorts the probabilities in the cumulative distribution function.
 As compared to prospect theory, CPT is monotone with respect to stochastic dominance, a property
@@ -154,10 +154,10 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 %%%%%%%%%%%%\
 \subsection*{Our contributions\footnote{A preliminary version of this paper was published in ICML 2016 \cite{la2016cumulative}. In comparison to the conference version, this paper includes an additional optimization algorithm, formal proofs of convergence of both estimation and optimization algorithms, some additional experiments and a revised presentation.}}
 
-To the  best of our knowledge, we are the first to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many research challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
-We outline these challenges as well as our approach to addressing them below. 
+To the  best of our knowledge, we are the first to combine CPT with stochastic optimization. Although on the surface the combination may seem straightforward, in fact there are many challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
+In this short summary, we outline these challenges as well as our approach to addressing them. 
 
-The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution function associated with the underlying random variable (See \cref{sec:cpt-val} for the definition). 
+The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution function associated with the underlying random variable (see \cref{sec:cpt-val} for the definitions). 
 Hence, even the problem of estimating the CPT-value given a random sample is challenging.
 %\textbf{\textit{Prediction:}} In the case of the classic value function, which is an expectation, a simple sample mean can be used for estimation, facilitating the use of temporal difference type algorithms. On the other hand, 
 %CPT-value   involves a distribution that is distorted using non-linear weight functions and hence, 
@@ -184,7 +184,7 @@ We consider a smooth parameterization of the CPT-value and propose two algorithm
 %Using the well-known idea of simultaneous perturbation stochastic approximation (SPSA) from the \textit{simulation optimization} literature \cite{fu2015handbook}, we propose and analyze a gradient method for CPT value optimization in sequential decision making problems
 %under uncertainty.
 The second algorithm is a gradient-free method that is adapted from \cite{chang2013simulation}. The idea is to use a reference model that eventually concentrates on the global minimum and then empirically approximate this reference distribution well-enough. The latter is achieved via natural exponential families in conjunction with Kullback-Leibler (KL) divergence to measure the ``distance'' from the reference distribution. 
-Guaranteeing convergence of the aforementioned two CPT-value optimization is challenging because only  \emph{biased} estimates of the CPT-value are available. We propose a particular way of controlling the arising bias-variance tradeoff and establish convergence for all proposed algorithms.
+Guaranteeing convergence of the aforementioned CPT-value optimization algorithms is challenging because only  \emph{biased} estimates of the CPT-value are available. We propose a particular way of controlling the arising bias-variance tradeoff and establish convergence for all proposed algorithms.
 % We establish that our algorithm converges to a globally CPT-value optimal policy (assuming it exists).
 % Here a new challenge arises, which is that we can only feed the two-point randomized gradient estimator with \emph{biased} estimates of the CPT-value. To guarantee convergence, we propose a particular way of controlling the arising bias-variance tradeoff.
 
@@ -198,10 +198,10 @@ Guaranteeing convergence of the aforementioned two CPT-value optimization is cha
 % \todoc[inline]{Im not sure what to do with the following para, as we havent talked about RL and position our work as CPT + sto-opt}
 
 \textit{Related work.}
-Various risk measures have been proposed in the literature, e.g., mean variance tradeoff \cite{markowitz1952portfolio}, exponential utility \cite{Arrow1971}, value at risk (VaR) and conditional value at risk (CVaR) \cite{rockafellar2000optimization}. A large body of literature involves risk-sensitive optimization in the context of Markov decision processes (MDPs).   
+Various risk measures have been proposed in the literature, e.g., mean-variance tradeoff \cite{markowitz1952portfolio}, exponential utility \cite{Arrow1971}, value at risk (VaR) and conditional value at risk (CVaR) \cite{rockafellar2000optimization}. A large body of literature involves risk-sensitive optimization in the context of Markov decision processes (MDPs).   
 The stochastic optimization context of this paper translates to a risk-sensitive reinforcement learning (RL) problem, and it has been observed in earlier works that risk-sensitive RL is generally hard to solve. 
 For instance, in \cite{Sobel82VD}, \cite{filar1989variance} and \cite{mannor2013algorithmic}, the authors provide NP-hardness results for finding a globally variance-optimal policy in discounted and average reward MDPs.
-Solving CVaR constrained MDPs is equally complicated (cf. \cite{borkar2010risk,prashanth2014policy,tamar2014optimizing}). 
+Solving CVaR constrained MDPs is equally complicated (cf. \cite{borkar2010risk,prashanth2014policy,tamar2014optimizing}). In contrast, incorporating CPT-based criteria incurs extra sample complexity in estimation as compared to that of the classic sample mean estimator for expected value, while the optimization schemes based either on SPSA or model-based parameter search \cite{chang2013simulation} that we propose converge at the same rate as that of their expected value counterparts. 
 % Finally, we point out that the CPT-value is a generalization of all the risk measures above in the sense that one can recover these particular risk measures such as VaR and CVaR by appropriate choices of the distortions used in the definition of the CPT-value.
 In the context of an abstract MDP setting, a CPT-based risk measure has been proposed in \cite{lin2013stochastic}. Unlike \cite{lin2013stochastic},
 \begin{inparaenum}[\it (i)]
@@ -210,11 +210,12 @@ and this implies the lack of a Bellman equation for our CPT measure;
 \item we do not assume model information, i.e., we operate in a more general stochastic optimization setting;
 \item we develop both estimation and optimization algorithms with convergence guarantees for the CPT-value function.
 \end{inparaenum}
+More recently, the authors in \cite{aditya2016weighted} incorporate CPT-based criteria into a multi-armed bandit setting, while employing the estimation scheme that we proposed in the shorter version of this paper \cite{la2016cumulative}. 
 
 The rest of the paper is organized as follows: 
-In Section~\ref{sec:cpt-val}, we introduce the notion of CPT-value for a general random variable.
+In Section~\ref{sec:cpt-val}, we define the notion of CPT-value for a general random variable.
 In Section~\ref{sec:cpt-sampling}, we
-describe the empirical distribution-based scheme for estimating the CPT-value of any random variable. In Section \ref{sec:cpt-control}, we present the gradient-based algorithms for optimizing the CPT-value. 
+describe the empirical distribution-based scheme for estimating the CPT-value of any random variable. In Section \ref{sec:cpt-control}, we present gradient-based algorithms for optimizing the CPT-value. 
 %Next, in Section \ref{sec:mras}, we present a gradient-free model-based algorithm for CPT-value optimization in an MDP. 
 We provide proofs of convergence for all the proposed algorithms in Section~\ref{sec:convergence}.
-In Sections~\ref{sec:expts-simple} and \ref{sec:expts}, we present simulation experiments for synthetic and traffic signal control problems, respectively. Finally, in Section~\ref{sec:conclusions} we provide the concluding remarks.
+In Sections~\ref{sec:expts-simple} and \ref{sec:expts}, we present simulation experiments for synthetic and traffic signal control problems, respectively. Finally, in Section~\ref{sec:conclusions} we provide our concluding remarks.
