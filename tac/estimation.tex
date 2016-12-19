@@ -1,6 +1,9 @@
 %!TEX root =  cpt-rl-icml.tex
 %For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
 
+We devise a scheme for estimating CPT-value $\C(X)$  given only samples from the distribution of $X$.
+ %and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
+%We also provide sample complexity bounds, assuming that the utility functions are bounded.
 %\paragraph{On integrability}
 Before diving into the details of CPT-value estimation, let us discuss the conditions necessary for the CPT-value to be well-defined.
 Observe that the first integral in \eqref{eq:cpt-general}, i.e., 
@@ -14,14 +17,37 @@ $
 $
 does not even exist. A similar argument applies to the second integral in \eqref{eq:cpt-general}.
 
-To overcome the above integrability issues, we impose additional  assumptions on the weight and/or utility functions. In particular, we assume that the weight functions $w^+, w^-$ are either 
-\begin{inparaenum}[\it (i)]
-\item Lipschitz continuous, or
-\item \holder continuous, or
-\item locally Lipschitz.
-\end{inparaenum}
-We devise a scheme for estimating \eqref{eq:cpt-general} given only samples from $X$ and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
-We also provide sample complexity bounds, assuming that the utility functions are bounded.
+To overcome the integrability issues, we assume that the weight functions $w^+, w^-$ satisfy one of the following assumptions for continuous valued r.v.s: 
+
+\noindent\textbf{Assumption (A1).}  
+The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$ and constant $H$, i.e.,
+$\sup_{x \neq y} \frac{| w{\pm}(x) - w{\pm}(y) |}{| x-y |^{\alpha}} \leq H$, $\forall x,y \in [0,1]$.
+ Further,
+there exists $ \gamma \le \alpha$ such that (s.t.)
+$\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
+where $\mathbb{P}^{\gamma}(\cdot) = \left(\mathbb{P}(\cdot)\right)^{\gamma}$.
+
+\noindent\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
+$u^+(X)$ and $u^-(X)$ both have bounded first moments.
+
+\begin{proposition}
+\label{prop:cpt-finite}
+Under (A1) or (A1'), the CPT-value $\C(X)$ as defined by \eqref{eq:cpt-general} is finite. 
+\end{proposition}
+\begin{proof}
+See Section \ref{sec:holder-proofs}.
+\end{proof}
+
+%Under both (A1) a we provide asymptotic consistency for the CPT-value estimator presented in the next section. 
+(A1') even though it implies (A1), is a useful special case because it does away with additional assumptions required to establish asymptotic consistency under (A1). For the theoretical results, we also require the following assumption on the utility functions:
+
+\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing on their support $\R^+$ and $\R^-$, respectively.
+
+Finally, we also analyze the setting where $X$ is a discrete valued r.v. Such a setting is common in practice and carries the additional advantage that, under a local Lipschitz assumption on the distribution of $X$, one gets better sample complexity as compared to those under (A1) and (A1'). 
+
+%The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition 
+%\ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{CPT-value estimation using quantiles}
@@ -39,72 +65,48 @@ However, we do not know the distribution of $u^+(X)$ or $u^-(X)$ and hence, we n
 \caption{CPT-value estimation}
 \label{alg:holder-est}
 \begin{algorithmic}[1]
-\State Simulate $n$ i.i.d. samples from the distribution of $X$.
+    \State {\bf Input:}  samples $X_1,\ldots,X_n$ from the distribution of $X$.
 %\State Calculate $u^+(X_{[1]}),\ldots u^+(X_{[n]}).$
 \State Arrange the samples in ascending order and label them as follows: 
-$X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. Since we assume $u^+$ is increasing (see (A2) below),  $u^+(X_{[1]}),\ldots ,u^+(X_{[n]})$ are in ascending order.
+$X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$. 
+%Since we assume $u^+$ is increasing (see (A2) below),  $u^+(X_{[1]}),\ldots ,u^+(X_{[n]})$ are in ascending order.
 %\State Use $u^+(X_{[i]}), i\in \mathbb{N}\cap (0,n)$ as an approximation for the $\frac{i}{n} th$ quantile of $u^+(X)$, i.e, $\xi_{\frac{i}{n}}, i\in \mathbb{N}\cap (0,n)$.
 \State Let
 \vspace{-0.5ex}
-$$\hspace{-1.1em}\overline \C_n^+:=\sum_{i=1}^{n} u^+(X_{[i]}) \left(w^+\!\left(\frac{n+1-i}{n}\right)\!-\! w^+\!\left(\frac{n-i}{n}\right) \right).$$
-\vspace{-0.5ex}
-\State Apply $u^{-}$ on the sequence $\{X_{[1]}, X_{[2]}, \ldots ,X_{[n]}\}$; since we assume $u^{-}$ is decreasing (see (A2) below), $u^{-}(X_{[1]}), \ldots, u^{-}(X_{[n]})$ are in descending order.     
-\State Let
-\vspace{-0.5ex}
-$$\overline \C_n^-:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right). $$
+\begin{align*}
+\overline \C_n^+&:=\sum_{i=1}^{n} u^+(X_{[i]}) \left(w^+\!\left(\frac{n+1-i}{n}\right)\!-\! w^+\!\left(\frac{n-i}{n}\right) \right),\\
+\overline \C_n^-&:=\sum_{i=1}^{n} u^-(X_{[i]}) \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right). 
+\end{align*}
 
 \vspace{-0.5ex}
 \State Return $\overline \C_n =\overline \C_n^+ - \overline \C_n^-$.
 \end{algorithmic}
 \end{algorithm}
 
-Let $X_{[1]}, X_{[2]}, \ldots ,X_{[n]}$ denote the order statistics sampled from the distribution of $X$. 
-Then, we have the following equivalence: 
+Consider the special case when $w^+(p)=w^-(p)=p$ and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, are the identity functions. In this case, the CPT-value estimator $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
+
+Notice that the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
+\begin{align}
+\overline \C_n = \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \!-\! \intinfinity w^-\left(1-{\hat F_n}^-\left(x\right)\right)  dx.
+\label{eq:cpt-est-appendix}
+\end{align}
+The above relation holds because 
 %\todoc{The hats should be on $F$ only, as in $\hat{F}^+$ as opposed to $\hat{F^+}$.}
 \begin{align*}
 &\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n+1-i}{n}\right) - w^+\left(\frac{n-i}{n}\right)\right) \\
-&= \sum_{i=1}^{n-1} w^+\left(\frac{n-i}{n}\right) \left(u^+\left(X_{[i+1]}\right) - u^+\left(X_{[i]} \right)\right)\\
-&=  \int_0^{\infty} w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, 
-\end{align*}
-% \todoj[inline]{Add a few steps above to make the equivalence clear}
-and also,
-\begin{align*}
+&= \sum_{i=1}^{n-1} w^+\left(\frac{n-i}{n}\right) \left(u^+\left(X_{[i+1]}\right) - u^+\left(X_{[i]} \right)\right) + u^+(X_{[1]})\\
+&=  \int_0^{\infty} w^+\left(1-\hat{F}^+_n\left(x\right)\right) dx, \text{ and }\\
 &\sum_{i=1}^{n} u^-\left(X_{[i]}\right) \left(w^-\left(\frac{i}{n}\right) - w^-\left(\frac{i-1}{n}\right)\right)\\
 & =  \int_0^{\infty} w^-\left(1-\hat{F}^-_n\left(x\right)\right) dx, 
 \end{align*}
 where $\hat{F}^+_n\left(x\right)$ and $\hat{F}^-_n\left(x\right)$ are the empirical distributions of $u^+\left(X\right)$
 and $u^-\left(X\right)$, respectively.
 
-Thus, the CPT estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est} can be written equivalently as follows:
-\begin{align}
-\overline \C_n = \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \!-\! \intinfinity w^-\left(1-{\hat F_n}^-\left(x\right)\right)  dx.
-\label{eq:cpt-est-appendix}
-\end{align}
-
-Consider the special case when $w^+(p)=w^-(p)=p$ and $u^+$ ($-u^-$), when restricted to the positive (respectively, negative) half line, are the identity functions. In this case, the CPT-value estimator $\overline \C_n$ coincides with the sample mean estimator for regular expectation. 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Results for \holder continuous weights}
-Recall the H\"{o}lder continuity property first:
-\begin{definition}\label{holder}
-{\textbf{\textit{(H\"{o}lder continuity)}}}
-A function $f \in C([a,b])$ is said to satisfy
-a H\"{o}lder condition of order $\alpha\in (0,1]$ (or to be H\"{o}lder continuous
-of order $\alpha$) if there exists $ H>0$ s.t.
-\[
-\sup_{x \neq y} \frac{| f(x) - f(y) |}{| x-y |^{\alpha}} \leq H .
-\]
-\end{definition}
+\subsection{Results for \holder and Lipschitz continuous weights}
 
 %In order to ensure the integrability of the CPT-value \eqref{eq:cpt-general}, we make the following assumption:\\[1ex]
-\noindent\textbf{Assumption (A1).}  
-The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$ and constant $H$. Further,
-there exists $ \gamma \le \alpha$ such that (s.t.)
-$\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
-where $\mathbb{P}^{\gamma}(\cdot) = \left(\mathbb{P}(\cdot)\right)^{\gamma}$.
-
-The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-general} is finite - see Proposition 
-\ref{prop:Holder-cpt-finite} in Section \ref{sec:holder-proofs} for a formal proof.
 
 
 
@@ -114,13 +116,13 @@ The above assumption ensures that the CPT-value as defined by \eqref{eq:cpt-gene
 %For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
-Assume (A1) and \\
+Assume (A1), (A2),\\
 \begin{inparaenum}[\bfseries (i)]
 \item $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
 are Lipschitz continuous on the respective intervals $(0,+\infty)$, and 
 $(-\infty, 0)$. \\
 \item Utility functions $u^+, u^-$ satisfy 
-$$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0.$$
+$$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ a.s.}.$$
 \end{inparaenum}
 Then, we have 
 \begin{align}
@@ -131,6 +133,7 @@ Then, we have
 \end{align}
 where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}.
 \end{proposition}
+The conditions in item (ii) above is satisfied by popular distribution choices such as Gaussian and exponential, while heavy-tailed distributions, e.g. Cauchy, do not.
 \begin{proof}
 See Section \ref{sec:holder-proofs}. 
 \end{proof}
@@ -138,12 +141,7 @@ See Section \ref{sec:holder-proofs}.
 %Under (A2') stated below, 
 Under an additional assumption on the utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
-high-probability estimate of the CPT-value that is $\epsilon$-accurate:
-
-\noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing on their support $\R^+$ and $\R^-$, respectively.
-
-%\textbf{Assumption (A2').}  In addition to (A2), the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1.
-
+high-probability estimate of the CPT-value that is $\epsilon$-accurate.
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
 Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1. Then, $\forall \epsilon >0, \delta >0$, we have
@@ -179,18 +177,15 @@ where $\Gamma(\cdot)$ is the gamma function.
 See Section \ref{sec:holder-proofs}.
 \end{proof}
 
-\subsection{Results for Lipschitz continuous weights}
-% In the previous section, it was shown that \holder continuous weights result in an asymptotically consisent CPT-value predictor $\overline \C_n$ under a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. 
-In this section, we establish that the CPT-value estimator $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., the following assumption in place of (A1):
-
-\noindent\textbf{Assumption (A1').}  The weight functions $w^+, w^-$ are Lipschitz with common constant $L$, and 
-$u^+(X)$ and $u^-(X)$ both have bounded first moments.
+%\subsection{Results for Lipschitz continuous weights}
+%% In the previous section, it was shown that \holder continuous weights result in an asymptotically consisent CPT-value predictor $\overline \C_n$ under a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. 
+%In this section, we establish that the CPT-value estimator $\overline \C_n$ is asymptotically consistent when the weights are Lipschitz continuous,  i.e., under assumption (A1'):
 
 Setting $\alpha=1$, one can obtain the asymptotic consistency claim in Proposition \ref{prop:holder-asymptotic} for Lipschitz weight functions. However, this result is under  a restrictive Lipschitz assumption on the distribution functions of $u^+(X)$ and $u^-(X)$. Using a different proof technique and (A1') in place of (A1), we can obtain a result similar to Proposition \ref{prop:holder-asymptotic} without a Lipschitz assumption on the distribution functions. The following claim makes this precise.
 
-\begin{proposition}
+\begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:lipschitz}
-Assume (A1'). Then, we have 
+Assume (A1') and (A2). Then, we have 
 $$\overline \C_n
 \rightarrow
 \C(X)

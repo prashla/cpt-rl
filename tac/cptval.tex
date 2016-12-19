@@ -9,7 +9,7 @@ indexed by
 $u=(u^+,u^-)$ and $w=(w^+,w^-)$. 
 As illustrated in Figure \ref{fig:u}, $u^+,u^-:\R\rightarrow \R_+$ are continuous,
 with $u^+(x)=0$ when $x\le 0$ and increasing otherwise, and with $u^-(x)=0$ when $x\ge 0$ and decreasing otherwise.
-The weight functions $w^+,w^-:[0,1] \rightarrow [0,1]$, as shown in Figure \ref{fig:w}, are continuous, non-decreasing and  satisfy $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$.
+The functions $w^+,w^-:[0,1] \rightarrow [0,1]$, as shown in Figure \ref{fig:w}, are continuous, non-decreasing and  satisfy $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$.
 %(see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$).
 The CPT-functional indexed by $u$ and $w$ is defined as 
 \begin{align}
@@ -85,7 +85,7 @@ The human tendency is to choose the former option of a certain gain.
 If we flip the situation, i.e., a certain loss of \$$500$ or a loss of \$$1000$ w.p. $0.5$, 
 then humans choose the latter option.  
 This distinction of playing safe with gains and taking risks with losses is captured by a concave gain-utility
-$u^+$ and a convex disutility $-u^-$, cf. \cref{fig:u}.
+$u^+$ and a convex disutility $-u^-$, as illustrated in \cref{fig:u}.
 %In contrast, the traditional value function makes no such distinction between gains and losses.  
 
 \begin{figure}[h]
@@ -138,7 +138,7 @@ Weight functions can explain nonlinear probability distortions, as illustrated b
 %A few remarks are in order.
 \begin{remark}\textit{(RL application)}
 %The CPT-value, as defined in \eqref{eq:cpt-general}, has several applications in RL. In general, 
-For any RL problem setting, one can define the return for a given policy and then apply a CPT-functional on the return. For instance, with a fixed policy, the random variable (r.v.) $X$ could be the total reward in a stochastic shortest path problem or the infinite horizon cumulative reward in a discounted MDP or the long-run average reward in an MDP.
+For any RL problem setting, one can define the return for a given policy and then apply a CPT-functional on the return. For instance, with a fixed policy, the random variable (r.v.) $X$ could be the total reward in a stochastic shortest path problem or the infinite horizon cumulative reward in a discounted MDP.
  %- See Appendix \ref{sec:cpt-ssp} for one such application. 
 \end{remark}
 

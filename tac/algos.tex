@@ -61,9 +61,10 @@ The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{l
 %\cite{hazan2015online}, \cite{duchi2013optimal}. However, the idea applies to non-convex functions as well - cf. \cite{spall2005introduction}, \cite{Bhatnagar13SR}.
 
 
-\subsubsection*{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: For $i=1,\ldots,d$,
+\subsubsection*{Update rule} We incrementally update the parameter $\theta$ in the ascent direction as follows: 
+%For $i=1,\ldots,d$,
 \begin{align}
-\theta^{i}_{n+1} = \Pi_{i}\left(\theta^{i}_n + \gamma_n  \widehat \nabla_{i} \C(X^{\theta_n})\right),
+\theta_{n+1} = \Pi\left(\theta_n + \gamma_n  \widehat \nabla \C(X^{\theta_n})\right),
 \label{eq:theta-update}
 \end{align}
 where  $\gamma_n$ is a step-size chosen to satisfy (A3) below and
@@ -100,12 +101,12 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 \For{$n = 0,1,2,\ldots$}	
 	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using symmetric, $\pm 1$-valued Bernoulli distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
 	\PEval
-	    \State Simulate $m_n$ samples using  $(\theta_n+\delta_n \Delta_n)$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ using Algorithm \ref{alg:holder-est}. 
+	    %\State Simulate $m_n$ samples using  $(\theta_n+\delta_n \Delta_n)$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples. 
 	    \EndPEval
 	    \PEvalPrime
-  	    \State Simulate $m_n$ samples using $(\theta_n-\delta_n \Delta_n)$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ using Algorithm \ref{alg:holder-est}.
+  	    %\State Simulate $m_n$ samples using $(\theta_n-\delta_n \Delta_n)$.
+	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples.
 	    \EndPEvalPrime
 	    \PImp
 		\State Update $\theta_n$ using \eqref{eq:theta-update}.
@@ -439,19 +440,19 @@ $\mathcal{H}\hspace*{-3pt}$.
 	\EndElite
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	\Thresholding
-	\If {$n=0$ or $\widetilde\chi_{n}(\rho_n,N_n)\geq \bar\chi_{n-1}+\varepsilon$}
-	    \State Set $\bar \chi_{k} = \widetilde \chi_{k}(\rho_n,N_n),~\rho_{k+1} = \rho_n,~N_{k+1} = N_{k}$ and \label{step:3a}
-	    \State Set $\theta^*_{n} = \theta_{1-\rho_{n}}$, where $\theta_{1-\rho_{n}}$ is the parameter that corresponds to the $(1-\rho_n)$-quantile in \eqref{eq:quant}.
-	\Else
+	%\If {$n=0$ or $\widetilde\chi_{n}(\rho_n,N_n)\geq \bar\chi_{n-1}+\varepsilon$}
+	    %\State Set $\bar \chi_{k} = \widetilde \chi_{k}(\rho_n,N_n),~\rho_{k+1} = \rho_n,~N_{k+1} = N_{k}$ and \label{step:3a}
+	    %\State Set $\theta^*_{n} = \theta_{1-\rho_{n}}$, where $\theta_{1-\rho_{n}}$ is the parameter that corresponds to the $(1-\rho_n)$-quantile in \eqref{eq:quant}.
+	%\Else
              \State find the largest $\bar \rho \in (0, \rho_n)$ such that $\widetilde\chi_{n}(\bar \rho,N_n)\geq \bar\chi_{n-1}+\varepsilon$;             
              \If {$\bar \rho$ exists} 
-              \State Set $\bar \chi_{n}\! =\! \widetilde \chi_{n}(\bar \rho,N_n),~ \rho_{k+1}  \!=\! \bar \rho,~N_{n+1} \!=\! N_{n}$, 
+              \State Set $\bar \chi_{n}\! =\! \widetilde \chi_{n}(\bar \rho,N_n),~ \rho_{n+1}  \!=\! \bar \rho,~N_{n+1} \!=\! N_{n}$, 
               $\theta^*_{n} \!=\! \theta_{1- \bar \rho}$ \label{step:3b} \vspace{-3ex}
               \Else
 	      \State Set $\bar \chi_{n}  \!=\! \overline \C_n^{\theta^*_{n-1}}$,$\rho_{n+1} \!=\! \rho_n$,$N_{n+1} \!=\! \lceil\varsigma N_{n}\rceil,$ 
           $\theta^*_{n} \!=\! \theta^*_{n-1}$.\label{step:3c}
 	      \EndIf
-         \EndIf
+         %\EndIf
 	\EndThresholding
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 	    \Update
