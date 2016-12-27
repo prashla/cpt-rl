@@ -1,6 +1,14 @@
 Here we assume that $X$ is a discrete valued r.v. with finite support. 
 Let $p_i, i=1,\ldots,K,$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$, where 
 $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$ and  let
+Observe that in this case,
+\begin{align}
+\label{eq:discrete-integral}
+&\C_{u,w}(X)  = \int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \nonumber \\
+&\sum_{k=l+1}^{K-1}\int_{u^+(x_{k})}^{u^+(x_{k+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right) dz\\
+&-\int_0^{u^-(x_l)} w^+\left(\Prob{u^-(X)>z}\right) dz
+\end{align}
+
 \begin{align}
 \label{eq:Fk}
  F_k = 
