@@ -22,10 +22,10 @@ By integrating out each terms of \eqref{eq:discrete-integral} and re-organizing 
 the CPT-value in discrete case is then defined as  
 \begin{small}
 \begin{align*}
-&\C(X) \!=\! (u^-(x_1)) w^-(p_1) 
-\!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(F_i) - w^-(F_{i-1})\Big) \\
-& + \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1}) \Big)
- + u^+(x_K) w^+(p_K),
+&\C(X)= \Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1})
+ + u^+(x_K) w^+(p_K)\Big)\\
+& -\Big((u^-(x_1)) w^-(p_1) 
+\!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(F_i) - w^-(F_{i-1})\Big)\Big),
 \end{align*} 
 \end{small}
 where $u^+, u^-$ and $w^+, w^-$ are as described in Section \ref{sec:cpt-val}
@@ -44,10 +44,10 @@ Then, we estimate $\C(X)$ as follows:
 \begin{small}
 \begin{align*}
 &\overline \C_n \!=\! 
-u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat F_{i-1})\Big) 
-\nonumber\\
+\Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1}) \Big)
+ + u^+(x_K) w^+(p_K)\Big)\\
 &
-+ \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\hat F_i) - w^+(\hat F_{i+1}) \Big) + u^+(x_K) w^+(\hat p_K). 
+-\Big(u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat F_{i-1})\Big)\Big) . 
 %\label{eq:cpt-discrete-est}
 \end{align*}
 \end{small}
