@@ -4,9 +4,9 @@ $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$.
 The positive part of CPT-value \eqref{eq:cpt-general} in this case equals
 \begin{align}
 \label{eq:discrete-integral}
-\C_{u,w}(X)  = &\int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \right.\nonumber \\
+\C_{u,w}(X)  = &\left( \int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \right. \nonumber \\
 &\sum_{k=l+1}^{K-1}\int_{u^+(x_{k})}^{u^+(x_{k+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \nonumber\\
-&\left.\int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber\\
+&\left.\int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right) \right) dz - \nonumber\\
 &\left( \int_0^{u^-(x_l)} w^-\left(\Prob{u^-(X)>z}\right) dz + \right.\nonumber\\
 &\sum_{k =2}^{l-1} \int_{u^-(x_{k})}^{u^-(x_{k-1})}w^+\left(\Prob{u^-(X)>z}\right) dz + \nonumber\\
 &\left.\int_{u(x_1)}^\infty w^-\left(\Prob{u^-(X)>z}\right) dz \right)
