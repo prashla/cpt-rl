@@ -1,15 +1,15 @@
 Here we assume that $X$ is a discrete valued r.v. with finite support. 
 Let $p_i, i=1,\ldots,K,$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$, where 
 $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$.
-The CPT-value \eqref{eq:cpt-general} in this case equals
+The positive part of CPT-value \eqref{eq:cpt-general} in this case equals
 \begin{align}
 \label{eq:discrete-integral}
-\C_{u,w}(X)  = &\left(\int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \right.\nonumber \\
+\C_{u,w}(X)  = &\int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \right.\nonumber \\
 &\sum_{k=l+1}^{K-1}\int_{u^+(x_{k})}^{u^+(x_{k+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \nonumber\\
-&\left.\int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right) dz\right)-\nonumber\\
-&\left( \int_0^{u^-(x_l)} w^+\left(\Prob{u^-(X)>z}\right) dz + \right.\nonumber\\
-&\sum_{k =2}^{l-1} \int_{u^+(x_{k})}^{u^+(x_{k-1})}w^+\left(\Prob{u^+(X)>z}\right) dz + \nonumber\\
-&\left.\int_{u_1}^\infty w^+\left(\Prob{u^+(X)>z}\right) dz \right)
+&\left.\int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber\\
+&\left( \int_0^{u^-(x_l)} w^-\left(\Prob{u^-(X)>z}\right) dz + \right.\nonumber\\
+&\sum_{k =2}^{l-1} \int_{u^-(x_{k})}^{u^-(x_{k-1})}w^+\left(\Prob{u^-(X)>z}\right) dz + \nonumber\\
+&\left.\int_{u(x_1)}^\infty w^-\left(\Prob{u^-(X)>z}\right) dz \right)
 \end{align}
 
 By integrating out each terms of \eqref{eq:discrete-integral} and re-organizing the summation, if we denote 
@@ -22,7 +22,7 @@ By integrating out each terms of \eqref{eq:discrete-integral} and re-organizing 
 the CPT-value in discrete case is then defined as  
 \begin{small}
 \begin{align*}
-&\C(X)= \Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1})
+&\C(X)= \Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1})\Big)
  + u^+(x_K) w^+(p_K)\Big)\\
 & -\Big((u^-(x_1)) w^-(p_1) 
 \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(F_i) - w^-(F_{i-1})\Big)\Big),
@@ -44,8 +44,8 @@ Then, we estimate $\C(X)$ as follows:
 \begin{small}
 \begin{align*}
 &\overline \C_n \!=\! 
-\Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1}) \Big)
- + u^+(x_K) w^+(p_K)\Big)\\
+\Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(\hat F_i) - w^+(\hat F_{i+1}) \Big)
+ + u^+(x_K) w^+(\hat p_K)\Big)\\
 &
 -\Big(u^-(x_1) w^-(\hat p_1) \!+\!\sum_{i=2}^l u^-(x_i) \Big(w^-(\hat F_i) - w^-( \hat F_{i-1})\Big)\Big) . 
 %\label{eq:cpt-discrete-est}
