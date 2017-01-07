@@ -1,25 +1,28 @@
 Here we assume that $X$ is a discrete valued r.v. with finite support. 
 Let $p_i, i=1,\ldots,K,$ denote the probability of incurring a gain/loss $x_i, i=1,\ldots,K$, where 
-$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$.
-The positive part of CPT-value \eqref{eq:cpt-general} in this case equals
-\begin{align}
-\label{eq:discrete-integral}
-\C_{u,w}(X)  = &\left( \int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \right. \nonumber \\
-&\sum_{k=l+1}^{K-1}\int_{u^+(x_{k})}^{u^+(x_{k+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \nonumber\\
-&\left.\int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right) \right) dz - \nonumber\\
-&\left( \int_0^{u^-(x_l)} w^-\left(\Prob{u^-(X)>z}\right) dz + \right.\nonumber\\
-&\sum_{k =2}^{l-1} \int_{u^-(x_{k})}^{u^-(x_{k-1})}w^+\left(\Prob{u^-(X)>z}\right) dz + \nonumber\\
-&\left.\int_{u(x_1)}^\infty w^-\left(\Prob{u^-(X)>z}\right) dz \right)
-\end{align}
-
-By integrating out each terms of \eqref{eq:discrete-integral} and re-organizing the summation, if we denote 
+$x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$. We introduce
 \begin{align}
 \label{eq:Fk}
  F_k = 
    \sum_{i=1}^k p_k  \text{ if   } k \leq l \text{ and }
-   \sum_{i=k}^K p_k  \text{ if  }  k > l,
+   \sum_{i=k}^K p_k  \text{ if  }  k > l.
 \end{align}
-the CPT-value in discrete case is then defined as  
+Observe that the positive part of CPT-value \eqref{eq:cpt-general} in this case equals
+\begin{align}
+\label{eq:discrete-integral}
+\C_{u,w}(X)  = & \int_0^{u^+(x_{l+1})} w^+\left(\Prob{u^+(X)>z}\right) dz +  \nonumber \\
+&\sum_{k=l+1}^{K-1}\int_{u^+(x_{k})}^{u^+(x_{k+1})} w^+\left(\Prob{u^+(X)>z}\right) dz + \nonumber\\
+&\int_{u^+(x_{K})}^\infty w^+\left(\Prob{u^+(X)>z}\right)  dz \nonumber\\
+%&\left( \int_0^{u^-(x_l)} w^-\left(\Prob{u^-(X)>z}\right) dz + \right.\nonumber\\
+%&\sum_{k =2}^{l-1} \int_{u^-(x_{k})}^{u^-(x_{k-1})}w^+\left(\Prob{u^-(X)>z}\right) dz + \nonumber\\
+%&\left.\int_{u(x_1)}^\infty w^-\left(\Prob{u^-(X)>z}\right) dz \right)
+= &w^+(F_{l+1}) u^+(X_{l+1})+\sum_{i=l+2}^K w^+(F_i)(u^+(x_i) - u^+(x_{i-1})) \nonumber\\
+= &\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1})\Big)
+ + u^+(x_K) w^+(p_K)
+\end{align}
+
+The negative part of \eqref{eq:cpt-general} of a discrete-valued r.v. follows in a similar fashion, and thereby, 
+the CPT-value in this case takes the form
 \begin{small}
 \begin{align*}
 &\C(X)= \Big(\sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1})\Big)
