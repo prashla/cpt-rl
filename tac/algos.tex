@@ -48,7 +48,7 @@ where $\Theta$ is a compact and convex subset of $\R^d$. The above problem encom
 \label{sec:1spsa}
 
 \subsubsection*{Gradient estimation} 
-Given that we operate in a learning setting and only have biased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation scheme to estimate $\nabla \C(X^\theta)$.  
+Given that we operate in a learning setting and only have asymptotically unbiased estimates of the CPT-value from Algorithm \ref{alg:holder-est}, we require a simulation scheme to estimate $\nabla \C(X^\theta)$.  
 Simultaneous perturbation methods are a general class of stochastic gradient schemes that optimize a function given only noisy sample values - see \cite{Bhatnagar13SR} for a textbook introduction. SPSA is a well-known scheme that estimates the gradient using two sample values. In our context, at any iteration $n$ of CPT-SPSA, with parameter $\theta_n$, the gradient $\nabla \C(X^{\theta_n})$ is estimated as follows: For any  $i=1,\ldots,d$,
 \begin{align}
 \widehat \nabla_{i} \C(X^\theta) = \dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} - \overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}},\label{eq:grad-est-spsa}
@@ -152,16 +152,16 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 %\end{figure}
 
 \subsubsection*{On the number of samples $m_n$ per iteration}
-The CPT-value estimation scheme is biased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \epsilon_n^\theta$, with $\epsilon_n^\theta$ denoting the bias. The bias can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike many simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the bias as we have in our setting.
+Recall that the CPT-value estimation scheme is asymptotically unbiased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \psi_n^\theta$, with $\psi_n^\theta$ denoting the error in estimation. The estimation error can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike many simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the estimation error as we have in our setting.
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
 \theta^{i}_{n+1}  = & \Pi_{i}\bigg( \theta^{i}_n +  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
-&+ \frac{(\epsilon_n^{\theta_n +\delta_n\Delta_n} - \epsilon_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg).
+&+ \frac{(\psi_n^{\theta_n +\delta_n\Delta_n} - \psi_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg).
 \end{align*}
-Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$, where $\kappa_l = \frac{(\epsilon_l^{\theta_l +\delta_l\Delta_l} - \epsilon_l^{\theta_l-\delta_l\Delta_l})}{2\delta_l\Delta_l^{i}}$. Then, a critical requirement that allows us to ignore the bias term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
+Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$, where $\kappa_l = \frac{(\psi_l^{\theta_l +\delta_l\Delta_l} - \psi_l^{\theta_l-\delta_l\Delta_l})}{2\delta_l\Delta_l^{i}}$. Then, a critical requirement that allows us to ignore the estimation error term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
 $$\sup_{l\ge0} \left (\zeta_{n+l} - \zeta_n \right) \rightarrow 0 \text{ as } n\rightarrow\infty.$$ 
-While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the bias $\epsilon^\theta$ is bounded above, to establish convergence of the policy gradient recursion \eqref{eq:theta-update}, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  The assumption below provides a condition on the increase rate of $m_n$.
+While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the estimation error $\psi^\theta$ is bounded above, to establish convergence of the CPT-SPSA, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  The assumption below provides a condition on the increase rate of $m_n$.
 
 \noindent\textbf{Assumption (A3).}  The step-sizes $\gamma_n$ and the perturbation constants 
 $\delta_n$ are positive $\forall n$ and satisfy
@@ -175,7 +175,7 @@ A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n 
 
 In a typical RL setting involving finite state action spaces, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
 
-\subsubsection*{Convergence result}
+\subsection*{Convergence result for CPT-SPSA}
 We use the ordinary differential equation (ODE) method for establishing asymptotic convergence of CPT-SPSA.
 Consider the  ODE: 
 \begin{align}
@@ -200,6 +200,10 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
 Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ denote the set of local minima of the CPT-value. If $\K'$ lies within the set $\Theta$ onto which the iterate $\theta_n$ (updated according to \eqref{eq:theta-update}) is projected, then the above theorem ensures that CPT-SPSA converges to $\K'$. When it not possible to ensure that $\K' \subset \Theta$, the iterate $\theta_n$ will get stuck on the boundary of $\Theta$.
 %In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
+
+\begin{remark}
+The convergence result presented for CPT-SPSA is applicable to more general settings where an algorithm is provided samples of a performance objective, with an estimation error that vanishes asymptotically. Examples of such settings are average reward optimization via policy gradient methods in an RL context \cite{baxter2001infinite} or in the context of a optimal stopping problem \cite{poczos2009learning}. 
+\end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -330,7 +334,7 @@ Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ 
 
 \subsection{Model-based parameter search algorithm (CPT-MPS)}
 \label{sec:mras}
-In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing the CPT-value, that is based on MRAS$_2$ from \cite{chang2013simulation}.
+In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing the CPT-value, that is based on MRAS$_2$ algorithm proposed by Chang e al. \cite{chang2013simulation}.
 While CPT-SPSA is a local optimization scheme, CPT-MPS converges to the global optimum, say $\theta^*$, for the problem \eqref{eq:opt-general}, assuming one exists.
 
 % The crucial difference between CPT-MPS and MRAS$_2$ is that the latter has an expected function value objective, i.e., it aims to minimize a function by using sample observations that have zero-mean noise. On the other hand, the objective in our setting is the CPT-value, which distorts the underlying transition probabilities. The implication here is that MRAS$_2$ can estimate the expected value using sample averages, while we have to resort to integrating the empirical distribution, which results in biased estimates.
@@ -342,28 +346,28 @@ To illustrate the main idea in the algorithm, assume we know the form of $\C(X^{
 \label{eqn:naive}
 g_{k}(\theta)=
 \frac{\mathcal{H}(\C(X^{\theta}))g_{k-1}(\theta)}
-{\int_{\Theta}\mathcal{H}(V^{\theta'}(x^0))g_{k-1}(\theta')\nu(d\theta')},
+{\int_{\Theta}\mathcal{H}(\C(X^{\theta'}))g_{k-1}(\theta')\nu(d\theta')},
 ~~\forall\, \theta \in \Theta,
 \end{equation}
-where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to policies having higher CPT-values, and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
+where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to parameters having higher CPT-values, and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
 
 Next, consider a setting where one can obtain the CPT-value $\C(X^{\theta})$ (without any noise) for any parameter $\theta$. In this case, we consider a family of parameterized distributions, say $\{f(\cdot,\eta),\,\eta\in \C \}$ and incrementally update the distribution parameter $\eta$ such that it minimizes the following KL divergence:
-\begin{align}
-\label{eqn:kl}
-\mathcal{D}(g_k,f(\cdot,\eta))&:=E_{g_k}\left[\ln \frac{g_{k}(\mathcal{R}(\Theta))}{f(\mathcal{R}(\Theta),\eta)}\right]\\
-&=\int_{\Theta} \ln \frac{g_{k}(\theta)}{f(\theta,\eta)}g_{k}(\theta)\nu(d\theta), \nonumber
-\end{align}
-where $\mathcal{R}(\Theta)$ is a random vector taking values in the parameter space $\Theta$. 
+\begin{align*}
+%\label{eqn:kl}
+\mathcal{D}(g_k,f(\cdot,\eta))&:=\int_{\Theta}\! \ln \frac{g_{k}(\theta)}{f(\theta,\eta)}g_{k}(\theta)\nu(d\theta), 
+\end{align*}
+where $\hat \theta$ is a random vector taking values in the parameter space $\Theta$. 
+As recommended in \cite{chang2013simulation}, we employ the natural exponential family (NEF) for the family of distributions $f(\cdot,\theta)$, since it ensures that the KL distance above  can be computed analytically. %See Appendix \ref{appendix:mras} for details.
 %Through \ e intuition for the above is that we project the reference distributions $g_k$ onto the family $\{f(\cdot,\eta),\,\eta\in \C \}$.
 An algorithm to optimize CPT-value in this \textit{noiseless} setting would perform the following update:
 \begin{align}
  \label{eqn:interior}
 \hspace{-0.5em}\eta_{n+1} \!\in\! \argmax_{\eta \in \C}
-E_{\eta_n}\left[\frac{[\mathcal{H}(\C(X^{\mathcal{R}(\Theta)})]^{n}}
-{f(\mathcal{R}(\Theta),\eta_{n})}
-\ln f(\mathcal{R}(\Theta),\eta)\right],
+E_{\eta_n}\left[\frac{[\mathcal{H}(\C(X^{\hat \theta})]^{n}}
+{f(\hat \theta,\eta_{n})}
+\ln f(\hat \theta,\eta)\right],
 \end{align}
-where $E_{\eta_n}[\C(X^{\mathcal{R}(\Theta)})]=\int_{\Theta} \C(X^{\theta})f(\theta,\eta_n)\nu(d\theta).$
+where $E_{\eta_n}[\C(X^{\hat \theta})]=\int_{\Theta} \C(X^{\theta})f(\theta,\eta_n)\nu(d\theta).$
 
 
 
@@ -416,18 +420,18 @@ where $E_{\eta_n}[\C(X^{\mathcal{R}(\Theta)})]=\int_{\Theta} \C(X^{\theta})f(\th
 $\rho_0 \in (0,1]$, $N_0>1$,
 $\varepsilon> 0$, $\varsigma>1$, $\lambda \in(0,1)$,
 strictly increasing function
-$\mathcal{H}\hspace*{-3pt}$.
+$\mathcal{H}\hspace*{-3pt}$, $\chi_{-1}=-\infty$.
 
 \For{$n = 0,1,2,\ldots$}	
 	\Candidate
 	    \State 
-	    Generate $N_n$ parameters using the mixed distribution $\widetilde f(\cdot,\eta_n)= (1-\lambda)f(\cdot,\widetilde\eta_n)+\lambda f(\cdot,\eta_0)$. 
-	    \State Denote these candidate policies by $\Lambda_n=\{\theta^1_n, \ldots, \theta^{N_n}\}$.
+	    Generate $N_n$ parameters using the mixture distribution $\widetilde f(\cdot,\eta_n)= (1-\lambda)f(\cdot,\widetilde\eta_n)+\lambda f(\cdot,\eta_0)$. 
+	    \State Denote these candidate parameters by $\theta^1_n, \ldots, \theta_n^{N_n}$.
 	\EndCandidate    
 	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
-	      \State Simulate $m_n$ samples from the distribution of $X^{\theta^i_n}$.
-	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ using Algorithm \ref{alg:holder-est}.
+%	      \State Simulate $m_n$ samples from the distribution of $X^{\theta^i_n}$.
+	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples.
 	      \EndFor
 	\EndEstimation
 	%%%%%%%%%%%%%%%%%%%%%%%%%%55
@@ -457,7 +461,7 @@ $\mathcal{H}\hspace*{-3pt}$.
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
 	    \Update
 		                         \begin{align*} 
-\eta_{n+1} \in \argmax_{\eta \in \C}\frac{1}{N_n}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C^{\theta^i_n}]^n)}{\widetilde f(\theta,\eta_n)}
+\eta_{n+1} \in \argmax_{\eta \in \C}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C^{\theta^i_n})]^n)}{\widetilde f(\theta,\eta_n)}
 \widetilde I\big(\overline \C^{\theta^i_n},\bar \chi_{n}\big) \ln f(\theta,\eta),
                             \end{align*}
                             where $\widetilde I(z,\chi):=\left\{\begin{array}{ll}
@@ -476,13 +480,13 @@ $\mathcal{H}\hspace*{-3pt}$.
 
 % \footnotetext[1]{Here $\widehat V_n^{\theta^{(i)}_n}(x^0)$ denotes the $i$th order statistic.}
 
-
-Finally, we get to our setting where we obtain only  biased estimates
+Algorithm \ref{alg:mras} presents the pseudocode
+for CPT-value optimization setting where we obtain only  asymptotically unbiased estimates
 % \footnote{Recall that the bias is due to a finite sample run followed by estimation scheme in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity, to cancel the estimation bias.} 
-of the CPT-value $\C(X^{\theta})$ for any parameter $\theta$, and Algorithm \ref{alg:mras} presents the pseudocode.
-As noted in \cite{chang2013simulation}, it is efficient to use only an elite portion of the candidate parameters that have been sampled in order to update the sampling distribution $f(\cdot,\eta)$. This can be achieved by using a quantile estimate of the CPT-value function corresponding to candidate policies that were estimated in a particular iteration. The intuition here is that using policies that have performed well guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$.
+of the CPT-value $\C(X^{\theta})$ for any parameter $\theta$.
+As in \cite{chang2013simulation}, we use only an elite portion of the candidate parameters that have been sampled, as it guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$. 
+%This can be achieved by using a quantile estimate of the CPT-value function corresponding to candidate policies that were estimated in a particular iteration. The intuition here is that using policies that have performed well guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$.
 
- A natural question is how to compute the KL-distance \eqref{eqn:kl} in order to update the parameter. A related question is how to choose the family of distributions $f(\cdot,\theta)$, so that the update \eqref{eqn:interior} can be done efficiently. One choice is to employ the natural exponential family (NEF), since it ensures that the KL distance in \eqref{eqn:kl} can be computed analytically. %See Appendix \ref{appendix:mras} for details.
 
 % Assuming this setup, the CPT-MPS algorithm would involve the following steps:
 
@@ -504,7 +508,7 @@ As noted in \cite{chang2013simulation}, it is efficient to use only an elite por
 The main convergence result is stated below.
 \begin{theorem}\label{thm:mras}
 %Let $\varphi>0$ be a positive constant satisfying the condition that the set $\big\{\theta:\mathcal{H}(\C(X^{\theta})\geq \frac{1}{\varphi} \big\}$ has a strictly positive Lebesgue/counting measure\index{Lebesgue measure}\index{counting measure}.
-Assume (A1)-(A2). Suppose that multivariate normal densities are used for the sampling distribution, i.e., $\eta_n = (\mu_n, \Sigma_n)$, where $\mu_n$ and $\Sigma_n$ denote the mean and covariance of the normal densities.
+Assume (A1), (A2) and that $m_n \rightarrow \infty$ as $n\rightarrow \infty$. Suppose that multivariate normal densities are used for the sampling distribution, i.e., $\eta_n = (\mu_n, \Sigma_n)$, where $\mu_n$ and $\Sigma_n$ denote the mean and covariance of the normal densities.
 Then, 
 \begin{equation}\label{eqn:smain}
 \lim_{n\rightarrow \infty}\mu_n=\theta^* \text{ and } \lim_{n\rightarrow \infty}\Sigma_n=0_{d\times d}~~a.s.
