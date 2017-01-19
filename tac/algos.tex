@@ -423,27 +423,30 @@ strictly increasing function
 $\mathcal{H}\hspace*{-3pt}$, $\chi_{-1}=-\infty$.
 
 \For{$n = 0,1,2,\ldots$}	
-	\Candidate
+%	\Candidate
 	    \State 
 	    Generate $N_n$ parameters using the mixture distribution $\widetilde f(\cdot,\eta_n)= (1-\lambda)f(\cdot,\widetilde\eta_n)+\lambda f(\cdot,\eta_0)$. 
 	    \State Denote these candidate parameters by $\theta^1_n, \ldots, \theta_n^{N_n}$.
-	\EndCandidate    
-	\Estimation
+%	\EndCandidate    
+%	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
 %	      \State Simulate $m_n$ samples from the distribution of $X^{\theta^i_n}$.
 	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples.
 	      \EndFor
-	\EndEstimation
+%	\EndEstimation
 	%%%%%%%%%%%%%%%%%%%%%%%%%%55
-	\Elite
+%	\Elite
+	  \State \textbf{\textit{Elite Sampling:}}
 	  \State Order the CPT-value estimates as $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$. 
 	  \State Compute the $(1-\rho_n)$-quantile as follows: 
 	  \begin{align}
 \widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_k)N_k \rceil}_n}.\label{eq:quant}
 \end{align}
-	\EndElite
+%	\EndElite
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	\Thresholding
+%	\Thresholding
+		  \State \textbf{\textit{Thresholding:}}
+	
 	%\If {$n=0$ or $\widetilde\chi_{n}(\rho_n,N_n)\geq \bar\chi_{n-1}+\varepsilon$}
 	    %\State Set $\bar \chi_{k} = \widetilde \chi_{k}(\rho_n,N_n),~\rho_{k+1} = \rho_n,~N_{k+1} = N_{k}$ and \label{step:3a}
 	    %\State Set $\theta^*_{n} = \theta_{1-\rho_{n}}$, where $\theta_{1-\rho_{n}}$ is the parameter that corresponds to the $(1-\rho_n)$-quantile in \eqref{eq:quant}.
@@ -457,20 +460,16 @@ $\mathcal{H}\hspace*{-3pt}$, $\chi_{-1}=-\infty$.
           $\theta^*_{n} \!=\! \theta^*_{n-1}$.\label{step:3c}
 	      \EndIf
          %\EndIf
-	\EndThresholding
+%	\EndThresholding
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
-	    \Update
+%	    \Update
+	    	  \State \textbf{\textit{Sampling distribution update:}}
 		                         \begin{align*} 
 \eta_{n+1} \in \argmax_{\eta \in \C}\sum_{i=1}^{N_n}\frac{[\mathcal{H}(\overline \C^{\theta^i_n})]^n)}{\widetilde f(\theta,\eta_n)}
 \widetilde I\big(\overline \C^{\theta^i_n},\bar \chi_{n}\big) \ln f(\theta,\eta),
                             \end{align*}
-                            where $\widetilde I(z,\chi):=\left\{\begin{array}{ll}
-                                                          0 & ~\mbox{if $z\leq \chi-\varepsilon$,} \\
-									    (z-\chi+\varepsilon)/ \varepsilon & ~\mbox{if $\chi-\varepsilon<z<\chi$,}\\
-                                                          1 & ~\mbox{if $z\geq \chi$.}
-                                                          \end{array} \right.$
-
-		\EndUpdate
+                            where $\widetilde I(z,\chi):= 0$ if $z\leq \chi-\varepsilon$, $(z-\chi+\varepsilon)/ \varepsilon$ if $\chi-\varepsilon<z<\chi$ and $1$ if $z\geq \chi$.
+%		\EndUpdate
 \EndFor
 \State {\bf Return} $\theta_n$
 \end{algorithmic}
