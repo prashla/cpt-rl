@@ -197,14 +197,29 @@ $$
 % \frac{4L^2 M^2}{\epsilon^{2}}.
 % $$
 \end{proposition}
-
 \begin{proof}
 See Section \ref{sec:lipschitz-proofs}.
 \end{proof}
 
-\begin{remark}
- For \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is generally worse than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$, since $\alpha \le 1$. On the other hand, setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights. Choosing the weights to be the identity function, we observe that the sample complexity cannot be improved.
-\end{remark}
+Setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can achieve the canonical Monte Carlo rate for Lipschitz continuous weights. Choosing the weights to be the identity function, we observe that the sample complexity cannot be improved.
+ On the other hand, for \holder continuous weights, we incur a sample complexity of order $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ for accuracy $\epsilon>0$ and this is generally worse than the canonical Monte Carlo rate of $O\left(\frac1{\epsilon^2}\right)$, for $\alpha < 1$. 
+An interesting question here is if the sample complexity from Proposition \ref{prop:holder-dkw} be improved upon, say to $O(1/\epsilon^2)$ for achieving $\epsilon$ accuracy? The next result shows that the best achievable sample complexity, in the minimax sense, is $\Omega\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ over the class of \holderNS-continuous weight functions. 
+
+Before presenting the lower bound, we define the notion of minimax error. 
+Let $\cP$ be a set of distributions. Let $\C(P)$ denote the CPT-value of a r.v. with distribution $P \in \cP$ and $\overline C_n(X_1,\ldots,X_n)$ denote an estimator of $\C(P)$, where $X_1,\ldots,X_n$ are samples from $P$. The minimax error $\cR_n(\cP)$ is defined by
+\begin{align}
+ \cR_n(\cP) := \inf_{\overline C_n} \sup_{P \in \cP} \E_P\left[ \l \overline C_n - \C(P) \r \right]
+\end{align}
+
+
+\begin{proposition}(\textbf{Lower bound})
+	\label{prop:lower-bound}
+ The minimax error satisfies $$ \cR_n(\cP) \ge \frac1{2^{2\alpha+3} n^\alpha}.$$
+\end{proposition}
+\begin{proof}
+	See Section \ref{sec:lb-proof}.
+\end{proof}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

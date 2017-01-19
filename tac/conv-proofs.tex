@@ -14,9 +14,7 @@ $ Then for $t>0$,
 $$\Prob{\left|\sum_{i=1}^n Y_i -\sum_{i=1}^n E(Y_i)\right| \geq nt } \leq 2\exp{\{-2nt^2 /(b-a)^2\}}. $$
 \end{lemma}
 
-\subsection*{Proof of Proposition \ref{prop:cpt-finite}}
-\begin{proof}
-
+\begin{proof}(\textbf{\textit{Proposition \ref{prop:cpt-finite}}})\ \\
 H\"{o}lder continuity of $w^+$ and the fact that $w^+(0)=0$ imply that 
 \begin{align*}
 &\int_0^{\infty} w^+\left(\Prob{u^{+}(X)>z}\right) dz 
@@ -28,6 +26,7 @@ The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows
 \end{proof}
 
 %%%%
+We state and prove a lemma below and this lemma will be used in the proof of Proposition \ref{prop:holder-asymptotic}.
 \begin{proposition}
 \label{prop:holder-quantile}
 Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have  
@@ -90,10 +89,7 @@ The second part of \eqref{eq:simple-estimation} follows in a similar fashion.
 %%%
 
 %%%%%%%%%\xi^+
-\subsection*{Proof of Proposition \ref{prop:holder-asymptotic}}
-
-
-\begin{proof}
+\begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-asymptotic}}})\ \\
 Without loss of generality, assume the  $w^+$ and $w^-$ are both 
 $(1, \alpha)$ H\"{o}lder.
 We prove the claim for the first integral in the CPT-value estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est}, i.e., we show  that 
@@ -236,9 +232,9 @@ $u^-(X_{[n-i]})$ is an estimate of the quantile $\xi^{-}_{\frac{i}{n}}$.
 \end{proof}
 
 
-\subsection*{Proof of Proposition \ref{prop:holder-dkw}}
-For proving Proposition \ref{prop:holder-dkw}, we require the following well-known inequality that provides a finite-time bound on the distance between the empirical distribution and the true distribution:
-\begin{lemma}{\textbf{\textit{(Dvoretzky-Kiefer-Wolfowitz (DKW) inequality)}}}\\
+For proving Proposition \ref{prop:holder-dkw}, we require DKW inequality, which we recall below.
+%the following well-known inequality that provides a finite-time bound on the distance between the empirical distribution and the true distribution:
+\begin{lemma}{\textbf{\textit{(DKW inequality)}}}\\
 Let $F$ denote the cdf of r.v. $U$ and ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n I_{\left[U_i \leq u\right]}$ denote the empirical distribution of $U$, with $U_1,\ldots,U_n$ sampled from $F$.
 Then, for any $\epsilon>0$, we have
 $$
@@ -246,7 +242,7 @@ $$
 $$
 \end{lemma}
 
-\begin{proof}
+\begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-dkw}}})\ \\
 We prove the $w^+$ part, and the $w^-$ part follows in a similar fashion.
 Since $u^+(X)$ is bounded above by $M$ and $w^+$ is H\"{o}lder-continuous, we have
 \begin{align*}
@@ -267,8 +263,7 @@ Now, plugging in the DKW inequality, we obtain
 The claim follows.
 \end{proof}
 
-\subsection*{Proof of Corollary \ref{cor:holder-dkw}}
-\begin{proof}
+\begin{proof}(\textbf{\textit{Corollary \ref{cor:holder-dkw}}})\ \\
  Integrating the high-probability bound in Proposition \ref{prop:holder-dkw}, we obtain
  \begin{align*}
 & \E \left|\overline \C_n- \C(X) \right|  
@@ -282,20 +277,16 @@ The claim follows.
 \subsubsection{Lipschitz continuous weights}
 \label{sec:lipschitz-proofs}
 %  \todoj{Can't we have a unified proof of \holder and Lipschitz cases?}
- Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:lipschitz}, it is easy to see that the CPT-value \eqref{eq:cpt-general} is finite. 
-
-Next, in order to prove the asymptotic convergence claim in Proposition \ref{prop:lipschitz}, we require the dominated convergence theorem in its generalized form, which is provided below.
-\begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
-Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on a measurable space $E$ that converge pointwise a.e. on $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
-If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
-\end{theorem}
-\begin{proof}
-This is a standard result that can be found in any textbook on measure theory. For instance, see Theorem 2.3.11 in \cite{athreya2006measure}.
-\end{proof}
-
-
-\subsection*{Proof of Proposition \ref{prop:lipschitz}}
-\begin{proof}
+ Setting $\alpha=\gamma=1$ in the proof of Proposition \ref{prop:lipschitz}, it is easy to see that the CPT-value \eqref{eq:cpt-general} is finite. We provide a proof of the asymptotic convergence claim in Proposition \ref{prop:lipschitz} below.
+%Next, in order to prove the asymptotic convergence claim in Proposition \ref{prop:lipschitz}, we require the dominated convergence theorem in its generalized form, which is provided below.
+%\begin{theorem}{\textbf{\textit{(Generalized Dominated Convergence theorem)}}}
+%Let $\{f_n\}_{n=1}^\infty$ be a sequence of measurable functions on a measurable space $E$ that converge pointwise a.e. on $E$ to $f$.  Suppose there is a sequence $\{g_n\}$ of integrable functions on $E$ that converge pointwise a.e. on $E$ to $g$ such that $|f_n| \leq g_n$ for all $n \in \mathbb{N}$.  
+%If $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $g_n$ = $\int_E$ $g$, then $\lim\limits_{n \rightarrow \infty}$ $\int_E$ $f_n$ = $\int_E$ $f$.
+%\end{theorem}
+%\begin{proof}
+%This is a standard result that can be found in any textbook on measure theory. For instance, see Theorem 2.3.11 in \cite{athreya2006measure}.
+%\end{proof}
+\begin{proof}(\textbf{\textit{Proposition \ref{prop:lipschitz}}})\ \\
 We first prove the asymptotic convergence claim for the first integral  \eqref{eq:cpt-est-appendix} in the CPT-value estimator in Algorithm \ref{alg:holder-est}, i.e., we show
 \begin{align}
 \intinfinity w^+\left(1-{\hat F_n}^+\left(x\right)\right)  dx \rightarrow \intinfinity w^+\left(\Prob{u^+\left(X\right)>x}\right) dx.\label{eq:3}
@@ -402,6 +393,44 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 %\end{proof}
 %
 %%%%%%%%%%%%%%%%%%%%%%Lipschitz-ends-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Lower bound for estimation error}
+\label{sec:lb-proof}
+\begin{proof}(\textbf{\textit{Proposition \ref{prop:lower-bound}}})\ \\
+	We use Le Cam's method to establish the lower bound. 
+	Let $X_v$, $v \in \{-1, +1\}$ denote a Bernoulli r.v. with underlying distribution $P_v$ defined by
+	$$ P_{v} (X = 1) = 1 + v\delta^{\frac{1}{\alpha}} \quad v=+1,-1.$$
+	Setting $w^+ = w^- = w$, where $w$ is \holder continuous with exponent $\alpha < 1$, 
+	%(One could choose $w$ to be the weight function suggested by Tversky and Kahnemann, which is shown in Figure \ref{fig:w}). 
+	we have 
+	$$\C(P_{v}) = w(1 + v\delta^{\frac{1}{\alpha}}), \quad v=+1,-1.$$
+	Suppose that $w$ also satisfies the following condition: $|w(p) - w(\tilde{p})| \geq  |p - \tilde{p}|^\alpha$ for $p,\tilde p \in (0,1)$. Such a $w$ can be constructed as in the proof of Theorem 6 in \cite{aditya2016weighted}. 
+	Setting $p=1 + \delta^{\frac{1}{\alpha}}$ and $\tilde p = 1 - \delta^{\frac{1}{\alpha}}$, we obtain a separation of $\delta$ between $\C(P_{+1})$ and $\C(P_{-1})$, as shown below.
+	\begin{align*}
+		\left|\C(P_{+1}) - \C(P_{-1})\right| &= \left|w(p) - w(\tilde{p})\right| \ge \left|p - \tilde p\right|^\alpha  = \delta.
+	\end{align*}	 
+	Using the Le Cam method, we can lower bound the minimax error as follows:
+	\begin{align}
+		\cR_n(\cP) &  \ge \frac{\delta^2}{2}\left(1 - \tvnorm{P^n_{+1}- P^n_{-1}}\right) \nonumber\\
+		&\ge \frac{\delta^2}{2}\left( 1 - \left(\frac12\dkl{P^n_{+}}{P^n_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker} 
+	\end{align}
+	where the final inequality follows from Pinsker's inequality.
+	We bound the KL-divergences as follows:
+	\begin{align*}
+		& \dkl{P^n_{-}}{P^n_{+}} \le \frac{n}{2} \dkl{P_{+}}{P_{-}} \\
+		& = \frac{n}{2} \left((1-\delta^{\frac1{\alpha}}) \log \frac{1 - \delta^{\frac1{\alpha}}}{1+ \delta^{\frac1{\alpha}}} + (1+\delta^{\frac1{\alpha}}) \log \frac{1-\delta^{\frac1{\alpha}}}{1+\delta^{\frac1{\alpha}}}\right) \\
+		& = n \delta^{\frac1{\alpha}} \log \frac{1+\delta^{\frac1{\alpha}}}{1-\delta^{\frac1{\alpha}}} \le 3n \delta^{\frac2{\alpha}}
+	\end{align*}
+	where the first inequality uses chain rule of KL-divergences, the first equality follows by definition of KL-divergence between two Bernoulli distributions and the final inequality follows by using the fact that for small enough $\delta$, $\delta^{\frac1{\alpha}} \log \frac{1+\delta^{\frac1{\alpha}}}{1-\delta^{\frac1{\alpha}}} \le 3 \delta^{\frac{2}{\alpha}}$. 
+	
+	Plugging the bound on KL-divergences into \eqref{eq:pinsker}, we obtain
+	\begin{align}
+		\cR_n(\cP) &  \ge \frac{\delta^2}{2}\sqrt{3n} \delta^{\frac{1}{\alpha}}\ge \frac1{2^{2\alpha+3}n^\alpha },
+	\end{align}
+	for $\delta = \frac{1}{2^\alpha}\frac1{3n^{\frac{\alpha}{2}}}$.
+	Hence proved.
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%%%%%Lipschitz-ends-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Proofs for discrete valued $X$}
 \label{sec:proofs-discrete}
 \input{proofs-discrete}
@@ -465,10 +494,7 @@ The first equality above follows from the fact that $\Delta_n$ is distributed ac
 The claim follows by using the fact that $\delta_n \rightarrow 0$ as $n\rightarrow \infty$.
 \end{proof}
 
-\subsection*{Proof of Theorem \ref{thm:1spsa-conv}}
-
-\begin{proof}
-
+\begin{proof}(\textbf{\textit{Theorem \ref{thm:1spsa-conv}}})\ \\
 %Recall that $\F_n = \sigma(\theta_m,m\le n;\Delta_m,m<n)$, $n\ge 1$.
 We first rewrite the update rule \eqref{eq:theta-update} as follows: For $i=1,\ldots,d$,
 \begin{align}
@@ -723,7 +749,6 @@ In the above, the first equality follows from the fact that if the else clause i
 From the last equality above, we conclude that it is a contradiction because, $\C(X^{\theta}) < \C(X^{\theta^*})$ for any $\theta$ (since $\theta^*$ is the global maximum). The main claim now follows, since $\mathcal{A}_n$ can happen only a finite number of times.
 \end{proof}
 
-\subsection*{Proof of Theorem \ref{thm:mras}}
-\begin{proof}
+\begin{proof}(\textbf{\textit{Theorem \ref{thm:mras}}})\ \\
 Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}, because our algorithm operates in a similar manner as MRAS$_2$ w.r.t. generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$, and hence the rest of the proof follows from \cite{chang2013simulation}.
 \end{proof}

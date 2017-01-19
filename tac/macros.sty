@@ -72,6 +72,7 @@
 
 \newcommand{\cP}{\mathcal{P}}
 \newcommand{\cS}{\mathcal{S}}
+\newcommand{\cR}{\mathcal{R}}
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\E}{\mathbb{E}}
 % \newcommand{\defn}{\stackrel{\triangle}{=}}
@@ -108,6 +109,7 @@
 \newcommand{\wfnn}{w^{-}(1-{\hat F_n}^-(x))}
 
 \newcommand{\holder}{H\"{o}lder }
+\newcommand{\holderNS}{H\"{o}lder}
 \newcommand{\onenminus}{_{i=1}^{n-1}}
 \newcommand{\nalpha}{n^{(1-\alpha)} }
 \newcommand{\ncalpha} {\left \lceil{\nalpha} \right \rceil }
@@ -124,3 +126,9 @@
                {\endlist}
 \renewcommand*\descriptionlabel[1]{\hspace\labelsep
                                 \normalfont\bfseries #1}
+                                
+\renewcommand{\l}{\left\|}
+\renewcommand{\r}{\right\|^2_2}
+\newcommand{\norm}[1]{\left\|#1\right\|}
+\newcommand{\tvnorm}[1]{\norm{#1}_{\rm TV}}
+\newcommand{\dkl}[2]{D_{\rm kl}\left({#1} |\!| {#2} \right)}
