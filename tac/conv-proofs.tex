@@ -396,36 +396,36 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 \label{sec:lb-proof}
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:lower-bound}}})\ \\
 	We use Le Cam's method to establish the lower bound. 
-	Let $X_v$, $v \in \{-1, +1\}$ denote a Bernoulli r.v. with underlying distribution $P_v$ defined by
-	$$ P_{v} (X = 1) = 1 + v\delta^{\frac{1}{\alpha}} \quad v=+1,-1.$$
-	Setting $w^+ = w^- = w$, where $w$ is \holder continuous with exponent $\alpha < 1$, 
+	Let $X_v$, $v \in \{-1, +1\}$ denote a Bernoulli r.v. with underlying distribution $P_v$, $v\in\{+1,-1\}$ defined by
+	$$ P_{v} (X = 1) = \frac{1 + v\delta^{\frac{1}{\alpha}}}{2} \text{ and } P_{v} (X = 0) = \frac{1 - v\delta^{\frac{1}{\alpha}}}{2}.$$
+	Setting $u^+(x) = x, x\ge 0$, $w^+ = w^- = w$, where $w$ is \holder continuous with exponent $\alpha < 1$, 
 	%(One could choose $w$ to be the weight function suggested by Tversky and Kahnemann, which is shown in Figure \ref{fig:w}). 
 	we have 
-	$$\C(P_{v}) = w(1 + v\delta^{\frac{1}{\alpha}}), \quad v=+1,-1.$$
+	$$\C(P_{v}) = w(1 + v\delta^{\frac{1}{\alpha}}), \quad v\in\{+1,-1\}.$$
 	Suppose that $w$ also satisfies the following condition: $|w(p) - w(\tilde{p})| \geq  |p - \tilde{p}|^\alpha$ for $p,\tilde p \in (0,1)$. Such a $w$ can be constructed as in the proof of Theorem 6 in \cite{aditya2016weighted}. 
 	Setting $p=1 + \delta^{\frac{1}{\alpha}}$ and $\tilde p = 1 - \delta^{\frac{1}{\alpha}}$, we obtain a separation of $\delta$ between $\C(P_{+1})$ and $\C(P_{-1})$, as shown below.
 	\begin{align*}
 		\left|\C(P_{+1}) - \C(P_{-1})\right| &= \left|w(p) - w(\tilde{p})\right| \ge \left|p - \tilde p\right|^\alpha  = \delta.
 	\end{align*}	 
-	Using the Le Cam method, we can lower bound the minimax error as follows:
+	Using Le Cam's method \cite{yu1997assouad}, we can lower bound the minimax error as follows:
 	\begin{align}
-		\cR_n(\cP) &  \ge \frac{\delta^2}{2}\left(1 - \tvnorm{P^n_{+1}- P^n_{-1}}\right) \nonumber\\
-		&\ge \frac{\delta^2}{2}\left( 1 - \left(\frac12\dkl{P^n_{+}}{P^n_{-}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker} 
+		\cR_n(\cP) &  \ge \frac{\delta}{2}\left(1 - \tvnorm{P^n_{+1}- P^n_{-1}}\right) \nonumber\\
+		&\ge \frac{\delta}{2}\left( 1 - \left(\frac12\dkl{P^n_{+1}}{P^n_{-1}}\right)^{\frac{1}{2}}\right), \label{eq:pinsker} 
 	\end{align}
-	where the final inequality follows from Pinsker's inequality.
+	where $P^n_{v}:= \otimes^n P_v$ is the joint distribution of $n$ samples from $P_v$. The inequality in \eqref{eq:pinsker} follows from Pinsker's inequality.
 	We bound the KL-divergences as follows:
 	\begin{align*}
-		& \dkl{P^n_{-}}{P^n_{+}} \le \frac{n}{2} \dkl{P_{+}}{P_{-}} \\
+		& \dkl{P^n_{-}}{P^n_{+}} \le n \dkl{P_{+}}{P_{-}} \\
 		& = \frac{n}{2} \left((1-\delta^{\frac1{\alpha}}) \log \frac{1 - \delta^{\frac1{\alpha}}}{1+ \delta^{\frac1{\alpha}}} + (1+\delta^{\frac1{\alpha}}) \log \frac{1-\delta^{\frac1{\alpha}}}{1+\delta^{\frac1{\alpha}}}\right) \\
 		& = n \delta^{\frac1{\alpha}} \log \frac{1+\delta^{\frac1{\alpha}}}{1-\delta^{\frac1{\alpha}}} \le 3n \delta^{\frac2{\alpha}}
 	\end{align*}
-	where the first inequality uses chain rule of KL-divergences, the first equality follows by definition of KL-divergence between two Bernoulli distributions and the final inequality follows by using the fact that for small enough $\delta$, $\delta^{\frac1{\alpha}} \log \frac{1+\delta^{\frac1{\alpha}}}{1-\delta^{\frac1{\alpha}}} \le 3 \delta^{\frac{2}{\alpha}}$. 
+	where the first inequality uses chain rule of KL-divergences, the first equality follows by definition of KL-divergence between two Bernoulli distributions and the final inequality follows by using the fact that for $\delta^{\frac1{\alpha}} \le 1/2$, $\delta^{\frac1{\alpha}} \log \frac{1+\delta^{\frac1{\alpha}}}{1-\delta^{\frac1{\alpha}}} \le 3 \delta^{\frac{2}{\alpha}}$. 
 	
 	Plugging the bound on KL-divergences into \eqref{eq:pinsker}, we obtain
 	\begin{align}
-		\cR_n(\cP) &  \ge \frac{\delta^2}{2}\sqrt{3n} \delta^{\frac{1}{\alpha}}\ge \frac1{2^{2\alpha+3}n^\alpha },
+		\cR_n(\cP) &  \ge \frac{\delta}{2}\left(1-\sqrt{\frac{3n}{2}} \delta^{\frac{1}{\alpha}}\right)= \frac1{4(6n)^{\frac{\alpha}{2}}},
 	\end{align}
-	for $\delta = \frac{1}{2^\alpha}\frac1{3n^{\frac{\alpha}{2}}}$.
+	for $\delta =\frac1{6n^{\frac{\alpha}{2}}}$.
 	Hence proved.
 \end{proof}
 
