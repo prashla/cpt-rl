@@ -201,7 +201,7 @@ It is evident that each algorithm converges to a different policy and the differ
 % As shown in Table \ref{tab:cpt-results},  AVG-SPSA results in a TLC policy with lower expected delay, while CPT-SPSA's policy has higher CPT-value. This is expected because AVG-SPSA uses neither utilities nor probability distortions and minimizes overall delay, while CPT-SPSA uses a pre-timed TLC baseline and treats delay gains and losses differently. 
 Interestingly, from Figures \ref{fig:avg}--\ref{fig:cpt} we observe that CPT-SPSA results in a left-skewed delay distribution that avoids higher delay values, while the delay distribution of AVG-SPSA is closer to a bell-shape. While the histograms are for a single path $0-4$, we observed similar trends in the paths originating at node $0$ and node $7$, which constitute the bulk of the traffic volume. As shown in Table \ref{tab:cpt-results}, AVG-SPSA is better than CPT-SPSA in terms of expected delay, but CPT-SPSA results in a higher CPT value.
 
-The results in this as well as in the previous section argue for specialized algorithms for optimizing CPT-based criteria, since expected value optimizing algorithms cannot be used as surrogates. 
+
 % esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.
 %\todoc{It would be nice to point out how the CPT policy is different than the others.}
 
