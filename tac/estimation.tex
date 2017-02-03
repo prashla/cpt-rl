@@ -1,4 +1,4 @@
-%!TEX root =  cpt-rl-icml.tex
+%!TEX root =  cpt-rl-tac.tex
 %For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
 
 We devise a scheme for estimating CPT-value $\C(X)$  given only samples from the distribution of $X$.
@@ -206,15 +206,15 @@ Setting $\alpha=1$ in Proposition \ref{prop:holder-dkw}, we observe that one can
 An interesting question here is if the sample complexity from Proposition \ref{prop:holder-dkw} be improved upon, say to $O(1/\epsilon^2)$ for achieving $\epsilon$ accuracy? The next result shows that the best achievable sample complexity, in the minimax sense, is $\Omega\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ over the class of \holderNS-continuous weight functions. 
 
 Before presenting the lower bound, we define the notion of minimax error. 
-Let $\cP$ be a set of distributions. Let $\C(P)$ denote the CPT-value of a r.v. with distribution $P \in \cP$ and $\overline C(X_1,\ldots,X_n)$ denote an estimator of $\C(P)$, where $X_1,\ldots,X_n$ are samples from $P$. The minimax error $\cR_n(\cP)$ is defined by
+Let $\cP$ be a nonempty set of distributions. Let $\C(P)$ denote the CPT-value of a r.v. with distribution $P \in \cP$ and $\overline C_n:\R^n \to \R$ denote an estimator. The minimax error $\cR_n(\cP)$ is defined by
 \begin{align}
- \cR_n(\cP) := \inf_{\overline C} \sup_{P \in \cP} \E_P \l \overline C_n - \C(P) \r 
+ \cR_n(\cP) := \inf_{\overline C_n} \sup_{P \in \cP} \E_{X_{1:n} \sim P^{\otimes n}} \l \overline C_n(X_{1:n}) - \C(P) \r 
 \end{align}
 
 
 \begin{proposition}(\textbf{Lower bound})
 	\label{prop:lower-bound}
-For a set of distributions $\cP$ that includes the Bernoulli distribution,  the minimax error satisfies 
+For a set of distributions $\cP$ that includes the Bernoullis,  the minimax error satisfies 
 $$ \cR_n(\cP) \ge \frac1{4(6n)^{\frac{\alpha}{2}}}, \text{ for all } n\ge1.$$
 \end{proposition}
 \begin{proof}
