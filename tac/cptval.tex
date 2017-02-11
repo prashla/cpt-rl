@@ -4,19 +4,18 @@ For a real-valued random variable $X$, we introduce a ``CPT-functional'' that re
 %Subsequently, we specialize $X$ to be the return of stochastic shortest path problem. 
 %\subsection{General definition}
 %\label{sec:cptdef}
-The functional, denoted by $\C$, will be 
-indexed by
+The functional, denoted by $\C$, depends on function pairs
 $u=(u^+,u^-)$ and $w=(w^+,w^-)$. 
 As illustrated in Figure \ref{fig:u}, $u^+,u^-:\R\rightarrow \R_+$ are continuous,
 with $u^+(x)=0$ when $x\le 0$ and increasing otherwise, and with $u^-(x)=0$ when $x\ge 0$ and decreasing otherwise.
 The functions $w^+,w^-:[0,1] \rightarrow [0,1]$, as shown in Figure \ref{fig:w}, are continuous, non-decreasing and  satisfy $w^+(0)=w^-(0)=0$ and $w^+(1)=w^-(1)=1$.
 %(see assumptions (A1)-(A2) in Section \ref{sec:cpt-sampling} for precise requirements on $u$ and $w$).
-The CPT-functional indexed by $u$ and $w$ is defined as 
+The CPT-functional is defined as 
 \begin{align}
-\C_{u,w}(X) &= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber \\
+\C(X) &= \intinfinity w^+\left(\Prob{u^+(X)>z}\right) dz\nonumber \\
 &\quad - \intinfinity w^-\left(\Prob{u^-(X)>z}\right) dz\,. \label{eq:cpt-general}
 \end{align}
-For notational convenience, when $u,w$ are fixed, we drop the dependence on them and use $\C(X)$ to denote the CPT-value of $X$. 
+%For notational convenience, when $u,w$ are fixed, we drop the dependence on them and use $\C(X)$ to denote the %CPT-value of $X$. 
 
 Consider the case when $w^+,w^-$ are identity functions,  
 $u^+(x)=x$ for $x\ge0$ and $0$ otherwise and $u^-(x)=-x$ for $x\le0$ and $0$ otherwise. Then,  letting $(a)^+ = \max(a,0)$, $(a)^- = \max(-a,0)$, we have 
@@ -161,7 +160,7 @@ For any RL problem setting, one can define the return for a given policy and the
 
 \begin{remark}\textit{(Generalization)}
 As noted earlier, the CPT-value is a generalization of mathematical expectation. 
-It is also possible to obtain \eqref{eq:cpt-general} to coincide with other risk measures, for e.g. value at risk (VaR) and conditional value at risk (CVaR), by appropriate choice of weight functions.
+It is also possible to obtain \eqref{eq:cpt-general} to coincide with other risk measures, e.g. value at risk (VaR) and conditional value at risk (CVaR), by appropriate choice of weight functions.
 \end{remark}
 
 %\begin{remark}\textit{(Sensitivity)}
