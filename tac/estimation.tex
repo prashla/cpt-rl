@@ -20,8 +20,8 @@ does not even exist. A similar argument applies to the second integral in \eqref
 To overcome the integrability issues, we assume that the weight functions $w^+, w^-$ satisfy one of the following assumptions for continuous valued r.v.s: 
 
 \noindent\textbf{Assumption (A1).}  
-The weight functions $w^+, w^-$ are H\"{o}lder continuous with common order $\alpha$ and constant $H$, i.e.,
-$\sup_{x \neq y} \frac{| w{\pm}(x) - w{\pm}(y) |}{| x-y |^{\alpha}} \leq H$, $\forall x,y \in [0,1]$.
+The weight functions $w^{\pm}$ are H\"{o}lder continuous with common order $\alpha$ and constant $H$, i.e.,
+$\sup_{x \neq y} \frac{| w^{\pm}(x) - w^{\pm}(y) |}{| x-y |^{\alpha}} \leq H$, $\forall x,y \in [0,1]$.
  Further,
 there exists $ \gamma \le \alpha$ such that (s.t.)
 $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^+(X)>z) dz < +\infty$ and $\int_0^{+\infty} \mathbb{P}^{\gamma} (u^-(X)>z) dz < +\infty$,
@@ -131,7 +131,8 @@ Then, we have
 \C(X)
  \text{   a.s. as } n\rightarrow \infty
 \end{align}
-where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}.
+where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}, and 
+$\alpha$ is the \holder constant for $w^{\pm}$
 \end{proposition}
 The conditions in item (ii) above is satisfied by popular distribution choices such as Gaussian and exponential, while heavy-tailed distributions, e.g. Cauchy, do not.
 \begin{proof}
@@ -214,7 +215,7 @@ Let $\cP$ be a nonempty set of distributions. Let $\C(P)$ denote the CPT-value o
 
 \begin{proposition}(\textbf{Lower bound})
 	\label{prop:lower-bound}
-For a set of distributions $\cP$ that includes the Bernoullis,  the minimax error satisfies 
+For a set of distributions $\cP$ that has support within the interval $(0,1)$,  the minimax error satisfies 
 $$ \cR_n(\cP) \ge \frac1{4(6n)^{\frac{\alpha}{2}}}, \text{ for all } n\ge1.$$
 \end{proposition}
 \begin{proof}
