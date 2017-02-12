@@ -171,7 +171,7 @@ $\delta_n$ are positive $\forall n$ and satisfy
 While the conditions on $\gamma_n$ and $\delta_n$ are standard for SPSA-based algorithms, the condition on $m_n$ is motivated by the earlier discussion. 
 A simple choice that satisfies the above conditions is $\gamma_n = a_0/n$, $m_n = m_0 n^\nu$ and $\delta_n = \delta_0/{n^\gamma}$, for some $\nu, \gamma >0$ with $\gamma > \nu\alpha/2$.
 
-\noindent\textbf{Assumption (A4).}  CPT-value $\C(X^\theta)$ is a continuously differentiable function of $\theta$, with bounded third derivative.
+\noindent\textbf{Assumption (A4).}  The CPT-value $\C(X^\theta)$ is a continuously differentiable function of $\theta$, with bounded third derivative.
 
 In a typical RL setting involving finite state action spaces, a sufficient condition for ensuring (A4) holds is to assume that the policy is continuously differentiable in $\theta$. 
 
@@ -197,7 +197,7 @@ $$\theta_n \rightarrow \K \text{ a.s. as } n\rightarrow \infty.$$
  See Section \ref{appendix:1spsa}.
 \end{proof}
 
-Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ denote the set of local minima of the CPT-value. If $\K'$ lies within the set $\Theta$ onto which the iterate $\theta_n$ (updated according to \eqref{eq:theta-update}) is projected, then the above theorem ensures that CPT-SPSA converges to $\K'$. When it not possible to ensure that $\K' \subset \Theta$, the iterate $\theta_n$ will get stuck on the boundary of $\Theta$.
+Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ denote the set of critical points of the CPT-value. If $\K'$ lies within the set $\Theta$ onto which the iterate $\theta_n$ (updated according to \eqref{eq:theta-update}) is projected, then the above theorem ensures that CPT-SPSA converges to $\K'$. When it not possible to ensure that $\K' \subset \Theta$, the iterate $\theta_n$ might get stuck on the boundary of $\Theta$.
 %In Appendix \ref{sec:2spsa} we also give a second-order CPT-value optimization scheme based on SPSA.
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
@@ -420,7 +420,7 @@ where $E_{\eta_n}[\C(X^{\hat \theta})]=\int_{\Theta} \C(X^{\theta})f(\theta,\eta
 $\rho_0 \in (0,1]$, $N_0>1$,
 $\varepsilon> 0$, $\varsigma>1$, $\lambda \in(0,1)$,
 strictly increasing function
-$\mathcal{H}\hspace*{-3pt}$, $\chi_{-1}=-\infty$.
+$\mathcal{H}\hspace*{-3pt}$ and $\chi_{-1}=-\infty$.
 
 \For{$n = 0,1,2,\ldots$}	
 %	\Candidate
@@ -440,7 +440,7 @@ $\mathcal{H}\hspace*{-3pt}$, $\chi_{-1}=-\infty$.
 	  \State Order the CPT-value estimates as $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$. 
 	  \State Compute the $(1-\rho_n)$-quantile as follows: 
 	  \begin{align}
-\widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_k)N_k \rceil}_n}.\label{eq:quant}
+\widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_n)N_n \rceil}_n}.\label{eq:quant}
 \end{align}
 %	\EndElite
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -480,10 +480,10 @@ $\mathcal{H}\hspace*{-3pt}$, $\chi_{-1}=-\infty$.
 % \footnotetext[1]{Here $\widehat V_n^{\theta^{(i)}_n}(x^0)$ denotes the $i$th order statistic.}
 
 Algorithm \ref{alg:mras} presents the pseudocode
-for CPT-value optimization setting where we obtain only  asymptotically unbiased estimates
+for the CPT-value optimization setting where we obtain only  asymptotically unbiased estimates
 % \footnote{Recall that the bias is due to a finite sample run followed by estimation scheme in Algorithm \ref{alg:holder-est}. As in the case of SPSA-based algorithms, it is easy to see that the number of samples $m_n$ (in iteration $n$) should asymptotically increase to infinity, to cancel the estimation bias.} 
 of the CPT-value $\C(X^{\theta})$ for any parameter $\theta$.
-As in \cite{chang2013simulation}, we use only an elite portion of the candidate parameters that have been sampled, as it guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$. 
+As in \cite{chang2013simulation}, we use only an elite portion of the candidate parameters that have been sampled, as this guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$. 
 %This can be achieved by using a quantile estimate of the CPT-value function corresponding to candidate policies that were estimated in a particular iteration. The intuition here is that using policies that have performed well guides the parameter search procedure towards better regions more efficiently in comparison to an alternative that uses all the candidate parameters for updating $\eta$.
 
 

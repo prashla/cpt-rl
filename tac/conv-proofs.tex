@@ -27,7 +27,7 @@ The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows
 \end{proof}
 
 %%%%
-We state and prove a lemma below and this lemma will be used in the proof of Proposition \ref{prop:holder-asymptotic}.
+We now state and prove a lemma that will be used in the proof of Proposition \ref{prop:holder-asymptotic}.
 \begin{proposition}
 \label{prop:holder-quantile}
 Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have  
@@ -47,7 +47,7 @@ We will focus on proving equation \eqref{eq:simple-estimation}.
 For all $z \in (0,+\infty)$, the following convergence claim holds w.p.1:  % the following linear combination of simple functions: 
 \begin{align}
 \sum_{i=1}^{n-1}\! w^+\! \left(\frac{i}{n}\right) 
-I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) \xrightarrow{n \rightarrow\infty} w^+\!\left(\Prob{u^{+}(X)>z}\!\right),
+I_{\left[\xi^+_\frac{n-i-1}{n}, \xi^+_\frac{n-i}{n}\right]}(z) \xrightarrow{n \rightarrow\infty} w^+\!\left(\Prob{u^{+}(X)>z}\!\right).
 \label{eq:simplew}
 \end{align}
 % will converge almost everywhere to the function $$ in the interval $[0, \infty)$ as 
@@ -64,7 +64,7 @@ I_{\left[\xi^+_\frac{n-j-1}{n}, \xi^+_\frac{n-j}{n}\right]}(z) - w^+\left(\Prob{
 \end{align}
 Since $w^+$ is H\"{o}lder continuous, we have 
 $$ \left | w^+\left(\frac{i}{n}\right)- w^+\left(\frac{i+1}{n}\right)\right| \xrightarrow{n \rightarrow \infty} 0,$$
-and hence the claim in \eqref{eq:simplew} follows.
+and  the claim in \eqref{eq:simplew} follows.
 
 Further, for all $z \in [0,\infty)$,
 \begin{align}
@@ -74,7 +74,7 @@ I_{\left[\xi^+_\frac{n-j-1}{n}, \xi^+_\frac{n-j}{n}\right]}(z)
 w^+\left(\Prob{u^{+}(X)>z}\right).\label{eq:bddw}
 \end{align}
 
-The integral of LHS of \eqref{eq:simplew} can be simplified as follows:
+The integral of the LHS of \eqref{eq:simplew} can be simplified as follows:
 \begin{align}
 & \int_0^{\infty} \sum_{j=0}^{n} w^+ \left(\frac{j}{n}\right) 
  I_{\left[\xi^+_\frac{n-j-1}{n}, \xi^+_\frac{n-j}{n}\right]}(z) dz \nonumber\\
@@ -91,7 +91,7 @@ The second part of \eqref{eq:simple-estimation} follows in a similar fashion.
 
 %%%%%%%%%\xi^+
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-asymptotic}}})\ \\
-Without loss of generality, assume the  $w^+$ and $w^-$ are both 
+Without loss of generality, assume that   $w^+$ and $w^-$ are both 
 $(1, \alpha)$ H\"{o}lder.
 We prove the claim for the first integral in the CPT-value estimator $\overline \C_n$ in Algorithm \ref{alg:holder-est}, i.e., we show  that 
 %\todoc{Don't start sentences with ''and'' or ''or''.}
@@ -201,7 +201,7 @@ Combining \eqref{eq:a12} and \eqref{eq:a23},  we obtain
 %\todoc{Is not $\mathbb{N} \cap (0,1) =\emptyset$???}
 \begin{align*}
 \Prob{ \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}} \leq 2
-e^{-2n^\alpha  L^{+} \epsilon} , 
+e^{-2n^\alpha  L^{+} \epsilon}. 
 \end{align*}
 Plugging the above in \eqref{eq:bd12}, we obtain
 \begin{align}
@@ -233,7 +233,7 @@ $u^-(X_{[n-i]})$ is an estimate of the quantile $\xi^{-}_{\frac{i}{n}}$.
 \end{proof}
 
 
-For proving Proposition \ref{prop:holder-dkw}, we require DKW inequality, which we recall below.
+For proving Proposition \ref{prop:holder-dkw}, we require the DKW inequality, which we recall below.
 %the following well-known inequality that provides a finite-time bound on the distance between the empirical distribution and the true distribution:
 \begin{lemma}{\textbf{\textit{(DKW inequality)}}}\\
 Let $F$ denote the cdf of r.v. $U$ and ${\hat F_n}(u)=\frac{1}{n} \sum_{i=1}^n I_{\left[U_i \leq u\right]}$ denote the empirical distribution of $U$, with $U_1,\ldots,U_n$ sampled from $F$.
@@ -323,7 +323,7 @@ Notice that
 \frac{1}{n}
 \sum_{i=1}^n u^+\left(X_{i}\right)
 \overset{a.s}\longrightarrow 
-\EE{u^+\left(X\right)},
+\EE{u^+\left(X\right)}.
 \end{align*}
 From the foregoing,
 \begin{align*}
@@ -406,7 +406,9 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 	%(One could choose $w$ to be the weight function suggested by Tversky and Kahnemann, which is shown in Figure \ref{fig:w}). 
 	we have 
 	$$\C(P_{v}) = w(1 + v\delta^{\frac{1}{\alpha}}), \quad v\in\{+1,-1\}.$$
-	Suppose that $w$ also satisfies the following condition: $|w(p) - w(\tilde{p})| \geq  |p - \tilde{p}|^\alpha$ for $p,\tilde p \in (0,1)$. Such a $w$ can be constructed as in the proof of Theorem 6 in \cite{aditya2016weighted}. \todoc{Can we just state what this function is?}
+	Suppose that $w$ also satisfies the following condition: $|w(p) - w(\tilde{p})| \geq  |p - \tilde{p}|^\alpha$ for $p,\tilde p \in (0,1)$. An example of such a $w$ for $\alpha = 1/2, H = 1$, as suggested in the proof of Theorem 6 in \cite{aditya2016weighted}, is: $w(p) = \frac{1}{2} - \frac{1}{\sqrt{2}}\sqrt{\frac{1}{2} - p}$ for $p \in [0, 1/2]$, and $w(p) = \frac{1}{2} + \frac{1}{\sqrt{2}}\sqrt{p - \frac{1}{2}}$ for $p \in (1/2, 1]$.
+	
+% 	\todoc{Can we just state what this function is?}
 	Setting $p=1 + \delta^{\frac{1}{\alpha}}$ and $\tilde p = 1 - \delta^{\frac{1}{\alpha}}$, we have
 	\begin{align*}
 		\left|\C(P_{+1}) - \C(P_{-1})\right| &= \left|w(p) - w(\tilde{p})\right| \ge \left|p - \tilde p\right|^\alpha  = \delta\,.
@@ -416,8 +418,9 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 		\cR_n(\cP) &  \ge \frac{\delta}{2}\left(1 - \tvnorm{P^n_{+1}- P^n_{-1}}\right) \nonumber\\
 		&\ge \frac{\delta}{2}\Bigl( 1 - \bigl(\tfrac12\,\dkl{P^n_{+1}}{P^n_{-1}}\bigr)^{\frac{1}{2}}\Bigr), \label{eq:pinsker} 
 	\end{align}
-	where $P^n_{v}:= \otimes^n P_v$ is the joint distribution of $n$ samples from $P_v$ and \eqref{eq:pinsker} follows from Pinsker's inequality.
-	We bound the KL-divergences as follows: \todoc{I changed the first $\le$ to $=$.}
+	where $P^n_{v}:= \otimes^n P_v$ is the joint distribution of $n$ samples from $P_v$, $\tvnorm{}$ is the total variation distance and \eqref{eq:pinsker} follows from Pinsker's inequality.
+	We bound the KL-divergences as follows: 
+% 	\todoc{I changed the first $\le$ to $=$.}
 	\begin{align*}
 		& \dkl{P^n_{-}}{P^n_{+}} = n \dkl{P_{+}}{P_{-}} \\
 		& = \frac{n}{2} 
@@ -717,9 +720,9 @@ Since we obtain samples of the objective (CPT) in a manner that differs from MRA
 &P(\mathcal{A}_{n}\cap \mathcal{B}_n) \\
 &\leq P 
 \left(\big\{\overline \C_n^{\theta^*_{n}}-\overline \C_{n-1}^{\theta^*_{n-1}}\geq \varepsilon\big\}\cap \left\{\C(X^{\theta^*_{n}})-\C(X^{\theta^*_{n-1}})\leq \frac{\varepsilon}{2}\right\}\right)\\
- &\leq 
-P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \\
-&\qquad\quad\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
+%  &\leq 
+% P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \\
+% &\qquad\quad\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
 &\leq  \sum_{{\theta\in \Lambda_n},{\theta'\in \Lambda_{k-1}}}P\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \right.\\
 &\qquad\quad \left.\cap
 \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\}\right) \\

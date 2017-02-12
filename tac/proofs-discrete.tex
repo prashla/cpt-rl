@@ -31,7 +31,7 @@ where the last inequality above follows by an application of Hoeffding inequalit
 % The proof of Proposition \ref{prop:sample-complexity-discrete} requires the following claim which gives the convergence rate under local Lipschitz weights. 
 \begin{proposition}
 \label{prop:discrete-first-term}
-Under conditions of Proposition \ref{prop:sample-complexity-discrete}, we have
+Under the conditions of Proposition \ref{prop:sample-complexity-discrete}, we have
 \begin{align}
 &\Prob{\left| \sum_{i=1}^K u_{k} w(\hat{F_k}) - \sum_{i=1}^K u_{k} w(F_k) \right| >\epsilon}\nonumber\\
 & \le K\left(
@@ -87,8 +87,8 @@ Using \eqref{eq:hd1} and \eqref{eq:hd2} in \eqref{eq:hd0}, we obtain
 & \Prob{\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon}\\
  & \leq
 \sum_{k=1}^K \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}} \\ 
-& \le \sum_{k=1}^K \left( e^{-2n\rho^2} + e^{-2n\epsilon^2  / (KLM)^2} \right) \\ 
-& =K    \left(e^{-2n\rho^2} + e^{-2n\epsilon^2 / (KLM)^2}\right).
+% & \le \sum_{k=1}^K \left( e^{-2n\rho^2} + e^{-2n\epsilon^2  / (KLM)^2} \right) \\ 
+& \le K    \left(e^{-2n\rho^2} + e^{-2n\epsilon^2 / (KLM)^2}\right).
 \end{align*}
 The claim follows.
 \end{proof}

@@ -1,7 +1,7 @@
 %!TEX root =  cpt-rl-tac.tex
 %For the sake of notational simplicity, we let $X$ denote the r.v. $X^\theta$, i.e., where the parameter $\theta$ is assumed to be fixed for the purpose of CPT-value estimation in this section. \todoc{If we remove the $X^\theta$ business from above, this sentence can be removed.}
 
-We devise a scheme for estimating CPT-value $\C(X)$  given only samples from the distribution of $X$.
+We devise a scheme for estimating the CPT-value $\C(X)$  given only samples from the distribution of $X$.
  %and show that, under each of the aforementioned assumptions, our estimator (presented next) converges almost surely. 
 %We also provide sample complexity bounds, assuming that the utility functions are bounded.
 %\paragraph{On integrability}
@@ -39,7 +39,7 @@ See Section \ref{sec:holder-proofs}.
 \end{proof}
 
 %Under both (A1) a we provide asymptotic consistency for the CPT-value estimator presented in the next section. 
-(A1') even though it implies (A1), is a useful special case because it does away with additional assumptions required to establish asymptotic consistency under (A1). For the theoretical results, we also require the following assumption on the utility functions:
+(A1'), even though it implies (A1), is a useful special case because it does away with additional assumptions required to establish asymptotic consistency under (A1). For the theoretical results, we also require the following assumption on the utility functions:
 
 \noindent\textbf{Assumption (A2).}  The utility functions $u^+$ and $-u^-$ are continuous and strictly increasing on their support $\R^+$ and $\R^-$, respectively.
 
@@ -117,13 +117,14 @@ and $u^-\left(X\right)$, respectively.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
 Assume (A1), (A2),\\
-\begin{inparaenum}[\bfseries (i)]
-\item $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
+% \begin{inparaenum}[\bfseries (i)]
+% \item 
+$F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
 are Lipschitz continuous on the respective intervals $(0,+\infty)$, and 
-$(-\infty, 0)$. \\
-\item Utility functions $u^+, u^-$ satisfy 
-$$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ a.s.}.$$
-\end{inparaenum}
+$(-\infty, 0)$, and  the utility functions $u^+, u^-$ satisfy 
+$$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ a.s.},$$
+where $\alpha$ is the \holder exponent for $w^{\pm}$.
+
 Then, we have 
 \begin{align}
 \overline \C_n
@@ -131,10 +132,10 @@ Then, we have
 \C(X)
  \text{   a.s. as } n\rightarrow \infty
 \end{align}
-where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}, and 
-$\alpha$ is the \holder constant for $w^{\pm}$
+where $\overline \C_n$ is as defined in Algorithm \ref{alg:holder-est} and $\C(X)$ as in \eqref{eq:cpt-general}.
+% , and $\alpha$ is the \holder constant for $w^{\pm}$
 \end{proposition}
-The conditions in item (ii) above is satisfied by popular distribution choices such as Gaussian and exponential, while heavy-tailed distributions, e.g. Cauchy, do not.
+The conditions on utility functions above are satisfied by popular distribution choices such as Gaussian and exponential, but not by heavy-tailed distributions, e.g. Cauchy.
 \begin{proof}
 See Section \ref{sec:holder-proofs}. 
 \end{proof}
@@ -156,7 +157,7 @@ $$
 Under the conditions of Proposition \ref{prop:holder-dkw}, we have
 $$
 \E \left|\overline \C_n- \C(X) \right|  \le    \frac{\left(8HM\right) \Gamma\left(\alpha/2\right)}{n^{\alpha/2}},$$
-where $\Gamma(\cdot)$ is the gamma function.
+where $\Gamma(z)=\intinfinity x^{z-1} e^{-x} dx$ is the gamma function.
 \end{corollary}
 
 \begin{proof}
@@ -215,7 +216,7 @@ Let $\cP$ be a nonempty set of distributions. Let $\C(P)$ denote the CPT-value o
 
 \begin{proposition}(\textbf{Lower bound})
 	\label{prop:lower-bound}
-For a set of distributions $\cP$ that has support within the interval $(0,1)$,  the minimax error satisfies 
+For a set of distributions $\cP$ supported within the interval $[0,1]$,  the minimax error satisfies 
 $$ \cR_n(\cP) \ge \frac1{4(6n)^{\frac{\alpha}{2}}}, \text{ for all } n\ge1.$$
 \end{proposition}
 \begin{proof}

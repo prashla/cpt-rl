@@ -4,8 +4,8 @@ $x_1\le \ldots \le x_l \le 0 \le x_{l+1} \le \ldots \le x_K$ and let
 \begin{align}
 \label{eq:Fk}
  F_k = 
-   \sum_{i=1}^k p_k  \text{ if   } k \leq l \text{ and }
-   \sum_{i=k}^K p_k  \text{ if  }  k > l.
+   \sum_{i=1}^k p_i  \text{ if   } k \leq l \text{ and }
+   \sum_{i=k}^K p_i  \text{ if  }  k > l.
 \end{align}
 In this setting, the first integral, say $\C^+(X)$, in the definition of CPT-value \eqref{eq:cpt-general} can be simplified as follows:
 \begin{align}
@@ -15,7 +15,7 @@ In this setting, the first integral, say $\C^+(X)$, in the definition of CPT-val
 %&\left( \int_0^{u^-(x_l)} w^-\left(\Prob{u^-(X)>z}\right) dz + \right.\nonumber\\
 %&\sum_{k =2}^{l-1} \int_{u^-(x_{k})}^{u^-(x_{k-1})}w^+\left(\Prob{u^-(X)>z}\right) dz + \nonumber\\
 %&\left.\int_{u(x_1)}^\infty w^-\left(\Prob{u^-(X)>z}\right) dz \right)
-&= w^+(F_{l+1}) u^+(X_{l+1})+\sum_{i=l+2}^K w^+(F_i)(u^+(x_i) - u^+(x_{i-1})) \nonumber\\
+&= w^+(F_{l+1}) u^+(x_{l+1})+\sum_{i=l+2}^K w^+(F_i)(u^+(x_i) - u^+(x_{i-1})) \nonumber\\
 &= \sum_{i=l+1}^{K-1} u^+(x_i) \Big(w^+(F_i) - w^+(F_{i+1})\Big)
  + u^+(x_K) w^+(p_K).\nonumber
 \end{align}
@@ -86,7 +86,7 @@ where $\kappa=\min(\rho^2, \epsilon^2/(KLM)^2)$.
 % \end{corollary}
 
 In comparison to Propositions \ref{prop:holder-dkw} and \ref{prop:lipschitz}, 
-observe that the sample complexity for discrete $X$ scales with the local Lipschitz constant $L$ and this can be much smaller than the global Lipschitz constant of the weight functions, or the weight functions may not be Lipschitz globally.  
+observe that the sample complexity for discrete $X$ scales with the local Lipschitz constant $L$, and this can be much smaller than the global Lipschitz constant of the weight functions, or the weight functions may not be Lipschitz globally.  
 
 \begin{proof}
  See Section \ref{sec:proofs-discrete}.

@@ -32,7 +32,7 @@ We present two settings where the feasible region is triangle shaped over two di
    \includegraphics[width=3.5in]{fig/CPT_Normal.png}
    }
    }
-  \caption{CPT-value of normal distributed r.v.s with parameters mean $\mu$ and variance $\sigma$}
+  \caption{CPT-value of normal distributed r.v.s with parameters mean $\mu$ and variance $\sigma$.}
    \label{fig:normal-cpt}
   \end{minipage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -58,7 +58,7 @@ We present two settings where the feasible region is triangle shaped over two di
    }
    }
    \end{tabular}
-\caption{Expected and CPT values of skewed normal distributed r.v.s with fixed shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$}
+\caption{Expected and CPT values of skewed normal distributed r.v.s with fixed shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$. The red and green dots indicate the expected and CPT-value optima, respectively.}
 \label{fig:skewnormal}
 \end{minipage}
 
@@ -74,7 +74,7 @@ Here we consider skew normal distributed r.v.s $sn(\xi, \omega, \alpha)$ with lo
 The mean of $X_{(\xi, \omega, \alpha)} \sim sn(\xi, \omega, \alpha)$ equals 
 $\xi + \omega \delta \sqrt{\frac{2}{\pi}}$, while the  variance is
 $\omega^2(1 - \frac{2\delta^2}{\pi})$, with $\delta = \frac{\alpha}{1 + \alpha^2}$.
-As shown in Figure \ref{fig:skewnormal}, we set $\alpha=0.5$ and set up the feasible region for parameters $(\xi, \omega)$ to be the triangle with vertices $(-1,1), (1,1)$ and $(-1,5)$.  
+We set $\alpha=0.5$ and set up the feasible region for parameters $(\xi, \omega)$ to be the triangle with vertices $(-1,1), (1,1)$ and $(-1,5)$ as shown in Figure \ref{fig:skewnormal}.  
 It turns out that the point $(-1,5)$ returns the largest CPT-value, with $\C(X_{-1,5,0.5,0.5}) = 2.30$, while
 $\mathbb{E}(X_{-1,5,0.5}) = 0.78$.
 On the other hand, the point $(1,1)$ has the largest expected value with $\mathbb{E}(X_{1,1,0.5}) = 1.36$, but the CPT value of the same r.v. is $1.25$.
@@ -100,10 +100,10 @@ It is evident from Figure \ref{fig:cpt-est} that our CPT-value estimate gets ver
 \newcommand{\errorband}[5][]{ % x column, y column, error column, optional argument for setting style of the area plot
 \pgfplotstableread[col sep=tab, skip first n=2]{#2}\datatable
     % Lower bound (invisible plot)
-    \addplot [draw=none, stack plots=y, forget plot] table [
-        x={#3},
-        y expr=\thisrow{#4}-2*\thisrow{#5}
-    ] {\datatable};
+%     \addplot [draw=none, stack plots=y, forget plot] table [
+%         x={#3},
+%         y expr=\thisrow{#4}-2*\thisrow{#5}
+%     ] {\datatable};
 
     % Stack twice the error, draw as area plot
     \addplot [draw=none, fill=gray!40, stack plots=y, area legend, #1] table [
