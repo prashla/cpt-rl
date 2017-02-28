@@ -245,22 +245,50 @@ $$
 
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-dkw}}})\ \\
 We prove the $w^+$ part, and the $w^-$ part follows in a similar fashion.
-Since $u^+(X)$ is bounded above by $M$ and $w^+$ is H\"{o}lder-continuous, we have
+Observe that $\forall c$, we have 
 \begin{align*}
-&\left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
-    \left|\int_0^M w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^M w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
-\leq& \left|\int_0^M H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& HM\sup_{x\in
-\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
+&\mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) \nonumber\\
+&\leq \mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \bigcap \left(u^+\left(X_{[i]}\right) < n^c\right)\right)
++ \mathbb{P}\left(u^+\left(X_{[i]}\right) \geq n^c \right)
 \end{align*}
+Meanwhile, given $u^+\left(X_{[i]}\right) < n^c$, we can obtain that 
+\begin{align*}
+&\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
+    \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|
+%\leq& \left|\int_0^{\infty} H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& Hn^c\sup_{x\in
+%\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
+\end{align*}
+If $n$ is large enough s.t
+$\int_{n^c}^\infty\!\!\!\!w\left(\mathbb{P} \left( X > s \right)\right) ds < \frac{\Upsilon}{2}$, we get 
+
+\begin{align*}
+&\mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \bigcap \left(u^+\left(X_{[i]}\right) < n^c\right)\right)\\ 
+&\leq \mathbb{P}\left(\left|\int_0^{n^c}\!\!\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
+\int_0^{n^c}\!\!\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)
+\end{align*}
+
 Now, plugging in the DKW inequality, we obtain
 \begin{align}
-&\mathbb{P}\left(\left|\intinfinity\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt \!\!-\!\! \intinfinity\!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\epsilon\right)
+&\mathbb{P}\left(\left|\intinfinity\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt \!\!-\!\! \intinfinity\!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\frac{\epsilon}{2}\right)
 \nonumber\\
-& \leq \Prob{HM\sup_{t\in \mathbb{R}} \left|(\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha>\epsilon}\nonumber\\
+& \leq \mathbb{P}\left(Hn^c\sup_{t\in \mathbb{R}} \left|\Prob{u^+\left(X\right)<t}-{\hat F^+_n}\left(t\right)\right|^\alpha > \frac{\epsilon}{2}\right)
+\nonumber\\
 &
-\leq  2 e^{-2n \left(\frac{\epsilon}{HM} \right)^\frac{2}{\alpha}}.\label{eq:dkw3}
+\leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
+2 e^{2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
-The claim follows.
+Meanwhile, applying subgaussian property, we infer that
+\begin{align*}
+&
+\mathbb{P}\left(u^+ \left(X_{[n]} > n^c \right)\right) < n e ^{-2n^c}.
+\end{align*}
+As a result, 
+\begin{align*}
+& \mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) 
+\leq n e ^{-2n^c} + 2 e^{2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
+\end{align*}
+The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$. Therefore the claim is proved by setting
+$c = \frac{1}{2+\alpha}$.
 \end{proof}
 
 \begin{proof}(\textbf{\textit{Corollary \ref{cor:holder-dkw}}})\ \\

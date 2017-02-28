@@ -146,10 +146,14 @@ our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number 
 high-probability estimate of the CPT-value that is $\epsilon$-accurate.
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
-Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$ are bounded above by $M<\infty$ w.p. 1. Then, $\forall \epsilon >0, \delta >0$, we have
+Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$  subgaussian random variables. Then, $\forall \epsilon >0$,if $n$ is large enough, we have
+%$
+%Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \frac{1}{2}\ln\left(\frac{4}{\delta}\right)
+%left(\frac{HM}{\epsilon}\right)^{\frac{2}{\alpha}}.$$
 $$
-\Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \frac{1}{2}\ln\left(\frac{4}{\delta}\right)
-\left(\frac{HM}{\epsilon}\right)^{\frac{2}{\alpha}}.$$
+\Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq 2n e^{-\frac{1}{2+\alpha}} 
++ 2 e^{-{\frac{1}{2+\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
+$$
 \end{proposition}
 
 \begin{corollary}
