@@ -146,22 +146,32 @@ our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number 
 high-probability estimate of the CPT-value that is $\epsilon$-accurate.
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
-Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$  subgaussian random variables. Then, $\forall \epsilon >0$,if $n$ is large enough, we have
-%$
+Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$  are bounded by a constant $M$. Then, $\forall \epsilon >0$, we have
 %Prob{\left |\overline \C_n- \C(X) \right| \leq  \epsilon } >1- \delta\text{     ,} \forall n \geq \frac{1}{2}\ln\left(\frac{4}{\delta}\right)
-%left(\frac{HM}{\epsilon}\right)^{\frac{2}{\alpha}}.$$
-$$
-\Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq 2n e^{-\frac{1}{2+\alpha}} 
-+ 2 e^{-{\frac{1}{2+\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
-$$
+%left(\frac{HM}{\epsilon}\right)^{\frac{2}{\alpha}}.
+\begin{align}
+\Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq
+2e^{-2n\left(\frac{\epsilon}{2HM}\right)^{\frac{2}{\alpha}}}
+\label{eq:S-complex-bounded}
+\end{align}
+
+Furthermore, If the utilities functions are unbounded but satisfy subgaussian property, a parallel argument on complexity can still be made:  If $n$ is large enough, $\forall \epsilon >0$
+\begin{align}
+\Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq 2n e^{-n^\frac{1}{2+\alpha}} 
++ 2 e^{-n^{\frac{1}{2+\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
+\label{eq:S-complex-unbounded}
+\end{align}
 \end{proposition}
 
 \begin{corollary}
 \label{cor:holder-dkw}
-Under the conditions of Proposition \ref{prop:holder-dkw}, we have
+Under the conditions of Proposition \ref{prop:holder-dkw}, if utilities $u^+(X)$ and $u^-(X)$ were bounded by $M$, 
 $$
 \E \left|\overline \C_n- \C(X) \right|  \le    \frac{\left(8HM\right) \Gamma\left(\alpha/2\right)}{n^{\alpha/2}},$$
-where $\Gamma(z)=\intinfinity x^{z-1} e^{-x} dx$ is the gamma function.
+%Meanwhile, if $u^+(X)$ and $u^-(X)$ only satisfies subgaussian property, we have
+%$$
+%\E \left|\overline \C_n- \C(X) \right|  \le    \frac{\left(8H\right) \Gamma\left(\alpha/2\right)}{n^{\alpha/2(2+\alpha)}},$$
+%where $\Gamma(z)=\intinfinity x^{z-1} e^{-x} dx$ is the gamma function.
 \end{corollary}
 
 \begin{proof}

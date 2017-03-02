@@ -244,7 +244,8 @@ $$
 \end{lemma}
 
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-dkw}}})\ \\
-We prove the $w^+$ part, and the $w^-$ part follows in a similar fashion.
+To prove \eqref{eq:S-complex-unbounded}, we only need to 
+address the $w^+$ part, and the $w^-$ part follows in a similar fashion.
 Observe that $\forall c$, we have 
 \begin{align*}
 &\mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) \nonumber\\
@@ -259,7 +260,7 @@ Meanwhile, given $u^+\left(X_{[i]}\right) < n^c$, we can obtain that
 %\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 If $n$ is large enough s.t
-$\int_{n^c}^\infty\!\!\!\!w\left(\mathbb{P} \left( X > s \right)\right) ds < \frac{\Upsilon}{2}$, we get 
+$\int_{n^c}^\infty\!\!w\left(\mathbb{P} \left( X > s \right)\right) ds < \frac{\epsilon}{2}$, we get 
 
 \begin{align*}
 &\mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \bigcap \left(u^+\left(X_{[i]}\right) < n^c\right)\right)\\ 
@@ -275,7 +276,7 @@ Now, plugging in the DKW inequality, we obtain
 \nonumber\\
 &
 \leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
-2 e^{2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
+2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
 Meanwhile, applying subgaussian property, we infer that
 \begin{align*}
@@ -285,19 +286,34 @@ Meanwhile, applying subgaussian property, we infer that
 As a result, 
 \begin{align*}
 & \mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) 
-\leq n e ^{-2n^c} + 2 e^{2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
+\leq n e ^{-2n^c} + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
 \end{align*}
 The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$. Therefore the claim is proved by setting
 $c = \frac{1}{2+\alpha}$.
+
+To prove \eqref{eq:S-complex-bounded} under condition that utilities functions are bounded by $M$, firstly notice that
+\begin{align*}
+&\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
+    \left|\int_0^{M} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{M} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
+    &\leq  HM sup_{x\in\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
+\end{align*}
+The probability bound in \eqref{eq:S-complex-bounded} can thereby be achieved if we replace $n^c$ by $M$, and replace $\frac{\epsilon}{2}$ by $\epsilon$ in inequality \eqref{eq:dkw3}.
 \end{proof}
 
 \begin{proof}(\textbf{\textit{Corollary \ref{cor:holder-dkw}}})\ \\
- Integrating the high-probability bound in Proposition \ref{prop:holder-dkw}, we obtain
+ When the utilities are bounded by $M$, integrating the high-probability bound \eqref{eq:S-complex-bounded} in Proposition \ref{prop:holder-dkw}, we obtain
  \begin{align*}
 & \E \left|\overline \C_n- \C(X) \right|  
   \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
   &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
  \end{align*}
+ %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
+, for n large 
+ %\begin{align*}
+%& \E \left|\overline \C_n- \C(X) \right|  
+ % \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
+  %&\le 4 \intinfinity \exp\left(-2n\left(\epsilon/H\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
+ %\end{align*}
 \end{proof}
 
 
