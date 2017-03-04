@@ -10,16 +10,25 @@ We specify the various components of the traffic control MDP below.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and pathwise delays.
 The actions are the feasible traffic signal configurations. 
 
-\pgfplotsset{every x tick label/.append style={font=\scriptsize}}
-
  \begin{figure}
     \centering
-     \begin{tabular}{c}
-\subfigure[Snapshot of a 2x2-grid network from GLD simulator. The figure shows eight edge nodes that generate traffic, four traffic lights and  four-laned roads carrying cars. ]{
-\label{fig:2x2grid}
-        \includegraphics[width=2.3in,height=2in]{fig/2x2grid.png}
-}
-\\		
+        \includegraphics[width=2in,height=1.3in]{fig/road-net.png}
+\caption{Snapshot of the road network from GLD simulator. The figure shows four edge nodes that generate traffic, one traffic light and  two-laned roads carrying automobiles.}
+\label{fig:road-net}
+\end{figure}
+
+
+
+\pgfplotsset{every x tick label/.append style={font=\scriptsize}}
+
+ \begin{figure*}
+    \centering
+     \begin{tabular}{cc}
+% \subfigure[Snapshot of a 2x2-grid network from GLD simulator. The figure shows eight edge nodes that generate traffic, four traffic lights and  four-laned roads carrying cars. ]{
+% \label{fig:2x2grid}
+%         \includegraphics[width=2.3in,height=1.3in]{fig/road-net.png}
+% }
+% \\		
 \subfigure[AVG-SPSA]{
 \label{fig:avg}
 \hspace{-2em} 
@@ -47,8 +56,8 @@ bar width=14pt,
 % nodes near coords,
 grid,
 grid style={gray!30},
-width=11.5cm,
-height=9.5cm,
+width=10.5cm,
+height=6cm,
 ]
 \addplot[red, fill=red!20]   coordinates { 
 (1112.5,81)  (1137.5,85)  (1162.5,62)  (1187.5,97)  (1212.5,158)  (1237.5,230)  (1262.5,212)  (1287.5,166)  (1312.5,108)  (1337.5,75)  (1362.5,41)  (1387.5,25)  (1412.5,3)   };
@@ -58,7 +67,7 @@ height=9.5cm,
 \end{axis}
 \end{tikzpicture}}\\[0.5ex]}
 }
-\\
+&
 %%%%%%%%%%%%%%%%%%%%%%%%%
 \subfigure[CPT-SPSA]{
 \label{fig:cpt}
@@ -85,8 +94,8 @@ bar width=14pt,
 % nodes near coords,
 grid,
 grid style={gray!30},
-width=11.5cm,
-height=9.5cm,
+width=10.5cm,
+height=6cm,
 ]
 % \addplot[darkgreen, fill=darkgreen!20]   coordinates {  (1100,16) (1150,38) (1200,69) (1250,44) (1300,51) (1350,16) (1400,22) (1450,17) (1500,24) }; 
 \addplot[darkgreen, fill=darkgreen!20]   coordinates {  
@@ -102,7 +111,7 @@ height=9.5cm,
 \end{tabular}
 \caption{Histogram of the sample delays for the path from node $0$ to $4$ (see Figure \ref{fig:2x2grid}) for AVG-SPSA that minimizes overall expected  delay (see \eqref{eq:avg-traffic}) and CPT-SPSA that maximizes CPT-value of differential delay (see \eqref{eq:cpt-traffic}. }
 \label{fig:histogram-perf}
-\end{figure}
+\end{figure*}
 
 We consider Boltzmann policies that have the form
 $$
