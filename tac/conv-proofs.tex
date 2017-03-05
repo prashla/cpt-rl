@@ -246,13 +246,12 @@ $$
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-dkw}}})\ \\
 To prove \eqref{eq:S-complex-unbounded}, we only need to 
 address the $w^+$ part, and the $w^-$ part follows in a similar fashion.
-Observe that $\forall c$, we have 
+Observe that $\forall c > 0$, we have 
 \begin{align*}
-&\mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) \nonumber\\
-&\leq \mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \bigcap \left(u^+\left(X_{[i]}\right) < n^c\right)\right)
-+ \mathbb{P}\left(u^+\left(X_{[i]}\right) \geq n^c \right)
+&\mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) \leq \mathbb{P}\left(u^+\left(X_{[i]}\right) \geq n^c \right)\nonumber\\
+& \qquad\qquad+ \mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)
 \end{align*}
-Meanwhile, given $u^+\left(X_{[i]}\right) < n^c$, we can obtain that 
+Conditioned on the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
     \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|
@@ -260,12 +259,11 @@ Meanwhile, given $u^+\left(X_{[i]}\right) < n^c$, we can obtain that
 %\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 If $n$ is large enough s.t
-$\int_{n^c}^\infty\!\!w\left(\mathbb{P} \left( X > s \right)\right) ds < \frac{\epsilon}{2}$, we get 
-
+$\int\limits_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds < \frac{\epsilon}{2}$, we get 
 \begin{align*}
-&\mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \bigcap \left(u^+\left(X_{[i]}\right) < n^c\right)\right)\\ 
-&\leq \mathbb{P}\left(\left|\int_0^{n^c}\!\!\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
-\int_0^{n^c}\!\!\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)
+&\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\leq \\ 
+&\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
+\int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)
 \end{align*}
 
 Now, plugging in the DKW inequality, we obtain
