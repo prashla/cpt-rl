@@ -144,6 +144,7 @@ See Section \ref{sec:holder-proofs}.
 Under an additional assumption on the utility functions,
 our next result shows that $O\left(\frac{1}{\epsilon^{2/\alpha}}\right)$ number of samples are sufficient to get a
 high-probability estimate of the CPT-value that is $\epsilon$-accurate.
+
 \begin{proposition}(\textbf{Sample complexity.})
 \label{prop:holder-dkw}
 Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$  are bounded by a constant $M$. Then, $\forall \epsilon >0$, we have
@@ -151,7 +152,7 @@ Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$  are bounded
 %left(\frac{HM}{\epsilon}\right)^{\frac{2}{\alpha}}.
 \begin{align}
 \Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq
-2e^{-2n\left(\frac{\epsilon}{2HM}\right)^{\frac{2}{\alpha}}}
+2e^{-2n\left(\frac{\epsilon}{HM}\right)^{\frac{2}{\alpha}}}
 \label{eq:S-complex-bounded}
 \end{align}
 

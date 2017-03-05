@@ -278,11 +278,13 @@ Now, plugging in the DKW inequality, we obtain
 \leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
-Meanwhile, applying subgaussian property, we infer that
+Meanwhile, by invoking subgaussian property, we infer that
 \begin{align*}
-&
-\mathbb{P}\left(u^+ \left(X_{[n]} > n^c \right)\right) < n e ^{-2n^c}.
+&\,\,\mathbb{P}\left(u^+ \left(X_{[n]} >  n^c \right)\right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \le  n^c \right)\right)\\
+\leq &\,\,1 - \left(1 - \exp^{-2n^c}\right)^n \leq 1- \left(1- n \exp^{-2 n^c} \right)\\
+=&\,\,n \exp^{-2 n^c},
 \end{align*}
+where the last inequality is obtained by Taylor approximation.
 As a result, 
 \begin{align*}
 & \mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) 
@@ -295,7 +297,7 @@ To prove \eqref{eq:S-complex-bounded} under condition that utilities functions a
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
     \left|\int_0^{M} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{M} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
-    &\leq  HM sup_{x\in\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
+    &\leq  HM \sup_{x\in\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 The probability bound in \eqref{eq:S-complex-bounded} can thereby be achieved if we replace $n^c$ by $M$, and replace $\frac{\epsilon}{2}$ by $\epsilon$ in inequality \eqref{eq:dkw3}.
 \end{proof}
@@ -389,7 +391,7 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%\subsection*{Proof of Proposition \ref{prop:lipschitz}: Sample complexity}
+%\subsection*{Proof of Proposition \ref{prop:lipschitz}: }
 %
 %\begin{proof}
 %Since $u^+(X)$ is bounded above by $M$ and $w^+$ is Lipschitz with constant $L$, we have
