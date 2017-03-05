@@ -492,7 +492,7 @@ The final claim regarding the almost sure convergence of \\$\overline \C_n$ to $
 \subsubsection{Proofs for CPT-SPSA}
 \label{appendix:1spsa}
 
-To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
+%To prove the main result in Theorem \ref{thm:1spsa-conv}, we first show, in the following lemma, that the gradient estimate using SPSA is only an order $O(\delta_n^2)$ term away from the true gradient. The proof differs from the corresponding claim for regular SPSA (see Lemma 1 in \cite{spall}) since we have a non-zero bias in the function evaluations, while regular SPSA assumes the noise is zero-mean. Following this lemma, we complete the proof of Theorem \ref{thm:1spsa-conv} by invoking the well-known Kushner-Clark lemma \cite{kushner-clark}.
 
 % \todop{The bias control is with high prob and so probably all conv claims shoud be with high prob. Probably there is a simpler way out, but i dont know (yet)}
 \begin{lemma}
@@ -571,18 +571,18 @@ $  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamm
 \item $\{\xi_n, n\ge 0\}$ is a sequence such that for any $\epsilon>0$,
 \[ \lim_{n\rightarrow\infty} P\left( \sup_{m\geq n}  \left\|
 \sum_{k=n}^{m} \gamma_k \xi_k\right\| \geq \epsilon \right) = 0. \]
-\item There exists a compact subset $\K$ which is the set of asymptotically stable equilibrium points for the following ODE:
-\begin{align}
-\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for } i=1,\dots,d,\label{eq:pi-ode}
-\end{align}
+\item There exists a compact subset $\K$ which is the set of asymptotically stable equilibrium points for the  ODE \eqref{eq:theta-ode}
+%\begin{align}
+%\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for } i=1,\dots,d,\label{eq:pi-ode}
+%\end{align}
 \end{enumerate} 
 
-In the following, we verify the above assumptions for the recursion \eqref{eq:theta-update}:\\
+In the following, we verify the above assumptions for \eqref{eq:theta-update}:\\
 \begin{inparaenum}[$\bullet$]
 \item (B1) holds by assumption in our setting.\\
 \item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is almost surely bounded and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. \\
 \item (B3) holds by assumption (A3).\\
-\item We verify (B4) using arguments similar to those used in \cite{spall} for the classic SPSA algorithm:\\
+\item We verify (B4) using arguments similar to those used in \cite{spall} for SPSA:\\
 %We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}):
 %\begin{align}
 %\Prob{ \sup_{l\geq 0}   \left\|W_l\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \lim_{l\rightarrow \infty} \E \left\|W_l\right\|^2. 
@@ -617,9 +617,9 @@ Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. 
  \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
 \end{align*}
 The equality above follows from (A3).\\
-\item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:pi-ode}. This can be seen as follows:
+\item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:theta-ode}, since
 $$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) \le 0,$$
-with strict inequality outside the set $\K = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
+with strict inequality outside the set $\K' = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K'$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
 \end{inparaenum} 
 The claim follows from the Kushner-Clark lemma.
 \end{proof}
@@ -789,9 +789,8 @@ then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 &\sum_{n=1}^{\infty}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] 
 =\!\sum_{n:~\mathcal{A}_n \text{occurs}}\!\!\!\!\!\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\
 &\qquad+\sum_{n:~\mathcal{A}_n^c \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] \\ 
-&=\sum_{n:~\mathcal{A}_n \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\ 
-&=\sum_{n:~\mathcal{A}_n\cap \mathcal{B}_n \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\
-&\quad +\sum_{n:~\mathcal{A}_n\cap \mathcal{B}_n^c \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] \\ 
+%&=\sum_{n:~\mathcal{A}_n \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\ 
+&\!=\!\!\sum_{\substack{n:\\\mathcal{A}_n\cap \mathcal{B}_n\\ \text{occurs}}}\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] +\!\!\!\sum_{\substack{n:\\\mathcal{A}_n\cap \mathcal{B}_n^c\\ \text{occurs}}}\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] \\ 
 &=\infty \text{~~w.p.1, since $\varepsilon>0$.}
 \end{align*}
 In the above, the first equality follows from the fact that if the else clause in thresholding step in Algorithm \ref{alg:mras} is hit, then $\theta^*_{n} = \theta^*_{n-1}$.
@@ -800,5 +799,7 @@ From the last equality above, we conclude that it is a contradiction because, $\
 \end{proof}
 
 \begin{proof}(\textbf{\textit{Theorem \ref{thm:mras}}})\ \\
-Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}, because our algorithm operates in a similar manner as MRAS$_2$ w.r.t. generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$, and hence the rest of the proof follows from \cite{chang2013simulation}.
+Once we have established Lemma \ref{lemma:iofo}, the rest of the proof follows in an identical fashion as the proof of Corollary 4.18 of \cite{chang2013simulation}.
+%, because our algorithm operates in a similar manner as MRAS$_2$ w.r.t. generating the candidate solution using a parameterized family $f(\cdot, \eta)$ and updating the distribution parameter $\eta$. 
+%The difference, as mentioned earlier, is the manner in which the samples are generated and the objective (CPT-value) function is estimated. The aforementioned lemma established that the elite sampling and thresholding achieve the same effect as that in MRAS$_2$, and hence the rest of the proof follows from \cite{chang2013simulation}.
 \end{proof}

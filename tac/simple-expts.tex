@@ -18,7 +18,7 @@ w^+(p) &= \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}, 
 \end{align*} 
 where $\lambda = 0.25$, $\sigma = 0.88$, $\eta_1 = 0.61$ and $\eta_2 = 0.69$. The choices for $\sigma$ and $w^+(\cdot)$,  $w^-(\cdot)$ are based on the recommendations given by \cite{tversky1992advances}. 
 
-\subsection{Comparison between CPT and expectation}
+%\subsection{Comparison between CPT and expectation}
 Before presenting the results, we remark that it is usually hard to obtain an analytical expression for the CPT-value, so we use numerical integration via the trapezoidal rule. 
 % Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore 
 We present two settings where the feasible region is triangle shaped over two distribution parameters. In each setting, the parameters corresponding to the maximum expected value are calculated directly, while for the CPT-value, we perform a grid search, where the distance between points in the grid is $0.05$. 
@@ -88,7 +88,7 @@ On the other hand, the point $(1,1)$ has the largest expected value with $\mathb
 %We will vary $\xi$ from $0$ to $2$ with ascending order and evenly gap, and vary $\omega$ from $5$ to $1$ with descending order with evenly gap. 
 %The table \ref{tab:skewNormalCPT} exemplifies that the optimal-points of CPT-functional and expectation are very distinct as well. 
 
-\subsection{Consistency of CPT estimator}
+%\subsection{Consistency of CPT estimator}
 We illustrate that the estimator in Algorithm \ref{alg:holder-est} converges rapidly by considering a skew normal distributed  r.v. $X$ with location, scale and shape parameters set to $2,1$ and $2$, respectively. For calculating the CPT-value, we use the trapezoidal rule. 
 We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ using Algorithm \ref{alg:holder-est} and $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$ that corresponds to $n_i$ samples, we calculate the deviation of the estimator $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ from the numerically integrated CPT-value. Figure \ref{fig:cpt-est} presents the mean and standard error for each $n_i$. 
 % Here, the margin of error denotes half the length of t-confidence interval. 
