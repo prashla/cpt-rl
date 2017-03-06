@@ -276,28 +276,27 @@ Now, plugging in the DKW inequality, we obtain
 \leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
-Meanwhile, by invoking subgaussian property, we infer that
+Meanwhile, by invoking sub-Gaussian property, we infer that
 \begin{align*}
-&\,\,\mathbb{P}\left(u^+ \left(X_{[n]} >  n^c \right)\right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \le  n^c \right)\right)\\
-\leq &\,\,1 - \left(1 - \exp^{-2n^c}\right)^n \leq 1- \left(1- n \exp^{-2 n^c} \right)\\
-=&\,\,n \exp^{-2 n^c},
+&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
+\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
+=&\,\,n e^{-2 n^c},
 \end{align*}
 where the last inequality is obtained by Taylor approximation.
 As a result, 
 \begin{align*}
-& \mathbb{P}\left(\left|\C_n -\C \right| > \epsilon \right) 
-\leq n e ^{-2n^c} + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
+& \mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) 
+\leq n e ^{-2n^c} + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}.
 \end{align*}
-The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$. Therefore the claim is proved by setting
-$c = \frac{1}{2+\alpha}$.
+The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$, i.e., for $c = \frac{1}{2+\alpha}$. The claim in \eqref{eq:S-complex-unbounded} follows.
 
-To prove \eqref{eq:S-complex-bounded} under condition that utilities functions are bounded by $M$, firstly notice that
+To prove \eqref{eq:S-complex-bounded} under the condition that utilities functions are bounded by $M$, notice that
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
     \left|\int_0^{M} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{M} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
     &\leq  HM \sup_{x\in\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
-The probability bound in \eqref{eq:S-complex-bounded} can thereby be achieved if we replace $n^c$ by $M$, and replace $\frac{\epsilon}{2}$ by $\epsilon$ in inequality \eqref{eq:dkw3}.
+The  bound in \eqref{eq:S-complex-bounded} can be inferred by replacing $n^c$ by $M$ and $\frac{\epsilon}{2}$ by $\epsilon$ in inequality \eqref{eq:dkw3}.
 \end{proof}
 
 \begin{proof}(\textbf{\textit{Corollary \ref{cor:holder-dkw}}})\ \\
@@ -308,7 +307,7 @@ The probability bound in \eqref{eq:S-complex-bounded} can thereby be achieved if
   &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
  \end{align*}
  %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
-, for n large 
+% , for n large 
  %\begin{align*}
 %& \E \left|\overline \C_n- \C(X) \right|  
  % \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
@@ -589,26 +588,24 @@ In the following, we verify the above assumptions for \eqref{eq:theta-update}:\\
 %\end{align}
 Applying the Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}) to the martingale difference sequence $\{W_l\}$, where  $W_l := \sum_{n=0}^{l-1} \gamma_n \xi_n$, $l\ge 1$, we obtain
 \begin{align}
-&\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \E \left\|
-\sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 \nonumber\\
-&= \dfrac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \xi_n\right\|^2. \label{eq:b4}
+&\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } 
+% \le \dfrac{1}{\epsilon^2} \E \left\|\sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 
+\le \frac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \xi_n\right\|^2. \label{eq:b4}
 \end{align}
-The last equality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
+The inequality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
 We now bound $\E\left\| \xi_n\right\|^2$ as follows:
 \begin{align}
 &\E\left\| \xi_n\right\|^2\le \E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
-\le &\left(\left(\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right. 
-\left.+ \left(\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right)^{1/2}\right)^2 \label{eq:minko}\\
-\le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha_1}} \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} \right.\nonumber\\
-&\left.\qquad+
-\left[\E\left[ (\overline \C_n^{\theta_n - \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
+\le &\left(\left[\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right]^{\frac1{2}}\!\!\!+ \left[\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right]^{\frac1{2}}\right)^2\!\! \label{eq:minko}\\
+% \le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha_1}} \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} \right.\nonumber\\
+% &\left.\qquad+
+% \left[\E\left[ (\overline \C_n^{\theta_n - \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
 \le &\dfrac{\Big[\E\big[ \overline \C_n^{\theta_n + \delta_n \Delta_n}\big]^{2+2\alpha_2}\Big]^{\frac{1}{1+\alpha_2}}   +
 \Big[\E\big[\overline \C_n^{\theta_n - \delta_n \Delta_n}\big]^{2+2\alpha_2}\Big]^{\frac{1}{1+\alpha_2}}}{4\delta_n^2} \label{eq:h2}\\
 \le & \frac{C}{\delta_n^2}, \text{ for some } C< \infty. \label{eq:h3}
 \end{align}
 The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
-The inequality in \eqref{eq:holder} uses H\"{o}lder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$. 
-The equality in \eqref{eq:h2} above follows owing to the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is a symmetric, $\pm 1$-valued Bernoulli r.v. 
+The inequality in \eqref{eq:h2} uses H\"{o}lder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$ and the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is a symmetric, $\pm 1$-valued Bernoulli r.v. 
 The inequality in \eqref{eq:h3} follows by using the fact that
 %, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
 $\C(X^\theta)$ is bounded a.s. for any parameter $\theta$ and the estimation error $\psi^\theta$ is bounded by Corollary \ref{cor:holder-dkw}.
@@ -619,7 +616,7 @@ Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. 
 The equality above follows from (A3).\\
 \item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:theta-ode}, since
 $$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) \le 0,$$
-with strict inequality outside the set $\K' = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K'$ serves as the asymptotically stable attractor for the ODE \eqref{eq:pi-ode}.
+with strict inequality outside the set $\K' = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K'$ serves as the asymptotically stable attractor for the ODE \eqref{eq:theta-ode}.
 \end{inparaenum} 
 The claim follows from the Kushner-Clark lemma.
 \end{proof}
