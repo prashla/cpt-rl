@@ -258,8 +258,14 @@ Conditioned on the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
 %\leq& \left|\int_0^{\infty} H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& Hn^c\sup_{x\in
 %\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
-If $n$ is large enough s.t
-$\int\limits_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds < \frac{\epsilon}{2}$, we get 
+Notice the following inequality that
+\begin{align*}
+&\int\limits_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds
+\leq \frac{1}{n^c} \int\limits_{n^c}^\infty \frac{s}{n^c} e^{-2\alpha s^2} ds\\
+=&\frac{1}{n^c} \frac{4}{\alpha} e^{-2\alpha \left(n^c\right)^2} \leq e^{-2\alpha \left(n^c\right)^2}
+\end{align*}
+thereby, as long as $n \geq \left(\frac{\ln2 - \ln\epsilon}{2\alpha}\right)^{\frac{1}{c}}$, we can satisfy 
+$\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds \leq \frac{\epsilon}{2}$, and obtain the following probability bound s.t. 
 \begin{align*}
 &\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\leq \\ 
 &\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
@@ -277,10 +283,11 @@ Now, plugging in the DKW inequality, we obtain
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
 Meanwhile, by invoking subgaussian property, we infer that
+
 \begin{align*}
-&\,\,\mathbb{P}\left(u^+ \left(X_{[n]} >  n^c \right)\right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \le  n^c \right)\right)\\
-\leq &\,\,1 - \left(1 - \exp^{-2n^c}\right)^n \leq 1- \left(1- n \exp^{-2 n^c} \right)\\
-=&\,\,n \exp^{-2 n^c},
+\,\,&\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \right) \leq n^c \right)\\
+=&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
+\,\,\leq &1- \left(1- ne^{-2n^c} \right) = ne^{-2n^c},
 \end{align*}
 where the last inequality is obtained by Taylor approximation.
 As a result, 
@@ -308,7 +315,15 @@ The probability bound in \eqref{eq:S-complex-bounded} can thereby be achieved if
   &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
  \end{align*}
  %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
-, for n large 
+For subgaussian condition, notice that if we change the cutting bound $n^c$ by $\left(n\sqrt{\epsilon}\right)^c$ and repeat the same fashion of proof in proposition
+\ref{prop:holder-dkw}, we can obtain a similar probability bound such that 
+$$
+\Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2\left(n^2 \epsilon\right)^\frac{c}{2}} 
++ 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{1-c}}{2H}\right)^{\frac{2}{\alpha}}}
+$$
+Applying the same procedure as above, the expected value of difference $\E \left|\overline \C_n- \C(X) \right|$ can be achieved by
+$$\frac{2\Gamma\left(\frac{2}{c}\right)}{nc} + \frac{\Gamma\left(\frac{\alpha}{2\left(1-c\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{\frac{\alpha-2c}{\alpha}}},$$
+where $c=\frac{1}{2+\alpha}$
  %\begin{align*}
 %& \E \left|\overline \C_n- \C(X) \right|  
  % \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
