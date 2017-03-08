@@ -271,7 +271,6 @@ $\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds \leq \frac{\
 &\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
 \int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)
 \end{align*}
-
 Now, plugging in the DKW inequality, we obtain
 \begin{align}
 &\mathbb{P}\left(\left|\intinfinity\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt \!\!-\!\! \intinfinity\!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\frac{\epsilon}{2}\right)
@@ -282,29 +281,25 @@ Now, plugging in the DKW inequality, we obtain
 \leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 Meanwhile, by invoking subgaussian property, we infer that
 
 \begin{align*}
 \,\,&\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \right) \leq n^c \right)\\
 =&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
 \,\,\leq &1- \left(1- ne^{-2n^c} \right) = ne^{-2n^c},
-=======
-Meanwhile, by invoking sub-Gaussian property, we infer that
-\begin{align*}
-&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
-\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
-=&\,\,n e^{-2 n^c},
->>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
-=======
-Meanwhile, by invoking sub-Gaussian property, we infer that
-\begin{align*}
-&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
-\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
-=&\,\,n e^{-2 n^c},
->>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
 \end{align*}
+%Meanwhile, by invoking sub-Gaussian property, we infer that
+%\begin{align*}
+%&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
+%\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
+%=&\,\,n e^{-2 n^c},
+%Meanwhile, by invoking sub-Gaussian property, we infer that
+%\begin{align*}
+%&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
+%\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
+%=&\,\,n e^{-2 n^c},
+
 where the last inequality is obtained by Taylor approximation.
 As a result, 
 \begin{align*}
@@ -312,7 +307,6 @@ As a result,
 \leq n e ^{-2n^c} + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}.
 \end{align*}
 The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$, i.e., for $c = \frac{1}{2+\alpha}$. The claim in \eqref{eq:S-complex-unbounded} follows.
-
 To prove \eqref{eq:S-complex-bounded} under the condition that utilities functions are bounded by $M$, notice that
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
@@ -330,23 +324,18 @@ The  bound in \eqref{eq:S-complex-bounded} can be inferred by replacing $n^c$ by
   &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
  \end{align*}
  %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 For subgaussian condition, notice that if we change the cutting bound $n^c$ by $\left(n\sqrt{\epsilon}\right)^c$ and repeat the same fashion of proof in proposition
 \ref{prop:holder-dkw}, we can obtain a similar probability bound such that 
 $$
 \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2\left(n^2 \epsilon\right)^\frac{c}{2}} 
 + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{1-c}}{2H}\right)^{\frac{2}{\alpha}}}
 $$
-Applying the same procedure as above, the expected value of difference $\E \left|\overline \C_n- \C(X) \right|$ can be achieved by
+Applying the same procedure as above, the expected value of difference $\E \left|\overline \C_n- \C(X) \right|$ can be bounded by
 $$\frac{2\Gamma\left(\frac{2}{c}\right)}{nc} + \frac{\Gamma\left(\frac{\alpha}{2\left(1-c\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{\frac{\alpha-2c}{\alpha}}},$$
-where $c=\frac{1}{2+\alpha}$
-=======
+where $c=\frac{1}{2+\alpha}$.
 % , for n large 
->>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
-=======
-% , for n large 
->>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
+
  %\begin{align*}
 %& \E \left|\overline \C_n- \C(X) \right|  
  % \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
