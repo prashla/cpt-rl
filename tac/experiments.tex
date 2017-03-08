@@ -121,7 +121,7 @@ Now, the objective is to maximize the weighted sum of CPT-values across paths, i
 \begin{align}
 \max_{\theta \in \Theta} \text{CPT}(X_1^\theta,\ldots,X_{\M}^\theta) = \sum_{i=1}^{\M} \mu_i^\theta \C(B_i - X_i^\theta),\label{eq:cpt-traffic}
 \end{align}
-where $\Theta$ is the $d$-dimensional hypercube formed by intervals $[0.1,1.0]$ in each dimension.  
+where $\Theta$ is the $d$-dimensional hypercube formed by intervals $[0.1,1.0]$ in each dimension. The rationale behind the objective above is that CPT-value $\C(B_i - X_i^\theta)$ would capture the road user experience/satisfaction for each path $i$ and the goal is to maximize the \textit{average satisfaction} over all paths.  
 % where  $\C(B_i-X_i)$ is the CPT-value along path $i$ for differential delay r.v. $B_i-X_i$. 
 % \textbf{EUT:} Here we only use the utility functions $u^+$ and $u^-$ to handle gains and losses, but do not distort probabilities. 
 % Thus, the EUT objective is defined as

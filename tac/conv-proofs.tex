@@ -251,27 +251,28 @@ Observe that $\forall c > 0$, we have
 &\mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) \leq \mathbb{P}\left(u^+\left(X_{[i]}\right) \geq n^c \right)\nonumber\\
 & \qquad\qquad+ \mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)
 \end{align*}
-Conditioned on the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
+On the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
     \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|
 %\leq& \left|\int_0^{\infty} H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& Hn^c\sup_{x\in
 %\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
-Notice the following inequality that
+Notice  that
 \begin{align*}
 &\int\limits_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds
 \leq \frac{1}{n^c} \int\limits_{n^c}^\infty \frac{s}{n^c} e^{-2\alpha s^2} ds\\
-=&\frac{1}{n^c} \frac{4}{\alpha} e^{-2\alpha \left(n^c\right)^2} \leq e^{-2\alpha \left(n^c\right)^2}
+=&\frac{1}{n^c} \frac{4}{\alpha} e^{-2\alpha \left(n^c\right)^2} \leq e^{-2\alpha \left(n^c\right)^2} \leq \frac{\epsilon}{2} \text{ for } n \geq \left(\frac{\ln2 - \ln\epsilon}{2\alpha}\right)^{\frac{1}{c}}.
 \end{align*}
-thereby, as long as $n \geq \left(\frac{\ln2 - \ln\epsilon}{2\alpha}\right)^{\frac{1}{c}}$, we can satisfy 
-$\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds \leq \frac{\epsilon}{2}$, and obtain the following probability bound s.t. 
+%Hence, for $$, we have 
+%$\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds \leq \frac{\epsilon}{2}$, and obtain the following probability bound s.t. 
+Thus, we obtain
 \begin{align*}
 &\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\leq \\ 
 &\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
 \int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)
 \end{align*}
-Now, plugging in the DKW inequality, we obtain
+Now, plugging in the DKW inequality, we have
 \begin{align}
 &\mathbb{P}\left(\left|\intinfinity\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt \!\!-\!\! \intinfinity\!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\frac{\epsilon}{2}\right)
 \nonumber\\
@@ -281,9 +282,7 @@ Now, plugging in the DKW inequality, we obtain
 \leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
-
-Meanwhile, by invoking subgaussian property, we infer that
-
+Meanwhile, by invoking sub-Gaussian property, we infer that
 \begin{align*}
 \,\,&\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \right) \leq n^c \right)\\
 =&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
@@ -299,7 +298,6 @@ Meanwhile, by invoking subgaussian property, we infer that
 %&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
 %\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
 %=&\,\,n e^{-2 n^c},
-
 where the last inequality is obtained by Taylor approximation.
 As a result, 
 \begin{align*}
@@ -307,6 +305,7 @@ As a result,
 \leq n e ^{-2n^c} + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}.
 \end{align*}
 The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$, i.e., for $c = \frac{1}{2+\alpha}$. The claim in \eqref{eq:S-complex-unbounded} follows.
+
 To prove \eqref{eq:S-complex-bounded} under the condition that utilities functions are bounded by $M$, notice that
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
@@ -318,31 +317,29 @@ The  bound in \eqref{eq:S-complex-bounded} can be inferred by replacing $n^c$ by
 
 \begin{proof}(\textbf{\textit{Corollary \ref{cor:holder-dkw}}})\ \\
  When the utilities are bounded by $M$, integrating the high-probability bound \eqref{eq:S-complex-bounded} in Proposition \ref{prop:holder-dkw}, we obtain
- \begin{align*}
+ \begin{align}
 & \E \left|\overline \C_n- \C(X) \right|  
-  \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
-  &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
- \end{align*}
+  \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\nonumber\\
+  &\le 4 \intinfinity \exp\left(-2n\left(\epsilon/HM\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.\label{eq:cor12-bd}
+ \end{align}
  %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
 
-For subgaussian condition, notice that if we change the cutting bound $n^c$ by $\left(n\sqrt{\epsilon}\right)^c$ and repeat the same fashion of proof in proposition
-\ref{prop:holder-dkw}, we can obtain a similar probability bound such that 
+For the sub-Gaussian case, notice that if we truncate $u^+\left(X_{[i]}\right)$  by $\left(n\sqrt{\epsilon}\right)^c$ instead of $n^c$ and repeat the steps used in the proof of Proposition
+\ref{prop:holder-dkw}, we obtain
 $$
 \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2\left(n^2 \epsilon\right)^\frac{c}{2}} 
 + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{1-c}}{2H}\right)^{\frac{2}{\alpha}}}
 $$
-Applying the same procedure as above, the expected value of difference $\E \left|\overline \C_n- \C(X) \right|$ can be bounded by
-$$\frac{2\Gamma\left(\frac{2}{c}\right)}{nc} + \frac{\Gamma\left(\frac{\alpha}{2\left(1-c\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{\frac{\alpha-2c}{\alpha}}},$$
-where $c=\frac{1}{2+\alpha}$.
+Setting $c=\frac{1}{2+\alpha}$,
+we obtain the following:
+$$\E \left|\overline \C_n- \C(X) \right| \le \frac{2\Gamma\left(\frac{2}{c}\right)}{nc} + \frac{\Gamma\left(\frac{\alpha}{2\left(1-c\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{\frac{\alpha-2c}{\alpha}}}.$$
 % , for n large 
-
  %\begin{align*}
 %& \E \left|\overline \C_n- \C(X) \right|  
  % \le \intinfinity \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} d\epsilon\\
   %&\le 4 \intinfinity \exp\left(-2n\left(\epsilon/H\right)^{2/\alpha}\right) d\epsilon \le \frac{8HM \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.
  %\end{align*}
 \end{proof}
-
 
 %%%%%%%%%%%%%%%%%%%%%%Lipschitz-starts-here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection{Lipschitz continuous weights}
@@ -547,13 +544,13 @@ Thus,
 &\E\left[\dfrac{\overline \C_n^{\theta_n+\delta_n \Delta_n} -\overline \C_n^{\theta_n-\delta_n \Delta_n}}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right] \nonumber\\
 &\xrightarrow{n\rightarrow\infty}  \E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) -\C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^{i}} \left.\right| \F_n\right].  \label{eq:l1}
 \end{align}
-We now analyse the RHS of \eqref{eq:l1}.
-By using suitable Taylor's expansions,
-\begin{align*}
-&\C(X^{\theta_n \pm \delta_n \Delta_n}) = \C(X^{\theta_n}) \pm \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) \\
-&+ \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n +  \frac{\delta_n^3}{6} \nabla^3 \C(X^{\tilde\theta^{\pm}_n})(\Delta_n \otimes \Delta_n \otimes \Delta_n),
-\end{align*}
-where $\otimes$ denotes the Kronecker product and $\tilde \theta_n^+$ (resp. $\tilde \theta_n^-$) lie on the line segment connecting $\theta_n$ and $(\theta_n + \delta_n \Delta_n)$ (resp. $(\theta_n - \delta_n \Delta_n)$). Using (A4) and arguments similar to those used in the proof of Lemma 1 in \cite{spall}, the fourth order term in each of the Taylor's expansions above can be shown to be $O(\delta_n^3)$.  
+%We now analyse the RHS of \eqref{eq:l1}.
+%By using suitable Taylor's expansions,
+%\begin{align*}
+%&\C(X^{\theta_n \pm \delta_n \Delta_n}) = \C(X^{\theta_n}) \pm \delta_n \Delta_n\tr \nabla \C(X^{\theta_n}) \\
+%&+ \frac{\delta^2}{2} \Delta_n\tr \nabla^2 \C(X^{\theta_n})\Delta_n +  \frac{\delta_n^3}{6} \nabla^3 \C(X^{\tilde\theta^{\pm}_n})(\Delta_n \otimes \Delta_n \otimes \Delta_n),
+%\end{align*}
+%where $\otimes$ denotes the Kronecker product and $\tilde \theta_n^+$ (resp. $\tilde \theta_n^-$) lie on the line segment connecting $\theta_n$ and $(\theta_n + \delta_n \Delta_n)$ (resp. $(\theta_n - \delta_n \Delta_n)$). Using (A4) and arguments similar to those used in the proof of Lemma 1 in \cite{spall}, the fourth order term in each of the Taylor's expansions above can be shown to be $O(\delta_n^3)$.  
 
 %From the above, it is easy to see that 
 %\begin{align*}
@@ -561,7 +558,7 @@ where $\otimes$ denotes the Kronecker product and $\tilde \theta_n^+$ (resp. $\t
 %- \nabla_i \C(X^{\theta_n})\\
 %&=\underbrace{\sum_{j=1,j\not=i}^{N} \frac{\Delta_n^j}{\Delta_n^i}\nabla_j \C(X^{\theta_n})}_{(I)} + O(\delta_n^2).
 %\end{align*}
-Using the Taylor's expansions,  the RHS of \eqref{eq:l1} can be simplified as follows:
+As in the case of regular SPSA, we simplify the RHS of \eqref{eq:l1} using suitable Taylor's expansions as follows:
 \begin{align}
 &\E\left[\dfrac{\C(X^{\theta_n + \delta_n \Delta_n}) - \C(X^{\theta_n - \delta_n \Delta_n})}{2 \delta_n \Delta_n^i} \left.\right| \F_n\right] \nonumber\\
 &= \nabla_i \C(X^{\theta_n}) + \E\left[\sum_{j=1,j\not=i}^{N} \frac{\Delta_n^j}{\Delta_n^i}\right]\nabla_j \C(X^{\theta_n}) + O(\delta_n^2)\nonumber\\
@@ -588,40 +585,29 @@ where
 In the above, $\beta_n$ is the bias in the gradient estimate due to SPSA and $\{\xi_n\}$ is a martingale difference sequence.
 % , while  Lemma \ref{lemma:1spsa-bias} and the fact that $\delta_n \rightarrow 0$ imply that $\beta_n$ vanishes asymptotically. 
 
-Convergence of \eqref{eq:1spsa-equiv} can be inferred from Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}, provided we verify the necessary assumptions given as (B1)-(B5) below:
-\begin{enumerate}[\bfseries (B1)]
-\item $\nabla \C(\cdot)$ is a continuous $\R^{d}$-valued function.
-\item  The sequence $\{\beta_n,n\geq 0\}$ is a bounded random sequence with
-$\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$.
-\item The step-sizes $\gamma_n,n\geq 0$ satisfy
-$  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamma_n=\infty.$
-\item $\{\xi_n, n\ge 0\}$ is a sequence such that for any $\epsilon>0$,
-\[ \lim_{n\rightarrow\infty} P\left( \sup_{m\geq n}  \left\|
-\sum_{k=n}^{m} \gamma_k \xi_k\right\| \geq \epsilon \right) = 0. \]
-\item There exists a compact subset $\K$ which is the set of asymptotically stable equilibrium points for the  ODE \eqref{eq:theta-ode}
-%\begin{align}
-%\dot\theta^{i}_t = \check\Pi_{i}\left(- \nabla \C(X^{\theta^{i}_t})\right), \text{ for } i=1,\dots,d,\label{eq:pi-ode}
-%\end{align}
-\end{enumerate} 
+To prove the main claim, we list and verify assumptions (B1)-(B5), which are necessary to invoke Theorem 5.3.1 on pp. 191-196 of \cite{kushner-clark}. 
+%\begin{enumerate}[\bfseries (B1)]
 
-In the following, we verify the above assumptions for \eqref{eq:theta-update}:\\
-\begin{inparaenum}[$\bullet$]
-\item (B1) holds by assumption in our setting.\\
-\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is almost surely bounded and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. \\
-\item (B3) holds by assumption (A3).\\
-\item We verify (B4) using arguments similar to those used in \cite{spall} for SPSA:\\
+\noindent\textbf{(B1)}: $\nabla \C(\cdot)$ is a continuous $\R^{d}$-valued function: holds by assumption in our setting.
+
+\noindent\textbf{(B2)}:  The sequence $\{\beta_n,n\geq 0\}$ is a bounded random sequence with
+$\beta_n \rightarrow 0$ almost surely as $n\rightarrow \infty$: follows from Lemma \ref{lemma:1spsa-bias}.
+
+\noindent\textbf{(B3)}: The step-sizes $\gamma_n,n\geq 0$ satisfy
+$  \gamma_n\rightarrow 0 \mbox{ as }n\rightarrow\infty \text{ and } \sum_n \gamma_n=\infty$: holds by assumption (A3). 
+
+\noindent\textbf{(B4)}: $\{\xi_n, n\ge 0\}$ is a sequence such that for any $\epsilon>0$,
+\begin{align}
+ \lim_{n\rightarrow\infty} P\left( \sup_{m\geq n}  \left\|
+\sum_{k=n}^{m} \gamma_k \xi_k\right\| \geq \epsilon \right) = 0. 
+\label{eq:b4}
+\end{align}
+We verify this assumption using arguments similar to those used in \cite{spall} for SPSA.
 %We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}):
 %\begin{align}
 %\Prob{ \sup_{l\geq 0}   \left\|W_l\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \lim_{l\rightarrow \infty} \E \left\|W_l\right\|^2. 
 %\end{align}
-Applying the Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}) to the martingale difference sequence $\{W_l\}$, where  $W_l := \sum_{n=0}^{l-1} \gamma_n \xi_n$, $l\ge 1$, we obtain
-\begin{align}
-&\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } 
-% \le \dfrac{1}{\epsilon^2} \E \left\|\sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 
-\le \frac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \xi_n\right\|^2. \label{eq:b4}
-\end{align}
-The inequality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
-We now bound $\E\left\| \xi_n\right\|^2$ as follows:
+Notice that 
 \begin{align}
 &\E\left\| \xi_n\right\|^2\le \E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
 \le &\left(\left[\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right]^{\frac1{2}}\!\!\!+ \left[\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right]^{\frac1{2}}\right)^2\!\! \label{eq:minko}\\
@@ -636,16 +622,64 @@ The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$,
 The inequality in \eqref{eq:h2} uses H\"{o}lder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$ and the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is a symmetric, $\pm 1$-valued Bernoulli r.v. 
 The inequality in \eqref{eq:h3} follows by using the fact that
 %, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
-$\C(X^\theta)$ is bounded a.s. for any parameter $\theta$ and the estimation error $\psi^\theta$ is bounded by Corollary \ref{cor:holder-dkw}.
-Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
+$\C(X^\theta)$ is bounded a.s. for any parameter $\theta$ and the estimation error  is bounded by Corollary \ref{cor:holder-dkw}.
+Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. 
+
+Applying the Doob's martingale inequality to the martingale difference $W_l := \sum_{n=0}^{l-1} \gamma_n \xi_n$, $l\ge 1$, we obtain
 \begin{align*}
- \lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
+&\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } 
+% \le \dfrac{1}{\epsilon^2} \E \left\|\sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 
+\le \frac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \xi_n\right\|^2 \le \dfrac{d C}{\epsilon^2}  \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2},
 \end{align*}
-The equality above follows from (A3).\\
-\item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:theta-ode}, since
+and \eqref{eq:b4} follows by taking limits above and using  (A3).
+
+\noindent\textbf{(B5)}: There exists a compact subset $\K$ which is the set of asymptotically stable equilibrium points for the  ODE \eqref{eq:theta-ode}: To verify this assumption, observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:theta-ode}, since
 $$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) \le 0,$$
 with strict inequality outside the set $\K' = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K'$ serves as the asymptotically stable attractor for the ODE \eqref{eq:theta-ode}.
-\end{inparaenum} 
+%\end{enumerate} 
+
+%In the following, we verify the above assumptions for \eqref{eq:theta-update}:\\
+%\begin{inparaenum}[$\bullet$]
+%\item (B1) holds by assumption in our setting.\\
+%\item Lemma \ref{lemma:1spsa-bias} above establishes that the bias $\beta_n$ is almost surely bounded and since $\delta_n \rightarrow 0$ as $n\rightarrow \infty$, it is easy to see that (B2) is satisfied for $\beta_n$. \\
+%\item (B3) holds by assumption (A3).\\
+%\item We verify (B4) using arguments similar to those used in \cite{spall} for SPSA:\\
+%%We first recall Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}):
+%%\begin{align}
+%%\Prob{ \sup_{l\geq 0}   \left\|W_l\right\| \geq \epsilon } \le \dfrac{1}{\epsilon^2} \lim_{l\rightarrow \infty} \E \left\|W_l\right\|^2. 
+%%\end{align}
+%Applying the Doob's martingale inequality (see (2.1.7) on pp. 27 of \cite{kushner-clark}) to the martingale difference sequence $\{W_l\}$, where  $W_l := \sum_{n=0}^{l-1} \gamma_n \xi_n$, $l\ge 1$, we obtain
+%\begin{align}
+%&\Prob{ \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\| \geq \epsilon } 
+%% \le \dfrac{1}{\epsilon^2} \E \left\|\sum_{n=k}^{\infty} \gamma_n \xi_n\right\|^2 
+%\le \frac{1}{\epsilon^2} \sum_{n=k}^{\infty} \gamma_n^2 \E\left\| \xi_n\right\|^2. \label{eq:b4}
+%\end{align}
+%The inequality above follows by observing that, for $m < n$, $\E(\xi_m \xi_n) = \E(\xi_m \E(\xi_n\mid \F_n))=0$.
+%We now bound $\E\left\| \xi_n\right\|^2$ as follows:
+%\begin{align}
+%&\E\left\| \xi_n\right\|^2\le \E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n} -\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2 \label{eq:mi}\\
+%\le &\left(\left[\E\left(\dfrac{\overline \C_n^{\theta_n + \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right]^{\frac1{2}}\!\!\!+ \left[\E\left(\dfrac{\overline \C_n^{\theta_n - \delta_n \Delta_n}}{2 \delta_n \Delta_n^i}\right)^2\right]^{\frac1{2}}\right)^2\!\! \label{eq:minko}\\
+%% \le &\frac1{4\delta_n^2} \left[ \E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right) \right]^{\frac{1}{1+\alpha_1}} \left(\left[\E\left[ (\overline \C_n^{\theta_n + \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}} \right.\nonumber\\
+%% &\left.\qquad+
+%% \left[\E\left[ (\overline \C_n^{\theta_n - \delta_n \Delta_n})\right]^{2+2\alpha_2}\right]^{\frac{1}{1+\alpha_2}}\right)\label{eq:holder}\\
+%\le &\dfrac{\Big[\E\big[ \overline \C_n^{\theta_n + \delta_n \Delta_n}\big]^{2+2\alpha_2}\Big]^{\frac{1}{1+\alpha_2}}   +
+%\Big[\E\big[\overline \C_n^{\theta_n - \delta_n \Delta_n}\big]^{2+2\alpha_2}\Big]^{\frac{1}{1+\alpha_2}}}{4\delta_n^2} \label{eq:h2}\\
+%\le & \frac{C}{\delta_n^2}, \text{ for some } C< \infty. \label{eq:h3}
+%\end{align}
+%The inequality in \eqref{eq:mi} uses the fact that, for any random variable $X$, $\E\left\|X -  E[X\mid\F_n]\right\|^2 \le \E X^2$. The inequality in \eqref{eq:minko} follows by the fact that $\E (X+Y)^2 \le \left( (\E X^2)^{1/2} + (\E Y^2)^{1/2}\right)^2$.
+%The inequality in \eqref{eq:h2} uses H\"{o}lder's inequality, with $\alpha_1, \alpha_2>0$ satisfying $\frac{1}{1+\alpha_1} + \frac{1}{1+\alpha_2}=1$ and the fact that $\E\left(\frac1{(\Delta_n^i)^{2+2\alpha_1}}\right)  = 1$ as $\Delta_n^i$ is a symmetric, $\pm 1$-valued Bernoulli r.v. 
+%The inequality in \eqref{eq:h3} follows by using the fact that
+%%, for any $\theta$, the CPT-value estimate $\widehat \C(D^\theta) = \C(D^\theta) + \epsilon^\theta$. We assume a finite state-action spaced SSP (which implies that the costs $\max_{s,a} g(s,a) < \infty$) and consider only \textit{proper} policies (which implies that the total cost $D^\theta$ is bounded for any policy $\theta$) and finally, by (A1), the weight functions are Lipschitz - these together imply 
+%$\C(X^\theta)$ is bounded a.s. for any parameter $\theta$ and the estimation error $\psi^\theta$ is bounded by Corollary \ref{cor:holder-dkw}.
+%Thus, $\E\left\| \xi_n\right\|^2 \le \frac{C}{\delta_n^2}$ for some $C<\infty$. Plugging this in \eqref{eq:b4}, we obtain
+%\begin{align*}
+ %\lim_{k\rightarrow\infty} P\left( \sup_{l\geq k}   \left\|\sum_{n=k}^{l} \gamma_n \xi_n\right\|\geq \epsilon \right) \le \dfrac{d C}{\epsilon^2} \lim_{k\rightarrow\infty} \sum_{n=k}^{\infty}  \frac{\gamma_n^2}{\delta_n^2} =0.
+%\end{align*}
+%The equality above follows from (A3).\\
+%\item To verify (B5), observe that $\C(X^{\theta})$ serves as a strict Lyapunov function for the ODE \eqref{eq:theta-ode}, since
+%$$ \dfrac{d \C(X^{\theta})}{dt} = \nabla \C(X^{\theta}) \dot \theta = \nabla \C(X^{\theta}) \check\Pi \left(-\nabla \C(X^{\theta}\right) \le 0,$$
+%with strict inequality outside the set $\K' = \{\theta \mid \check\Pi_{i} \left(-\nabla \C(X^{\theta})\right)=0, \forall i=1,\ldots,d\}$. Hence, the set $\K'$ serves as the asymptotically stable attractor for the ODE \eqref{eq:theta-ode}.
+%\end{inparaenum} 
 The claim follows from the Kushner-Clark lemma.
 \end{proof}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -815,7 +849,7 @@ then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
 =\!\sum_{n:~\mathcal{A}_n \text{occurs}}\!\!\!\!\!\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\
 &\qquad+\sum_{n:~\mathcal{A}_n^c \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] \\ 
 %&=\sum_{n:~\mathcal{A}_n \text{occurs}}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\ 
-&\!=\!\!\sum_{\substack{n:\\\mathcal{A}_n\cap \mathcal{B}_n\\ \text{occurs}}}\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] +\!\!\!\sum_{\substack{n:\\\mathcal{A}_n\cap \mathcal{B}_n^c\\ \text{occurs}}}\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] \\ 
+&\!=\!\!\sum_{\substack{n:\\\mathcal{A}_n\cap \mathcal{B}_n\\ \text{occurs}}}\!\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] +\!\!\!\sum_{\substack{n:\\\mathcal{A}_n\cap \mathcal{B}_n^c\\ \text{occurs}}}\!\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] \\ 
 &=\infty \text{~~w.p.1, since $\varepsilon>0$.}
 \end{align*}
 In the above, the first equality follows from the fact that if the else clause in thresholding step in Algorithm \ref{alg:mras} is hit, then $\theta^*_{n} = \theta^*_{n-1}$.
