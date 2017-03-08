@@ -283,12 +283,20 @@ Now, plugging in the DKW inequality, we obtain
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
 <<<<<<< HEAD
+<<<<<<< HEAD
 Meanwhile, by invoking subgaussian property, we infer that
 
 \begin{align*}
 \,\,&\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \right) \leq n^c \right)\\
 =&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
 \,\,\leq &1- \left(1- ne^{-2n^c} \right) = ne^{-2n^c},
+=======
+Meanwhile, by invoking sub-Gaussian property, we infer that
+\begin{align*}
+&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
+\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
+=&\,\,n e^{-2 n^c},
+>>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
 =======
 Meanwhile, by invoking sub-Gaussian property, we infer that
 \begin{align*}
@@ -323,6 +331,7 @@ The  bound in \eqref{eq:S-complex-bounded} can be inferred by replacing $n^c$ by
  \end{align*}
  %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
 <<<<<<< HEAD
+<<<<<<< HEAD
 For subgaussian condition, notice that if we change the cutting bound $n^c$ by $\left(n\sqrt{\epsilon}\right)^c$ and repeat the same fashion of proof in proposition
 \ref{prop:holder-dkw}, we can obtain a similar probability bound such that 
 $$
@@ -332,6 +341,9 @@ $$
 Applying the same procedure as above, the expected value of difference $\E \left|\overline \C_n- \C(X) \right|$ can be achieved by
 $$\frac{2\Gamma\left(\frac{2}{c}\right)}{nc} + \frac{\Gamma\left(\frac{\alpha}{2\left(1-c\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{\frac{\alpha-2c}{\alpha}}},$$
 where $c=\frac{1}{2+\alpha}$
+=======
+% , for n large 
+>>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
 =======
 % , for n large 
 >>>>>>> 24eabb3052b99fdd722a5f026787440fbc69761e
