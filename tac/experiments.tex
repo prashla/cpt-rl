@@ -7,8 +7,8 @@ We consider a road network with $\N$ signalled lanes that are spread across junc
 %\todoc{Can we have a higher quality figure?}
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP below.
-The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and pathwise delays.
-The actions are the feasible traffic signal configurations. 
+The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and pathwise delays. Any combination of traffic lights that can simultaneously be switched to green constitutes an action in the MDP.
+% The actions are the feasible traffic signal configurations. 
 
  \begin{figure}
     \centering
