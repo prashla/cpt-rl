@@ -438,10 +438,8 @@ $\mathcal{H}\hspace*{-3pt}$ and $\chi_{-1}=-\infty$.
 %	\Elite
 	  \State \textbf{\textit{Elite Sampling:}}
 	  \State Order the CPT-value estimates as $\{\overline \C_n^{\theta^{(1)}_n},\ldots,\overline \C_n^{\theta^{(N_n)}_n}\}$. 
-	  \State Compute the $(1-\rho_n)$-quantile as follows: 
-	  \begin{align}
-\widetilde \chi_{n}(\rho_n,N_n) = \overline \C_n^{\theta^{\lceil(1-\rho_n)N_n \rceil}_n}.\label{eq:quant}
-\end{align}
+	  \State Compute the $(1-\rho_n)$-quantile $
+\widetilde \chi_{n}(\rho_n,N_n) \!=\! \overline \C_n^{\theta^{\lceil(1-\rho_n)N_n \rceil}_n}.$
 %	\EndElite
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	\Thresholding
@@ -451,12 +449,12 @@ $\mathcal{H}\hspace*{-3pt}$ and $\chi_{-1}=-\infty$.
 	    %\State Set $\bar \chi_{k} = \widetilde \chi_{k}(\rho_n,N_n),~\rho_{k+1} = \rho_n,~N_{k+1} = N_{k}$ and \label{step:3a}
 	    %\State Set $\theta^*_{n} = \theta_{1-\rho_{n}}$, where $\theta_{1-\rho_{n}}$ is the parameter that corresponds to the $(1-\rho_n)$-quantile in \eqref{eq:quant}.
 	%\Else
-             \State find the largest $\bar \rho \in (0, \rho_n)$ such that $\widetilde\chi_{n}(\bar \rho,N_n)\geq \bar\chi_{n-1}+\varepsilon$;             
+             \State find largest $\bar \rho \in (0, \rho_n)$ such that $\widetilde\chi_{n}(\bar \rho,N_n)\geq \bar\chi_{n-1}+\varepsilon$;             
              \If {$\bar \rho$ exists} 
               \State Set $\bar \chi_{n}\! =\! \widetilde \chi_{n}(\bar \rho,N_n),~ \rho_{n+1}  \!=\! \bar \rho,~N_{n+1} \!=\! N_{n}$, 
-              $\theta^*_{n} \!=\! \theta_{1- \bar \rho}$ \label{step:3b} 
+              $\theta^*_{n} \!=\! \theta_{1- \bar \rho}$. \label{step:3b} 
               \Else
-	      \State Set $\bar \chi_{n}  \!=\! \overline \C_n^{\theta^*_{n-1}}$,$\rho_{n+1} \!=\! \rho_n$,$N_{n+1} \!=\! \lceil\varsigma N_{n}\rceil,$ 
+	      \State Set $\bar \chi_{n}  \!=\! \overline \C_n^{\theta^*_{n-1}}$, $\rho_{n+1} \!=\! \rho_n$, $N_{n+1} \!=\! \lceil\varsigma N_{n}\rceil,$ 
           $\theta^*_{n} \!=\! \theta^*_{n-1}$.\label{step:3c}
 	      \EndIf
          %\EndIf

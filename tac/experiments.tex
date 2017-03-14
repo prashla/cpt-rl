@@ -1,21 +1,124 @@
 %!TEX root =  cpt-rl-icml.tex
+
+\pgfplotsset{every x tick label/.append style={font=\scriptsize}}
+
+ \begin{figure*}
+    \centering
+		
+		\hspace{-2em}
+   \begin{minipage}{.26\textwidth}
+\subfigure{
+        \includegraphics[width=1.9in,height=1.1in]{fig/road-net.png}
+				}
+				\caption{Snapshot of the road network from GLD simulator. The figure shows four edge nodes that generate traffic, one traffic light and  two-laned roads carrying automobiles.} 
+\label{fig:road-net}
+
+\end{minipage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{minipage}{.01\textwidth}
+~ 
+\end{minipage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+   \begin{minipage}{.64\textwidth}
+     \begin{tabular}{cc}
+\subfigure[AVG-SPSA]{
+\label{fig:avg-hist}
+\hspace{-2em} 
+\tabl{c}{\scalebox{0.75}{\begin{tikzpicture}
+\begin{axis}[
+ybar,
+ymax=325,
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Delay}},
+x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+symbolic x coords={0, 25,75,125,175,225,275,325,375,425,475,525, 12},
+xmin={0},
+xmax={12},
+xtick=data,
+ytick align=outside,
+xticklabel style={rotate=50, align=center},
+bar width=7pt,
+%  bar shift=0pt,
+%  enlarge x limits={abs=0.5},
+% nodes near coords,
+grid,
+grid style={gray!30},
+width=7.5cm,
+height=5.5cm,
+]
+\addplot[red, fill=red!20]   coordinates { 
+(25,306) (75,14) (125,2) (175,2) (225,0) (275,0) (325,0) (375,0) (425,0) (475,0) (525,1)   };
+\end{axis}
+\end{tikzpicture}}\\[0.5ex]}
+}
+&
+%%%%%%%%%%%%%%%%%%%%%%%%%
+\subfigure[CPT-SPSA]{
+\label{fig:cpt-hist}
+\hspace{-2em} 
+\tabl{c}{\scalebox{0.75}{\begin{tikzpicture}
+\begin{axis}[
+ybar={2pt},
+%  legend style={at={(0.5,-0.2)},anchor=north,legend columns=-1},
+ymax=325,
+legend pos=outer north east,
+legend image code/.code={\path[fill=white,white] (-2mm,-2mm) rectangle
+(-3mm,2mm); \path[fill=white,white] (-2mm,-2mm) rectangle (2mm,-3mm); \draw
+(-2mm,-2mm) rectangle (2mm,2mm);},
+ylabel={\bf Frequency},
+xlabel={\textbf{Delay}},
+x label style={at={(axis description cs:0.5,-0.1)},anchor=north},
+symbolic x coords={0, 5,15,25,35,45,55,65,75,85,95,105,115,125,135,145,155,165,175, 17},
+xmin={0},
+xmax={17},
+xtick=data,
+ytick align=outside,
+xticklabel style={rotate=50, align=center},
+bar width=7pt,
+% nodes near coords,
+grid,
+grid style={gray!30},
+width=7.5cm,
+height=5.5cm,
+]
+\addplot[darkgreen, fill=darkgreen!20]   coordinates {  
+(5,113) (15,94) (25,49) (35,27) (45,18) (55,3) (65,3) (75,1) (85,2) (95,0) (105,1) (115,0) (125,1) (135,1) (145,0) (155,0)
+}; 
+ 
+
+\end{axis}
+\end{tikzpicture}}\\[0.5ex]}
+}
+\end{tabular}
+\caption{Histogram of the sample delays for the path from node $0$ to $1$ (see Figure \ref{fig:road-net}) for AVG-SPSA that minimizes overall expected  delay and CPT-SPSA that maximizes CPT-value of differential delay. }
+\label{fig:histogram-perf}
+\end{minipage}
+\end{figure*}
+
+%%%%%%%%%%%%%%% End Hist %%%%%%%%%%%%%%%%%
+
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
 We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay minimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim}, and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
 
 % \subsection{Simulation Setup}  
-We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated -- See \cref{fig:road-net}. 
+We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated (see Figure \ref{fig:road-net}). 
 %\todoc{Can we have a higher quality figure?}
 At any instant $n$, let $q_n^i$ and $t_n^i$ denote the queue length and elapsed time since the lane turned red, for any lane $i = 1,\ldots, \N$. Let $d_n^{i,j}$ denote the delay experienced by $j$th road user on $i$th path, for any $i=1,\ldots,\M$ and $j=1,\ldots,n_i$, where $n_i$ denotes the number of road users on path $i$.
 We specify the various components of the traffic control MDP below.
 The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n^{\M,n_{\M}})\tr$ is a vector of lane-wise queue lengths, elapsed times and pathwise delays. Any combination of traffic lights that can simultaneously be switched to green constitutes an action in the MDP.
 % The actions are the feasible traffic signal configurations. 
 
- \begin{figure}
-    \centering
-        \includegraphics[width=2in,height=1.1in]{fig/road-net.png}
-\caption{Snapshot of the road network from GLD simulator. The figure shows four edge nodes that generate traffic, one traffic light and  two-laned roads carrying automobiles.}
-\label{fig:road-net}
-\end{figure}
+ %\begin{figure}
+    %\centering
+        %\includegraphics[width=2in,height=1.1in]{fig/road-net.png}
+%\caption{Snapshot of the road network from GLD simulator. The figure shows four edge nodes that generate traffic, one traffic light and  two-laned roads carrying automobiles.}
+%\label{fig:road-net}
+%\end{figure}
 
 
 
@@ -87,10 +190,10 @@ grid style={gray!30},
 width=14.6cm,
 height=8cm,
 ]
-\addplot   coordinates {  (1,-141) (2,-22) (3,-88) (4,65) (5,64) (6,64) (7,-293) (8,-94) (9,68) (10,55) (11,58) (12,60) 
+\addplot   coordinates {  (1,45) (2,55) (3,31) (4,57) (5,64) (6,30) (7,57) (8,69) (9,53) (10,57) (11,61) (12,59) 
 }; 
 \addlegendentry{AVG-SPSA}
-\addplot coordinates {  (1,1) (2,60) (3,62) (4,63) (5,55) (6,61) (7,65) (8,62) (9,71) (10,67) (11,60) (12,62) 
+\addplot coordinates {  (1,65) (2,61) (3,63) (4,55) (5,70) (6,54) (7,52) (8,73) (9,43) (10,60) (11,65) (12,60) 
 }; 
 \addlegendentry{CPT-SPSA}
 \end{axis}
@@ -163,7 +266,6 @@ We implement the following TLC algorithms:
 {\bf\em AVG-SPSA}: This is SPSA-based first-order algorithm that solves \eqref{eq:avg-traffic}, while using sample averages of the delays to estimate the expected delay $\E(X_i)$ for each path $i=1,\ldots,\M$. 
 
 The underlying CPT-value $\C(X_i), \forall i$ follows the exact form as in section \ref{sec:expts-simple}, except here we set $\lambda = 2.25$.
-
 The choices for $\lambda$, $\sigma$, $\eta_1$ and $\eta_2$ are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
 For all the algorithms,
  motivated by standard guidelines (see \cite{spall2005introduction}),
@@ -186,18 +288,21 @@ For all the algorithms,
 %   
 \end{table}
 
+
  
 The experiments involve two phases:
 first, a training phase where we run each algorithm for $500$ iterations, with each iteration involving two perturbed simulations. Each simulation involves running the traffic simulator with a fixed policy parameter for $5000$ steps and this corresponds to approximately $4000$ delay samples. The training phase is followed by a test phase where we fix the policy obtained at the end of training and then run the traffic simulator with the aforementioned parameter for $5000$ steps. The results presented are averages over ten independent simulations.
 
 % \subsection{Results} 
 
-Table \ref{tab:cpt-results} presents the overall AVG and CPT-values for AVG-SPSA and CPT-SPSA, and as expected, AVG-SPSA exhibits a better AVG-value, while CPT-SPSA shows a higher CPT value. While the results in Table \ref{tab:cpt-results} are aggregated over all the paths in Figure \ref{fig:road-net}, we also analyze the delays over each path for both algorithms. 
-Figures \ref{fig:avg}--\ref{fig:cpt} present the expected delay and CPT of differential delay for each of the $12$ paths in Figure \ref{fig:road-net}, obtained from the test phase for AVG-SPSA and CPT-SPSA, respectively.  
+Table \ref{tab:cpt-results} presents the overall AVG and CPT-values for AVG-SPSA and CPT-SPSA, while Figures \ref{fig:avg}--\ref{fig:cpt} present the expected delay and CPT of differential delay for each of the $12$ paths in Figure \ref{fig:road-net}.  
+We observe that AVG-SPSA exhibits a better AVG-value, while CPT-SPSA shows a higher CPT value. 
+Further, from Figure \ref{fig:histogram-perf} that presents the histograms of the delays for the path from $0$ to $1$, we observe that CPT-SPSA results in a strategy that avoids high delays at the cost of a slightly higher average delay, whereas AVG-SPSA has a few sample delays are significantly larger than the average delay. 
+%the average  While the results in Table \ref{tab:cpt-results} are aggregated over all the paths in Figure \ref{fig:road-net}, we also analyze the delays over each path for both algorithms. 
 % A similar exercise for pre-timed TLC resulted in a CPT-value of $-46.14$. 
 %It is evident that each algorithm converges to a different policy and the difference, in $\ell_1$ norm, between policy parameters obtained at the end of training phase for AVG-SPSA and CPT-SPSA was observed to be $6.51$. 
 % As shown in Table \ref{tab:cpt-results},  AVG-SPSA results in a TLC policy with lower expected delay, while CPT-SPSA's policy has higher CPT-value. This is expected because AVG-SPSA uses neither utilities nor probability distortions and minimizes overall delay, while CPT-SPSA uses a pre-timed TLC baseline and treats delay gains and losses differently. 
-We observe that on $5$ paths, CPT-SPSA gives significantly better CPT-value, while on the remaining $7$ paths, the CPT-value of CPT-SPSA and AVG-SPSA are comparable. From an expected delay viewpoint, AVG-SPSA exhibits lower expected delay on $4$ paths, while on the remaining paths the expected delay of AVG-SPSA and CPT-SPSA	are comparable. 
+%We observe that CPT-SPSA gives significantly better CPT-value, while on the remaining $7$ paths, the CPT-value of CPT-SPSA and AVG-SPSA are comparable. From an expected delay viewpoint, AVG-SPSA exhibits lower expected delay on $4$ paths, while on the remaining paths the expected delay of AVG-SPSA and CPT-SPSA	are comparable. 
 
 
 % esp. in the light of previous findings which show CPT matches human evaluation well and there is a need for algorithms that serve human needs well.

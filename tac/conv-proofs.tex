@@ -811,7 +811,7 @@ The claim follows from the Kushner-Clark lemma.
 %and the superscript ``$T$'' denotes the vector transposition.
 
 
-Since we obtain samples of the objective (CPT) in a manner that differs from MRAS$_2$, we need to establish that the thresholding step in Algorithm \ref{alg:mras} achieves the same effect as it did in MRAS$_2$. This is achieved by the following lemma, which is a variant of Lemma 4.13 from \cite{chang2013simulation}, adapted to our setting. 
+%Since we obtain samples of the objective (CPT) in a manner that differs from MRAS$_2$, we need to establish that the thresholding step in Algorithm \ref{alg:mras} achieves the same effect as it did in MRAS$_2$. This is achieved by the following lemma, which is a variant of Lemma 4.13 from \cite{chang2013simulation}, adapted to our setting. 
 
 \begin{lemma}\label{lemma:iofo}
     The sequence of random variables $\{\theta^*_n,n=0,1,\ldots \}$ in Algorithm \ref{alg:mras} converges w.p.1 as $n\rightarrow \infty$.
@@ -820,26 +820,25 @@ Since we obtain samples of the objective (CPT) in a manner that differs from MRA
     Let $\mathcal{A}_n$ be the event that the first if statement is true within the \textit{thresholding} step of Algorithm \ref{alg:mras}. Let $\mathcal{B}_n:=\{\C(X^{\theta^*_{n}})-\C(X^{\theta^*_{n-1}})\leq \frac{\varepsilon}{2}\}$.
     Whenever $\mathcal{A}_n$ holds, we have $\overline \C_n^{\theta^*_{n}}-\overline \C_n^{\theta^*_{n-1}}\geq \varepsilon$ and hence, we obtain
 \begin{align*}
-&P(\mathcal{A}_{n}\cap \mathcal{B}_n) \\
-&\leq P 
+&\mathbb{P}(\mathcal{A}_{n}\cap \mathcal{B}_n) \\
+&\leq \mathbb{P} 
 \left(\big\{\overline \C_n^{\theta^*_{n}}-\overline \C_{n-1}^{\theta^*_{n-1}}\geq \varepsilon\big\}\cap \left\{\C(X^{\theta^*_{n}})-\C(X^{\theta^*_{n-1}})\leq \frac{\varepsilon}{2}\right\}\right)\\
 %  &\leq 
 % P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \\
 % &\qquad\quad\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
-&\leq  \sum_{{\theta\in \Lambda_n},{\theta'\in \Lambda_{k-1}}}P\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \right.\\
-&\qquad\quad \left.\cap
+&\leq \!\! \sum_{\substack{\theta\in \Lambda_n,\\\theta'\in \Lambda_{k-1}}}\!\!\!\mathbb{P}\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
 \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\}\right) \\
-&\leq  |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \right.\\
+&\leq  |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\mathbb{P}\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \right.\\
 &\quad\qquad \left.\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \right) \\
-&\leq |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}P\left(\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}-\C(X^{\theta})+\C(X^{\theta'})\geq \frac{\varepsilon}{2}\right) \\
-&\leq |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\left(P\left(\overline \C_n^{\theta}-\C(X^{\theta})\geq \frac{\varepsilon}{4}\right)\right. \\
-&\qquad\left. + P\left(\overline \C_{n-1}^{\theta'}-\C(X^{\theta'})\geq \frac{\varepsilon}{4}\right)\right) \\
+&\leq |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\mathbb{P}\left(\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}-\C(X^{\theta})+\C(X^{\theta'})\geq \frac{\varepsilon}{2}\right) \\
+&\leq |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\left(\mathbb{P}\left(\overline \C_n^{\theta}-\C(X^{\theta})\geq \frac{\varepsilon}{4}\right)\right. \\
+&\qquad\left. + \mathbb{P}\left(\overline \C_{n-1}^{\theta'}-\C(X^{\theta'})\geq \frac{\varepsilon}{4}\right)\right) \\
 &\leq  4|\Lambda_n||\Lambda_{k-1}|
  e^{- \frac{m_n\epsilon^2}{8 L^2 M^2}}.
 \end{align*}
-From the foregoing, we have $\sum_{n=1}^{\infty}P\left(\mathcal{A}_n \cap \mathcal{B}_n\right) < \infty$ since $m_n \rightarrow \infty$ as $n\rightarrow \infty$.  Applying the Borel-Cantelli lemma, we obtain\\
+From the foregoing, we have $\sum_{n=1}^{\infty}\mathbb{P}\left(\mathcal{A}_n \cap \mathcal{B}_n\right) < \infty$ since $m_n \rightarrow \infty$ as $n\rightarrow \infty$.  Applying the Borel-Cantelli lemma, we obtain\\
 \centerline{$
-P\left(\mathcal{A}_n \cap \mathcal{B}_n~\mbox{i.o.} \right)=0.
+\mathbb{P}\left(\mathcal{A}_n \cap \mathcal{B}_n~\mbox{i.o.} \right)=0.
 $}
 
 From the above, it is implied that if $\mathcal{A}_n$ happens infinitely often,
