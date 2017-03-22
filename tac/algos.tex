@@ -334,7 +334,7 @@ The convergence result presented for CPT-SPSA is applicable to more general sett
 
 \subsection{Model-based parameter search algorithm (CPT-MPS)}
 \label{sec:mras}
-In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing the CPT-value, that is based on MRAS$_2$ algorithm proposed by Chang e al. \cite{chang2013simulation}.
+In this section, we provide a gradient-free algorithm (CPT-MPS) for maximizing the CPT-value, that is based on the MRAS$_2$ algorithm proposed by Chang e al. \cite{chang2013simulation}.
 While CPT-SPSA is a local optimization scheme, CPT-MPS converges to the global optimum, say $\theta^*$, for the problem \eqref{eq:opt-general}, assuming one exists.
 
 % The crucial difference between CPT-MPS and MRAS$_2$ is that the latter has an expected function value objective, i.e., it aims to minimize a function by using sample observations that have zero-mean noise. On the other hand, the objective in our setting is the CPT-value, which distorts the underlying transition probabilities. The implication here is that MRAS$_2$ can estimate the expected value using sample averages, while we have to resort to integrating the empirical distribution, which results in biased estimates.

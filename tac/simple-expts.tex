@@ -90,9 +90,9 @@ On the other hand, the point $(1,1)$ has the largest expected value with $\mathb
 %The table \ref{tab:skewNormalCPT} exemplifies that the optimal-points of CPT-functional and expectation are very distinct as well. 
 
 %\subsection{Consistency of CPT estimator}
-We illustrate that the estimator in Algorithm \ref{alg:holder-est} converges rapidly by considering a skew normal distributed  r.v. with location, scale and shape parameters set to $2,1$ and $2$, respectively. 
+We illustrate the rapid convergence of the estimator in Algorithm \ref{alg:holder-est} for a skew normal distributed  r.v. with location, scale and shape parameters set to $2,1$ and $2$, respectively. 
 %For calculating the CPT-value, we use the trapezoidal rule. 
-We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ using Algorithm \ref{alg:holder-est} and $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$ that corresponds to $n_i$ samples, we calculate the deviation of the estimator $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ from the numerically integrated CPT-value. Figure \ref{fig:cpt-est} presents the mean and standard error for each $n_i$. 
+We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ with $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$ that corresponds to $n_i$ samples, we calculate the estimation error, which is the absolute difference between $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ and the numerically integrated CPT-value. Figure \ref{fig:cpt-est} presents the estimation error with standard error bars for each $n_i$. 
 % Here, the margin of error denotes half the length of t-confidence interval. 
 %It is evident from Figure \ref{fig:cpt-est} that our CPT-value estimate gets very close to the true CPT-value rapidly.
 
