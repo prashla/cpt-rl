@@ -8,7 +8,7 @@
    \includegraphics[width=3.5in]{fig/CPT_Normal.png}
    }
    }
-  \caption{CPT-value of normal distributed r.v.s with parameters mean $\mu$ and variance $\sigma$. The red and green dots indicate the expected and CPT-value optima, respectively.}
+  \caption{CPT-value of normal distributed r.v.s with parameters mean $\mu$ and variance $\sigma$. The red and green dots indicate expected and CPT-value optima, respectively. The value on the z-axis of the red dot represents the analytical mean of its corresponding $\mu$ and $\sigma$.}
    \label{fig:normal-cpt}
   \end{minipage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -67,7 +67,7 @@ Before presenting the results, we remark that it is usually hard to obtain an an
 % Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore 
 We present two settings where the feasible region is triangle shaped over two distribution parameters. In each setting, the parameters corresponding to the maximum expected value are calculated directly, while for the CPT-value, we perform a grid search, where the distance between points in the grid is $0.05$. 
 \begin{example}
-We consider normal distributed r.v.s with mean $\mu$ and variance $\sigma$. As shown in Figure \ref{fig:normal-cpt}, the feasible region for $(\mu, \sigma)$ is the triangle with vertices $(0.5,2), (0.5,6)$ and $(2.5,2)$. The expected value takes its maximum at $(2.5, 2)$, while a numerical optimization of the CPT-value returned a maximum at $(0.5, 6)$, with corresponding CPT-value $2.65$. On the other hand, the CPT value of the r.v. $N(2.5, 2)$ was $2.37$.
+We consider normal distributed r.v.s with mean $\mu$ and variance $\sigma$. As shown in Figure \ref{fig:normal-cpt}, the feasible region for $(\mu, \sigma)$ is the triangle with vertices $(0.5,2), (0.5,6)$ and $(2.5,2)$. The expected value takes its maximum analytically at $(2.5, 2)$, while a numerical optimization of the CPT-value returned a maximum at $(0.5, 6)$, with corresponding CPT-value $2.65$. On the other hand, the CPT value of the r.v. $N(2.5, 2)$ was $2.37$.
 \end{example}
 
 \begin{example}
