@@ -127,7 +127,7 @@ The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n
  \begin{figure*}
     \centering
      \begin{tabular}{cc}
-\subfigure[Expected delay (path-wise) for AVG-SPSA and CPT-SPSA]{
+\subfigure[Expected delay (path-wise) for AVG-SPSA and CPT-SPSA. The black squares indicate baseline delays.]{
 \label{fig:avg}
 \hspace{-2em} 
 \tabl{c}{\scalebox{0.6}{\begin{tikzpicture}
@@ -152,12 +152,27 @@ bar width=8pt,
 grid,
 grid style={gray!30},
 width=14.6cm,
-height=8cm,
+height=7.9cm,
+ymax=150
 ]
 \addplot   coordinates {  (1,88) (2,96) (3,101) (4,119) (5,118) (6,116) (7,115) (8,120) (9,134) (10,103) (11,108) (12,110)}; 
 \addlegendentry{AVG-SPSA}
 \addplot coordinates {  (1,116) (2,116) (3,120) (4,116) (5,100) (6,111) (7,122) (8,116) (9,134) (10,123) (11,107) (12,112)}; 
 \addlegendentry{CPT-SPSA}
+
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:1,137) {}; % 0-1
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:2,132) {}; % 0-2
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:3,135) {}; % 0-3
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:4,111) {}; % 1-0
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:5,110) {}; % 1-2
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:6,117) {}; % 1-3
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:7,125) {}; % 2-0
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:8,141) {}; % 2-1
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:9,147) {}; % 2-3
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:10,115) {}; % 3-0
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:11,114) {}; % 3-1
+\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:12,116) {}; % 3-2
+
 \end{axis}
 \end{tikzpicture}}\\[1ex]}
 }
@@ -279,9 +294,8 @@ For all the algorithms,
  \begin{tabular}{|c|c|c|}
   \toprule 
    & \textbf{AVG-value}& \textbf{CPT-value }\\\midrule
-   AVG-SPSA & $\bm{111.67}$ & $-17.63$ \\\midrule
-   CPT-SPSA & $116.21$ & $\bm{21.12}$\\
-   \bottomrule
+ AVG-SPSA & $\bm{111.67}$ & $53.31$ \\\midrule
+CPT-SPSA & $116.21$ & $\bm{59.91}$\\    \bottomrule
   \end{tabular}
 %   
 %   \vspace{1ex}
