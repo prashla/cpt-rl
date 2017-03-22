@@ -127,7 +127,7 @@ The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n
  \begin{figure*}
     \centering
      \begin{tabular}{cc}
-\subfigure[Expected delay (path-wise) for AVG-SPSA and CPT-SPSA. The black squares indicate baseline delays.]{
+\subfigure[Expected delay (path-wise). The black squares indicate baseline delays.]{
 \label{fig:avg}
 \hspace{-2em} 
 \tabl{c}{\scalebox{0.6}{\begin{tikzpicture}
@@ -178,7 +178,7 @@ ymax=150
 }
 &
 %%%%%%%%%%%%%%%%%%%%%%%%%
-\subfigure[CPT of differential delay (pathwise) for AVG-SPSA and CPT-SPSA]{
+\subfigure[CPT of differential delay (pathwise).]{
 \label{fig:cpt}
 \hspace{-2em} 
 \tabl{c}{\scalebox{0.6}{\begin{tikzpicture}
@@ -274,11 +274,11 @@ In comparison to CPT objective, the above does not incorporate baseline delays, 
 
 We implement the following TLC algorithms:
 
-{\bf\em CPT-SPSA}: This is a first-order algorithm (see Algorithm \ref{alg:1spsa}) that solves \eqref{eq:cpt-traffic} using SPSA-based gradient estimates and the scheme from Algorithm \ref{alg:holder-est} for estimating CPT-value \\$\C(B_i-X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
+\noindent{\bf\em CPT-SPSA}: This is a first-order algorithm (see Algorithm \ref{alg:1spsa}) that solves \eqref{eq:cpt-traffic} using SPSA-based gradient estimates and the scheme from Algorithm \ref{alg:holder-est} for estimating CPT-value \\$\C(B_i-X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
 
 % {\bf\em EUT-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 
-{\bf\em AVG-SPSA}: This is SPSA-based first-order algorithm that solves \eqref{eq:avg-traffic}, while using sample averages of the delays to estimate the expected delay $\E(X_i)$ for each path $i=1,\ldots,\M$. 
+\noindent{\bf\em AVG-SPSA}: This is SPSA-based first-order algorithm that solves \eqref{eq:avg-traffic}, while using sample averages of the delays to estimate the expected delay $\E(X_i)$ for each path $i=1,\ldots,\M$. 
 
 The underlying CPT-value $\C(X_i), \forall i$ follows the exact form as in section \ref{sec:expts-simple}, except here we set $\lambda = 2.25$.
 The choices for $\lambda$, $\sigma$, $\eta_1$ and $\eta_2$ are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
