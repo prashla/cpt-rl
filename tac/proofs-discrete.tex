@@ -1,3 +1,4 @@
+%!TEX root =  cpt-rl-tac.tex
 % \todoj[inline]{Check out the notation in Proposition \ref{prop:sample-complexity-discrete} in main paper and change the notation in the proof in this section to be consistent with the one in main paper proposition. In particular, $\delta$ is in prob and Lipscthiz assumption uses $\rho$, $M$ instead of $A$}
 
 Without loss of generality, assume $w^+=w^-=w$.
@@ -50,7 +51,7 @@ Observe that
 &\Prob{\left| \sum_{k=1}^K u_k w(\hat{F_k}) - \sum_{k=1}^K u_k w(F_k) \right| >\epsilon}\nonumber\\
  & \le \Prob{
 \bigcup_{k=1}^K \left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}} \nonumber\\ & \leq
-    \sum_{k=1}^K \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}}\label{eq:dp1}
+    \sum_{k=1}^K \Prob{\left| u_k w(\hat{F_k}) -u_k w(F_k) \right| > \frac {\epsilon} {K}}\,.\label{eq:dp1}
 \end{align}
 For each $k =1,....K$,
 the function $w$ is locally Lipschitz on $[{p_k}- \rho, {p_k}+\rho)$ with common constant $L$.
@@ -119,7 +120,7 @@ w\left(F_{k+1}\right) \right) \right| > \epsilon\right) \\
 		&+ \Prob{\left|\sum_{i=1}^K u_k
     \left(w\left(\hat F_{k+1}\right)\right) -  \sum_{i=1}^K u_k \left(w\left(F_{k+1}\right)\right) \right| > \epsilon/2} \\ 
 		&\leq  2K
-    (e^{-2n\rho^2} + e^{-2n\epsilon^2/(KLM)^2})
+    (e^{-2n\rho^2} + e^{-2n\epsilon^2/(KLM)^2})\,.
 \end{align*}
 The claim in \eqref{eq:dw} now follows.
 \end{proof}

@@ -28,7 +28,7 @@ The second inequality is valid since $\Prob{u^+(X)>z} \leq 1$. The claim follows
 
 %%%%
 We now state and prove a lemma that will be used in the proof of Proposition \ref{prop:holder-asymptotic}.
-\begin{proposition}
+\begin{lemma}
 \label{prop:holder-quantile}
 Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\frac{i}{n}$th quantile of $u^+(X)$ and $u^-(X)$, respectively. Then, we have  
 %\todoc{Fix the ugly parenthesis! Also, why do we suddenly number all equations as if they all needed a number??}
@@ -38,7 +38,7 @@ Assume (A1). Let $\xi^+_{\frac{i}{n}}$ and $\xi^-_{\frac{i}{n}}$ denote the $\fr
 &\lim_{n \rightarrow \infty} \sum_{i=1}^{n-1} \xi^-_{\frac{i}{n}} \left(w^-\left(\frac{i}{n}\right)- w^-\left(\frac{i-1}{n}\right) \right) \nonumber\\
 &\qquad= \int_0^{\infty} w^-\left(\Prob{u^-(X)>z}\right) dz < \infty.\label{eq:simple-estimation2}
 \end{align}
-\end{proposition}
+\end{lemma}
 
 %\todoj[inline]{Fix the upper limit..I think it should run up to $n$}
 
@@ -121,8 +121,10 @@ Observe the fact that
 &\leq u^+\left(X_{[n]}\right) \times \frac{1}{n^{\alpha}}
 \end{align*}
 
-Under (A1), the term $\frac{u^+\left(X_{[n]}\right)}{n^\alpha}$ converges to 0,
-hence in conjunction with proposition \ref{prop:holder-quantile}, it suffices to show, for asymptotic convergence of estimator, that
+Under (A1), the term $\frac{u^+\left(X_{[n]}\right)}{n^\alpha}$ converges to 0.
+Hence,
+ for the asymptotic convergence of estimator,
+ thanks to Lemma~\ref{prop:holder-quantile}, it suffices to show that
 \begin{align*}
 & \lim_{n\rightarrow \infty} \mathbb{P} \left( \left| \sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right.\right. \\
 &\left.\left.-\sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right)\right| >
@@ -189,7 +191,7 @@ Hence, we obtain
 \begin{align}
 \Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &\le e^{-2n L^{+}
 \frac{\epsilon}{\nalpha} } \nonumber\\
-&= e^{-2n^\alpha  L ^{+} \epsilon}
+&= e^{-2n^\alpha  L ^{+} \epsilon}\,.
 \label{eq:a12}
 \end{align}
 In a  similar fashion, one can show that 
@@ -210,12 +212,12 @@ Plugging the above in \eqref{eq:bd12}, we obtain
 &\left.\left.\quad -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
 \epsilon\right) \nonumber\\
-&\leq 2(n-1) e^{-2n^\alpha  L^{+}\epsilon} \leq 2ne^{-2n^\alpha  L^{+}\epsilon}.\label{eq:holder-sample-complexity-extract}
+&\leq 2(n-1) e^{-2n^\alpha  L^{+}\epsilon} \leq 2ne^{-2n^\alpha  L^{+}\epsilon}\,.\label{eq:holder-sample-complexity-extract}
 \end{align}
 
 Notice that $\sum_{n=1}^{\infty}  2n  e^{-2n^{\alpha} L^{+} \epsilon}< \infty$ since the sequence 
-$2n e^{-2n^{\alpha} L^{+}}$ will decrease more rapidly than the sequence
-$\frac{1}{n^k}$, $\forall k>1$.
+$2n e^{-2n^{\alpha} L^{+}}$ will decrease faster than the sequence
+$\frac{1}{n^k}$ provided $k>1$.
 
 By applying the Borel-Cantelli lemma,  $\forall \epsilon >0$, we have 
 \begin{align*}
@@ -246,15 +248,15 @@ $$
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-dkw}}})\ \\
 To prove \eqref{eq:S-complex-unbounded}, we only need to 
 address the $w^+$ part, and the $w^-$ part follows in a similar fashion.
-Observe that $\forall c > 0$, we have 
+Observe that for all $c > 0$, we have 
 \begin{align*}
 &\mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) \leq \mathbb{P}\left(u^+\left(X_{[i]}\right) \geq n^c \right)\nonumber\\
-& \qquad\qquad+ \mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)
+& \qquad\qquad+ \mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\,.
 \end{align*}
 On the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
-    \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|
+    \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|\,.
 %\leq& \left|\int_0^{\infty} H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& Hn^c\sup_{x\in
 %\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
@@ -270,7 +272,7 @@ Thus, we obtain
 \begin{align*}
 &\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\leq \\ 
 &\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
-\int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)
+\int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)\,.
 \end{align*}
 Now, plugging in the DKW inequality, we have
 \begin{align}
@@ -282,7 +284,7 @@ Now, plugging in the DKW inequality, we have
 \leq  2 e^{-2n \left(\frac{\epsilon}{2Hn^c} \right)^\frac{2}{\alpha}} = 
 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}} .\label{eq:dkw3}
 \end{align}
-Meanwhile, by invoking sub-Gaussian property, we infer that
+Meanwhile, by sub-Gaussianity, we infer that
 \begin{align*}
 \,\,&\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \right) \leq n^c \right)\\
 =&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
@@ -328,7 +330,7 @@ For the sub-Gaussian case, notice that if we truncate $u^+\left(X_{[i]}\right)$ 
 \ref{prop:holder-dkw}, we obtain
 $$
 \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2\left(n^2 \epsilon\right)^\frac{c}{2}} 
-+ 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{1-c}}{2H}\right)^{\frac{2}{\alpha}}}
++ 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{1-c}}{2H}\right)^{\frac{2}{\alpha}}}\,.
 $$
 Setting $c=\frac{1}{2+\alpha}$,
 we obtain the following:
@@ -399,7 +401,7 @@ From the foregoing,
 \overset{a.s} \longrightarrow
 \intinfinity L \left(\Prob{u^+\left(X\right)\!>\!x}\right) dx.
 \end{align*}
-The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L(1-\hat{F}_n(x))$, and noticing that $L(1-\hat{F}_n(x)) \xrightarrow{a.s.} L(\Prob{u^+(X)>x})$ uniformly $\forall x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
+The claim in \eqref{eq:3} now follows by invoking the generalized dominated convergence theorem by setting $f_n = w^+(1-{\hat F_n}^+(x))$ and $g_n = L(1-\hat{F}_n(x))$, and noticing that $L(1-\hat{F}_n(x)) \xrightarrow{a.s.} L(\Prob{u^+(X)>x})$ uniformly over $x$. The latter fact is implied by the Glivenko-Cantelli theorem (cf. Chapter 2 of \cite{wasserman2006}).
 
 Following similar arguments, it is easy to show that 
 $$
