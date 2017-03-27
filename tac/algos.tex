@@ -69,7 +69,7 @@ The (asymptotic) unbiasedness of the gradient estimate is proven in Lemma \ref{l
 \end{align}
 where  $\gamma_n$ is a step-size chosen to satisfy (A3) below and
 $\Pi=\left(\Pi_{1},\ldots,\Pi_{d}\right)$ is an operator that ensures that the update \eqref{eq:theta-update} stays bounded within the compact and convex set $\Theta$. 
-Algorithm \ref{alg:1spsa}  presents the pseudocode.  
+%Algorithm \ref{alg:1spsa}  presents the pseudocode.  
 
 
 %%%%%%%%%%%%%%%% alg-custom-block %%%%%%%%%%%%
@@ -95,28 +95,29 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 \algtext*{EndPEvalPrime}
 \algtext*{EndPImp}
 %%%%%%%%%%%%%%%%%%%
-\begin{algorithm}[t]
-\begin{algorithmic}
-    \State {\bf Input:}  initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Pi: \R^d \rightarrow \Theta$.
-\For{$n = 0,1,2,\ldots$}	
-	\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using symmetric, $\pm 1$-valued Bernoulli distribution, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
-	\PEval
-	    %\State Simulate $m_n$ samples using  $(\theta_n+\delta_n \Delta_n)$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples. 
-	    \EndPEval
-	    \PEvalPrime
-  	    %\State Simulate $m_n$ samples using $(\theta_n-\delta_n \Delta_n)$.
-	    \State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples.
-	    \EndPEvalPrime
-	    \PImp
-		\State Update $\theta_n$ using \eqref{eq:theta-update}.
-		\EndPImp
-\EndFor
-\State {\bf Return} $\theta_n$.
-\end{algorithmic}
-\caption{Structure of CPT-SPSA algorithm.}
-\label{alg:1spsa}
-\end{algorithm}
+%\begin{algorithm}[t]
+%\begin{algorithmic}
+    %\State {\bf Input:}  initial parameter $\theta_0 \in \Theta$ where $\Theta$ is a compact and convex subset of $\R^d$, perturbation constants $\delta_n>0$, sample sizes $\{m_n\}$, step-sizes $\{\gamma_n\}$, operator $\Pi: \R^d \rightarrow \Theta$.
+%\For{$n = 0,1,2,\ldots$}	
+	%\State Generate $\{\Delta_n^i, i=1,\ldots,d\}$ using symmetric, $\pm 1$-valued Bernoulli distribution.
+	%%, independent of $\{\Delta_m, m=0,1,\ldots,n-1\}$.
+	%%\PEval
+	    %%\State Simulate $m_n$ samples using  $(\theta_n+\delta_n \Delta_n)$.
+	    %\State Obtain CPT-value estimates $\overline \C_n^{\theta_n+\delta_n \Delta_n}$ and $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples. 
+	    %%\EndPEval
+	    %%\PEvalPrime
+  	    %%\State Simulate $m_n$ samples using $(\theta_n-\delta_n \Delta_n)$.
+	    %%\State Obtain CPT-value estimate $\overline \C_n^{\theta_n-\delta_n \Delta_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples.
+	    %%\EndPEvalPrime
+	    %%\PImp
+		%\State Update $\theta_n$ using \eqref{eq:theta-update}.
+		%%\EndPImp
+%\EndFor
+%\State {\bf Return} $\theta_n$.
+%\end{algorithmic}
+%\caption{Structure of CPT-SPSA algorithm.}
+%\label{alg:1spsa}
+%\end{algorithm}
 
  %\begin{figure}
     %\centering
@@ -152,14 +153,15 @@ Algorithm \ref{alg:1spsa}  presents the pseudocode.
 %\end{figure}
 
 \subsubsection*{On the number of samples $m_n$ per iteration}
-Recall that the CPT-value estimation scheme is asymptotically unbiased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \psi_n^\theta$, with $\psi_n^\theta$ denoting the error in estimation. The estimation error can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA (see Algorithm \ref{alg:1spsa}). This is unlike many simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the estimation error as we have in our setting.
+Recall that the CPT-value estimation scheme is asymptotically unbiased, i.e., providing samples with parameter $\theta_n$ at instant $n$, we obtain its CPT-value estimate as $\C(X^{\theta_n}) + \psi_n^\theta$, with $\psi_n^\theta$ denoting the error in estimation. The estimation error can be controlled by increasing the number of samples $m_n$ in each iteration of CPT-SPSA. This is unlike many simulation optimization settings where one only sees function evaluations with zero mean noise and there is no question of deciding on $m_n$ to control the estimation error as we have in our setting.
 
 To motivate the choice for $m_n$, we first rewrite the update rule \eqref{eq:theta-update} as follows:
 \begin{align*}
-\theta^{i}_{n+1}  = & \Pi_{i}\bigg( \theta^{i}_n +  \gamma_n \bigg( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) - \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg) \\
-&+ \frac{(\psi_n^{\theta_n +\delta_n\Delta_n} - \psi_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg).
+\theta^{i}_{n+1} \! = \! \Pi_{i}\bigg( \theta^{i}_n +  \gamma_n \Big( \frac{\C(X^{\theta_n +\delta_n\Delta_n}) \!-\! \C(X^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\Big)\! +\! \kappa_n\bigg),
+%&+ \frac{(\psi_n^{\theta_n +\delta_n\Delta_n} - \psi_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}\bigg).
 \end{align*}
-Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$, where $\kappa_l = \frac{(\psi_l^{\theta_l +\delta_l\Delta_l} - \psi_l^{\theta_l-\delta_l\Delta_l})}{2\delta_l\Delta_l^{i}}$. Then, a critical requirement that allows us to ignore the estimation error term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
+where $\kappa_n = \frac{(\psi_n^{\theta_n +\delta_n\Delta_n} - \psi_n^{\theta_n-\delta_n\Delta_n})}{2\delta_n\Delta_n^{i}}$.
+Let $\zeta_n = \sum_{l = 0}^{n} \gamma_l \kappa_{l}$. Then, a critical requirement that allows us to ignore the estimation error term $\zeta_n$ is the following condition (see Lemma 1 in Chapter 2 of \cite{borkar2008stochastic}): 
 $$\sup_{l\ge0} \left (\zeta_{n+l} - \zeta_n \right) \rightarrow 0 \text{ as } n\rightarrow\infty.$$ 
 While Theorems \ref{prop:holder-asymptotic}--\ref{prop:holder-dkw} show that the estimation error $\psi^\theta$ is bounded above, to establish convergence of the CPT-SPSA, we increase the number of samples $m_n$ so that the bias vanishes asymptotically.  The assumption below provides a condition on the increase rate of $m_n$.
 
@@ -340,7 +342,7 @@ While CPT-SPSA is a local optimization scheme, CPT-MPS converges to the global o
 % The crucial difference between CPT-MPS and MRAS$_2$ is that the latter has an expected function value objective, i.e., it aims to minimize a function by using sample observations that have zero-mean noise. On the other hand, the objective in our setting is the CPT-value, which distorts the underlying transition probabilities. The implication here is that MRAS$_2$ can estimate the expected value using sample averages, while we have to resort to integrating the empirical distribution, which results in biased estimates.
 
 
-\subsubsection*{Basic algorithm}
+%\subsubsection*{Basic algorithm}
 To illustrate the main idea in the algorithm, assume we know the form of $\C(X^{\theta})$. Then, the idea is to generate a sequence of reference distributions $g_k(\theta)$ on the parameter space $\Theta$, such that it eventually concentrates on the global optimum $\theta^*$. One simple way, suggested in Chapter 4 of \cite{chang2013simulation} is
 \begin{equation}
 \label{eqn:naive}
@@ -349,13 +351,12 @@ g_{k}(\theta)=
 {\int_{\Theta}\mathcal{H}(\C(X^{\theta'}))g_{k-1}(\theta')\nu(d\theta')},
 ~~\forall\, \theta \in \Theta,
 \end{equation}
-where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to parameters having higher CPT-values, and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
+where $\nu$ is the Lebesgue/counting measure on $\Theta$ and $\mathcal{H}$ is a strictly decreasing function. The above construction for $g_k$'s assigns more weight to parameters having higher CPT-values.
+%, and it is easy to show that $g_k$ converges to a point-mass concentrated at $\theta^*$.
 
 Next, consider a setting where one can obtain the CPT-value $\C(X^{\theta})$ (without any noise) for any parameter $\theta$. In this case, we consider a family of parameterized distributions, say $\{f(\cdot,\eta),\,\eta\in \C \}$ and incrementally update the distribution parameter $\eta$ such that it minimizes the following KL divergence:
-\begin{align*}
 %\label{eqn:kl}
-\mathcal{D}(g_k,f(\cdot,\eta))&:=\int_{\Theta}\! \ln \frac{g_{k}(\theta)}{f(\theta,\eta)}g_{k}(\theta)\nu(d\theta), 
-\end{align*}
+$\mathcal{D}(g_k,f(\cdot,\eta)):=\int_{\Theta}\! \ln \frac{g_{k}(\theta)}{f(\theta,\eta)}g_{k}(\theta)\nu(d\theta)$, 
 where $\hat \theta$ is a random vector taking values in the parameter space $\Theta$. 
 As recommended in \cite{chang2013simulation}, we employ the natural exponential family (NEF) for the family of distributions $f(\cdot,\theta)$, since it ensures that the KL distance above  can be computed analytically. %See Appendix \ref{appendix:mras} for details.
 %Through \ e intuition for the above is that we project the reference distributions $g_k$ onto the family $\{f(\cdot,\eta),\,\eta\in \C \}$.
@@ -431,7 +432,7 @@ $\mathcal{H}\hspace*{-3pt}$ and $\chi_{-1}=-\infty$.
 %	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
 %	      \State Simulate $m_n$ samples from the distribution of $X^{\theta^i_n}$.
-	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$ from Algorithm \ref{alg:holder-est} using $m_n$ samples.
+	      \State Obtain CPT-value estimate $\overline \C_n^{\theta^i_n}$  using $m_n$ samples.
 	      \EndFor
 %	\EndEstimation
 	%%%%%%%%%%%%%%%%%%%%%%%%%%55

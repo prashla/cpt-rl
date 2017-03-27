@@ -828,8 +828,8 @@ The claim follows from the Kushner-Clark lemma.
 %  &\leq 
 % P\Big(\bigcup_{\theta\in\Lambda_n, \theta'\in \Lambda_{n-1}} \Big\{\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \\
 % &\qquad\quad\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \Big\}\Big)\\
-&\leq \!\! \sum_{\substack{\theta\in \Lambda_n,\\\theta'\in \Lambda_{k-1}}}\!\!\!\mathbb{P}\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
-\left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\}\right) \\
+%&\leq \!\! \sum_{\substack{\theta\in \Lambda_n,\\\theta'\in \Lambda_{k-1}}}\!\!\!\mathbb{P}\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \cap
+%\left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\}\right) \\
 &\leq  |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\mathbb{P}\left(\big\{\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}\geq \varepsilon\big\} \right.\\
 &\quad\qquad \left.\cap \left\{\C(X^{\theta})-\C(X^{\theta'})\leq \frac{\varepsilon}{2}\right\} \right) \\
 &\leq |\Lambda_n||\Lambda_{n-1}|\sup_{\theta,\theta'\in \Theta}\mathbb{P}\left(\overline \C_n^{\theta}-\overline \C_{n-1}^{\theta'}-\C(X^{\theta})+\C(X^{\theta'})\geq \frac{\varepsilon}{2}\right) \\
@@ -838,13 +838,12 @@ The claim follows from the Kushner-Clark lemma.
 &\leq  4|\Lambda_n||\Lambda_{k-1}|
  e^{- \frac{m_n\epsilon^2}{8 L^2 M^2}}.
 \end{align*}
-From the foregoing, we have $\sum_{n=1}^{\infty}\mathbb{P}\left(\mathcal{A}_n \cap \mathcal{B}_n\right) < \infty$ since $m_n \rightarrow \infty$ as $n\rightarrow \infty$.  Applying the Borel-Cantelli lemma, we obtain\\
-\centerline{$
+From the foregoing, we have $\sum_{n=1}^{\infty}\mathbb{P}\left(\mathcal{A}_n \cap \mathcal{B}_n\right) < \infty$ since $m_n \rightarrow \infty$ as $n\rightarrow \infty$.  Applying the Borel-Cantelli lemma, we obtain
+$
 \mathbb{P}\left(\mathcal{A}_n \cap \mathcal{B}_n~\mbox{i.o.} \right)=0.
-$}
-
-From the above, it is implied that if $\mathcal{A}_n$ happens infinitely often,
-then $\mathcal{B}_n^c$ will also happen infinitely often. Hence,
+$
+Hence, if $\mathcal{A}_n$ happens infinitely often,
+then $\mathcal{B}_n^c$ will also happen infinitely often and we have
 \begin{align*}
 &\sum_{n=1}^{\infty}\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big] 
 =\!\sum_{n:~\mathcal{A}_n \text{occurs}}\!\!\!\!\!\!\!\big[\C(X^{\theta^*_n})-\C(X^{\theta^*_{n-1}})\big]\\
