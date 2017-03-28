@@ -274,7 +274,7 @@ In comparison to CPT objective, the above does not incorporate baseline delays, 
 
 We implement the following TLC algorithms:
 
-\noindent{\bf\em CPT-SPSA}: This is a first-order algorithm (see Algorithm \ref{alg:1spsa}) that solves \eqref{eq:cpt-traffic} using SPSA-based gradient estimates and Algorithm \ref{alg:holder-est} for estimating CPT-value $\C(B_i-X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
+\noindent{\bf\em CPT-SPSA}: This is a first-order algorithm that solves \eqref{eq:cpt-traffic} using SPSA-based gradient estimates and Algorithm \ref{alg:holder-est} for estimating CPT-value $\C(B_i-X_i)$ for each path $i=1,\ldots,\M$, with $d_n^{i,j}, j=1,\ldots,n_i$ as the samples.
 
 % {\bf\em EUT-SPSA}: This is similar to CPT-SPSA, except that weight functions $w^+(p)=w^-(p)=p,$ for $p\in [0,1]$. 
 

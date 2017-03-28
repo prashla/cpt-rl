@@ -62,7 +62,6 @@ w^+(p) &= \frac{p^{\eta_1}}{{(p^{\eta_1}+ (1-p)^{\eta_1})}^{\frac{1}{\eta_1}}}, 
 \end{align*} 
 where $\lambda = 0.25$, $\sigma = 0.88$, $\eta_1 = 0.61$ and $\eta_2 = 0.69$. The choices for $\sigma$ and $w^+(\cdot)$,  $w^-(\cdot)$ are based on the recommendations given by \cite{tversky1992advances}. 
 
-\footnotetext[1]{The red dot is the expected value optima that is calculated analytically, while the green dot is the CPT-value optima.}
 %\subsection{Comparison between CPT and expectation}
 Since it is usually hard to obtain an analytical expression for the CPT-value, we use numerical integration via the trapezoidal rule. 
 % Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore 
@@ -139,3 +138,5 @@ We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. 
 			\caption{Difference between CPT-estimate $\overline \C_{n_i}$ using Algorithm \ref{alg:holder-est} and numerically integrated approximation $\tilde \C(X)$ to CPT-value $\C(X)$ of a skew normal distributed r.v. $X$ with shape $2$, location $2$ and scale $1$. The shaded bands denote the standard error calculated from ten independent simulations.  }
       \label{fig:cpt-est} 
 			\end{figure}
+
+\footnotetext[1]{The red dot is the expected value optima that is calculated analytically, while the green dot is the CPT-value optima.}
