@@ -103,7 +103,9 @@ height=5.5cm,
 %%%%%%%%%%%%%%% End Hist %%%%%%%%%%%%%%%%%
 
 We consider a traffic signal control application where the aim is to improve the road user experience by an adaptive traffic light control (TLC) algorithm.
-We apply the CPT-functional to the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay minimizing algorithms. It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim}, and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
+We optimize the CPT-value of the delay experienced by road users, since CPT realistically captures the attitude of the road users towards delays. 
+% We then optimize the CPT-value of the delay and contrast this approach with traditional expected delay minimizing algorithms. 
+It is assumed that the CPT functional's parameters $(u,w)$ are given (usually, these are obtained by observing human behavior). The experiments are performed using the GLD traffic simulator \cite{GLDSim}, and the implementation is available at \url{https://bitbucket.org/prashla/rl-gld}.
 
 % \subsection{Simulation Setup}  
 We consider a road network with $\N$ signalled lanes that are spread across junctions and $\M$ paths, where each path connects (uniquely) two edge nodes, from which the traffic is generated (see Figure \ref{fig:road-net}). 
@@ -127,7 +129,7 @@ The state $s_n=(q_n^1,\ldots,q_n^{\N},t_n^1,\ldots,t_n^{\N},d_n^{1,1},\ldots,d_n
  \begin{figure*}
     \centering
      \begin{tabular}{cc}
-\subfigure[Expected delay (path-wise). The black squares indicate baseline delays.]{
+\subfigure[Expected delay (path-wise). The $\times$ marks indicate baseline delays.]{
 \label{fig:avg}
 \hspace{-2em} 
 \tabl{c}{\scalebox{0.6}{\begin{tikzpicture}
@@ -160,18 +162,18 @@ ymax=150
 \addplot coordinates {  (1,116) (2,116) (3,120) (4,116) (5,100) (6,111) (7,122) (8,116) (9,134) (10,123) (11,107) (12,112)}; 
 \addlegendentry{CPT-SPSA}
 
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:1,137) {}; % 0-1
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:2,132) {}; % 0-2
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:3,135) {}; % 0-3
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:4,111) {}; % 1-0
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:5,110) {}; % 1-2
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:6,117) {}; % 1-3
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:7,125) {}; % 2-0
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:8,141) {}; % 2-1
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:9,147) {}; % 2-3
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:10,115) {}; % 3-0
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:11,114) {}; % 3-1
-\node [rectangle,fill=black,inner sep=0pt,minimum size=4pt]  at (axis cs:12,116) {}; % 3-2
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:1,137) {$\bm{\times}$}; % 0-1
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:2,132) {$\bm{\times}$}; % 0-2
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:3,135) {$\bm{\times}$}; % 0-3
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:4,111) {$\bm{\times}$}; % 1-0
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:5,110) {$\bm{\times}$}; % 1-2
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:6,117) {$\bm{\times}$}; % 1-3
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:7,125) {$\bm{\times}$}; % 2-0
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:8,141) {$\bm{\times}$}; % 2-1
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:9,147) {$\bm{\times}$}; % 2-3
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:10,115) {$\bm{\times}$}; % 3-0
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:11,114) {$\bm{\times}$}; % 3-1
+\node [inner sep=0pt,minimum size=4pt]  at (axis cs:12,116) {$\bm{\times}$}; % 3-2
 
 \end{axis}
 \end{tikzpicture}}\\[1ex]}
@@ -253,6 +255,7 @@ For the sake of comparison, we consider the traditional objective of minimizing 
 \min_{\theta\in \Theta}\text{AVG}(X_1^\theta,\ldots,X_{\M}^\theta) = \sum_{i=1}^{\M} \mu_i^\theta \E(X_i^\theta). \label{eq:avg-traffic} 
 \end{align}
 In comparison to CPT objective, the above does not incorporate baseline delays, makes no distinction between gains and losses via utility functions and does not distort probabilities. 
+
 %Thus, the AVG objective is defined as
 %\begin{align}
 %\text{AVG}(X_1,\ldots,X_{\M}) = \sum_{i=1}^{\M} \mu^i \E(X_i).
@@ -280,6 +283,8 @@ We implement the following TLC algorithms:
 
 \noindent{\bf\em AVG-SPSA}: This is SPSA-based first-order algorithm that solves \eqref{eq:avg-traffic}, while using sample averages of the delays to estimate the expected delay $\E(X_i)$ for each path $i=1,\ldots,\M$. 
 
+Recent works in \cite{fleck2016adaptive,geng2015multi} consider the problem of traffic light control with parameterized policies based on underlying queue lengths and elapsed times. However, they do not consider a CPT-based objective and apply a perturbation analysis approach that imposes structural restrictions on the underlying objective.
+
 The underlying CPT-value $\C(X_i), \forall i$ follows the exact form as in section \ref{sec:expts-simple}, except here we set $\lambda = 2.25$.
 The choices for $\lambda$, $\sigma$, $\eta_1$ and $\eta_2$ are based on median estimates given by \cite{tversky1992advances} and have been used earlier in a traffic application (see \cite{gao2010adaptive}).
 For all the algorithms,
@@ -288,8 +293,10 @@ For all the algorithms,
 
 \begin{table}
  \centering
-  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA algorithms. Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while 
-  AVG-value uses absolute delays.}
+  \caption{AVG and CPT-value estimates for AVG-SPSA and CPT-SPSA. 
+%   Note: CPT-value is of differential delays w.r.t. pre-timed TLC, while 
+%   AVG-value uses absolute delays.
+  }
   \label{tab:cpt-results}
  \begin{tabular}{|c|c|c|}
   \toprule 

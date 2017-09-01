@@ -67,7 +67,7 @@ Since it is usually hard to obtain an analytical expression for the CPT-value, w
 % Meanwhile, since we usually have little knowledge about the property of CPT-functional, gradient descent algorithm usually won't guarantee the convergence to the global optimal within the feasible region. Therefore 
 We consider two settings where the feasible region is triangle shaped over two distribution parameters. In each setting, the expected value optima is calculated analytically, while for the CPT-value, we perform a grid search, where the distance between points in the grid is $0.05$. 
 \begin{example}
-We consider normal distributed r.v.s with mean $\mu$ and variance $\sigma$. As shown in Figure \ref{fig:normal-cpt}, the feasible region for $(\mu, \sigma)$ is the triangle with vertices $(0.5,2), (0.5,6)$ and $(2.5,2)$. The expected value takes its maximum analytically at $(2.5, 2)$, while a numerical optimization of the CPT-value returned a maximum at $(0.5, 6)$, with corresponding CPT-value $2.65$. On the other hand, the CPT value of the r.v. $N(2.5, 2)$ was $2.37$.
+We consider normal distributed r.v.s with mean $\mu$ and variance $\sigma$. As shown in Figure \ref{fig:normal-cpt}, the feasible region for $(\mu, \sigma)$ is the triangle with vertices $(0.5,2), (0.5,6)$ and $(2.5,2)$. The expected value takes its maximum analytically at $(2.5, 2)$, while a numerical optimization of the CPT-value returned a maximum at $(0.5, 6)$, with corresponding CPT-value $2.65$. The CPT value of the r.v. $N(2.5, 2)$ was $2.37$.
 \end{example}
 
 \begin{example}
@@ -92,7 +92,7 @@ On the other hand, the point $(1,1)$ has the largest expected value with $\mathb
 %\subsection{Consistency of CPT estimator}
 We illustrate the rapid convergence of the estimator in Algorithm \ref{alg:holder-est} for a skew normal distributed  r.v. with location, scale and shape parameters set to $2,1$ and $2$, respectively. 
 %For calculating the CPT-value, we use the trapezoidal rule. 
-We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ with $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$ that corresponds to $n_i$ samples, we calculate the estimation error, which is the absolute difference between $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ and the numerically integrated CPT-value. Figure \ref{fig:cpt-est} presents the estimation error with standard error bars for each $n_i$. 
+We conducted the experiment in $100$ simulation phases indexed from $1$ to $100$. In each phase $i$, we generate i.i.d. estimators $\overline\C^j_{n_i}\left(X\right)$ with $n_i$ samples of skew normal distributed r.v. $X$, where $j=1,\ldots,10$ corresponds to an independent simulation. The number of samples $n_i$ in each phase $i$ ranges from $100$ to $10^6$. For each phase $i$, we calculate the estimation error, which is the absolute difference between $\overline \C_{n_i} = \frac1{10}\sum_{j=1}^{10}\C^j_{n_i}$ and the numerically integrated CPT-value. Figure \ref{fig:cpt-est} presents the estimation error with standard error bars for each $n_i$. 
 % Here, the margin of error denotes half the length of t-confidence interval. 
 %It is evident from Figure \ref{fig:cpt-est} that our CPT-value estimate gets very close to the true CPT-value rapidly.
 
@@ -119,16 +119,18 @@ We conduct the experiment in $100$ simulation phases indexed from $1$ to $100$. 
 
 \begin{figure}
     \centering
-\scalebox{0.6}{\begin{tikzpicture}
+\scalebox{0.7}{\begin{tikzpicture}
       \begin{axis}[
 	xlabel={Sample size $n_i$},
-	ylabel={Estimation error $|\overline \C_{n_i} - \tilde \C(X)|$},
+	ylabel style={align=center},
+	ylabel={Estimation error \\$|\overline \C_{n_i} - \tilde \C(X)|$},
        %legend entries={
 	 %,
         %estimator,
         %},
         %legend pos=north east,
-				grid,grid style={gray!30}
+				grid,grid style={gray!30},
+				width=11cm, height=6cm
       ]
 
       \errorband[red!50!white, opacity=0.3]{results/estimation_accuracy.txt}{0}{1}{2}

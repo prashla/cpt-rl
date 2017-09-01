@@ -165,9 +165,9 @@ Hence, even the problem of estimating the CPT-value given a random sample is cha
 %\textit{Solution:} 
 In this paper, we consider a natural quantile-based estimator and analyze its behavior.
 Under certain technical assumptions, we prove consistency and give sample complexity bounds, the latter based on the
- Dvoretzky-Kiefer-Wolfowitz (DKW) theorem.
-As an example, we show that the sample complexity for estimating the CPT-value 
-for Lipschitz probability distortion weight functions is  $O\left(\frac1{\epsilon^2}\right)$, which coincides with the canonical rate for Monte Carlo-type schemes and is thus unimprovable. Since weight functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  degrades to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
+ Dvoretzky-Kiefer-Wolfowitz (DKW) theorem \cite[Chapter 2]{wasserman2006}.
+As an example, we show that the sample complexity to estimate the CPT-value 
+for Lipschitz probability distortion weight functions is  $O\left(\frac1{\epsilon^2}\right)$, for a given accuracy $\epsilon$. This sample complexity coincides with the canonical rate for Monte Carlo-type schemes and is thus unimprovable. Since weight functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  degrades to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
 %However, for weight functions which are only \holder continuous with exponent $\alpha \in (0,1)$,
 %Thus, at least in this case, 
 %At the same time, 

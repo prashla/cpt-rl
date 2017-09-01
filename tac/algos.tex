@@ -204,7 +204,7 @@ Let $\K' = \{\theta^* \mid \nabla_i \C(X^{\theta^*})=0, \forall i=1,\ldots,d\}$ 
 %See Theorem \ref{thm:1spsa-asymp-normal} in Appendix \ref{appendix:1spsa} for a central limit theorem result, which shows that $n^{\beta/2}(\theta_n - \theta^*)$ is asymptotically normal.  
 
 \begin{remark}
-The convergence result presented for CPT-SPSA is applicable to more general settings where an algorithm is provided samples of a performance objective, with an estimation error that vanishes asymptotically. Examples of such settings are average reward optimization via policy gradient methods in an RL context \cite{baxter2001infinite} or in the context of a optimal stopping problem \cite{poczos2009learning}. 
+The convergence result presented for CPT-SPSA is applicable to more general settings where an algorithm is provided samples of a performance objective, with an estimation error that vanishes asymptotically. Examples of such settings are average reward optimization via policy gradient methods in an RL context \cite{baxter2001infinite} or in the context of an optimal stopping problem \cite{poczos2009learning}. 
 \end{remark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -426,8 +426,8 @@ $\mathcal{H}\hspace*{-3pt}$ and $\chi_{-1}=-\infty$.
 \For{$n = 0,1,2,\ldots$}	
 %	\Candidate
 	    \State 
-	    Generate $N_n$ parameters using the mixture distribution $\widetilde f(\cdot,\eta_n)= (1-\lambda)f(\cdot,\widetilde\eta_n)+\lambda f(\cdot,\eta_0)$. 
-	    \State Denote these candidate parameters by $\theta^1_n, \ldots, \theta_n^{N_n}$.
+	    Generate $N_n$ parameters $\Lambda_n = \{\theta^1_n, \ldots, \theta_n^{N_n}\}$ using the mixture distribution $\widetilde f(\cdot,\eta_n)= (1-\lambda)f(\cdot,\widetilde\eta_n)+\lambda f(\cdot,\eta_0)$. 
+% 	    \State Let $\Lambda_n = \{\theta^1_n, \ldots, \theta_n^{N_n}\}$ denote the set of candidate parameters.
 %	\EndCandidate    
 %	\Estimation
 	    \For{$i = 1,2,\ldots,N_n$}
