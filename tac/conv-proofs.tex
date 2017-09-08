@@ -262,15 +262,15 @@ On the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
 \end{align*}
 Notice  that
 \begin{align*}
-&\int\limits_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds
-\leq \frac{1}{n^c} \int\limits_{n^c}^\infty \frac{s}{n^c} e^{-2\alpha s^2} ds\\
-=&\frac{1}{n^c} \frac{4}{\alpha} e^{-2\alpha \left(n^c\right)^2} \leq e^{-2\alpha \left(n^c\right)^2} \leq \frac{\epsilon}{2} \text{ for } n \geq \left(\frac{\ln2 - \ln\epsilon}{2\alpha}\right)^{\frac{1}{c}}.
+&\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds
+\leq \frac{1}{n^c} \int_{n^c}^\infty \frac{s}{n^c} e^{-2\alpha s^2} ds\\
+=&n^c \frac{4}{\alpha} e^{-2\alpha \left(n^c\right)^2} \leq \frac{\epsilon}{2} \text{ for } n \geq \left(\frac{\ln2 - \ln\epsilon}{2\alpha}\right)^{\frac{1}{c}}.
 \end{align*}
 %Hence, for $$, we have 
 %$\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds \leq \frac{\epsilon}{2}$, and obtain the following probability bound s.t. 
 Thus, we obtain
 \begin{align*}
-&\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\leq \\ 
+&\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[n]}\right) < n^c\right\}\right)\leq \\ 
 &\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
 \int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)\!\!.
 \end{align*}
@@ -326,15 +326,15 @@ The  bound in \eqref{eq:S-complex-bounded} can be inferred by replacing $n^c$ by
  \end{align}
  %If the utilities are only sub-gaussian, integrating the bound \eqref{S-complex-unbounded} in Proposition \ref{prop:holder-dkw}
 
-For the sub-Gaussian case, notice that if we truncate $u^+\left(X_{[i]}\right)$  by $\left(n\sqrt{\epsilon}\right)^c$ instead of $n^c$ and repeat the steps used in the proof of Proposition
+For the sub-Gaussian case, notice that if we truncate $u^+\left(X_{[i]}\right)$  by $n^c\sqrt{\epsilon}$ instead of $n^c$ and repeat the steps used in the proof of Proposition
 \ref{prop:holder-dkw}, we obtain
 $$
-\Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2\left(n^2 \epsilon\right)^\frac{c}{2}} 
-+ 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{1-c}}{2H}\right)^{\frac{2}{\alpha}}}\,.
+\Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2n^{2c}\epsilon^{\frac{1}{2}}} 
++ 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{\frac{1}{2}}}{2H}\right)^{\frac{2}{\alpha}}}\,.
 $$
 Setting $c=\frac{1}{2+\alpha}$,
 we obtain the following:
-$$\E \left|\overline \C_n- \C(X) \right| \le \frac{2\Gamma\left(\frac{2}{c}\right)}{nc} + \frac{\Gamma\left(\frac{\alpha}{2\left(1-c\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{\frac{\alpha-2c}{\alpha}}}.$$
+$$\E \left|\overline \C_n- \C(X) \right| \le \frac{\Gamma\left(\frac{1}{2}\right)\cdot \alpha \cdot 2^{1-\alpha}}{n^{\frac{\alpha}{\alpha+2}}} + \frac{\Gamma\left(\frac{1}{2}\right)\sqrt{2}\left(2H\right)^{\frac{2}{\alpha}}}{n^{\frac{2-\alpha}{2+\alpha}}}.$$
 % , for n large 
  %\begin{align*}
 %& \E \left|\overline \C_n- \C(X) \right|  
