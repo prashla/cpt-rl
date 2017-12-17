@@ -116,16 +116,20 @@ and $u^-\left(X\right)$, respectively.
 %For the sample complexity results below, we require (A2'), while (A2) is sufficient to prove asymptotic consistency.
 \begin{proposition}(\textbf{Asymptotic consistency})
 \label{prop:holder-asymptotic}
-Assume (A1), (A2),\\
+Assume (A1) with $\alpha > \frac{1}{2}$ and (A2), 
 % \begin{inparaenum}[\bfseries (i)]
 % \item 
-$F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
-are Lipschitz continuous on the respective intervals $(0,+\infty)$, and 
-$(-\infty, 0)$, and  the utility functions $u^+, u^-$ satisfy 
+% \begin{inparaenum}[\bfseries (i)]
+% \item 
+and if $F^+(\cdot)$ and $F^-(\cdot)$, the respective distribution functions of $u^+(X)$ and $u^-(X)$, 
+satisfy the property that there exist constants $L^+$ and $L^-$ such that 
+$$|F^+(x) - F^+(y)|\geq L^+ |x - y|, \,\,\forall x, y \in \mathcal{U^+} \subset \mathbb{R}$$ and 
+$$|F^-(x) - F^-(y)|\geq L^- |x - y|, \,\,\forall x, y \in \mathcal{U^-} \subset \mathbb{R},$$
+with $\mathcal{U}^+$ and $\mathcal{U}^-$ the connected and compact support of $u^+(X)$ and $u^-(X)$.
+Additionally, if the random variables $u^+(X), u^-(X)$ satisfy 
 $$\lim\limits_{n\rightarrow\infty}\frac{u^+(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ and }\lim\limits_{n\rightarrow\infty}\frac{u^-(X_{[n]})}{n^{\alpha}}\rightarrow 0 \text{ a.s.},$$
-where $\alpha$ is the \holder exponent for $w^{\pm}$.
-
-Then, we have 
+where $\alpha$ is the \holder exponent for $w^{\pm}$,
+then we have 
 \begin{align}
 \overline \C_n
 \rightarrow
@@ -171,9 +175,7 @@ $$
 Instead, if the utilities are sub-Gaussian, then
 $$\E \left|\overline \C_n- \C(X) \right|  \le 
 %\frac{(4+2\alpha)\Gamma\left((4+\2alpha)\right)}{n} 
-%\frac{720}{n}+ \frac{\Gamma\left(\frac{\alpha(2+\alpha)}{2\left(1+\alpha\right)}\right)\left(2H\right)^{\frac{2}
-%{\alpha}}}{2n^{1-\frac{2}{\alpha(2+\alpha)}}}.
-\frac{\Gamma(\frac{1}{2}) \cdot \alpha \cdot 2^{1-\alpha}}{n^{\frac{\alpha}{\alpha+2}}} + \frac{\Gamma(\frac{1}{2})\cdot \sqrt{2}(2H)^{\frac{2}{\alpha}}}{n^{\frac{2-\alpha}{2+\alpha}}}$$
+\frac{720}{n}+ \frac{\Gamma\left(\frac{\alpha(2+\alpha)}{2\left(1+\alpha\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{1-\frac{2}{\alpha(2+\alpha)}}}.$$
 %where $c=\frac{1}{2+\alpha}$.
 %Meanwhile, if $u^+(X)$ and $u^-(X)$ only satisfies subgaussian property, we have
 %$$

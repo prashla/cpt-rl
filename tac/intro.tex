@@ -155,7 +155,7 @@ PT/CPT has been applied in a variety of domains, for e.g., healthcare \cite{lene
 \subsection*{Our contributions\footnote{A preliminary version of this paper was published in ICML 2016 \cite{la2016cumulative}. In comparison to the conference version, this paper includes additional theoretical results, formal proofs of convergence of both estimation and optimization algorithms, additional experiments and a revised presentation.}}
 
 To the  best of our knowledge, we are the first to incorporate CPT into an online stochastic optimization framework. Although on the surface the combination may seem straightforward, in fact there are many challenges that arise from trying to optimize a CPT objective in the stochastic optimization framework, as we will soon see. 
-We outline these challenges as well as our approach to addressing them below.  
+In this short summary, we outline these challenges as well as our approach to addressing them. 
 
 The first challenge stems from the fact that the CPT-value assigned to a random variable is defined through a nonlinear transformation of the cumulative distribution function associated with the underlying random variable (see \cref{sec:cpt-val} for the definitions). 
 Hence, even the problem of estimating the CPT-value given a random sample is challenging.
@@ -167,7 +167,7 @@ In this paper, we consider a natural quantile-based estimator and analyze its be
 Under certain technical assumptions, we prove consistency and give sample complexity bounds, the latter based on the
  Dvoretzky-Kiefer-Wolfowitz (DKW) theorem \cite[Chapter 2]{wasserman2006}.
 As an example, we show that the sample complexity to estimate the CPT-value 
-for Lipschitz probability distortion weight functions is  $O\left(\frac1{\epsilon^2}\right)$, for a given accuracy $\epsilon$. This sample complexity coincides with the canonical rate for Monte Carlo-type schemes and is thus unimprovable. Since weight functions that fit well to human preferences are only  \holder continuous (see (A1) in Section \ref{sec:cpt-sampling}), we also consider this case and find that (unsurprisingly) the sample complexity  degrades to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
+for Lipschitz probability distortion weight functions is  $O\left(\frac1{\epsilon^2}\right)$, for a given accuracy $\epsilon$. This sample complexity coincides with the canonical rate for Monte Carlo-type schemes and is thus unimprovable. Since weight functions that fit well to human preferences are only  \holder continuous, we also consider this case and find that (unsurprisingly) the sample complexity  degrades to $O\left(\frac1{\epsilon^{2/\alpha}}\right)$ where $\alpha\in (0,1]$ is the weight function's \holder exponent.
 %However, for weight functions which are only \holder continuous with exponent $\alpha \in (0,1)$,
 %Thus, at least in this case, 
 %At the same time, 

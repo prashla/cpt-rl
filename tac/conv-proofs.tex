@@ -157,7 +157,7 @@ w^+\left(\frac{n-i-1}{n}\right)\right)\right.\right.\right.\\
 \end{align*}
 In the above, \eqref{eq:bd02} follows from the fact that $w^+$ is \holder with constant $1$.
 
-Now we find an upper bound for the probability of a single term in the sum above, i.e.,
+Moreover, $\forall i$, we have
 \begin{align*}
 & \Prob{ \left | u^+\left(X_{[i]}\right)\! -\! \xi^+_{\frac{i}{n}} \right | \!>\! \frac {\epsilon} {n^{\left(1-\alpha\right)}}}  
  \!=\! \Prob{
@@ -165,8 +165,7 @@ Now we find an upper bound for the probability of a single term in the sum above
 	&	+ \Prob{ u^+\left(X_{[i]}\right) -
     \xi^+_{\frac{i}{n}} < - \frac {\epsilon} {n^{\left(1-\alpha\right)}}}.
 \end{align*} 
-
-We focus on the first term above.
+%We focus on the first term above.
 $$\hspace{-6em}\text{Let } W_j = I_{\left(u^+(X_j) > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}}\right)}, j=1, \ldots,n.$$ Using the fact that a probability distribution function is non-decreasing, we obtain 
 \begin{align*}
 & \Prob { u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} =\Prob { \sum _{j=1}^{n} W_j > n - i}  \\
@@ -178,32 +177,31 @@ $$\hspace{-6em}\text{Let } W_j = I_{\left(u^+(X_j) > \xi^+_{\frac{i}{n}} + \frac
 \end{align*}
 
 Using the fact that 
-$E W_j = 1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)$ in conjunction with Hoeffding's inequality, we obtain
+$\mathbb{E} W_j = 1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)}}\right)$ in conjunction with Hoeffding's inequality, we obtain
 \begin{align*}
 &\mathbb{P} \left( \sum _{i=1}^{n} W_j - n  \left[1-F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha) }  } \right) \right] \right.\\
 &\left.\qquad> n
  \left[F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon}{n^{(1-\alpha)} } \right) - \frac{i}{n}\right]\right) \le e^{-2n
-\delta^{'}_i},
+(\delta^{'}_i)^2},
 \end{align*}
-where $\delta^{'}_i= F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }\right) - \frac{i}{n}$. Since 
-$F^{+}$ is Lipschitz, we have that $ \delta^{'}_i \leq L^{+} \left(\frac{\epsilon}{\nalpha}\right)$.
+where $\delta^{'}_i= F^{+}\left(\xi^+_{\frac{i}{n}} +\frac{\epsilon} {n^{(1-\alpha)} }\right) - \frac{i}{n}$. According to the conditions imposed on $F^+$,  we have that $ \delta^{'}_i \geq L^{+} \frac{\epsilon}{\nalpha}$.
 Hence, we obtain
 \begin{align}
-\Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &\le e^{-2n L^{+}
-\frac{\epsilon}{\nalpha} } \nonumber\\
-&= e^{-2n^\alpha  L ^{+} \epsilon}\,.
+\Prob{ u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} &\le e^{-2n (L^{+}
+\frac{\epsilon}{\nalpha})^2 } \nonumber\\
+&= e^{-2n^{2\alpha-1}  (L ^{+} \epsilon)^2}\,.
 \label{eq:a12}
 \end{align}
 In a  similar fashion, one can show that 
 \begin{align}
-\Prob{ u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}} \leq e^{-2n^\alpha  L^{+}  \epsilon}.
+\Prob{ u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} < -\frac {\epsilon} {\nalpha}} \leq e^{-2n^{2\alpha-1}  (L^{+} \epsilon)^2}.
 \label{eq:a23}
 \end{align}
 Combining \eqref{eq:a12} and \eqref{eq:a23},  we obtain 
 %\todoc{Is not $\mathbb{N} \cap (0,1) =\emptyset$???}
 \begin{align*}
 \Prob{ \left| u^+(X_{[i]}) -\xi^+_{\frac{i}{n}} \right| < -\frac {\epsilon} {\nalpha}} \leq 2
-e^{-2n^\alpha  L^{+} \epsilon}. 
+e^{-2n^{2\alpha -1}  (L^{+} \epsilon)^2}. 
 \end{align*}
 Plugging the above in \eqref{eq:bd12}, we obtain
 \begin{align}
@@ -212,11 +210,11 @@ Plugging the above in \eqref{eq:bd12}, we obtain
 &\left.\left.\quad -
 \sum_{i=1}^{n-1} \xi^+_{\frac{i}{n}} \left(w^+\left(\frac{n-i}{n} \right)  - w^+\left(\frac{n-i-1}{n} \right) \right) \right| >
 \epsilon\right) \nonumber\\
-&\leq 2(n-1) e^{-2n^\alpha  L^{+}\epsilon} \leq 2ne^{-2n^\alpha  L^{+}\epsilon}\,.\label{eq:holder-sample-complexity-extract}
+&\leq 2(n-1) e^{-2n^{2\alpha-1}  (L^{+}\epsilon)^2} \leq 2ne^{-2n^{2\alpha-1}  (L^{+}\epsilon)^2}\,.\label{eq:holder-sample-complexity-extract}
 \end{align}
 
-Notice that $\sum_{n=1}^{\infty}  2n  e^{-2n^{\alpha} L^{+} \epsilon}< \infty$ since the sequence 
-$2n e^{-2n^{\alpha} L^{+}}$ will decrease faster than the sequence
+Notice that $\sum_{n=1}^{\infty}  2n  e^{-2n^{2\alpha-1} (L^{+} \epsilon)^2}< \infty$ with $\alpha > \frac{1}{2}$ since the sequence 
+$2n e^{-2n^{2\alpha-1} (L^{+}\epsilon)^2}$ will decrease faster than the sequence
 $\frac{1}{n^k}$ provided $k>1$.
 
 By applying the Borel-Cantelli lemma,  $\forall \epsilon >0$, we have 
@@ -246,37 +244,47 @@ $$
 \end{lemma}
 
 \begin{proof}(\textbf{\textit{Proposition \ref{prop:holder-dkw}}})\ \\
-To prove \eqref{eq:S-complex-unbounded}, we only need to 
-address the $w^+$ part, and the $w^-$ part follows in a similar fashion.
+To prove \eqref{eq:S-complex-unbounded}, suppose $t = C = 1$ w.l.o.g, and we only need to 
+address the $w^+$ part, and the $w^-$ part follows in a similar fashion. 
 Observe that for all $c > 0$, we have 
 \begin{align*}
-&\mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) \leq \mathbb{P}\left(u^+\left(X_{[i]}\right) \geq n^c \right)\nonumber\\
-& \qquad\qquad+ \mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[i]}\right) < n^c\right\}\right)\,.
+&\mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) \leq \mathbb{P}\left(u^+\left(X_{[n]}\right) \geq n^c \right)\nonumber\\
+& \qquad\qquad+ \mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[n]}\right) < n^c\right\}\right)\,.
 \end{align*}
-On the event $\{u^+\left(X_{[i]}\right) < n^c\}$, we have
+On the event $\{u^+\left(X_{[n]}\right) < n^c\}$, we have
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
-    \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|\,.
+    \left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|\,
+%= & \left|\int_0^{n^c} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|\\
+%+ & \left|\int_{n^c}^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt\right|,
 %\leq& \left|\int_0^{\infty} H |\Prob{u^+(X)<t}-{\hat F^+_n}(t)|^\alpha dt\right|\\ \leq& Hn^c\sup_{x\in
 %\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
+since $1 - \hat F^+_n(t) = 0, \forall t \geq n^c$.  
 Notice  that
 \begin{align*}
-&\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds
-\leq \frac{1}{n^c} \int_{n^c}^\infty \frac{s}{n^c} e^{-2\alpha s^2} ds\\
-=&n^c \frac{4}{\alpha} e^{-2\alpha \left(n^c\right)^2} \leq \frac{\epsilon}{2} \text{ for } n \geq \left(\frac{\ln2 - \ln\epsilon}{2\alpha}\right)^{\frac{1}{c}}.
+&\int_{n^c}^\infty w^+\left(\mathbb{P} \left( u^+(X) > t \right)\right) dt
+\leq H \int_{n^c}^\infty \frac{t}{n^c} e^{-\alpha t^2} dt\\
+%\leq \int_{n^c}^\infty \frac{s}{n^c} w \left(\mathbb{P} \left( X > s \right)\right) ds\\
+& = \frac{H}{n^c} \frac{2}{\alpha} e^{-\alpha \left(n^c\right)^2} \leq \frac{\epsilon}{2} \text{ for } n \geq \left(\frac{1}{\alpha} \ln\frac{4H}{\alpha \epsilon} \right)^{\frac{1}{2c}},
 \end{align*}
 %Hence, for $$, we have 
 %$\int_{n^c}^\infty w\left(\mathbb{P} \left( X > s \right)\right) ds \leq \frac{\epsilon}{2}$, and obtain the following probability bound s.t. 
-Thus, we obtain
+where the first inequality is obtained by (A1) and sub-Gaussian property of the distribution $u^+(X)$. 
+%An easy observation indicates that if $\left| \int_{n^c}^\infty w^+\left(\mathbb{P} \left( u^+(X) > t \right)\right) dt\right| \leq \frac{\epsilon}{2}$, then a necessary condition for 
+%$$\left|\int_0^{\infty} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{n^c} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \epsilon$$ is 
+
+%$$\left|\int_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
+%\int_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}.$$
+Thus, we obtain that, for $n \geq \left(\frac{1}{\alpha} \ln\frac{4H}{\alpha \epsilon} \right)^{\frac{1}{2c}}$, 
 \begin{align*}
 &\mathbb{P}\left(\{\left|\C_n -\C(X) \right| > \epsilon\} \bigcap \left\{u^+\left(X_{[n]}\right) < n^c\right\}\right)\leq \\ 
-&\mathbb{P}\left(\left|\int\limits_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
-\int\limits_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)\!\!.
+&\mathbb{P}\left(\left|\int_0^{n^c}\!\! w^+ \left(\Prob{u^+(X)>t}\right)dt \!\!-\!\! 
+\int_0^{n^c}\!\!w^+\left(1- {\hat F^+_n}(t)\right) dt\right| > \frac{\epsilon}{2}\right)\!\!.
 \end{align*}
 Now, plugging in the DKW inequality, we have
 \begin{align}
-&\mathbb{P}\left(\left|\intinfinity\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt \!\!-\!\! \intinfinity\!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\frac{\epsilon}{2}\right)
+&\mathbb{P}\left(\left|\int_0^{n^c}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt \!\!-\!\! \int_0^{n^c}\!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right|>\frac{\epsilon}{2}\right)
 \nonumber\\
 & \leq \mathbb{P}\left(Hn^c\sup_{t\in \mathbb{R}} \left|\Prob{u^+\left(X\right)<t}-{\hat F^+_n}\left(t\right)\right|^\alpha > \frac{\epsilon}{2}\right)
 \nonumber\\
@@ -287,20 +295,10 @@ Now, plugging in the DKW inequality, we have
 Meanwhile, by sub-Gaussianity, we infer that
 \begin{align*}
 \,\,&\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]} \right) \leq n^c \right)\\
-=&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
+%=&\,\, 1- \left(\mathbb{P}\left(X_i \leq n^c \right)\right)^n \leq 1 - \left(1 - e^{-2n^c}\right)^n \\
 \,\,\leq &1- \left(1- ne^{-2n^c} \right) = ne^{-2n^c},
 \end{align*}
-%Meanwhile, by invoking sub-Gaussian property, we infer that
-%\begin{align*}
-%&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
-%\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
-%=&\,\,n e^{-2 n^c},
-%Meanwhile, by invoking sub-Gaussian property, we infer that
-%\begin{align*}
-%&\,\,\mathbb{P}\left(u^+ \left(X_{[n]}\right) >  n^c \right) = 1- \mathbb{P}\left(u^+ \left(X_{[n]}\right) \le  n^c \right)\\
-%\leq &\,\,1 - \left(1 - e^{-2n^c}\right)^n \leq 1- \left(1- n e^{-2 n^c} \right)\\
-%=&\,\,n e^{-2 n^c},
-where the last inequality is obtained by Taylor approximation.
+where the last inequality is obtained by a Taylor series approximation.
 As a result, 
 \begin{align*}
 & \mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) 
@@ -311,8 +309,8 @@ The right side of the above inequality will be optimized with $c = 1 - \frac{2c}
 To prove \eqref{eq:S-complex-bounded} under the condition that utilities functions are bounded by $M$, notice that
 \begin{align*}
 &\left|\int_0^{\infty}\!\!\!\! w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{\infty} \!\!\!\! w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\ = &
-    \left|\int_0^{M} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{M} w^+\left(1- {\hat F^+_n}(t)\right) dt\right| \\
-    &\leq  HM \sup_{x\in\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
+    \left|\int_0^{M} w^+\left(\Prob{u^+(X)>t}\right) dt- \int_0^{M} w^+\left(1- {\hat F^+_n}(t)\right) dt\right|
+%    &\leq  HM \sup_{x\in\mathbb{R}}\left|\Prob{u^+(X)<t}-{\hat F^+_n}(t)\right|^\alpha.
 \end{align*}
 The  bound in \eqref{eq:S-complex-bounded} can be inferred by replacing $n^c$ by $M$ and $\frac{\epsilon}{2}$ by $\epsilon$ in inequality \eqref{eq:dkw3}.
 \end{proof}
