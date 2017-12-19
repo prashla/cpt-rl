@@ -175,7 +175,9 @@ $$
 Instead, if the utilities are sub-Gaussian, then
 $$\E \left|\overline \C_n- \C(X) \right|  \le 
 %\frac{(4+2\alpha)\Gamma\left((4+\2alpha)\right)}{n} 
-\frac{720}{n}+ \frac{\Gamma\left(\frac{\alpha(2+\alpha)}{2\left(1+\alpha\right)}\right)\left(2H\right)^{\frac{2}{\alpha}}}{2n^{1-\frac{2}{\alpha(2+\alpha)}}}.$$
+%\frac{720}{n}+ \frac{\Gamma\left(\frac{\alpha(2+\alpha)}{2\left(1+\alpha\right)}\right)\left(2H\right)^{\frac{2}
+%{\alpha}}}{2n^{1-\frac{2}{\alpha(2+\alpha)}}}.
+\frac{\Gamma(\frac{1}{2}) \cdot \alpha \cdot 2^{1-\alpha}}{n^{\frac{\alpha}{\alpha+2}}} + \frac{\Gamma(\frac{1}{2})\cdot \sqrt{2}(2H)^{\frac{2}{\alpha}}}{n^{\frac{2-\alpha}{2+\alpha}}}$$
 %where $c=\frac{1}{2+\alpha}$.
 %Meanwhile, if $u^+(X)$ and $u^-(X)$ only satisfies subgaussian property, we have
 %$$

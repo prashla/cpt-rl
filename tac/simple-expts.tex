@@ -1,47 +1,83 @@
-\begin{figure*}
+%  \begin{figure*}
+%    \centering
+%    \begin{minipage}{.3\textwidth}
+%      \hspace{-2em}
+%    \subfigure 
+%    {
+%    \scalebox{0.6}{
+%    \includegraphics[width=3.5in]{fig/CPT_Normal.png}
+%    }
+%    }
+%   \caption{CPT-value of normal distributed r.v.s with mean $\mu$ and variance $\sigma$ parameters\protect\footnotemark[1]. }
+%    \label{fig:normal-cpt}
+%   \end{minipage}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \begin{minipage}{.01\textwidth}
+% ~ 
+% \end{minipage}
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    \begin{minipage}{.6\textwidth}
+%       \begin{tabular}{cc}
+% \subfigure
+%    {
+% %    \label{fig:skewnormal-expected}
+% %    \scalebox{0.7}{
+%    \includegraphics[width=2.5in]{fig/Expectation_skewNormal.png}
+% %    }
+%    }
+%    &
+% \subfigure
+%    {
+% %    \label{fig:skewnormal-cpt}
+% %    \scalebox{0.7}{
+%    \includegraphics[width=2.5in]{fig/CPT_skewNormal.png}
+% %    }
+%    }
+%    \end{tabular}
+% \caption{Expected and CPT values of skewed normal distributed r.v.s with fixed shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$ parameters\protect\footnotemark[1]. }
+% \label{fig:skewnormal}
+% \end{minipage}
+% 
+% % \caption{Optimal expected and CPT-values within the feasible region (shaded green) for two different distributions.}
+% % \label{fig:cpt-synthetic}
+% \end{figure*}
+
+%%%%%%%%%%% fig not at the top
+ \begin{figure}
    \centering
-   \begin{minipage}{.3\textwidth}
-     \hspace{-2em}
-   \subfigure 
-   {
-   \scalebox{0.6}{
-   \includegraphics[width=3.5in]{fig/CPT_Normal.png}
-   }
-   }
-  \caption{CPT-value of normal distributed r.v.s with mean $\mu$ and variance $\sigma$ parameters\protect\footnotemark[1]. }
+   \includegraphics[width=2.4in]{fig/CPT_Normal.png}
+  \caption{CPT-value of normal distributed r.v.s with mean $\mu$ and variance $\sigma$ parameters\protect\footnotemark[1].  }
+  \vspace{-4ex}
    \label{fig:normal-cpt}
-  \end{minipage}
+  \end{figure}
+  
+  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{minipage}{.01\textwidth}
-~ 
-\end{minipage}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-   \begin{minipage}{.6\textwidth}
+\begin{figure}
       \begin{tabular}{cc}
 \subfigure
    {
 %    \label{fig:skewnormal-expected}
-   \scalebox{0.6}{
-   \includegraphics[width=3.5in]{fig/Expectation_skewNormal.png}
+%    \scalebox{0.7}{
+   \includegraphics[width=2.8in]{fig/Expectation_skewNormal.png}
+%    }
    }
-   }
-   &
+   \\
 \subfigure
    {
 %    \label{fig:skewnormal-cpt}
-   \scalebox{0.6}{
-   \includegraphics[width=3.5in]{fig/CPT_skewNormal.png}
-   }
+%    \scalebox{0.7}{
+   \includegraphics[width=2.8in]{fig/CPT_skewNormal.png}
+%    }
    }
    \end{tabular}
 \caption{Expected and CPT values of skewed normal distributed r.v.s with fixed shape $\alpha=0.5$ and varying location $\xi$ and scale $\omega$ parameters\protect\footnotemark[1]. }
 \label{fig:skewnormal}
-\end{minipage}
 
 % \caption{Optimal expected and CPT-values within the feasible region (shaded green) for two different distributions.}
 % \label{fig:cpt-synthetic}
-\end{figure*}
-
+\end{figure}
+%%%%%%
 In this section as well as the next section, we show that the optimal CPT-value reacts differently to the change of parameters of the underlying distribution as compared to the optimal expected value. In other words,  there are families of random variables $\{X_\theta, \theta \in \Theta\}$ where $\argmax_{\theta} \mathbb{E}\left( X_\theta \right)$ is radically different from 
 $\argmax_{\theta} \mathbb{C} \left( X_\theta \right)$. This finding would make a case for specialized algorithms that optimize CPT-based criteria, since expected value optimizing algorithms cannot be used as surrogates. 
 % \item The estimator in Algorithm \ref{alg:holder-est} converges rapidly.

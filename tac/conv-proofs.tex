@@ -78,8 +78,8 @@ The integral of the LHS of \eqref{eq:simplew} can be simplified as follows:
 \begin{align}
 & \int_0^{\infty} \sum_{j=0}^{n} w^+ \left(\frac{j}{n}\right) 
  I_{\left[\xi^+_\frac{n-j-1}{n}, \xi^+_\frac{n-j}{n}\right]}(z) dz \nonumber\\
- & = \sum_{j=0}^{n-1} w^+\left(\frac{j}{n}\right) \left(\xi^+_{\frac{n-j}{n}} -
-\xi^+_{\frac{n-j-1}{n}}\right) \nonumber\\ 
+ %& = \sum_{j=0}^{n-1} w^+\left(\frac{j}{n}\right) \left(\xi^+_{\frac{n-j}{n}} -
+%\xi^+_{\frac{n-j-1}{n}}\right) \nonumber\\ 
 & = \sum_{j=0}^{n-1} \xi^+_{\frac{j}{n}} \left(w^+\left(\frac{n-j}{n}\right)-
     w^+\left(\frac{n-j-1}{n}\right)\right).\label{eq:intsimp}
 \end{align}
@@ -113,8 +113,8 @@ Observe the fact that
 \begin{align*}
 &\sum_{i=1}^{n} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i+1}{n}\right)- w^+\left(\frac{n-i}{n}\right)\right)\nonumber\\
 &-\sum_{i=1}^{n-1} u^+\left(X_{[i]}\right) \left(w^+\left(\frac{n-i}{n}\right)- w^+\left(\frac{n-i-1}{n}\right)\right)\\
-&=\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right) w^+\left(\frac{n+1-i}{n}\right)\\
-&-\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right)w^+\left(\frac{n-i}{n}\right)\\
+% &=\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right) w^+\left(\frac{n+1-i}{n}\right)\\
+% &-\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right)w^+\left(\frac{n-i}{n}\right)\\
 &=\sum_{i=1}^{n} \left(u^+\left(X_{[i]}\right) - u^+\left(X_{[i-1]}\right)\right)\\
 &\qquad\times \left(w^+\left(\frac{n+1-i}{n}\right) 
 -w^+\left(\frac{n-i}{n}\right)  \right) \\
@@ -157,7 +157,7 @@ w^+\left(\frac{n-i-1}{n}\right)\right)\right.\right.\right.\\
 \end{align*}
 In the above, \eqref{eq:bd02} follows from the fact that $w^+$ is \holder with constant $1$.
 
-Moreover, $\forall i$, we have
+Now we find an upper bound for the probability of a single term in the sum above, i.e.,
 \begin{align*}
 & \Prob{ \left | u^+\left(X_{[i]}\right)\! -\! \xi^+_{\frac{i}{n}} \right | \!>\! \frac {\epsilon} {n^{\left(1-\alpha\right)}}}  
  \!=\! \Prob{
@@ -165,7 +165,8 @@ Moreover, $\forall i$, we have
 	&	+ \Prob{ u^+\left(X_{[i]}\right) -
     \xi^+_{\frac{i}{n}} < - \frac {\epsilon} {n^{\left(1-\alpha\right)}}}.
 \end{align*} 
-%We focus on the first term above.
+
+We focus on the first term above.
 $$\hspace{-6em}\text{Let } W_j = I_{\left(u^+(X_j) > \xi^+_{\frac{i}{n}} + \frac{\epsilon}{n^{(1-\alpha)}}\right)}, j=1, \ldots,n.$$ Using the fact that a probability distribution function is non-decreasing, we obtain 
 \begin{align*}
 & \Prob { u^+(X_{[i]}) - \xi^+_{\frac{i}{n}} > \frac {\epsilon}{\nalpha}} =\Prob { \sum _{j=1}^{n} W_j > n - i}  \\
