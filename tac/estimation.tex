@@ -161,8 +161,8 @@ Assume (A1), (A2) and also that the utilities $u^+(X)$ and $u^-(X)$  are bounded
 \end{align}
 Instead, if the utilities functions are sub-Gaussian\footnote{A r.v. $X$ with mean $\mu$ is sub-Gaussian if $\exists \sigma >0$ such that $\E\left[e^{\lambda(X-\mu)}\right] \le e^{\sigma^2 \lambda^2/2}, \forall \lambda \in \R$.}, then $\forall \epsilon >0$ and $n \geq \left(\frac{\ln2-\ln\epsilon}{2\alpha}\right)^{\alpha+2}$, we have
 \begin{align}
-\Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq 2n e^{-n^\frac{1}{2+\alpha}} 
-+ 2 e^{-n^{\frac{1}{2+\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
+\Prob{\left| \overline \C_n - \C(X) \right|\geq  \epsilon}\leq 2n e^{-n^\frac{\alpha}{2+\alpha}} 
++ 2 e^{-n^{\frac{\alpha}{2+\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}
 \label{eq:S-complex-unbounded}
 \end{align}
 \end{proposition}
@@ -173,11 +173,7 @@ Assume (A1), (A2). If utilities $u^+(X)$ and $u^-(X)$ are bounded by $M$, then
 $$
 \E \left|\overline \C_n- \C(X) \right|  \le    \frac{\left(8HM\right) \Gamma\left(\alpha/2\right)}{n^{\alpha/2}}.$$
 Instead, if the utilities are sub-Gaussian, then
-$$\E \left|\overline \C_n- \C(X) \right|  \le 
-%\frac{(4+2\alpha)\Gamma\left((4+\2alpha)\right)}{n} 
-%\frac{720}{n}+ \frac{\Gamma\left(\frac{\alpha(2+\alpha)}{2\left(1+\alpha\right)}\right)\left(2H\right)^{\frac{2}
-%{\alpha}}}{2n^{1-\frac{2}{\alpha(2+\alpha)}}}.
-\frac{\Gamma(\frac{1}{2}) \cdot \alpha \cdot 2^{1-\alpha}}{n^{\frac{\alpha}{\alpha+2}}} + \frac{\Gamma(\frac{1}{2})\cdot \sqrt{2}(2H)^{\frac{2}{\alpha}}}{n^{\frac{2-\alpha}{2+\alpha}}}$$
+$$\E \left|\overline \C_n- \C(X) \right| \le \frac{4 \Gamma\left(2\right)}{n^{\frac{2\alpha}{\alpha+2}}} + \frac{\Gamma\left(\alpha\right)2^\alpha \left(2H\right)^{2}}{n^{\frac{\alpha^2}{2+\alpha}}}.$$
 %where $c=\frac{1}{2+\alpha}$.
 %Meanwhile, if $u^+(X)$ and $u^-(X)$ only satisfies subgaussian property, we have
 %$$

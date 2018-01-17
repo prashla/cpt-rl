@@ -305,7 +305,7 @@ As a result,
 & \mathbb{P}\left(\left|\C_n -\C(X) \right| > \epsilon \right) 
 \leq n e ^{-2n^c} + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon}{2H}\right)^{\frac{2}{\alpha}}}.
 \end{align*}
-The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$, i.e., for $c = \frac{1}{2+\alpha}$. The claim in \eqref{eq:S-complex-unbounded} follows.
+The right side of the above inequality will be optimized with $c = 1 - \frac{2c}{\alpha}$, i.e., for $c = \frac{\alpha}{2+\alpha}$. The claim in \eqref{eq:S-complex-unbounded} follows.
 
 To prove \eqref{eq:S-complex-bounded} under the condition that utilities functions are bounded by $M$, notice that
 \begin{align*}
@@ -331,9 +331,9 @@ $$
 \Prob{\left|\overline \C_n- \C(X) \right| \geq  \epsilon} \leq n e^{-2n^{2c}\epsilon^{\frac{1}{2}}} 
 + 2 e^{-2n^{1-\frac{2c}{\alpha}}\left(\frac{\epsilon^{\frac{1}{2}}}{2H}\right)^{\frac{2}{\alpha}}}\,.
 $$
-Setting $c=\frac{1}{2+\alpha}$,
+Setting $c=\frac{\alpha}{2+\alpha}$,
 we obtain the following:
-$$\E \left|\overline \C_n- \C(X) \right| \le \frac{\Gamma\left(\frac{1}{2}\right)\cdot \alpha \cdot 2^{1-\alpha}}{n^{\frac{\alpha}{\alpha+2}}} + \frac{\Gamma\left(\frac{1}{2}\right)\sqrt{2}\left(2H\right)^{\frac{2}{\alpha}}}{n^{\frac{2-\alpha}{2+\alpha}}}.$$
+$$\E \left|\overline \C_n- \C(X) \right| \le \frac{4 \Gamma\left(2\right)}{n^{\frac{2\alpha}{\alpha+2}}} + \frac{\Gamma\left(\alpha\right)2^\alpha \left(2H\right)^{2}}{n^{\frac{\alpha^2}{2+\alpha}}}.$$
 % , for n large 
  %\begin{align*}
 %& \E \left|\overline \C_n- \C(X) \right|  
